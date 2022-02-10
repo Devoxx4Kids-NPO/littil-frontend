@@ -1,0 +1,15 @@
+FROM node:16-buster AS build
+
+RUN mkdir /app
+COPY . /app
+WORKDIR /app
+
+RUN npm install
+RUN npm run build
+
+FROM nginx:1
+
+COPY --from=build /app/dist/littil-org-website /usr/share/nginx/html
+COPY src/docker/nginx/default.conf.template /etc/nginx/templates/default.conf.template
+
+ENV PORT 80
