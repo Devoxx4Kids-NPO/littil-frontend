@@ -1,10 +1,28 @@
-import { Component } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
+import {EventBus} from "./services/event-bus";
 
 @Component({
   selector: 'app-root',
-  templateUrl: './app.component.html',
-  styleUrls: ['./app.component.scss']
+  template: `
+    <div>
+      <h1>Welcome to LITTIL</h1>
+      <a routerLink="register-teacher" routerLinkActive="active">Register teacher</a>
+      <router-outlet></router-outlet>
+    </div>
+
+  `
 })
-export class AppComponent {
-  title = 'littil-org-website';
+export class AppComponent implements OnInit {
+  title = 'Welcom to LITTIL'
+
+  constructor(private eventBus: EventBus) {
+    eventBus.on("production", (prod) => {
+
+    })
+  }
+
+  ngOnInit(): void {
+
+  }
+
 }
