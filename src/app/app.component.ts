@@ -13,7 +13,7 @@ import {EventBus} from "./services/event-bus";
   `
 })
 export class AppComponent implements OnInit {
-  title = 'Welcom to LITTIL'
+  title = 'Welcome to LITTIL'
 
   constructor(private eventBus: EventBus) {
     eventBus.on("production", (prod) => {
