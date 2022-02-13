@@ -10,7 +10,7 @@ import {MatDialogModule} from "@angular/material/dialog";
 import {MatTabsModule} from "@angular/material/tabs";
 import {EventBus} from "./services/event-bus";
 import {RegisterTeacherComponent} from "./register-teacher.component";
-
+import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
 @NgModule({
   declarations: [
     AppComponent, RegisterTeacherComponent
@@ -18,6 +18,7 @@ import {RegisterTeacherComponent} from "./register-teacher.component";
   imports: [
     BrowserModule,
     AppRoutingModule,
+    NgbModule,
     BrowserAnimationsModule,
     ReactiveFormsModule,
     HttpClientModule,MatDialogModule, MatTabsModule
