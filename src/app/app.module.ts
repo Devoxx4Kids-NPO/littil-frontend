@@ -11,6 +11,9 @@ import {MatTabsModule} from "@angular/material/tabs";
 import {EventBus} from "./services/event-bus";
 import {RegisterTeacherComponent} from "./register-teacher.component";
 import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
+import {TeacherService} from "./services/teacher-service";
+import {RestClient} from "./services/rest-client";
+import {ToasterModule} from "angular2-toaster";
 @NgModule({
   declarations: [
     AppComponent, RegisterTeacherComponent
@@ -21,9 +24,9 @@ import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
     NgbModule,
     BrowserAnimationsModule,
     ReactiveFormsModule,
-    HttpClientModule,MatDialogModule, MatTabsModule
+    HttpClientModule,MatDialogModule, MatTabsModule, ToasterModule
   ],
-  providers: [EventBus],
+  providers: [EventBus, TeacherService, RestClient],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

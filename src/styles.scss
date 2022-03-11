@@ -34,7 +34,7 @@ $littil-org-website-theme: mat.define-light-theme((
 @include mat.all-component-themes($littil-org-website-theme);
 
 @import "~bootstrap/scss/bootstrap";
-
+@import "../node_modules/angular2-toaster/toaster.css";
 /* You can add global styles to this file, and also import other style files */
 
 html, body { height: 100%; }
