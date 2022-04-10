@@ -45,7 +45,7 @@ import {ToasterService} from "angular2-toaster";
       <div class="form-group row mt-3">
         <label for="firstName" class="col-sm-2 col-form-label">Voornaam</label>
         <div class="col-sm-10">
-          <input class="form-control" formControlName="firstName" id="email">
+          <input class="form-control" formControlName="firstName" id="firstName">
         </div>
       </div>
 

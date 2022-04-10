@@ -7,7 +7,7 @@ import {EventBus} from "./services/event-bus";
   template: `
     <div>
       <h1>Welcome to LITTIL</h1>
-      <a routerLink="register-teacher" routerLinkActive="active">Register teacher</a>
+      <a routerLink="register-teacher" routerLinkActive="active" id="registerTeacherLink">Register teacher</a>
       <toaster-container></toaster-container>
       <router-outlet></router-outlet>
     </div>
