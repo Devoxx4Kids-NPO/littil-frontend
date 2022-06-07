@@ -22,6 +22,13 @@
       (click)="logout()"
       >Uitloggen</littil-button
     >
+    <littil-button
+      *ngIf="auth.user$ | async as user"
+      [inline]="true"
+      data-test="logout-btn"
+      (click)="call()"
+    >testcall</littil-button
+    >
     <span class="user-info"
           *ngIf="auth.user$ | async as user"
           style="float: right"
