@@ -1,33 +1,28 @@
+import { AuthService } from '@auth0/auth0-angular';
 import { Spectator } from '@ngneat/spectator';
 import { createRoutingFactory } from '@ngneat/spectator/jest';
 import { MockComponent, MockProvider } from 'ng-mocks';
 import { ButtonComponent } from '../../components/button/button.component';
-import { ModalController } from '../../components/modal/modal.controller';
-import {
-  LoginModalComponent,
-  LoginType,
-} from '../login-modal/login-modal.component';
 import { HomepageComponent } from './homepage.component';
 
 describe('HomepageComponent', () => {
   let spectator: Spectator<HomepageComponent>;
-  let modalController: ModalController;
-  let modalControllerSpy: jest.SpyInstance;
+  let authService: AuthService;
+  let authServiceSpy: jest.SpyInstance;
   let openLoginModalSpy: jest.SpyInstance;
 
   const createComponent = createRoutingFactory({
     component: HomepageComponent,
     declarations: [
-      MockComponent(LoginModalComponent),
       MockComponent(ButtonComponent),
     ],
-    providers: [MockProvider(ModalController)],
+    providers: [MockProvider(AuthService)],
   });
 
   beforeEach(() => {
     spectator = createComponent();
-    modalController = spectator.inject(ModalController);
-    modalControllerSpy = jest.spyOn(modalController, 'present');
+    authService = spectator.inject(AuthService);
+    authServiceSpy = jest.spyOn(authService, 'loginWithRedirect');
     openLoginModalSpy = jest.spyOn(spectator.component, 'openLoginModal');
     spectator.detectChanges();
   });
@@ -37,19 +32,10 @@ describe('HomepageComponent', () => {
   });
 
   describe('openLoginModal', () => {
-    it('should call present modalController function [type=Login]', async () => {
-      await spectator.component.openLoginModal(LoginType.Login);
-      expect(modalControllerSpy).toHaveBeenCalledTimes(1);
-      expect(modalControllerSpy).toHaveBeenCalledWith(LoginModalComponent, {
-        type: LoginType.Login,
-      });
-    });
-    it('should call present modalController function [type=Register]', async () => {
-      await spectator.component.openLoginModal(LoginType.Register);
-      expect(modalControllerSpy).toHaveBeenCalledTimes(1);
-      expect(modalControllerSpy).toHaveBeenCalledWith(LoginModalComponent, {
-        type: LoginType.Register,
-      });
+    it('should call present authService login function', async () => {
+      await spectator.component.openLoginModal();
+      expect(authServiceSpy).toHaveBeenCalledTimes(1);
+      expect(authServiceSpy).toHaveBeenCalledWith();
     });
   });
 
@@ -60,7 +46,7 @@ describe('HomepageComponent', () => {
         spectator.click(loginBtn);
       }
       expect(openLoginModalSpy).toHaveBeenCalledTimes(1);
-      expect(openLoginModalSpy).toHaveBeenCalledWith(LoginType.Login);
+      expect(openLoginModalSpy).toHaveBeenCalledWith();
     });
     it('should call openLoginModal() when clicked on Register button', async () => {
       const registerBtn = spectator.query('[data-test="register-btn"]');
@@ -68,7 +54,7 @@ describe('HomepageComponent', () => {
         spectator.click(registerBtn);
       }
       expect(openLoginModalSpy).toHaveBeenCalledTimes(1);
-      expect(openLoginModalSpy).toHaveBeenCalledWith(LoginType.Register);
+      expect(openLoginModalSpy).toHaveBeenCalledWith();
     });
   });
 });

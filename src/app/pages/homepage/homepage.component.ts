@@ -1,20 +1,24 @@
-import { Component } from '@angular/core';
+import { Component, Inject } from '@angular/core';
 import { ModalController } from '../../components/modal/modal.controller';
-import {
-  LoginModalComponent,
-  LoginType,
-} from '../login-modal/login-modal.component';
+import { DOCUMENT } from '@angular/common';
+import { AuthService } from '@auth0/auth0-angular';
 
 @Component({
   selector: 'littil-homepage',
   templateUrl: './homepage.component.html',
 })
 export class HomepageComponent {
-  LoginType = LoginType;
+  constructor(
+    public auth: AuthService,
+    @Inject(DOCUMENT) private doc: Document,
+    private modalController: ModalController // todo not known if should be used in future
+  ) {}
 
-  constructor(private modalController: ModalController) {}
+  public openLoginModal() {
+    this.auth.loginWithRedirect();
+  }
 
-  public openLoginModal(type: LoginType) {
-    return this.modalController.present(LoginModalComponent, { type: type });
+  public logout() {
+    this.auth.logout({ returnTo: this.doc.location.origin });
   }
 }
