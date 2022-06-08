@@ -9,6 +9,7 @@ import { HttpClient } from "@angular/common/http";
   templateUrl: './homepage.component.html',
 })
 export class HomepageComponent {
+  private response:Object = "";
   constructor(
     public auth: AuthService,
     private http: HttpClient,
@@ -25,8 +26,11 @@ export class HomepageComponent {
   }
 
   public call (){
-    // todo to test set your own uri
+    // todo to test deploy backend
     // todo when merging this should be gone
-    this.http.get("https://webhook.site/57e26b5e-72d6-42f5-80c5-137c59a50374").subscribe()
+    this.http.get("http://localhost:8080/api/v1/school").subscribe(resp => {
+      this.response = resp
+      console.log(resp)
+    })
   }
 }

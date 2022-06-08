@@ -19,7 +19,7 @@ import { AuthModule, AuthHttpInterceptor } from '@auth0/auth0-angular';
       // TODO make configurable to allow more environments
       domain: 'dev-g60bne29.eu.auth0.com',
       clientId: '1MWGJlOHqjqNHiPZKEY5R4C7fsQySr9k',
-      // todo set proper audience uri
+      // todo set proper audience uri according to the env
       audience: 'https://dev-g60bne29.eu.auth0.com/api/v2/',
 
       // Specify configuration for the interceptor
@@ -27,11 +27,11 @@ import { AuthModule, AuthHttpInterceptor } from '@auth0/auth0-angular';
         allowedList: [
           {
             // Match any request that starts 'https://dev-g60bne29.eu.auth0.com/api/v2/' (note the asterisk)
-            // todo set proper uri
-            uri: 'https://webhook.site/*',
+            // todo set proper uri only send token to trusted apps
+            uri: '*',
             tokenOptions: {
               // The attached token should target this audience
-              // todo set proper audience uri
+              // todo set proper audience uri according to the env
               audience: 'https://dev-g60bne29.eu.auth0.com/api/v2/',
             }
           }
