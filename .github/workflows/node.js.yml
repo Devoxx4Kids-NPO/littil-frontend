@@ -7,7 +7,10 @@ on:
   push:
     branches: [ main ]
   pull_request:
-    branches: [ main ]
+    types:
+      - opened
+      - synchronize
+      - reopened
 
 jobs:
   build:
@@ -23,3 +26,4 @@ jobs:
     - uses: ArtiomTr/jest-coverage-report-action@v2
       with:
         skip-step: install
+    - run: docker build . --file src/docker/Dockerfile.host
