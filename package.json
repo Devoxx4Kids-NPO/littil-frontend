@@ -6,7 +6,8 @@
     "start": "ng serve",
     "build": "ng build",
     "watch": "ng build --watch --configuration development",
-    "test": "jest"
+    "test": "jest",
+    "openapi": "openapi-generator-cli generate -i ./openapi.json -g typescript-angular -o src/app/api/generated"
   },
   "private": true,
   "dependencies": {
@@ -30,6 +31,7 @@
     "@angular/cli": "~13.1.4",
     "@angular/compiler-cli": "~13.1.0",
     "@ngneat/spectator": "^10.0.1",
+    "@openapitools/openapi-generator-cli": "^2.5.1",
     "@tailwindcss/forms": "^0.5.0",
     "@types/jest": "^27.4.1",
     "@types/node": "^12.11.1",
@@ -46,6 +48,7 @@
     "setupFilesAfterEnv": [
       "<rootDir>/setup-jest.ts"
     ],
+    "coveragePathIgnorePatterns": ["<rootDir>/src/app/api/generated"],
     "reporters": [
       "default"
     ],

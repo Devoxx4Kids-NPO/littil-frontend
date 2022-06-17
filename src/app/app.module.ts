@@ -1,4 +1,5 @@
 import { NgModule } from '@angular/core';
+import { ApiModule } from './api/generated/api.module';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { HttpClientModule } from '@angular/common/http';
@@ -9,6 +10,7 @@ import { ModalControllerModule } from './components/modal/modal.controller.modul
 @NgModule({
   declarations: [AppComponent],
   imports: [
+    ApiModule,
     BrowserModule,
     AppRoutingModule,
     HttpClientModule,
