@@ -6,6 +6,7 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { ModalControllerModule } from './components/modal/modal.controller.module';
 import { AuthModule, AuthHttpInterceptor } from '@auth0/auth0-angular';
+import { environment } from "../environments/environment";
 
 @NgModule({
   declarations: [AppComponent],
@@ -16,23 +17,19 @@ import { AuthModule, AuthHttpInterceptor } from '@auth0/auth0-angular';
     BrowserAnimationsModule,
     ModalControllerModule.forRoot(),
     AuthModule.forRoot({
-      // TODO make configurable to allow more environments
-      domain: 'dev-g60bne29.eu.auth0.com',
-      clientId: '1MWGJlOHqjqNHiPZKEY5R4C7fsQySr9k',
-      // todo set proper audience uri according to the env
-      audience: 'https://dev-g60bne29.eu.auth0.com/api/v2/',
+      domain: environment.AUTH_DOMAIN,
+      clientId: environment.AUTH_CLIENT_ID,
+      audience: environment.AUTH_AUDIENCE,
 
       // Specify configuration for the interceptor
       httpInterceptor: {
         allowedList: [
           {
-            // Match any request that starts 'https://dev-g60bne29.eu.auth0.com/api/v2/' (note the asterisk)
-            // todo set proper uri only send token to trusted apps
+            // matched urls which the token should be added to
             uri: '*',
             tokenOptions: {
               // The attached token should target this audience
-              // todo set proper audience uri according to the env
-              audience: 'https://dev-g60bne29.eu.auth0.com/api/v2/',
+              audience: environment.AUTH_AUDIENCE,
             }
           }
         ]

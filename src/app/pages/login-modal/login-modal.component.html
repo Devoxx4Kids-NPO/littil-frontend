@@ -1,0 +1,68 @@
+<div *ngIf="!loading">
+  <h1 class="font-bold text-lg text-blue-200 mb-3">
+    {{ type === LoginType.Login ? "Inloggen" : "Registreren" }}
+  </h1>
+  <ng-container *ngIf="type === LoginType.Login">
+    <form [formGroup]="loginForm" data-test="form-login" (submit)="onClickOK()">
+      <littil-form-input-text
+        formControlName="email"
+        id="email"
+        label="E-mailadres"
+        errorMessage="E-mailadres is verplicht"
+        [hasError]="FormUtil.InValid(loginForm.controls['email'])"
+      ></littil-form-input-text>
+      <littil-form-input-password
+        formControlName="password"
+        id="password"
+        label="Wachtwoord"
+        errorMessage="Wachtwoord is verplicht"
+        [hasError]="FormUtil.InValid(loginForm.controls['password'])"
+      ></littil-form-input-password>
+    </form>
+  </ng-container>
+  <ng-container *ngIf="type === LoginType.Register">
+    <littil-form-input-radio
+      id="type"
+      label="Type registratie"
+      [radioInputs]="radioInputs"
+      (onValueChanged)="onRegisterTypeChanged($event)"
+    ></littil-form-input-radio>
+    <form
+      *ngIf="registerType === 'teacher'"
+      [formGroup]="registerTeacherForm"
+      data-test="form-register-teacher"
+      (submit)="onClickOK()"
+    >
+      <littil-form-input-text
+        formControlName="name"
+        id="name"
+        label="Naam"
+        errorMessage="Naam is verplicht"
+        [hasError]="FormUtil.InValid(registerTeacherForm.controls['name'])"
+      ></littil-form-input-text>
+    </form>
+    <form
+      *ngIf="registerType === 'school'"
+      [formGroup]="registerSchoolForm"
+      data-test="form-register-school"
+      (submit)="onClickOK()"
+    >
+      <littil-form-input-text
+        formControlName="schoolName"
+        id="schoolName"
+        label="Naam school"
+        errorMessage="Naam is verplicht"
+        [hasError]="FormUtil.InValid(registerSchoolForm.controls['name'])"
+      ></littil-form-input-text>
+    </form>
+  </ng-container>
+  <littil-button [inline]="true" (click)="onClickOK()">
+    {{ type === LoginType.Login ? "Inloggen" : "Registreren" }}
+  </littil-button>
+  <littil-button
+    [inline]="true"
+    colorClass="bg-yellow-50"
+    (click)="onClickCancel()"
+    >Annuleren</littil-button
+  >
+</div>

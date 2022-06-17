@@ -2,17 +2,16 @@
   <div>Logo</div>
   <div>
     <littil-button
-      *ngIf="(auth.isAuthenticated$ | async) === false"
+      *ngIf="(auth.isAuthenticated$ | async) === false" /> <!-- todo this line makes tests fail -->
       [inline]="true"
       data-test="register-btn"
-      (click)="openLoginModal()"
-      >Registeren</littil-button
-    >
+      (click)="openLoginModal(LoginType.Register)"
+      >Registeren</littil-button>
     <littil-button
-      *ngIf="(auth.isAuthenticated$ | async) === false"
+      *ngIf="(auth.isAuthenticated$ | async) === false"  <!-- todo this line makes tests fail -->
       [inline]="true"
       data-test="login-btn"
-      (click)="openLoginModal()"
+      (click)="openLoginModal(LoginType.Login)"
       >Inloggen</littil-button
     >
     <littil-button
@@ -21,13 +20,6 @@
       data-test="logout-btn"
       (click)="logout()"
       >Uitloggen</littil-button
-    >
-    <littil-button
-      *ngIf="auth.user$ | async as user"
-      [inline]="true"
-      data-test="logout-btn"
-      (click)="call()"
-    >testcall</littil-button
     >
     <span class="user-info"
           *ngIf="auth.user$ | async as user"
