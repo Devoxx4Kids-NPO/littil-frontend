@@ -1,8 +1,11 @@
 import { Component } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { firstValueFrom } from 'rxjs';
 import { RadioInput } from '../../components/forms/radio-input/form-input-radio.component';
-import { FormUtil } from '../../utils/form.util';
 import { IModalComponent } from '../../components/modal/modal.controller';
+import { Teacher } from '../../model/teacher';
+import { TeacherService } from '../../services/teacher/teacher.service';
+import { FormUtil } from '../../utils/form.util';
 
 @Component({
   selector: 'littil-login-modal',
@@ -23,7 +26,14 @@ export class LoginModalComponent
     password: new FormControl('', Validators.required),
   });
   registerTeacherForm: FormGroup = new FormGroup({
-    name: new FormControl('', Validators.required),
+    firstName: new FormControl('', Validators.required),
+    surname: new FormControl('', Validators.required),
+    email: new FormControl('', [Validators.required, Validators.email]),
+    postalCode: new FormControl('', [
+      Validators.required,
+      Validators.pattern('^[1-9][0-9]{3}$'),
+    ]),
+    country: new FormControl('Nederland', Validators.required),
   });
   registerSchoolForm: FormGroup = new FormGroup({
     schoolName: new FormControl('', Validators.required),
@@ -43,7 +53,7 @@ export class LoginModalComponent
     },
   ];
 
-  constructor() {}
+  constructor(private teacherService: TeacherService) {}
 
   public onOpen(data: ILoginModalInput): void {
     if (!data || !data.type) {
@@ -56,6 +66,9 @@ export class LoginModalComponent
   }
 
   public onRegisterTypeChanged($event: any) {
+    this.registerTeacherForm.reset();
+    this.registerSchoolForm.reset();
+    this.loginForm.reset();
     this.registerType = $event;
   }
 
@@ -83,14 +96,26 @@ export class LoginModalComponent
   }
 
   public async registerTeacher(): Promise<any> {
-    return Promise.resolve().then(() => {
-      FormUtil.ValidateAll(this.registerTeacherForm);
-      if (this.registerTeacherForm.invalid) {
-        return false;
-      }
-      // TODO: Register teacher
-      return this.close();
-    });
+    FormUtil.ValidateAll(this.registerTeacherForm);
+    if (this.registerTeacherForm.invalid) {
+      return Promise.resolve(false);
+    }
+    const teacher: Teacher = {
+      id: undefined,
+      firstName: this.registerTeacherForm.controls['firstName'].value,
+      surname: this.registerTeacherForm.controls['surname'].value,
+      email: this.registerTeacherForm.controls['email'].value,
+      postalCode: this.registerTeacherForm.controls['postalCode'].value,
+      country: this.registerTeacherForm.controls['country'].value,
+    };
+    return firstValueFrom(this.teacherService.create(teacher))
+      .then(() => {
+        // TODO: output info for confirmation on homepage
+        return this.close();
+      })
+      .catch((error) => {
+        // TODO: error handling
+      });
   }
 
   public async registerSchool(): Promise<any> {

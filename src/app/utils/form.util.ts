@@ -1,4 +1,9 @@
-import { AbstractControl, FormArray, FormGroup } from '@angular/forms';
+import {
+  AbstractControl,
+  FormArray,
+  FormGroup,
+  ValidationErrors,
+} from '@angular/forms';
 
 export class FormUtil {
   public static InValid(control: AbstractControl) {
@@ -17,5 +22,27 @@ export class FormUtil {
         FormUtil.ValidateAll(control as any);
       }
     });
+  }
+
+  public static ContainsError(
+    control: AbstractControl,
+    errorName: string
+  ): boolean {
+    if (!control) {
+      return false;
+    }
+    return FormUtil.InValidErrors(control) &&
+      FormUtil.InValidErrors(control)?.hasOwnProperty(errorName)
+      ? true
+      : false;
+  }
+
+  private static InValidErrors(
+    control: AbstractControl
+  ): ValidationErrors | null {
+    if (!control) {
+      return null;
+    }
+    return control.errors;
   }
 }

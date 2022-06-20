@@ -1,11 +1,6 @@
-import {
-  Component,
-  EventEmitter,
-  forwardRef,
-  Input,
-  Output,
-} from '@angular/core';
+import { Component, forwardRef, Input } from '@angular/core';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
+import { FormBaseComponent } from '../form-base';
 
 @Component({
   selector: 'littil-form-input-radio',
@@ -18,45 +13,11 @@ import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
     },
   ],
 })
-export class FormInputRadioComponent implements ControlValueAccessor {
-  @Input() id!: string;
-  @Input() label: string = '';
+export class FormInputRadioComponent
+  extends FormBaseComponent
+  implements ControlValueAccessor
+{
   @Input() radioInputs: RadioInput[] = [];
-  @Input() disabled: boolean = false;
-  @Input() errorMessage!: string;
-  @Input() hasError: boolean = false;
-  @Output() onValueChanged: EventEmitter<string> = new EventEmitter<string>();
-
-  private _value: string = '';
-
-  set value(value: string) {
-    this._value = value;
-    this.onChange(value);
-    this.onValueChanged.emit(value);
-  }
-
-  get value(): string {
-    return this._value;
-  }
-
-  onChange = (event: any) => {};
-  onTouched = (event: any) => {};
-
-  writeValue(value: string) {
-    this.value = value;
-  }
-
-  registerOnChange(fn: any) {
-    this.onChange = fn;
-  }
-
-  registerOnTouched(fn: any) {
-    this.onTouched = fn;
-  }
-
-  setDisabledState(isDisabled: boolean) {
-    this.disabled = isDisabled;
-  }
 }
 
 export interface RadioInput {
