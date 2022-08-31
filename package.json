@@ -32,7 +32,7 @@
     "@angular/compiler-cli": "~13.1.0",
     "@ngneat/spectator": "^10.0.1",
     "@openapitools/openapi-generator-cli": "^2.5.1",
-    "@tailwindcss/forms": "^0.5.0",
+    "@tailwindcss/forms": "^0.5.2",
     "@types/jest": "^27.4.1",
     "@types/node": "^12.11.1",
     "autoprefixer": "^10.4.4",
