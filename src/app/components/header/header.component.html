@@ -1,7 +1,7 @@
 <div class="p-4 bg-blue-50 flex justify-between items-center">
     <div>Logo</div>
 
-    <div>
+    <div class="header-actions">
         <ng-container *ngIf="auth.isAuthenticated$ | async; else loggedOut">
             <littil-button
                 [inline]="true"
@@ -9,6 +9,12 @@
                 data-test="login-btn">
                 Uitloggen
             </littil-button>
+        </ng-container>
+
+        <ng-container *ngIf="auth.user$ | async as user">
+            <div class="user-menu">
+                {{ user.name?.charAt(0) }}
+            </div>
         </ng-container>
       
         <ng-template #loggedOut>

@@ -5,6 +5,7 @@ import { AuthService } from '@auth0/auth0-angular';
 @Component({
   selector: 'littil-header',
   templateUrl: './header.component.html',
+  styleUrls: ['./header.component.scss']
 })
 export class HeaderComponent implements OnInit {
   constructor(

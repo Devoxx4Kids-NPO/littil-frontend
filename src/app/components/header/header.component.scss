@@ -1,0 +1,15 @@
+.header-actions {
+    display: flex;
+
+    .user-menu {
+        display: flex;
+        width: 35px;
+        height: 35px;
+        border: 1px solid #000;
+        border-radius: 50%;
+        align-items: center;
+        justify-content: center;
+        font-size: 15px;
+        background-color: #FFF;
+    }
+}
