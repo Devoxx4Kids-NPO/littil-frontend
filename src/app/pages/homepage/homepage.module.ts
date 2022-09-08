@@ -1,7 +1,7 @@
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { ButtonModule } from '../../components/button/button.module';
+import { ComponentsModule } from 'src/app/components/components.module';
 import { LoginModalModule } from '../login-modal/login-modal.module';
 import { HomepageComponent } from './homepage.component';
 
@@ -18,7 +18,7 @@ const routes: Routes = [
     CommonModule,
     RouterModule.forChild(routes),
     LoginModalModule,
-    ButtonModule,
+    ComponentsModule
   ],
   providers: [],
   exports: [HomepageComponent],

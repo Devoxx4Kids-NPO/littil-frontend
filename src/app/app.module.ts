@@ -7,6 +7,7 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { ModalControllerModule } from './components/modal/modal.controller.module';
 import { AuthModule } from '@auth0/auth0-angular';
+import { ComponentsModule } from './components/components.module';
 
 @NgModule({
   declarations: [AppComponent],
@@ -16,6 +17,7 @@ import { AuthModule } from '@auth0/auth0-angular';
     AppRoutingModule,
     HttpClientModule,
     BrowserAnimationsModule,
+    ComponentsModule,
     ModalControllerModule.forRoot(),
     AuthModule.forRoot({
       domain: 'dev-4vxqp7jo.eu.auth0.com',
