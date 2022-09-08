@@ -8,6 +8,7 @@ import { AppComponent } from './app.component';
 import { ModalControllerModule } from './components/modal/modal.controller.module';
 import { AuthModule } from '@auth0/auth0-angular';
 import { ComponentsModule } from './components/components.module';
+import { environment } from 'src/environments/environment';
 
 @NgModule({
   declarations: [AppComponent],
@@ -20,8 +21,8 @@ import { ComponentsModule } from './components/components.module';
     ComponentsModule,
     ModalControllerModule.forRoot(),
     AuthModule.forRoot({
-      domain: 'dev-4vxqp7jo.eu.auth0.com',
-      clientId: '6OUY2Q372wiqUc4rFdH5HbgiP4CMHHqz'
+      domain: environment.auth0Domain,
+      clientId: environment.auth0ClientId
     }),
   ],
   providers: [HttpClient],
