@@ -2,21 +2,24 @@ import { Spectator } from '@ngneat/spectator';
 import { createRoutingFactory } from '@ngneat/spectator/jest';
 import { MockComponent, MockProvider } from 'ng-mocks';
 import { ButtonComponent } from '../../components/button/button.component';
+import { ContentContainerComponent } from '../../components/content-container/content-container.component';
+import { LoginModalComponent } from '../../components/login-modal/login-modal.component';
+import { MainMenuButtonComponent } from '../../components/main-menu-button/main-menu-button.component';
 import { ModalController } from '../../components/modal/modal.controller';
-import { LoginModalComponent } from '../login-modal/login-modal.component';
-import { HomepageComponent } from './homepage.component';
+import { WebsiteComponent } from './website.component';
 
-describe('HomepageComponent', () => {
-  let spectator: Spectator<HomepageComponent>;
+describe('WebsiteComponent', () => {
+  let spectator: Spectator<WebsiteComponent>;
   let modalController: ModalController;
   let modalControllerSpy: jest.SpyInstance;
   let openLoginModalSpy: jest.SpyInstance;
-
   const createComponent = createRoutingFactory({
-    component: HomepageComponent,
+    component: WebsiteComponent,
     declarations: [
       MockComponent(LoginModalComponent),
+      MockComponent(ContentContainerComponent),
       MockComponent(ButtonComponent),
+      MockComponent(MainMenuButtonComponent),
     ],
     providers: [MockProvider(ModalController)],
   });

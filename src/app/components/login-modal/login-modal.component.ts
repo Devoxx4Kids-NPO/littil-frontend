@@ -7,7 +7,7 @@ import {
 } from '@angular/animations';
 import { Component } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { IModalComponent } from '../../components/modal/modal.controller';
+import { IModalComponent } from '../modal/modal.controller';
 import { FormUtil } from '../../utils/form.util';
 
 @Component({

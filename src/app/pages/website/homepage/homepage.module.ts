@@ -1,8 +1,7 @@
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { ComponentsModule } from 'src/app/components/components.module';
-import { LoginModalModule } from '../login-modal/login-modal.module';
+import { ContentContainerModule } from '../../../components/content-container/content-container.module';
 import { HomepageComponent } from './homepage.component';
 
 const routes: Routes = [
@@ -16,9 +15,8 @@ const routes: Routes = [
   declarations: [HomepageComponent],
   imports: [
     CommonModule,
+    ContentContainerModule,
     RouterModule.forChild(routes),
-    LoginModalModule,
-    ComponentsModule
   ],
   providers: [],
   exports: [HomepageComponent],

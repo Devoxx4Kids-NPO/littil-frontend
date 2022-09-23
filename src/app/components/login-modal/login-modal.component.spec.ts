@@ -3,10 +3,10 @@ import { TestBed } from '@angular/core/testing';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { createComponentFactory, Spectator } from '@ngneat/spectator/jest';
 import { MockComponent } from 'ng-mocks';
-import { ButtonComponent } from '../../components/button/button.component';
-import { FormErrorMessageComponent } from '../../components/forms/form-error-message/form-error-message.component';
-import { FormInputPasswordComponent } from '../../components/forms/password-input/form-input-password.component';
-import { FormInputTextComponent } from '../../components/forms/text-input/form-input-text.component';
+import { ButtonComponent } from '../button/button.component';
+import { FormErrorMessageComponent } from '../forms/form-error-message/form-error-message.component';
+import { FormInputPasswordComponent } from '../forms/password-input/form-input-password.component';
+import { FormInputTextComponent } from '../forms/text-input/form-input-text.component';
 import { LoginModalComponent } from './login-modal.component';
 
 describe('LoginModalComponent', () => {
