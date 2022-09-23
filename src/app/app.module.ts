@@ -7,7 +7,6 @@ import { environment } from '../environments/environment';
 import { ApiModule } from './api/generated';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { ComponentsModule } from './components/components.module';
 import { ContentContainerModule } from './components/content-container/content-container.module';
 import { ModalControllerModule } from './components/modal/modal.controller.module';
 
@@ -19,7 +18,6 @@ import { ModalControllerModule } from './components/modal/modal.controller.modul
     AppRoutingModule,
     HttpClientModule,
     BrowserAnimationsModule,
-    ComponentsModule,
     ContentContainerModule,
     ModalControllerModule.forRoot(),
     AuthModule.forRoot({
