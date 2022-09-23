@@ -28,21 +28,21 @@ describe('LittilSchoolService', () => {
   });
 
   describe('getById', () => {
-    it('should get teacher by id', () => {
+    it('should get school by id', () => {
       spectator.service.getById('123').subscribe();
       spectator.expectOne(baseUrl + 'api/v1/schools/123', HttpMethod.GET);
     });
   });
 
   describe('getAll', () => {
-    it('should get all teachers', () => {
+    it('should get all schools', () => {
       spectator.service.getAll().subscribe();
       spectator.expectOne(baseUrl + 'api/v1/schools', HttpMethod.GET);
     });
   });
 
   describe('create', () => {
-    it('should create new teacher', () => {
+    it('should create new school', () => {
       spectator.service
         .create({
           id: undefined,
@@ -58,7 +58,7 @@ describe('LittilSchoolService', () => {
   });
 
   describe('update', () => {
-    it('should update teacher', () => {
+    it('should update school', () => {
       spectator.service
         .update('123', {
           id: '123',
@@ -74,7 +74,7 @@ describe('LittilSchoolService', () => {
   });
 
   describe('delete', () => {
-    it('should delete teacher', () => {
+    it('should delete school', () => {
       spectator.service.delete('123').subscribe();
       spectator.expectOne(baseUrl + 'api/v1/schools/123', HttpMethod.DELETE);
     });
