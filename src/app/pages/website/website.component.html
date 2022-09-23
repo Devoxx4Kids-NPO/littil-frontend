@@ -6,15 +6,18 @@
     <img src="assets/littil_logo.png" class="h-12" alt="LITTIL logo" />
   </div>
   <div>
-    <!-- <littil-button [inline]="true" data-test="register-btn"
-      >Registeren</littil-button
-    > -->
     <littil-button
+      [inline]="true"
+      data-test="register-btn"
+      (click)="openRegisterModal()"
+      >Registeren</littil-button
+    >
+    <!-- <littil-button
       [inline]="true"
       data-test="login-btn"
       (click)="openLoginModal()"
       >Inloggen
-    </littil-button>
+    </littil-button> -->
   </div>
 </littil-content-container>
 <littil-content-container
@@ -22,16 +25,15 @@
   innerClasses="text-white uppercase flex"
 >
   <ng-container *ngFor="let route of menuRoutes">
-    <littil-main-menu-button
-      *ngIf="!route.subRoutes"
+    <littil-main-menu-button *ngIf="!route.subRoutes" [path]="route.path">{{
+      route.menuText
+    }}</littil-main-menu-button>
+    <littil-main-menu-dropdown-button
+      *ngIf="route.subRoutes"
       [path]="route.path"
-    >{{ route.menuText }}</littil-main-menu-button
+      [subRoutes]="route.subRoutes"
+      >{{ route.menuText }}</littil-main-menu-dropdown-button
     >
-      <littil-main-menu-dropdown-button
-        *ngIf="route.subRoutes"
-        [path]="route.path"
-        [subRoutes]="route.subRoutes"
-      >{{ route.menuText }}</littil-main-menu-dropdown-button>
   </ng-container>
 </littil-content-container>
 <router-outlet></router-outlet>

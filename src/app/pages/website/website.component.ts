@@ -1,6 +1,9 @@
 import { Component } from '@angular/core';
-import { ModalController } from '../../components/modal/modal.controller';
-import { LoginModalComponent } from '../../components/login-modal/login-modal.component';
+import {
+  ModalController,
+  ModalSize,
+} from '../../components/modal/modal.controller';
+import { RegisterModalComponent } from '../../components/register-modal/register-modal.component';
 
 @Component({
   selector: 'littil-website',
@@ -50,7 +53,13 @@ export class WebsiteComponent {
 
   constructor(private modalController: ModalController) {}
 
+  public openRegisterModal() {
+    return this.modalController.present(RegisterModalComponent, undefined, {
+      modalSize: ModalSize.SM,
+    });
+  }
+
   public openLoginModal() {
-    return this.modalController.present(LoginModalComponent);
+    console.log('Not implemented yet: redirect to oauth0 login form');
   }
 }
