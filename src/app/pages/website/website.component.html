@@ -5,6 +5,11 @@
   <div>
     <img src="assets/littil_logo.png" class="h-12" alt="LITTIL logo" />
   </div>
+  <ng-container *ngIf="auth.user$ | async as user">
+    <div class="user-menu">
+      {{ user.name?.charAt(0) }}
+    </div>
+  </ng-container>
   <div>
     <littil-button
       [inline]="true"
@@ -12,12 +17,13 @@
       (click)="openRegisterModal()"
       >Registeren</littil-button
     >
-    <!-- <littil-button
+    <littil-button
+      *ngIf="!loggedIn"
       [inline]="true"
       data-test="login-btn"
       (click)="openLoginModal()"
       >Inloggen
-    </littil-button> -->
+    </littil-button>
   </div>
 </littil-content-container>
 <littil-content-container
