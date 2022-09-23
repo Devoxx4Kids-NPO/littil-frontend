@@ -3,12 +3,12 @@ import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { AuthModule } from '@auth0/auth0-angular';
-import { environment } from 'src/environments/environment';
+import { environment } from '../environments/environment';
 import { ApiModule } from './api/generated';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { ComponentsModule } from './components/components.module';
-import { ContentContainerModule } from "./components/content-container/content-container.module";
+import { ContentContainerModule } from './components/content-container/content-container.module';
 import { ModalControllerModule } from './components/modal/modal.controller.module';
 
 @NgModule({
@@ -24,12 +24,11 @@ import { ModalControllerModule } from './components/modal/modal.controller.modul
     ModalControllerModule.forRoot(),
     AuthModule.forRoot({
       domain: environment.auth0Domain,
-      clientId: environment.auth0ClientId
+      clientId: environment.auth0ClientId,
     }),
   ],
   providers: [HttpClient],
   bootstrap: [AppComponent],
-  exports: []
+  exports: [],
 })
-export class AppModule {
-}
+export class AppModule {}

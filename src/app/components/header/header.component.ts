@@ -5,7 +5,7 @@ import { AuthService } from '@auth0/auth0-angular';
 @Component({
   selector: 'littil-header',
   templateUrl: './header.component.html',
-  styleUrls: ['./header.component.scss']
+  styleUrls: ['./header.component.scss'],
 })
 export class HeaderComponent implements OnInit {
   constructor(
@@ -14,10 +14,8 @@ export class HeaderComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-      console.log(this.auth);
+    console.log(this.auth);
   }
 
-  openRegisterDialog(): void {
-
-  }
+  openRegisterDialog(): void {}
 }
