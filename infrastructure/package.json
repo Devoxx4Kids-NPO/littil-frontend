@@ -9,10 +9,10 @@
     "watch": "tsc -w",
     "test": "jest",
     "cdk": "cdk",
-    "cdk-list": "cdk ls",
-    "cdk-synth-acc": "cdk synth --context environment=acc",
-    "cdk-deploy-acc": "cdk deploy WebsiteStack --context environment=acc",
-    "cdk-deploy-acc-ci": "cdk deploy WebsiteStack --require-approval=never --context environment=acc"
+    "cdk:list": "cdk ls",
+    "cdk:synth:acc": "cdk synth --context environment=acc",
+    "cdk:deploy:acc": "cdk deploy CertificateStack --profile=littil-cdk-acc-frontend --context environment=acc",
+    "cdk:deploy:acc:ci": "cdk deploy CertificateStack --require-approval=never --context environment=acc"
   },
   "devDependencies": {
     "@types/jest": "^27.5.2",
