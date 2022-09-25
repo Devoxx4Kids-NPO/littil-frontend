@@ -11,12 +11,12 @@ const certificateStackProps = {
     region: 'us-east-1',
   },
 };
-const certificateStack = new CertificateStack(app, 'CertificateStack', certificateStackProps);
+new CertificateStack(app, 'CertificateStack', certificateStackProps);
 
 const websiteStackProps: WebsiteStackProps = {
   env: {
-    region: 'us-west-1',
+    region: 'eu-west-1',
   },
-  certificate: certificateStack.certificate,
+  certificateArn: 'arn:aws:acm:us-east-1:680278545709:certificate/db1f2a30-9a52-4bf3-9595-c522d68c215d',
 };
 new WebsiteStack(app, 'WebsiteStack', websiteStackProps);
