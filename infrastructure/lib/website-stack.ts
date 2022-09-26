@@ -50,7 +50,7 @@ export class WebsiteStack extends cdk.Stack {
         viewerProtocolPolicy: ViewerProtocolPolicy.REDIRECT_TO_HTTPS,
       },
       errorResponses,
-      // USA, Canada, Europe, & Israel
+      // Price class 100: USA, Canada, Europe, & Israel
       priceClass: PriceClass.PRICE_CLASS_100,
       defaultRootObject: 'index.html',
       domainNames: [
