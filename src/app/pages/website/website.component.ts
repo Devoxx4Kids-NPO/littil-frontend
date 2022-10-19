@@ -36,6 +36,6 @@ export class WebsiteComponent implements OnInit {
   }
 
   public openLoginModal() {
-    console.log('Not implemented yet: redirect to auth0 login form');
+    this.auth.loginWithRedirect();
   }
 }

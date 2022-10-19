@@ -7,6 +7,9 @@ import {
 } from '@angular/animations';
 import { Component } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { firstValueFrom } from 'rxjs';
+import { User } from '../../api/generated';
+import { LittilUserService } from '../../services/littil-user/littil-user.service';
 import { FormUtil } from '../../utils/form.util';
 import { IModalComponent } from '../modal/modal.controller';
 
@@ -42,16 +45,27 @@ export class RegisterModalComponent
     email: new FormControl('', [Validators.required, Validators.email]),
   });
 
-  constructor() {}
+  constructor(private readonly userService: LittilUserService) {}
 
-  public onClickRegister(): Promise<any> {
+  public onClickRegister(): Promise<boolean> {
     return Promise.resolve().then(() => {
       FormUtil.ValidateAll(this.registerForm);
       if (this.registerForm.invalid) {
         return false;
       }
-      // TODO: register
-      return this.close();
+      return firstValueFrom(
+        this.userService.create({
+          emailAddress: this.registerForm.controls['email'].value,
+        } as User)
+      )
+        .then(() => {
+          this.close();
+          return true;
+        })
+        .catch(() => {
+          console.error('Creating user error');
+          return false;
+        });
     });
   }
 
