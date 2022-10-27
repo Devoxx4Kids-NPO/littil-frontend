@@ -11,8 +11,8 @@
     "cdk": "cdk",
     "cdk:list": "cdk ls",
     "cdk:synth:acc": "cdk synth --context environment=acc",
-    "cdk:deploy:acc": "cdk deploy CertificatesStack WebsiteStack DemoWebsiteStack --profile=littil-cdk-acc-frontend --context environment=acc",
-    "cdk:deploy:acc:ci": "cdk deploy CertificatesStack WebsiteStack DemoWebsiteStack --require-approval=never --context environment=acc"
+    "cdk:deploy:acc": "cdk deploy WebsiteCertificatesStack WebsiteStack DemoWebsiteStack --profile=littil-cdk-staging-frontend --require-approval=never --context environment=acc",
+    "cdk:deploy:acc:ci": "cdk deploy WebsiteCertificatesStack WebsiteStack DemoWebsiteStack --require-approval=never --context environment=acc"
   },
   "devDependencies": {
     "@types/jest": "^27.5.2",

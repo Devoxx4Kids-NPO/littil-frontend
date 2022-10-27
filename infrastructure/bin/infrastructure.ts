@@ -12,13 +12,14 @@ const certificateStackProps = {
     region: 'us-east-1',
   },
 };
-new CertificatesStack(app, 'CertificatesStack', certificateStackProps);
+new CertificatesStack(app, 'WebsiteCertificatesStack', certificateStackProps);
 
 const websiteStackProps: WebsiteStackProps = {
   env: {
     region: 'eu-west-1',
   },
-  certificateArn: 'arn:aws:acm:us-east-1:680278545709:certificate/4609da7e-e70b-4ff8-98dd-d05d18a190ea',
+  // Hard code certificate ARN, because we can't create certificates dynamically in the same stack (certs need to be in us-east-1 region)
+  certificateArn: 'arn:aws:acm:us-east-1:680278545709:certificate/b3627a31-8c1f-4d6a-a7aa-eeb6678d8a3f',
 };
 new WebsiteStack(app, 'WebsiteStack', websiteStackProps);
 
@@ -26,6 +27,6 @@ const demoWebsiteStackProps: DemoWebsiteStackProps = {
   env: {
     region: 'eu-west-1',
   },
-  demoCertificateArn: 'arn:aws:acm:us-east-1:680278545709:certificate/19e577c6-e75c-48f2-ad51-0296b95578b3',
+  demoCertificateArn: 'arn:aws:acm:us-east-1:680278545709:certificate/a34331bc-0447-4dba-b7e2-228199227048',
 };
 new DemoWebsiteStack(app, 'DemoWebsiteStack', demoWebsiteStackProps);

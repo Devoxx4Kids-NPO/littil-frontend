@@ -33,7 +33,7 @@ export class WebsiteStack extends cdk.Stack {
       priceClass: PriceClass.PRICE_CLASS_100,
       defaultRootObject: 'index.html',
       domainNames: [
-        'acc.littil.org',
+        'staging.littil.org',
       ],
       certificate: Certificate.fromCertificateArn(this, 'Certificate', props.certificateArn),
     });
