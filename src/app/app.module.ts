@@ -23,9 +23,21 @@ import { ModalControllerModule } from './components/modal/modal.controller.modul
     AuthModule.forRoot({
       domain: environment.auth0Domain,
       clientId: environment.auth0ClientId,
+      httpInterceptor: {
+        allowedList: [
+          `${environment.serverUrl}/api/*`,
+        ],
+      },
     }),
   ],
-  providers: [HttpClient],
+  providers: [
+    HttpClient,
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: AuthHttpInterceptor,
+      multi: true
+    }
+  ],
   bootstrap: [AppComponent],
   exports: [],
 })
