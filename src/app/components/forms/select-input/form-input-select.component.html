@@ -1,5 +1,5 @@
 <div class="mb-3">
-  <label [for]="id" class="font-bold">{{ label }}</label>
+  <label [for]="id" [class.text-white]="textWhite" class="font-bold">{{ label }}</label>
   <select
     [ngClass]="{
       'border-yellow-100 focus:border-yellow-200 placeholder:text-yellow-100 focus:ring-yellow-200':
@@ -16,5 +16,4 @@
   >
     <ng-content></ng-content>
   </select>
-  <ng-content></ng-content>
 </div>

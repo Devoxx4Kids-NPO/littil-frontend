@@ -10,9 +10,10 @@ import { websiteRoutes } from './website.routing';
 import {
     MainMenuDropdownButtonModule
 } from "../../components/main-menu-dropdown-button/main-menu-dropdown-button.module";
+import { NotFoundComponent } from './not-found/not-found.component';
 
 @NgModule({
-  declarations: [WebsiteComponent],
+  declarations: [WebsiteComponent, NotFoundComponent],
     imports: [
         CommonModule,
         ContentContainerModule,
