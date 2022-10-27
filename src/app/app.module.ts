@@ -1,19 +1,24 @@
-import { HttpClient, HttpClientModule } from '@angular/common/http';
-import { NgModule } from '@angular/core';
+import { HTTP_INTERCEPTORS, HttpClient, HttpClientModule } from '@angular/common/http';
+import { NgModule} from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { AuthModule } from '@auth0/auth0-angular';
 import { environment } from '../environments/environment';
-import { ApiModule } from './api/generated';
+import { ApiModule, Configuration } from './api/generated';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { ContentContainerModule } from './components/content-container/content-container.module';
 import { ModalControllerModule } from './components/modal/modal.controller.module';
+import { AuthHttpInterceptor } from '@auth0/auth0-angular';
 
 @NgModule({
   declarations: [AppComponent],
   imports: [
-    ApiModule,
+    ApiModule.forRoot(() => {
+      return new Configuration({
+        basePath: environment.serverUrl,
+      });
+    }),
     BrowserModule,
     AppRoutingModule,
     HttpClientModule,
