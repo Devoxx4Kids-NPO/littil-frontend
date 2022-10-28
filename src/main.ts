@@ -3,24 +3,12 @@ import { platformBrowserDynamic } from '@angular/platform-browser-dynamic';
 
 import { AppModule } from './app/app.module';
 import { environment } from './environments/environment';
-import { isLittilConfig, LITTILCONFIG } from './littilConfig';
+import { getLittilConfigProviders } from './littilConfigProviders';
 
 if (environment.production) {
   enableProdMode();
 }
 
-const externalConfig = (window as any).littilConfig;
-if (!isLittilConfig(externalConfig)) {
-  console.warn('No valid external config found; ' + JSON.stringify(externalConfig));
-}
-
-const providers = [
-  {
-    provide: LITTILCONFIG,
-    useValue: externalConfig,
-  },
-];
-
-platformBrowserDynamic(providers)
+platformBrowserDynamic(getLittilConfigProviders())
   .bootstrapModule(AppModule)
   .catch(err => console.error(err));
