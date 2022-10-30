@@ -54,13 +54,19 @@ export class WebsiteStack extends cdk.Stack {
     new CfnOutput(this, 'CloudfrontDistributionId', {value: distribution.distributionId});
     new CfnOutput(this, 'CloudfrontDomainName', {value: distribution.domainName});
 
-    /* Publish to S3 statement. */
+    /* Sync to S3 statement. */
     const s3Statement = new PolicyStatement({
       effect: Effect.ALLOW,
       actions: [
+        's3:ListBucket',
+        's3:ListObjectsV2',
         's3:PutObject',
+        's3:DeleteObject',
+        's3:GetBucketLocation',
+        's3:GetObject',
       ],
       resources: [
+        siteBucket.bucketArn,
         siteBucket.bucketArn + '/*',
       ],
     });
