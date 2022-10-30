@@ -51,3 +51,4 @@ jobs:
       - name: Sync files to S3
         run: |
           aws s3 sync dist/littil-org-website/. s3://littil-staging-website
+          aws cloudfront create-invalidation --distribution-id E3T3BKQTS7B92T --paths '/*'
