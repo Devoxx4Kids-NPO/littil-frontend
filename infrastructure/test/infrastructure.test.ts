@@ -25,7 +25,7 @@ test('S3 bucket and Cloudfront distribution created', () => {
     .hasResourceProperties('AWS::CloudFront::Distribution', {
       DistributionConfig: {
         Aliases: [
-          'acc.littil.org',
+          'staging.littil.org',
         ],
       },
     });
