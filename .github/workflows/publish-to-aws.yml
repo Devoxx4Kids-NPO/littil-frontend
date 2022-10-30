@@ -50,5 +50,5 @@ jobs:
           aws sts get-caller-identity
       - name: Sync files to S3
         run: |
-          aws s3 sync dist/littil-org-website/. s3://${{ AWS_S3_BUCKET }}
+          aws s3 sync --delete dist/littil-org-website/. s3://${{ AWS_S3_BUCKET }}
           aws cloudfront create-invalidation --distribution-id ${{ AWS_CLOUDFRONT_DISTRIBUTION_ID }} --paths '/*'
