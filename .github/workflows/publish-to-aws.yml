@@ -42,7 +42,7 @@ jobs:
       - name: Configure aws credentials
         uses: aws-actions/configure-aws-credentials@v1
         with:
-          role-to-assume: LITTIL-NL-staging-website-deploy
+          role-to-assume: arn:aws:iam::680278545709:role/LITTIL-NL-staging-website-deploy
           role-session-name: github_publish_littil_frontend
           aws-region: ${{ secrets.AWS_REGION }}
       - name:  Test credentials
