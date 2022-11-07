@@ -62,8 +62,8 @@ export class RegisterModalComponent
           this.close();
           return true;
         })
-        .catch(() => {
-          console.error('Creating user error');
+        .catch((error: any) => {
+          console.error('Creating user error', error);
           return false;
         });
     });
