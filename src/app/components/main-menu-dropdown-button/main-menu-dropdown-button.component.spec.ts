@@ -1,5 +1,5 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-
+import { RouterTestingModule } from '@angular/router/testing';
 import { MainMenuDropdownButtonComponent } from './main-menu-dropdown-button.component';
 
 describe('MainMenuDropdownButtonComponent', () => {
@@ -8,9 +8,9 @@ describe('MainMenuDropdownButtonComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ MainMenuDropdownButtonComponent ]
-    })
-    .compileComponents();
+      declarations: [MainMenuDropdownButtonComponent],
+      imports: [RouterTestingModule],
+    }).compileComponents();
 
     fixture = TestBed.createComponent(MainMenuDropdownButtonComponent);
     component = fixture.componentInstance;
