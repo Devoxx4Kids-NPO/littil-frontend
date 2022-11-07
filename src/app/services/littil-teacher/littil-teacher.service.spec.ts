@@ -5,12 +5,12 @@ import {
   HttpMethod,
   SpectatorHttp,
 } from '@ngneat/spectator';
-import { TeacherService } from '../../api/generated';
-import { GuestTeacher } from '../../api/generated/model/guestTeacher';
+import { environment } from '../../../environments/environment';
+import { GuestTeacherPostResource, TeacherService } from '../../api/generated';
 import { LittilTeacherService } from './littil-teacher.service';
 
 describe('LittilTeacherService', () => {
-  let baseUrl = 'http://localhost/';
+  let baseUrl = environment.serverUrl;
   let service: LittilTeacherService;
   let spectator: SpectatorHttp<LittilTeacherService>;
   const createHttp = createHttpFactory(LittilTeacherService);
@@ -32,7 +32,7 @@ describe('LittilTeacherService', () => {
     it('should get teacher by id', () => {
       spectator.service.getById('123').subscribe();
       spectator.expectOne(
-        baseUrl + 'api/v1/guest-teachers/123',
+        baseUrl + '/api/v1/guest-teachers/123',
         HttpMethod.GET
       );
     });
@@ -41,40 +41,22 @@ describe('LittilTeacherService', () => {
   describe('getAll', () => {
     it('should get all teachers', () => {
       spectator.service.getAll().subscribe();
-      spectator.expectOne(baseUrl + 'api/v1/guest-teachers', HttpMethod.GET);
+      spectator.expectOne(baseUrl + '/api/v1/guest-teachers', HttpMethod.GET);
     });
   });
 
-  describe('create', () => {
-    it('should create new teacher', () => {
+  describe('createOrUpdate', () => {
+    it('should create or update teacher', () => {
       spectator.service
-        .create({
+        .createOrUpdate({
           id: undefined,
           firstName: 'Gast',
           surname: 'Docent',
           address: 'Street 1',
           postalCode: '1000AA',
-        } as GuestTeacher)
+        } as GuestTeacherPostResource)
         .subscribe();
-      spectator.expectOne(baseUrl + 'api/v1/guest-teachers', HttpMethod.POST);
-    });
-  });
-
-  describe('update', () => {
-    it('should update teacher', () => {
-      spectator.service
-        .update('123', {
-          id: '123',
-          firstName: 'Gast',
-          surname: 'Docent',
-          address: 'Street 1',
-          postalCode: '1000AA',
-        } as GuestTeacher)
-        .subscribe();
-      spectator.expectOne(
-        baseUrl + 'api/v1/guest-teachers/123',
-        HttpMethod.PUT
-      );
+      spectator.expectOne(baseUrl + '/api/v1/guest-teachers', HttpMethod.PUT);
     });
   });
 
@@ -82,7 +64,7 @@ describe('LittilTeacherService', () => {
     it('should delete teacher', () => {
       spectator.service.delete('123').subscribe();
       spectator.expectOne(
-        baseUrl + 'api/v1/guest-teachers/123',
+        baseUrl + '/api/v1/guest-teachers/123',
         HttpMethod.DELETE
       );
     });

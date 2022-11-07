@@ -1,8 +1,12 @@
 import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { TestBed } from '@angular/core/testing';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { createComponentFactory, Spectator } from '@ngneat/spectator/jest';
-import { MockComponent } from 'ng-mocks';
+import { MockComponent, MockProvider } from 'ng-mocks';
+import { of } from 'rxjs';
+import { LittilUserService } from '../../services/littil-user/littil-user.service';
+import { FormUtil } from '../../utils/form.util';
 import { ButtonComponent } from '../button/button.component';
 import { FormErrorMessageComponent } from '../forms/form-error-message/form-error-message.component';
 import { FormInputPasswordComponent } from '../forms/password-input/form-input-password.component';
@@ -12,6 +16,7 @@ import { RegisterModalComponent } from './register-modal.component';
 describe('RegisterModalComponent', () => {
   let spectator: Spectator<RegisterModalComponent>;
   let closeSpy: jest.SpyInstance;
+  let formUtilSpy: jest.SpyInstance;
 
   const createComponent = createComponentFactory({
     component: RegisterModalComponent,
@@ -20,6 +25,15 @@ describe('RegisterModalComponent', () => {
       MockComponent(FormInputPasswordComponent),
       MockComponent(FormErrorMessageComponent),
       MockComponent(ButtonComponent),
+    ],
+    imports: [NoopAnimationsModule],
+    providers: [
+      MockProvider(LittilUserService, {
+        create: () =>
+          of({
+            emailAddress: 'email@email.com',
+          }),
+      }),
     ],
     mocks: [],
   });
@@ -32,6 +46,11 @@ describe('RegisterModalComponent', () => {
     spectator.detectChanges();
     spectator.component.close = () => undefined;
     closeSpy = jest.spyOn(spectator.component, 'close');
+    formUtilSpy = jest.spyOn(FormUtil, 'ValidateAll');
+  });
+
+  afterEach(() => {
+    spectator.component.close();
   });
 
   it('should create', () => {
@@ -57,7 +76,7 @@ describe('RegisterModalComponent', () => {
   });
 
   describe('onClickCancel', () => {
-    it('should close modal when clicked on cancel', () => {
+    it('should close modal when clicked on cancel', async () => {
       spectator.component.onClickCancel();
       expect(closeSpy).toHaveBeenCalledTimes(1);
     });
