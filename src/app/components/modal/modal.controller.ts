@@ -12,7 +12,8 @@ export class ModalController {
   private _routerSubscription!: Subscription;
   present<OutPutDataType, InputDataType>(
     component: IModalComponentConstructor<OutPutDataType, InputDataType>,
-    data?: InputDataType
+    data?: InputDataType,
+    options?: ModalComponentOptions
   ): Promise<OutPutDataType> {
     return new Promise<OutPutDataType>((resolve) => {
       this._routerSubscription = this.router.events.subscribe((event: any) => {
@@ -24,8 +25,22 @@ export class ModalController {
       });
       const dialogConfig = new MatDialogConfig();
       dialogConfig.closeOnNavigation = true;
-      dialogConfig.minWidth = '50%';
+      dialogConfig.minWidth = '20%';
       dialogConfig.minHeight = '50vh';
+      if (options && options.modalSize) {
+        switch (options.modalSize) {
+          case ModalSize.SM:
+            dialogConfig.width = '30%';
+            break;
+          case ModalSize.MD:
+          default:
+            dialogConfig.width = '50%';
+            break;
+          case ModalSize.LG:
+            dialogConfig.width = '90%';
+            break;
+        }
+      }
 
       const matDialogRef = this.dialog.open(component, dialogConfig);
       const componentInstance: IModalComponent<OutPutDataType, InputDataType> =
@@ -65,4 +80,14 @@ export interface IModalComponent<OutPutDataType, InputDataType> {
   onOpen?: (data: InputDataType) => any;
   close: (data: OutPutDataType) => any;
   loading: boolean;
+}
+
+export interface ModalComponentOptions {
+  modalSize?: ModalSize;
+}
+
+export enum ModalSize {
+  SM = 'SM',
+  MD = 'MD',
+  LG = 'LG',
 }

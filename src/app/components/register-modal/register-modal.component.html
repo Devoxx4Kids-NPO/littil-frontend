@@ -1,0 +1,41 @@
+<div [@hideShow]="loading ? 'hidden' : 'visible'">
+  <h1 class="font-bold text-lg text-blue-200 mb-3">Registeren</h1>
+  <p>
+    Vul hier uw e-mailadres in om u te registreren. U ontvangt een e-mail om uw
+    inschrijving te bevestigen en een wachtwoord aan te maken.
+  </p>
+  <p>Na activatie van uw account kunt u uw profiel verder afmaken.</p>
+  <form
+    [formGroup]="registerForm"
+    data-test="form-register"
+    (submit)="onClickRegister()"
+  >
+    <littil-form-input-text
+      formControlName="email"
+      id="email"
+      label="E-mailadres"
+      [hasError]="FormUtil.InValid(registerForm.controls['email'])"
+    >
+      <littil-form-error-message
+        *ngIf="
+          FormUtil.ContainsError(registerForm.controls['email'], 'required')
+        "
+        errorText="E-mailadres is verplicht"
+      ></littil-form-error-message>
+      <littil-form-error-message
+        *ngIf="FormUtil.ContainsError(registerForm.controls['email'], 'email')"
+        errorText="Vul een geldig e-mailadres in"
+      ></littil-form-error-message>
+    </littil-form-input-text>
+  </form>
+
+  <littil-button [inline]="true" (click)="onClickRegister()"
+    >Registreren</littil-button
+  >
+  <littil-button
+    [inline]="true"
+    colorClass="bg-yellow-50"
+    (click)="onClickCancel()"
+    >Annuleren</littil-button
+  >
+</div>

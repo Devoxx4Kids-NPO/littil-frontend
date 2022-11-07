@@ -1,12 +1,13 @@
 import { Spectator } from '@ngneat/spectator';
 import { createRoutingFactory } from '@ngneat/spectator/jest';
-import { WebsiteComponent } from './website.component';
+import { SearchComponent } from './search.component';
 
-describe('WebsiteComponent', () => {
-  let spectator: Spectator<WebsiteComponent>;
+describe('SearchComponent', () => {
+  let spectator: Spectator<SearchComponent>;
 
   const createComponent = createRoutingFactory({
-    component: WebsiteComponent,
+    component: SearchComponent,
+    declarations: [],
   });
 
   beforeEach(() => {
