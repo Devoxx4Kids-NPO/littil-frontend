@@ -1,5 +1,5 @@
 <div [class.mb-3]="marginBottom">
-  <label *ngIf="label" [for]="id" class="font-bold">{{ label }}</label>
+  <label *ngIf="label" [for]="id" [class.text-white]="textWhite" class="font-bold">{{ label }}</label>
   <input
     type="text"
     [ngClass]="{

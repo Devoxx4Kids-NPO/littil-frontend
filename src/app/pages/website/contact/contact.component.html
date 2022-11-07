@@ -1,0 +1,41 @@
+<littil-title>Contact</littil-title>
+
+<littil-content-container outerClasses="mb-3">
+
+  <div class="grid grid-cols-12 gap-4 p-8 bg-blue-200">
+    <h2 class="col-span-12 text-white">Laat een bericht achter</h2>
+
+    <div class="col-span-12 md:col-span-6 text-white">
+      <p>Wil je meer weten over het LITTIL initiatief?</p>
+      <p>Misschien omdat je als docent of schoolvertegenwoordiger benieuwd bent naar de mogelijkheden.</p>
+      <p>Of omdat je graag mee wilt helpen om kinderen in aanraking te laten komen met het IT vakgebied.</p>
+      <p>Laat een berichtje achter en wij nemen contact met jou op!</p>
+    </div>
+
+    <div class="col-span-12 md:col-span-6">
+      <ng-container *ngIf="contactForm">
+        <form class="flex flex-col" [formGroup]="contactForm">
+          <littil-form-input-text label="Je naam" formControlName="name"></littil-form-input-text>
+          <littil-form-input-text label="Je e-mailadres" formControlName="email"></littil-form-input-text>
+          <littil-form-input-text label="Ondewerp" formControlName="subject"></littil-form-input-text>
+
+          <littil-form-select-text label="Mijn rol (optioneel)" formControlName="role">
+            <option value="docent">Ik ben docent</option>
+            <option value="vertegenwoordiger">Ik vertegenwoordig een school</option>
+            <option value="gastdocent">Ik ben geïnteresseerd in gastdocent worden</option>
+            <option value="anders">Anders</option>
+          </littil-form-select-text>
+
+          <label class="font-bold text-white">Je bericht (optioneel)</label>
+          <textarea cols="30" rows="8"
+                    formControlName="message"
+                    class="w-full py-2 px-3 mb-2 appearance-none border rounded border-yellow-100 text-gray-700 leading-tight focus:border-yellow-200 focus:ring-yellow-200 ring-0 focus:ring-2 focus:ring-opacity-40">
+          </textarea>
+
+          <littil-button [inline]="true" [colorClass]="'bg-yellow-100'" (onClick)="postForm()">Verzenden</littil-button>
+        </form>
+      </ng-container>
+    </div>
+
+  </div>
+</littil-content-container>

@@ -35,10 +35,22 @@ export const websiteRoutes: Routes = [
         loadChildren: () =>
           import('./info/information.module').then((m) => m.InformationModule),
       },
+      {
+        path: 'devoxx4kids',
+        data: {
+          menuText: 'Devvox4kids',
+        },
+        loadChildren: () =>
+          import('./devoxx4kids/devoxx4kids.module').then((m) => m.Devoxx4kidsModule),
+      },
+      {
+        path: 'contact',
+        data: {
+          menuText: 'Contact',
+        },
+        loadChildren: () =>
+          import('./contact/contact.module').then((m) => m.ContactModule),
+      },
     ],
-  },
-  {
-    path: '**',
-    redirectTo: 'home',
   },
 ];
