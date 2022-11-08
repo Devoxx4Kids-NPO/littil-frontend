@@ -26,9 +26,6 @@ export class AuthenticatorResolver implements Resolve<any> {
             }
           }
         );
-        this.authService.idTokenClaims$.subscribe((claims) => {
-          console.log('claims', claims);
-        });
         this.permissionController.setRoles([]);
         return true;
       })
