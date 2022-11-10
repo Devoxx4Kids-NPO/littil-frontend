@@ -1,6 +1,6 @@
 export enum MenuType {
-  Default = 'default',
-  Admin = 'Admin',
+  Default,
+  Admin,
 }
 
 export interface IMenuItem {
