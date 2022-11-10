@@ -10,7 +10,7 @@ export class FormBaseComponent {
   @Input() maxLength!: string;
   @Input() width!: string;
   @Input() marginBottom: boolean = true;
-  @Input() textWhite: boolean = true;
+  @Input() textWhite: boolean = false;
   @Input() disabled: boolean = false;
   @Input() hasError: boolean = false;
   @Output() onValueChanged: EventEmitter<string> = new EventEmitter<string>();

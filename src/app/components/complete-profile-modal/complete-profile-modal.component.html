@@ -1,0 +1,50 @@
+<div [@hideShow]="loading ? 'hidden' : 'visible'">
+  <h1 class="font-bold text-lg text-blue-200 mb-3">Registratie afronden</h1>
+  <!-- TODO: add text -->
+  <p>(... tekt hier ...)</p>
+  <form
+    [formGroup]="completeProfileForm"
+    data-test="form-complete-profile"
+    (submit)="onClickSaveProfile()"
+  >
+    <!-- TODO: add type radio input properly -->
+    <!-- <littil-form-input-radio
+      formControlName="role"
+      id="role"
+    ></littil-form-input-radio> -->
+    <littil-form-input-text
+      formControlName="firstName"
+      id="firstName"
+      label="Voornaam"
+      [hasError]="FormUtil.InValid(completeProfileForm.controls['firstName'])"
+    >
+      <littil-form-error-message
+        *ngIf="FormUtil.InValid(completeProfileForm.controls['firstName'])"
+        errorText="Voornaam is verplicht"
+      ></littil-form-error-message>
+    </littil-form-input-text>
+    <littil-form-input-text
+      formControlName="prefix"
+      id="prefix"
+      label="Tussenvoegsel"
+    >
+    </littil-form-input-text>
+    <littil-form-input-text
+      formControlName="surname"
+      id="surname"
+      label="Achternaam"
+      [hasError]="FormUtil.InValid(completeProfileForm.controls['surname'])"
+    >
+      <littil-form-error-message
+        *ngIf="FormUtil.InValid(completeProfileForm.controls['surname'])"
+        errorText="Achternaam is verplicht"
+      ></littil-form-error-message>
+    </littil-form-input-text>
+    <!-- TODO: Implement littil-form-input-address -->
+    <!-- TODO: Implement littil-form-input-postalCode -->
+  </form>
+
+  <littil-button [inline]="true" (click)="onClickSaveProfile()"
+    >Profiel opslaan</littil-button
+  >
+</div>

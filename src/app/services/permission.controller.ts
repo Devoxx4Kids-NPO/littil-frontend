@@ -30,7 +30,6 @@ export class PermissionController {
     this.activeAccount = user;
     this.userId = user['https://littil.org/littil_user_id'];
     this.setRoles(user['https://littil.org/authorizations']);
-    console.log('hasAnyRole', this.hasAnyRole());
   }
 
   setRoles(authorizations: IAuth0Authorizations) {
