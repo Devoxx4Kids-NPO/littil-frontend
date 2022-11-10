@@ -42,7 +42,15 @@ import { RegisterModalModule } from './components/register-modal/register-modal.
       domain: environment.auth0Domain,
       clientId: environment.auth0ClientId,
       httpInterceptor: {
-        allowedList: [`${environment.serverUrl}/api/*`],
+        allowedList: [
+          {
+            uri: `${environment.serverUrl}/api/v1/users/user`,
+            allowAnonymous: true,
+          },
+          {
+            uri: `${environment.serverUrl}/api/*`,
+          },
+        ],
       },
     }),
   ],
