@@ -6,7 +6,6 @@ import { of } from 'rxjs';
 import { AppComponent } from './app.component';
 import { ButtonComponent } from './components/button/button.component';
 import { ContentContainerComponent } from './components/content-container/content-container.component';
-import { LoginModalComponent } from './components/login-modal/login-modal.component';
 import { MainMenuButtonComponent } from './components/main-menu-button/main-menu-button.component';
 import { MainMenuDropdownButtonComponent } from './components/main-menu-dropdown-button/main-menu-dropdown-button.component';
 import {
@@ -29,7 +28,6 @@ describe('AppComponent', () => {
   const createComponent = createRoutingFactory({
     component: AppComponent,
     declarations: [
-      MockComponent(LoginModalComponent),
       MockComponent(ContentContainerComponent),
       MockComponent(ButtonComponent),
       MockComponent(MainMenuButtonComponent),
