@@ -21,12 +21,10 @@ export class AuthenticatorResolver implements Resolve<any> {
         this.authService.user$.subscribe(
           (userProfile: User | null | undefined) => {
             if (userProfile) {
-              console.log('user', userProfile);
-              this.permissionController.activeAccount = userProfile;
+              this.permissionController.handleNewUser(userProfile);
             }
           }
         );
-        this.permissionController.setRoles([]);
         return true;
       })
     );

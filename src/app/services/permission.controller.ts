@@ -1,50 +1,48 @@
-import { Injectable, OnInit } from '@angular/core';
+import { Injectable } from '@angular/core';
 import { User } from '@auth0/auth0-angular';
 import { Subject } from 'rxjs';
-import { roleHierarchy, Roles } from './role-guard.service';
+
+export interface IAuth0Authorizations {
+  guest_teachers: any[];
+  schools: any[];
+}
+
+export enum Roles {
+  Admin = 'Admin',
+  School = 'School',
+  GuestTeacher = 'GuestTeacher',
+}
+
+export const roleHierarchy = [Roles.Admin, Roles.School, Roles.GuestTeacher];
 
 @Injectable({
   providedIn: 'root',
 })
-export class PermissionController implements OnInit {
+export class PermissionController {
   loggedIn: boolean = false;
   activeAccount!: User;
-  roles: Roles[] = [];
+  userId!: string;
+  authorizations!: IAuth0Authorizations;
   protected _onPermissionChange = new Subject<void>();
   onPermissionChange = this._onPermissionChange.asObservable();
 
-  ngOnInit(): void {}
+  handleNewUser(user: User): void {
+    this.activeAccount = user;
+    this.userId = user['https://littil.org/littil_user_id'];
+    this.setRoles(user['https://littil.org/authorizations']);
+    console.log('hasAnyRole', this.hasAnyRole());
+  }
 
-  setRoles(roles: Roles[]) {
-    this.roles = roles;
+  setRoles(authorizations: IAuth0Authorizations) {
+    this.authorizations = authorizations;
     this._onPermissionChange.next();
   }
 
-  hasRole(role: Roles): boolean {
-    for (let s of this.roles) {
-      if (`${s}` === `${role}`) {
-        return true;
-      }
-    }
-    return false;
-  }
-
-  hasRoles(roles: Roles[]): boolean {
-    if (!Array.isArray(roles)) {
-      return false;
-    }
-    for (let p of roles) {
-      if (!this.hasRole(p)) {
-        return false;
-      }
-    }
-    return true;
-  }
-
-  hasAnyRoles(roles?: Roles[]): boolean {
-    if (!Array.isArray(roles)) {
-      roles = roleHierarchy;
-    }
-    return roles.findIndex((p) => this.hasRole(p)) !== -1;
+  hasAnyRole(): boolean {
+    return (
+      this.authorizations &&
+      (this.authorizations.guest_teachers.length > 0 ||
+        this.authorizations.schools.length > 0)
+    );
   }
 }
