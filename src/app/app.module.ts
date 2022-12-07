@@ -41,6 +41,7 @@ import { RegisterModalModule } from './components/register-modal/register-modal.
     AuthModule.forRoot({
       domain: environment.auth0Domain,
       clientId: environment.auth0ClientId,
+      audience: 'littil-backend',
       httpInterceptor: {
         allowedList: [
           {
