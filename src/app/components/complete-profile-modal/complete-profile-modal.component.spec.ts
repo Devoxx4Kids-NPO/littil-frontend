@@ -6,10 +6,11 @@ import { MockComponent, MockProvider } from 'ng-mocks';
 import { of } from 'rxjs';
 import { LittilSchoolService } from '../../services/littil-school/littil-school.service';
 import { LittilTeacherService } from '../../services/littil-teacher/littil-teacher.service';
+import { Roles } from '../../services/permission.controller';
 import { FormUtil } from '../../utils/form.util';
 import { ButtonComponent } from '../button/button.component';
 import { FormErrorMessageComponent } from '../forms/form-error-message/form-error-message.component';
-import { FormInputPasswordComponent } from '../forms/password-input/form-input-password.component';
+import { FormInputRadioComponent } from '../forms/radio-input/form-input-radio.component';
 import { FormInputTextComponent } from '../forms/text-input/form-input-text.component';
 import { CompleteProfileModalComponent } from './complete-profile-modal.component';
 
@@ -22,7 +23,7 @@ describe('CompleteProfileModalComponent', () => {
     component: CompleteProfileModalComponent,
     declarations: [
       MockComponent(FormInputTextComponent),
-      MockComponent(FormInputPasswordComponent),
+      MockComponent(FormInputRadioComponent),
       MockComponent(FormErrorMessageComponent),
       MockComponent(ButtonComponent),
     ],
@@ -64,11 +65,26 @@ describe('CompleteProfileModalComponent', () => {
 
     it('should close modal when form is valid', async () => {
       spectator.component.completeProfileForm
+        .get('role')
+        ?.setValue(Roles.GuestTeacher);
+      spectator.component.completeProfileForm
         .get('firstName')
         ?.setValue('Firstname');
       spectator.component.completeProfileForm
         .get('surname')
         ?.setValue('Surname');
+      spectator.component.completeProfileForm
+        .get('addressStreet')
+        ?.setValue('Street');
+      spectator.component.completeProfileForm
+        .get('addressHousenumber')
+        ?.setValue('123');
+      spectator.component.completeProfileForm
+        .get('postalCodeNumbers')
+        ?.setValue('1234');
+      spectator.component.completeProfileForm
+        .get('postalCodeLetters')
+        ?.setValue('AA');
       await spectator.component.onClickSaveProfile();
       expect(spectator.component.completeProfileForm.invalid).toBe(false);
       // expect(closeSpy).toHaveBeenCalledTimes(1);
