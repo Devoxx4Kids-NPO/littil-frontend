@@ -1,34 +1,32 @@
 <div class="mb-3">
   <label [for]="id" class="font-bold">{{ label }}</label>
-  <div class="flex justify-center">
-    <div>
-      <div *ngFor="let item of radioInputs" class="form-check">
-        <input
-          [ngClass]="{
-            'border-yellow-100 checked:bg-yellow-100 checked:border-yellow-200 focus:border-yellow-200 focus:ring-yellow-200':
-              !hasError && !disabled,
-            'border-red-500 checked:bg-red-500 checked:border-red-600 focus:border-red-500 focus:ring-red-600':
-              hasError,
-            'border-gray-50 checked:bg-gray-50 checked:border-gray-50 focus:ring-0 placeholder:text-gray-50':
-              disabled
-          }"
-          class="form-check-input appearance-none rounded-full h-4 w-4 border bg-white focus:outline-none transition duration-200 mt-1 align-top bg-no-repeat bg-center bg-contain float-left mr-2 cursor-pointer"
-          [attr.data-test]="'radio-' + item.id"
-          type="radio"
-          [id]="item.id"
-          [name]="id"
-          (change)="value = item.id"
-          (touched)="onTouched($event)"
-          [disabled]="disabled"
-          [checked]="item.checked"
-        />
-        <label
-          class="form-check-label inline-block text-gray-800"
-          [for]="item.id"
-        >
-          {{ item.description }}
-        </label>
-      </div>
+  <div class="mb-2">
+    <div *ngFor="let item of radioInputs" class="form-check">
+      <input
+        [ngClass]="{
+          'border-yellow-100 checked:bg-yellow-100 checked:border-yellow-200 focus:border-yellow-200 focus:ring-yellow-200':
+            !hasError && !disabled,
+          'border-red-500 checked:bg-red-500 checked:border-red-600 focus:border-red-500 focus:ring-red-600':
+            hasError,
+          'border-gray-50 checked:bg-gray-50 checked:border-gray-50 focus:ring-0 placeholder:text-gray-50':
+            disabled
+        }"
+        class="form-check-input appearance-none rounded-full h-4 w-4 border bg-white focus:outline-none transition duration-200 mt-1 align-top bg-no-repeat bg-center bg-contain float-left mr-2 cursor-pointer"
+        [attr.data-test]="'radio-' + item.id"
+        type="radio"
+        [id]="item.id"
+        [name]="id"
+        (change)="value = item.id"
+        (touched)="onTouched($event)"
+        [disabled]="disabled"
+        [checked]="item.checked"
+      />
+      <label
+        class="form-check-label inline-block text-gray-800"
+        [for]="item.id"
+      >
+        {{ item.description }}
+      </label>
     </div>
   </div>
   <ng-content></ng-content>
