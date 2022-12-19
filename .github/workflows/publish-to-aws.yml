@@ -1,0 +1,54 @@
+---
+name: publish-to-aws
+
+on:
+  push:
+    branches:
+      - LITTIL-95-Front-end-infrastructure
+
+jobs:
+  publish:
+    name: Publish to S3
+    runs-on: ubuntu-latest
+    permissions:
+      id-token: write
+      contents: read
+    steps:
+      - uses: actions/checkout@v3
+      - uses: actions/setup-node@v3
+        with:
+          node-version: 16.x
+          cache: "npm"
+      - name: Install project
+        run: npm ci
+      - name: Generate API
+        run: npm run openapi
+      - name: Verify project
+        run: npm run test
+      - name: Build project
+        run: npm run build
+      - name: Analyze build code
+        uses: sonarsource/sonarcloud-github-action@master
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }} # Needed to get PR information, if any
+          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+        with:
+          args: >
+            -Dsonar.organization=littil
+            -Dsonar.projectKey=littil-frontend
+            -Dsonar.sources=src/app
+            -Dsonar.tests=src/app
+            -Dsonar.test.inclusions=**/*.spec.ts
+      - name: Configure aws credentials
+        uses: aws-actions/configure-aws-credentials@v1
+        with:
+          role-to-assume: ${{ secrets.AWS_ROLE }}
+          role-session-name: github_publish_littil_frontend
+          aws-region: ${{ secrets.AWS_REGION }}
+      - name:  Test credentials
+        run: |
+          aws sts get-caller-identity
+      - name: Sync files to S3
+        run: |
+          aws s3 sync --delete dist/littil-org-website/. s3://${{ secrets.AWS_S3_BUCKET }}
+          aws cloudfront create-invalidation --distribution-id ${{ secrets.AWS_CLOUDFRONT_DISTRIBUTION_ID }} --paths '/*'
