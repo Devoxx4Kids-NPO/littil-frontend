@@ -1,1 +1,95 @@
-Search page comes here
+<div class="fixed -mt-6 w-full h-full">
+  <div class="absolute left-0 top-0 w-2/12 h-full z-[2] bg-blue-50 p-4 drop-shadow-md">
+    <ng-container *ngIf="selectedMarker">
+      <h2 class="text-yellow-200 text-xl">{{ selectedMarker.name }}</h2>
+      <p>Gastdocent</p>
+      <ng-container *ngIf="selectedMarker.modules && selectedMarker.modules.length > 0">
+        <h2 class="text-yellow-200 text-xl">Geeft les in modules:</h2>
+        <ul>
+          <li *ngFor="let module of selectedMarker.modules">
+            {{ module }}
+          </li>
+        </ul>
+        <div class="mt-6">
+          <littil-button>Neem contact op</littil-button>
+        </div>
+      </ng-container>
+    </ng-container>
+  </div>
+  <google-map
+    height="100%"
+    width="100%"
+    [center]="center"
+    [zoom]="zoom"
+    [options]="mapOptions"
+  >
+    <map-marker
+      [options]="ownLocation.options"
+      (mapClick)="onMarkerClick(ownLocation)"
+    ></map-marker>
+    <ng-container *ngFor="let marker of mapData">
+      <map-marker
+        [options]="marker.options"
+        (mapClick)="onMarkerClick(marker)"
+      ></map-marker>
+    </ng-container>
+  </google-map>
+  <div
+    class="absolute right-0 top-0 w-3/12 h-full z-[2] bg-blue-50 p-4 drop-shadow-md">
+    <h2>Filter</h2>
+    <strong>Op modules</strong>
+    <ul>
+      <li>
+        <label>
+          <mat-checkbox></mat-checkbox>
+          Scratch
+        </label>
+      </li>
+      <li>
+        <label>
+          <mat-checkbox></mat-checkbox>
+          CodeCombat
+        </label>
+      </li>
+      <li>
+        <label>
+          <mat-checkbox></mat-checkbox>
+          MBot's
+        </label>
+      </li>
+      <li>
+        <label>
+          <mat-checkbox></mat-checkbox>
+          Lego Mindstorms
+        </label>
+      </li>
+      <li>
+        <label>
+          <mat-checkbox></mat-checkbox>
+          Lego WeDo
+        </label>
+      </li>
+      <li>
+        <label>
+          <mat-checkbox></mat-checkbox>
+          Hedycode
+        </label>
+      </li>
+    </ul>
+    <div class="flex flex-row mt-6 mb-6 leading-10">
+      <div class="mr-2">
+        <span class="mt-6 text-right whitespace-nowrap">
+          Binnen een straal van
+          <br>
+          rond
+        </span>
+      </div>
+      <div>
+        <input placeholder="25km" class="mb-2">
+        <br>
+        <input placeholder="Antwerpen">
+      </div>
+    </div>
+    <littil-button>Zoeken</littil-button>
+  </div>
+</div>

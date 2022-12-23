@@ -18,6 +18,7 @@ import { MainMenuButtonModule } from './components/main-menu-button/main-menu-bu
 import { MainMenuDropdownButtonModule } from './components/main-menu-dropdown-button/main-menu-dropdown-button.module';
 import { ModalControllerModule } from './components/modal/modal.controller.module';
 import { RegisterModalModule } from './components/register-modal/register-modal.module';
+import { GoogleMapsModule } from '@angular/google-maps'
 
 @NgModule({
   declarations: [AppComponent],
@@ -37,6 +38,7 @@ import { RegisterModalModule } from './components/register-modal/register-modal.
     RegisterModalModule,
     MainMenuButtonModule,
     MainMenuDropdownButtonModule,
+    GoogleMapsModule,
     ModalControllerModule.forRoot(),
     AuthModule.forRoot({
       domain: environment.auth0Domain,

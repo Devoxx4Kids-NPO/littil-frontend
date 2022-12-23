@@ -37,6 +37,18 @@ export class PermissionController {
     this._onPermissionChange.next();
   }
 
+  getRoles() {
+    if(this.authorizations && this.authorizations.guest_teachers.length > 0 ) {
+      return Roles.GuestTeacher;
+    }
+    if(this.authorizations && this.authorizations.schools.length > 0 ) {
+      return Roles.School;
+    }
+    return Roles.GuestTeacher;
+    //Todo: How do we know when user is an admin?
+    //Todo: What happens when IAuth0Authorizations is empty?
+  }
+
   hasAnyRole(): boolean {
     return (
       this.authorizations &&
