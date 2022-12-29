@@ -1,0 +1,168 @@
+<div [@hideShow]="loading ? 'hidden' : 'visible'">
+  <h1 class="font-bold text-lg text-blue-200 mb-3">Registratie afronden</h1>
+  <!-- TODO: add text -->
+  <form
+    [formGroup]="completeProfileForm"
+    data-test="form-complete-profile"
+    (submit)="onClickSaveProfile()"
+  >
+    <p>Maak uw registratie compleet om toegang te krijgen tot het platform.</p>
+    <!-- TODO: add type radio input properly -->
+    <littil-form-input-radio
+      formControlName="role"
+      id="role"
+      label="Rol"
+      [radioInputs]="roleChoices"
+    >
+      <littil-form-error-message
+        *ngIf="FormUtil.InValid(completeProfileForm.controls['role'])"
+        errorText="Een rol opgeven is verplicht"
+      ></littil-form-error-message>
+    </littil-form-input-radio>
+    <littil-form-input-text
+      formControlName="firstName"
+      id="firstName"
+      label="Voornaam"
+      [hasError]="FormUtil.InValid(completeProfileForm.controls['firstName'])"
+    >
+      <littil-form-error-message
+        *ngIf="FormUtil.InValid(completeProfileForm.controls['firstName'])"
+        errorText="Voornaam is verplicht"
+      ></littil-form-error-message>
+    </littil-form-input-text>
+    <littil-form-input-text
+      formControlName="prefix"
+      id="prefix"
+      label="Tussenvoegsel"
+    >
+    </littil-form-input-text>
+    <littil-form-input-text
+      formControlName="surname"
+      id="surname"
+      label="Achternaam"
+      [hasError]="FormUtil.InValid(completeProfileForm.controls['surname'])"
+    >
+      <littil-form-error-message
+        *ngIf="FormUtil.InValid(completeProfileForm.controls['surname'])"
+        errorText="Achternaam is verplicht"
+      ></littil-form-error-message>
+    </littil-form-input-text>
+    <p>
+      Om scholen en gastdocenten elkaar te laten vinden, hebben wij uw adres
+      nodig. Deze gegevens worden niet met derden gedeeld en alleen gebruikt om
+      uw locatie op de plattegrond te tonen.
+    </p>
+
+    <div>
+      <div class="flex">
+        <littil-form-input-text
+          formControlName="addressStreet"
+          id="addressStreet"
+          label="Straat"
+          widthClass="w-44"
+          class="mr-2"
+          [hasError]="
+            FormUtil.InValid(completeProfileForm.controls['addressStreet'])
+          "
+        >
+          <littil-form-error-message
+            *ngIf="
+              FormUtil.InValid(completeProfileForm.controls['addressStreet'])
+            "
+            errorText="Straat is verplicht"
+          ></littil-form-error-message>
+        </littil-form-input-text>
+        <littil-form-input-text
+          formControlName="addressHousenumber"
+          id="addressHousenumber"
+          label="Huisnummer"
+          widthClass="w-24"
+          [hasError]="
+            FormUtil.InValid(completeProfileForm.controls['addressHousenumber'])
+          "
+        >
+          <littil-form-error-message
+            *ngIf="
+              FormUtil.InValid(
+                completeProfileForm.controls['addressHousenumber']
+              )
+            "
+            errorText="Huisnummber is verplicht"
+          ></littil-form-error-message>
+        </littil-form-input-text>
+      </div>
+    </div>
+
+    <div>
+      <div class="flex">
+        <littil-form-input-text
+          formControlName="postalCodeNumbers"
+          id="postalCodeNumbers"
+          label="Postcode"
+          maxLength="4"
+          widthClass="w-32"
+          class="mr-2"
+          [hasError]="
+            FormUtil.InValid(completeProfileForm.controls['postalCodeNumbers'])
+          "
+        >
+          <littil-form-error-message
+            *ngIf="
+              FormUtil.ContainsError(
+                completeProfileForm.controls['postalCodeNumbers'],
+                'pattern'
+              ) ||
+              FormUtil.ContainsError(
+                completeProfileForm.controls['postalCodeLetters'],
+                'pattern'
+              )
+            "
+            errorText="Voer een correct Nederlands postcode in"
+          ></littil-form-error-message>
+          <littil-form-error-message
+            *ngIf="
+              FormUtil.ContainsError(
+                completeProfileForm.controls['postalCodeNumbers'],
+                'required'
+              ) ||
+              FormUtil.ContainsError(
+                completeProfileForm.controls['postalCodeLetters'],
+                'required'
+              )
+            "
+            errorText="Postcode is verplicht"
+          ></littil-form-error-message>
+        </littil-form-input-text>
+        <littil-form-input-text
+          formControlName="postalCodeLetters"
+          id="postalCodeLetters"
+          label="&nbsp;"
+          maxLength="2"
+          widthClass="w-12"
+          class="mr-2"
+          [hasError]="
+            FormUtil.InValid(completeProfileForm.controls['postalCodeLetters'])
+          "
+        >
+        </littil-form-input-text>
+      </div>
+    </div>
+
+    <!-- TODO: check if city is not needed -->
+    <!-- <littil-form-input-text
+      formControlName="city"
+      id="city"
+      label="Stad"
+      [hasError]="FormUtil.InValid(completeProfileForm.controls['city'])"
+    >
+      <littil-form-error-message
+        *ngIf="FormUtil.InValid(completeProfileForm.controls['city'])"
+        errorText="Woonplaats is verplicht"
+      ></littil-form-error-message>
+    </littil-form-input-text> -->
+  </form>
+
+  <littil-button [inline]="true" (click)="onClickSaveProfile()"
+    >Profiel opslaan</littil-button
+  >
+</div>
