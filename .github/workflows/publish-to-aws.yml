@@ -4,7 +4,7 @@ name: publish-to-aws
 on:
   push:
     branches:
-      - LITTIL-95-Front-end-infrastructure
+      - externalize-identity-provider-config
 
 jobs:
   publish:
