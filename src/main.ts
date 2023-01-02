@@ -9,6 +9,8 @@ if (environment.production) {
   enableProdMode();
 }
 
-platformBrowserDynamic(getLittilConfigProviders())
+platformBrowserDynamic([
+  ...getLittilConfigProviders(),
+])
   .bootstrapModule(AppModule)
   .catch(err => console.error(err));
