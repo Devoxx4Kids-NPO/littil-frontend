@@ -4,7 +4,7 @@ name: publish-to-aws
 on:
   push:
     branches:
-      - externalize-identity-provider-config
+      - main
 
 jobs:
   publish:
