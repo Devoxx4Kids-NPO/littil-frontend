@@ -50,6 +50,9 @@
     "setupFilesAfterEnv": [
       "<rootDir>/setup-jest.ts"
     ],
+    "modulePathIgnorePatterns": [
+      "<rootDir>/infrastructure/"
+    ],
     "coveragePathIgnorePatterns": [
       "<rootDir>/src/app/api/generated"
     ],

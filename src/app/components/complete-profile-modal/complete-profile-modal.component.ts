@@ -13,6 +13,7 @@ import { LittilSchoolService } from '../../services/littil-school/littil-school.
 import { LittilTeacherService } from '../../services/littil-teacher/littil-teacher.service';
 import { Roles } from '../../services/permission.controller';
 import { FormUtil } from '../../utils/form.util';
+import { RadioInput } from '../forms/radio-input/form-input-radio.component';
 import { IModalComponent } from '../modal/modal.controller';
 
 @Component({
@@ -42,18 +43,36 @@ export class CompleteProfileModalComponent
   close!: () => undefined;
   public loading = false;
   FormUtil = FormUtil;
+
   completeProfileForm: FormGroup = new FormGroup({
-    role: new FormControl(Roles.GuestTeacher, Validators.required),
+    role: new FormControl('', Validators.required),
     firstName: new FormControl('', Validators.required),
     prefix: new FormControl(''),
     surname: new FormControl('', Validators.required),
-    addressStreet: new FormControl('Straat', Validators.required), // TODO: remove when adress component is made
-    addressHousenumber: new FormControl('123', Validators.required), // TODO: remove when adress component is made
-    address: new FormControl('Straat 123'), // TODO: remove when adress component is made
-    postalCodeNumbers: new FormControl('1234', Validators.required), // TODO: remove when adress component is made
-    postalCodeLetters: new FormControl('AA', Validators.required), // TODO: remove when adress component is made
-    postalCode: new FormControl('1234AA'), // TODO: remove when adress component is made
+    addressStreet: new FormControl('', Validators.required),
+    addressHousenumber: new FormControl('', Validators.required),
+    postalCodeNumbers: new FormControl('', [
+      Validators.required,
+      Validators.pattern('^[0-9]{4}$'),
+    ]),
+    postalCodeLetters: new FormControl('', [
+      Validators.required,
+      Validators.pattern('^[A-Za-z]{2}$'),
+    ]),
   });
+
+  roleChoices: RadioInput[] = [
+    {
+      id: Roles.School,
+      description: 'Ik representeer een school',
+      checked: false,
+    },
+    {
+      id: Roles.GuestTeacher,
+      description: 'Ik ben een gastdocent',
+      checked: false,
+    },
+  ];
 
   constructor(
     private guestTeacherService: LittilTeacherService,
@@ -72,12 +91,18 @@ export class CompleteProfileModalComponent
         return false;
       }
 
+      // TODO: check if houseNumber needs to be separated from street, because postalCode + housenumber equals an address and location
       const formValues = {
         firstName: this.completeProfileForm.controls['firstName'].value,
         prefix: this.completeProfileForm.controls['prefix'].value,
         surname: this.completeProfileForm.controls['surname'].value,
-        address: this.completeProfileForm.controls['address'].value,
-        postalCode: this.completeProfileForm.controls['postalCode'].value,
+        address:
+          this.completeProfileForm.controls['addressStreet'].value +
+          ' ' +
+          this.completeProfileForm.controls['addressHousenumber'].value,
+        postalCode:
+          this.completeProfileForm.controls['postalCodeNumbers'].value +
+          this.completeProfileForm.controls['postalCodeLetters'].value,
       };
 
       const createOrUpdateCall =
@@ -86,7 +111,6 @@ export class CompleteProfileModalComponent
               formValues as GuestTeacherPostResource
             )
           : this.schoolService.createOrUpdate(formValues as School);
-
       return firstValueFrom(createOrUpdateCall)
         .then(() => {
           this.close();
