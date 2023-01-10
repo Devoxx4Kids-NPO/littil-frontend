@@ -76,20 +76,22 @@
         </label>
       </li>
     </ul>
-    <div class="flex flex-row mt-6 mb-6 leading-10">
-      <div class="mr-2">
+    <form [formGroup]="searchForm" (ngSubmit)="onSubmit()">
+      <div class="flex flex-row mt-6 mb-6 leading-10">
+        <div class="mr-2">
         <span class="mt-6 text-right whitespace-nowrap">
           Binnen een straal van
           <br>
           rond
         </span>
+        </div>
+        <div>
+          <input placeholder="25km" formControlName="straal" class="mb-2">
+          <br>
+          <input placeholder="Antwerpen" formControlName="locatie">
+        </div>
       </div>
-      <div>
-        <input placeholder="25km" class="mb-2">
-        <br>
-        <input placeholder="Antwerpen">
-      </div>
-    </div>
-    <littil-button>Zoeken</littil-button>
+      <littil-button type="submit">Zoeken</littil-button>
+    </form>
   </div>
 </div>

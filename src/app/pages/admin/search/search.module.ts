@@ -6,6 +6,7 @@ import { ContentContainerModule } from '../../../components/content-container/co
 import { GoogleMapsModule } from '@angular/google-maps';
 import { ButtonModule } from '../../../components/button/button.module';
 import { MatCheckboxModule } from '@angular/material/checkbox';
+import { ReactiveFormsModule } from '@angular/forms';
 
 const routes: Routes = [
   {
@@ -23,6 +24,7 @@ const routes: Routes = [
     ContentContainerModule,
     ButtonModule,
     MatCheckboxModule,
+    ReactiveFormsModule,
   ],
   providers: [],
   exports: [SearchComponent],

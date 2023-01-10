@@ -37,16 +37,24 @@ export class PermissionController {
     this._onPermissionChange.next();
   }
 
-  getRoles() {
-    if(this.authorizations && this.authorizations.guest_teachers.length > 0 ) {
-      return Roles.GuestTeacher;
-    }
+  getRoleType(): Roles {
     if(this.authorizations && this.authorizations.schools.length > 0 ) {
       return Roles.School;
     }
-    return Roles.GuestTeacher;
-    //Todo: How do we know when user is an admin?
-    //Todo: What happens when IAuth0Authorizations is empty?
+    if(this.authorizations && this.authorizations.guest_teachers.length > 0 ) {
+      return Roles.GuestTeacher;
+    }
+    throw new Error('RoleType not found');
+  }
+
+  getRoleId(): string {
+    if(this.authorizations && this.authorizations.schools.length > 0 ) {
+      return this.authorizations.schools[0];
+    }
+    if(this.authorizations && this.authorizations.guest_teachers.length > 0 ) {
+      return this.authorizations.guest_teachers[0];
+    }
+    throw new Error('RoleId not found');
   }
 
   hasAnyRole(): boolean {
