@@ -4,7 +4,7 @@ name: publish-to-aws
 on:
   push:
     branches:
-      - LITTIL-95-Front-end-infrastructure
+      - main
 
 jobs:
   publish:
@@ -50,5 +50,6 @@ jobs:
           aws sts get-caller-identity
       - name: Sync files to S3
         run: |
+          cp src/config.staging.js dist/littil-org-website/config.js
           aws s3 sync --delete dist/littil-org-website/. s3://${{ secrets.AWS_S3_BUCKET }}
           aws cloudfront create-invalidation --distribution-id ${{ secrets.AWS_CLOUDFRONT_DISTRIBUTION_ID }} --paths '/*'
