@@ -64,7 +64,10 @@
               "vendorChunk": true,
               "extractLicenses": false,
               "sourceMap": true,
-              "namedChunks": true
+              "namedChunks": true,
+              "assets": [
+                "src/config.js"
+              ]
             }
           },
           "defaultConfiguration": "production"
