@@ -26,10 +26,7 @@ export class SearchComponent {
   private coordinates: Coordinates = new Coordinates(0, 0); //Todo: change to avoid bugs
   private roleId: string;
   public mapOptions: google.maps.MapOptions = MAP_OPTIONS;
-
-  public ownLocation: any = {
-    name: 'Eddy Vos',
-  };
+  public ownLocation: any = {};
 
   searchForm = this.formBuilder.group({
     straal: '',
@@ -62,7 +59,7 @@ export class SearchComponent {
     return this.littilTeacherService.getById(this.roleId).pipe(
       switchMap((teacher: GuestTeacher) => {
         this.ownLocation.name = teacher.firstName + ' ' + teacher.surname; //Todo: add prefix
-        return this.coordinatesService.getCoordinates(teacher.address)
+        return this.coordinatesService.getCoordinates(teacher.address);
       }),
       tap(coordinates => {
         this.coordinates = coordinates;
@@ -70,13 +67,13 @@ export class SearchComponent {
           ...this.ownLocation,
           options: {
             position: {
-              lat: coordinates.lat,
-              lng: coordinates.lon,
+              lat: this.coordinates.lat,
+              lng: this.coordinates.lon,
             },
             visible: true,
             icon: {
               size: {width: 25, height: 25},
-              url: 'assets/marker.svg',
+              url: 'assets/user-location.svg',
             } as google.maps.Icon,
           },
         };
