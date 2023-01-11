@@ -22,7 +22,7 @@ import { MAP_OPTIONS, MapZoomLevels } from './map-options';
 export class SearchComponent {
   public selectedMarker!: any;
   public mapData: any[] = [];
-  private roleType: Roles = Roles.GuestTeacher; //Todo: this can also be a school
+  private roleType: Roles;
   private coordinates: Coordinates = new Coordinates(0, 0); //Todo: change to avoid bugs
   private roleId: string;
   public mapOptions: google.maps.MapOptions = MAP_OPTIONS;
@@ -56,7 +56,10 @@ export class SearchComponent {
   }
 
   private fetchSearchResults(): Observable<SearchResult[]> {
-    return this.littilTeacherService.getById(this.roleId).pipe(
+    const userObservable: Observable<any> = this.roleType == Roles.GuestTeacher ? //Todo: Can generics be applied?
+      this.littilTeacherService.getById(this.roleId) : this.littilSchoolService.getById(this.roleId);
+
+    return userObservable.pipe(
       switchMap((teacher: GuestTeacher) => {
         this.ownLocation.name = teacher.firstName + ' ' + teacher.surname; //Todo: add prefix
         return this.coordinatesService.getCoordinates(teacher.address);
