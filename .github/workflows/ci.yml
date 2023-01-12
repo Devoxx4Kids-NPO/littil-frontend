@@ -31,7 +31,7 @@ jobs:
         run: npm run build
       - name: Get branch name
         id: branch-name
-        uses: tj-actions/branch-names@v5.5
+        uses: tj-actions/branch-names@v6
       - name: Analyze build code
         uses: sonarsource/sonarcloud-github-action@master
         env:
