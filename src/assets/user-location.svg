@@ -1,3 +1,19 @@
-<svg width="25" height="25" viewBox="0 0 25 25" fill="none" xmlns="http://www.w3.org/2000/svg">
-<path d="M24.5 12.5C24.5 19.1274 19.1274 24.5 12.5 24.5C5.87258 24.5 0.5 19.1274 0.5 12.5C0.5 5.87258 5.87258 0.5 12.5 0.5C19.1274 0.5 24.5 5.87258 24.5 12.5Z" fill="#2d2e83" stroke="white"/>
+<?xml version="1.0" encoding="utf-8"?>
+<svg viewBox="-2.547 -1.856 35.278 35.913" width="20px" height="20px" xmlns="http://www.w3.org/2000/svg" xmlns:bx="https://boxy-svg.com">
+  <defs>
+    <filter id="drop-shadow-filter-0" x="-500%" y="-500%" width="1000%" height="1000%" bx:preset="drop-shadow 1 0 2 2 0.3 rgba(0,0,0,0.69)">
+      <feGaussianBlur in="SourceAlpha" stdDeviation="2"/>
+      <feOffset dx="0" dy="2"/>
+      <feComponentTransfer result="offsetblur">
+        <feFuncA id="spread-ctrl" type="linear" slope="0.6"/>
+      </feComponentTransfer>
+      <feFlood flood-color="rgba(0,0,0,0.69)"/>
+      <feComposite in2="offsetblur" operator="in"/>
+      <feMerge>
+        <feMergeNode/>
+        <feMergeNode in="SourceGraphic"/>
+      </feMerge>
+    </filter>
+  </defs>
+  <circle style="stroke-width: 2px; fill: rgb(0, 121, 211); stroke: rgb(255, 255, 255); filter: url(#drop-shadow-filter-0);" cx="15" cy="15" r="13.5"/>
 </svg>
