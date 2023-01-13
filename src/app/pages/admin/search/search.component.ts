@@ -3,7 +3,7 @@ import { LittilUserService } from '../../../services/littil-user/littil-user.ser
 import { AuthService } from '@auth0/auth0-angular';
 import { PermissionController, Roles } from '../../../services/permission.controller';
 import { LittilSearchService } from '../../../services/littil-search/littil-search.service';
-import { GuestTeacher, SearchResult } from '../../../api/generated';
+import { GuestTeacher, School, SearchResult } from '../../../api/generated';
 import { FormBuilder } from '@angular/forms';
 import { Coordinates, CoordinatesService } from '../../../services/coordinates/coordinates.service';
 import { OpenStreetMapService } from '../../../services/coordinates/open-street-map.service';
@@ -23,7 +23,7 @@ export class SearchComponent {
   public selectedMarker!: any;
   public mapData: any[] = [];
   private roleType: Roles;
-  private coordinates: Coordinates = new Coordinates(0, 0); //Todo: change to avoid bugs
+  private coordinates!: Coordinates;
   private roleId: string;
   public mapOptions: google.maps.MapOptions = MAP_OPTIONS;
   public ownLocation: any = {};
@@ -36,33 +36,35 @@ export class SearchComponent {
   constructor(
     private userService: LittilUserService,
     private authService: AuthService,
-    private permission: PermissionController,
+    private permissionController: PermissionController,
     private searchService: LittilSearchService,
     private formBuilder: FormBuilder,
     private coordinatesService: CoordinatesService,
     private littilTeacherService: LittilTeacherService,
     private littilSchoolService: LittilSchoolService,
   ) {
-    this.roleType = this.permission.getRoleType()
-    this.roleId = this.permission.getRoleId();
+    this.roleType = this.permissionController.getRoleType()
+    this.roleId = this.permissionController.getRoleId();
   }
 
   public ngOnInit(): void {
-    this.permission.getRoleId();
+    this.permissionController.getRoleId();
     this.fetchSearchResults().subscribe((result) => {
         this.mapData = this.getMapDataFromSearchResults(result);
       }
     );
   }
 
+  // Fetching the Teacher / School & Coordinates should be moved to a separate class (profile controller?)
+  // This class can be injected in this component to access the data.
   private fetchSearchResults(): Observable<SearchResult[]> {
-    const userObservable: Observable<any> = this.roleType == Roles.GuestTeacher ? //Todo: Can generics be applied?
+    const userObservable: Observable<GuestTeacher | School> = this.roleType == Roles.GuestTeacher ?
       this.littilTeacherService.getById(this.roleId) : this.littilSchoolService.getById(this.roleId);
 
     return userObservable.pipe(
-      switchMap((teacher: GuestTeacher) => {
-        this.ownLocation.name = teacher.firstName + ' ' + teacher.surname; //Todo: add prefix
-        return this.coordinatesService.getCoordinates(teacher.address);
+      switchMap((user: GuestTeacher | School) => {
+        this.ownLocation.name = user.firstName + ' ' + user.surname;
+        return this.coordinatesService.getCoordinates(user.address); // Some users will not give permission to use their address, in that case they need to use the search form for an initial search
       }),
       tap(coordinates => {
         this.coordinates = coordinates;
