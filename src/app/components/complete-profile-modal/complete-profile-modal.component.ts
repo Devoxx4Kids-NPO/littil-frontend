@@ -46,7 +46,7 @@ export class CompleteProfileModalComponent
   close!: () => undefined;
   public loading = false;
   public isSchool = false;
-  private roleSubscription!: Subscription;
+  private roleValueSubscription!: Subscription;
   FormUtil = FormUtil;
 
   completeProfileForm: FormGroup = new FormGroup({
@@ -89,21 +89,21 @@ export class CompleteProfileModalComponent
   }
 
   public ngOnInit(): void {
-    this.completeProfileForm.controls['role'].valueChanges.subscribe(
-      (changes: any) => {
-        this.isSchool = changes === Roles.School;
-        if (changes === Roles.School) {
-          this.completeProfileForm.controls['schoolName'].enable();
-        } else {
-          this.completeProfileForm.controls['schoolName'].disable();
-        }
+    this.roleValueSubscription = this.completeProfileForm.controls[
+      'role'
+    ].valueChanges.subscribe((changes: any) => {
+      this.isSchool = changes === Roles.School;
+      if (changes === Roles.School) {
+        this.completeProfileForm.controls['schoolName'].enable();
+      } else {
+        this.completeProfileForm.controls['schoolName'].disable();
       }
-    );
+    });
   }
 
   public ngOnDestroy(): void {
-    if (this.roleSubscription) {
-      this.roleSubscription.unsubscribe();
+    if (this.roleValueSubscription) {
+      this.roleValueSubscription.unsubscribe();
     }
   }
 
