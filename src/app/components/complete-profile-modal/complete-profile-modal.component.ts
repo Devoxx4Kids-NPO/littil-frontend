@@ -117,40 +117,30 @@ export class CompleteProfileModalComponent
       let createOrUpdateCall: Observable<
         GuestTeacherPostResource | SchoolPostResource
       >;
+      const formValues = {
+        name: this.completeProfileForm.controls['schoolName'].value,
+        firstName: this.completeProfileForm.controls['firstName'].value,
+        prefix: this.completeProfileForm.controls['prefix'].value,
+        surname: this.completeProfileForm.controls['surname'].value,
+        address:
+          this.completeProfileForm.controls['addressStreet'].value +
+          ' ' +
+          this.completeProfileForm.controls['addressHousenumber'].value,
+        postalCode:
+          this.completeProfileForm.controls['postalCodeNumbers'].value +
+          this.completeProfileForm.controls['postalCodeLetters'].value,
+      };
       if (
         this.completeProfileForm.controls['role'].value === Roles.GuestTeacher
       ) {
-        const formValuesGuestTeacher: GuestTeacherPostResource = {
-          firstName: this.completeProfileForm.controls['firstName'].value,
-          prefix: this.completeProfileForm.controls['prefix'].value,
-          surname: this.completeProfileForm.controls['surname'].value,
-          address:
-            this.completeProfileForm.controls['addressStreet'].value +
-            ' ' +
-            this.completeProfileForm.controls['addressHousenumber'].value,
-          postalCode:
-            this.completeProfileForm.controls['postalCodeNumbers'].value +
-            this.completeProfileForm.controls['postalCodeLetters'].value,
-        };
+        delete formValues.name;
         createOrUpdateCall = this.guestTeacherService.createOrUpdate(
-          formValuesGuestTeacher
+          formValues as GuestTeacherPostResource
         );
       } else {
-        const formValuesSchool: SchoolPostResource = {
-          name: this.completeProfileForm.controls['schoolName'].value,
-          firstName: this.completeProfileForm.controls['firstName'].value,
-          prefix: this.completeProfileForm.controls['prefix'].value,
-          surname: this.completeProfileForm.controls['surname'].value,
-          address:
-            this.completeProfileForm.controls['addressStreet'].value +
-            ' ' +
-            this.completeProfileForm.controls['addressHousenumber'].value,
-          postalCode:
-            this.completeProfileForm.controls['postalCodeNumbers'].value +
-            this.completeProfileForm.controls['postalCodeLetters'].value,
-        };
-        createOrUpdateCall =
-          this.schoolService.createOrUpdate(formValuesSchool);
+        createOrUpdateCall = this.schoolService.createOrUpdate(
+          formValues as SchoolPostResource
+        );
       }
 
       return firstValueFrom(createOrUpdateCall)
