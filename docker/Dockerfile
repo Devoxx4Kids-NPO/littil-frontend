@@ -14,11 +14,13 @@ RUN apt-get update && \
 
 RUN mkdir -p /app
 WORKDIR /app
+
 COPY package.json /app
+RUN npm install
+RUN npm install -g ng-openapi-gen
+
 COPY . /app
 
-RUN npm install -g ng-openapi-gen
-RUN npm install
 RUN npm run openapi
 
 RUN npm run build --prod
@@ -29,6 +31,6 @@ FROM nginx:1
 COPY --from=build /app/dist/littil-org-website /usr/share/nginx/html
 COPY --from=build /app/src/config.e2e.js /usr/share/nginx/html/config.js
 
-COPY src/docker/nginx/default.conf.template /etc/nginx/templates/default.conf.template
+COPY docker/nginx/default.conf.template /etc/nginx/templates/default.conf.template
 
 ENV PORT 80
