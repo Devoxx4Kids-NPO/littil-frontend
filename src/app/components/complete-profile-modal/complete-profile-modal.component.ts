@@ -7,6 +7,7 @@ import {
 } from '@angular/animations';
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { AuthService } from '@auth0/auth0-angular';
 import { firstValueFrom, Observable, Subscription } from 'rxjs';
 import {
   GuestTeacherPostResource,
@@ -43,7 +44,7 @@ import { IModalComponent } from '../modal/modal.controller';
 export class CompleteProfileModalComponent
   implements IModalComponent<undefined, undefined>, OnInit, OnDestroy
 {
-  close!: () => undefined;
+  close!: () => boolean;
   public loading = false;
   public isSchool = false;
   private roleValueSubscription!: Subscription;
@@ -82,7 +83,8 @@ export class CompleteProfileModalComponent
 
   constructor(
     private guestTeacherService: LittilTeacherService,
-    private schoolService: LittilSchoolService
+    private schoolService: LittilSchoolService,
+    public auth: AuthService
   ) {
     this.completeProfileForm.markAsPristine();
     this.completeProfileForm.markAsUntouched();
@@ -142,16 +144,18 @@ export class CompleteProfileModalComponent
           formValues as SchoolPostResource
         );
       }
-
       return firstValueFrom(createOrUpdateCall)
         .then(() => {
-          this.close();
-          return true;
+          return this.close();
         })
         .catch((error: any) => {
-          console.error('createOrUpdate profile error', error);
+          console.error('createOrUpdate profile error');
           return false;
         });
     });
+  }
+
+  public logOut(): void {
+    this.auth.logout();
   }
 }

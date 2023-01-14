@@ -24,6 +24,7 @@
       formControlName="schoolName"
       id="schoolName"
       label="Naam van de school"
+      data-test="schoolNameControl"
       [hasError]="FormUtil.InValid(completeProfileForm.controls['schoolName'])"
     >
       <littil-form-error-message
@@ -176,5 +177,8 @@
 
   <littil-button [inline]="true" (click)="onClickSaveProfile()"
     >Profiel opslaan</littil-button
+  >
+  <littil-button [inline]="true" colorClass="bg-yellow-200" (click)="logOut()"
+    >Uitloggen</littil-button
   >
 </div>
