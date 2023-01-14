@@ -1,17 +1,26 @@
 # Docker file for e2e test
-# Run the following comamnd to build the docker image
+# Run the following comamnd from to root of the project to build the docker image
 #
-#   docker build -f src\docker\Dockerfile -t littil-frontend . 
+#   docker build -f docker\Dockerfile -t littil-frontend . 
 #
 
 # Stage 1
+#FROM timbru31/java-node AS build
 FROM node:16-buster AS build
+
+RUN apt-get update && \
+    apt-get install -y openjdk-11-jre-headless && \
+    apt-get clean;
 
 RUN mkdir -p /app
 WORKDIR /app
 COPY package.json /app
-RUN npm install
 COPY . /app
+
+RUN npm install -g ng-openapi-gen
+RUN npm install
+RUN npm run openapi
+
 RUN npm run build --prod
 
 # Stage 2
