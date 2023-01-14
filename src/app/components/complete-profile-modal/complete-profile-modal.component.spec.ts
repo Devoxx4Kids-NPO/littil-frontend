@@ -1,6 +1,7 @@
 import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { TestBed } from '@angular/core/testing';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { AuthService } from '@auth0/auth0-angular';
 import { createComponentFactory, Spectator } from '@ngneat/spectator/jest';
 import { MockComponent, MockProvider } from 'ng-mocks';
 import { of } from 'rxjs';
@@ -28,6 +29,7 @@ describe('CompleteProfileModalComponent', () => {
       MockComponent(ButtonComponent),
     ],
     providers: [
+      MockProvider(AuthService),
       MockProvider(LittilSchoolService, {
         createOrUpdate: () => of(),
       }),
@@ -43,7 +45,7 @@ describe('CompleteProfileModalComponent', () => {
     });
     spectator = createComponent();
     spectator.detectChanges();
-    spectator.component.close = () => undefined;
+    spectator.component.close = () => true;
     closeSpy = jest.spyOn(spectator.component, 'close');
     formUtilSpy = jest.spyOn(FormUtil, 'ValidateAll');
   });
