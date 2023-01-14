@@ -8,7 +8,10 @@ import {
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { firstValueFrom, Observable, Subscription } from 'rxjs';
-import { GuestTeacherPostResource, School } from '../../api/generated';
+import {
+  GuestTeacherPostResource,
+  SchoolPostResource,
+} from '../../api/generated';
 import { LittilSchoolService } from '../../services/littil-school/littil-school.service';
 import { LittilTeacherService } from '../../services/littil-teacher/littil-teacher.service';
 import { Roles } from '../../services/permission.controller';
@@ -47,7 +50,7 @@ export class CompleteProfileModalComponent
   FormUtil = FormUtil;
 
   completeProfileForm: FormGroup = new FormGroup({
-    role: new FormControl('', Validators.required),
+    role: new FormControl(Roles.GuestTeacher, Validators.required),
     schoolName: new FormControl('', Validators.required),
     firstName: new FormControl('', Validators.required),
     prefix: new FormControl(''),
@@ -111,7 +114,9 @@ export class CompleteProfileModalComponent
         return false;
       }
 
-      let createOrUpdateCall: Observable<GuestTeacherPostResource | School>;
+      let createOrUpdateCall: Observable<
+        GuestTeacherPostResource | SchoolPostResource
+      >;
       if (
         this.completeProfileForm.controls['role'].value === Roles.GuestTeacher
       ) {
@@ -131,7 +136,7 @@ export class CompleteProfileModalComponent
           formValuesGuestTeacher
         );
       } else {
-        const formValuesSchool: School = {
+        const formValuesSchool: SchoolPostResource = {
           name: this.completeProfileForm.controls['schoolName'].value,
           firstName: this.completeProfileForm.controls['firstName'].value,
           prefix: this.completeProfileForm.controls['prefix'].value,

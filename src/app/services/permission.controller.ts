@@ -8,12 +8,11 @@ export interface IAuth0Authorizations {
 }
 
 export enum Roles {
-  Admin = 'Admin',
-  School = 'School',
-  GuestTeacher = 'GuestTeacher',
+  School = 'schools',
+  GuestTeacher = 'guest_teachers',
 }
 
-export const roleHierarchy = [Roles.Admin, Roles.School, Roles.GuestTeacher];
+export const roleHierarchy = [Roles.School, Roles.GuestTeacher];
 
 @Injectable({
   providedIn: 'root',
