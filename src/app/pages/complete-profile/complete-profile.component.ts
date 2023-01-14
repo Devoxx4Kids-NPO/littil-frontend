@@ -5,6 +5,7 @@ import {
   IModalComponentOptions,
   ModalController,
 } from '../../components/modal/modal.controller';
+import { PermissionController } from '../../services/permission.controller';
 
 @Component({
   selector: 'littil-complete-profile',
@@ -13,14 +14,20 @@ import {
 export class CompleteProfilePageComponent implements OnInit {
   constructor(
     private router: Router,
-    private modalController: ModalController
+    private modalController: ModalController,
+    private permissionController: PermissionController
   ) {}
 
   async ngOnInit(): Promise<void> {
-    await this.modalController.present(CompleteProfileModalComponent, {
-      modalSize: undefined,
-      disableClose: true,
-    } as IModalComponentOptions);
-    this.router.navigateByUrl('/admin/search');
+    return Promise.resolve().then(async () => {
+      if (this.permissionController.hasAnyRole()) {
+        this.router.navigateByUrl('/admin/search');
+      }
+      await this.modalController.present(CompleteProfileModalComponent, {
+        modalSize: undefined,
+        disableClose: true,
+      } as IModalComponentOptions);
+      this.router.navigateByUrl('/admin/search');
+    });
   }
 }

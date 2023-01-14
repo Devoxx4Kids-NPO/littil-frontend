@@ -93,5 +93,8 @@
       }
     }
   },
-  "defaultProject": "littil-org-website"
+  "defaultProject": "littil-org-website",
+  "cli": {
+    "analytics": "b0b5d120-349d-45ff-ac13-ffeee8324a32"
+  }
 }

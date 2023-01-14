@@ -3,6 +3,7 @@ import { Observable } from 'rxjs';
 import {
   ApiV1SchoolsGet200Response,
   School,
+  SchoolPostResource,
   SchoolService,
 } from '../../api/generated';
 
@@ -23,7 +24,9 @@ export class LittilSchoolService {
     return this.schoolService.apiV1SchoolsNameNameGet(name);
   }
 
-  createOrUpdate(school: School): Observable<ApiV1SchoolsGet200Response> {
+  createOrUpdate(
+    school: SchoolPostResource
+  ): Observable<ApiV1SchoolsGet200Response> {
     return this.schoolService.apiV1SchoolsPut(school);
   }
 
