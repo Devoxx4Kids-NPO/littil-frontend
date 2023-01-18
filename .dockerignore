@@ -1,5 +1,8 @@
 .git
 .angular
 .vscode
+.idea
 docs
 node_modules
+dist
+gen
