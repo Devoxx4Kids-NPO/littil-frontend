@@ -1,16 +1,11 @@
 import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { TestBed } from '@angular/core/testing';
-import {
-  createHttpFactory,
-  HttpMethod,
-  SpectatorHttp,
-} from '@ngneat/spectator';
-import { environment } from '../../../environments/environment';
+import { createHttpFactory, HttpMethod, SpectatorHttp, } from '@ngneat/spectator';
 import { GuestTeacherPostResource, TeacherService } from '../../api/generated';
 import { LittilTeacherService } from './littil-teacher.service';
 
 describe('LittilTeacherService', () => {
-  let baseUrl = environment.serverUrl;
+  let baseUrl = 'http://localhost:8080';
   let service: LittilTeacherService;
   let spectator: SpectatorHttp<LittilTeacherService>;
   const createHttp = createHttpFactory(LittilTeacherService);

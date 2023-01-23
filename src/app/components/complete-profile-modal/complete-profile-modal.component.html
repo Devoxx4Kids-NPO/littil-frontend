@@ -20,6 +20,19 @@
       ></littil-form-error-message>
     </littil-form-input-radio>
     <littil-form-input-text
+      *ngIf="isSchool"
+      formControlName="schoolName"
+      id="schoolName"
+      label="Naam van de school"
+      data-test="schoolNameControl"
+      [hasError]="FormUtil.InValid(completeProfileForm.controls['schoolName'])"
+    >
+      <littil-form-error-message
+        *ngIf="FormUtil.InValid(completeProfileForm.controls['schoolName'])"
+        errorText="Naam van de school is verplicht"
+      ></littil-form-error-message>
+    </littil-form-input-text>
+    <littil-form-input-text
       formControlName="firstName"
       id="firstName"
       label="Voornaam"
@@ -164,5 +177,8 @@
 
   <littil-button [inline]="true" (click)="onClickSaveProfile()"
     >Profiel opslaan</littil-button
+  >
+  <littil-button [inline]="true" colorClass="bg-yellow-200" (click)="logOut()"
+    >Uitloggen</littil-button
   >
 </div>

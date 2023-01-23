@@ -1,14 +1,10 @@
 import { CommonModule } from '@angular/common';
-import {
-  HttpClient,
-  HttpClientModule,
-  HTTP_INTERCEPTORS,
-} from '@angular/common/http';
+import { HTTP_INTERCEPTORS, HttpClient, HttpClientModule, } from '@angular/common/http';
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { AuthHttpInterceptor, AuthModule } from '@auth0/auth0-angular';
-import { environment } from '../environments/environment';
+import { getLittilConfigFromWindow } from '../littilConfig';
 import { ApiModule, Configuration } from './api/generated';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -20,12 +16,14 @@ import { ModalControllerModule } from './components/modal/modal.controller.modul
 import { RegisterModalModule } from './components/register-modal/register-modal.module';
 import { GoogleMapsModule } from '@angular/google-maps'
 
+const littilConfig = getLittilConfigFromWindow();
+
 @NgModule({
   declarations: [AppComponent],
   imports: [
     ApiModule.forRoot(() => {
       return new Configuration({
-        basePath: environment.serverUrl,
+        basePath: littilConfig.apiHost,
       });
     }),
     BrowserModule,
@@ -41,17 +39,17 @@ import { GoogleMapsModule } from '@angular/google-maps'
     GoogleMapsModule,
     ModalControllerModule.forRoot(),
     AuthModule.forRoot({
-      domain: environment.auth0Domain,
-      clientId: environment.auth0ClientId,
-      audience: environment.auth0Audience,
+      domain: littilConfig.auth0Domain,
+      clientId: littilConfig.auth0ClientId,
+      audience: littilConfig.auth0Audience,
       httpInterceptor: {
         allowedList: [
           {
-            uri: `${environment.serverUrl}/api/v1/users/user`,
+            uri: `${littilConfig.apiHost}/api/v1/users/user`,
             allowAnonymous: true,
           },
           {
-            uri: `${environment.serverUrl}/api/*`,
+            uri: `${littilConfig.apiHost}/api/*`,
           },
         ],
       },
@@ -68,4 +66,5 @@ import { GoogleMapsModule } from '@angular/google-maps'
   bootstrap: [AppComponent],
   exports: [],
 })
-export class AppModule {}
+export class AppModule {
+}

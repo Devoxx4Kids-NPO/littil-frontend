@@ -1,22 +1,18 @@
 import { StaticProvider } from '@angular/core';
 import { BASE_PATH } from './app/api/generated';
-import { isLittilConfig, LITTILCONFIG } from './littilConfig';
+import { getLittilConfigFromWindow, LITTILCONFIG } from './littilConfig';
 
 export const getLittilConfigProviders = (): StaticProvider[] => {
-  const externalConfig = (window as any).littilConfig;
-  if (!isLittilConfig(externalConfig)) {
-    console.warn('No valid external config found; ' + JSON.stringify(externalConfig));
-    return [];
-  }
+  const config = getLittilConfigFromWindow();
 
   return [
     {
       provide: LITTILCONFIG,
-      useValue: externalConfig,
+      useValue: config,
     },
     {
       provide: BASE_PATH,
-      useValue: externalConfig.apiHost,
+      useValue: config.apiHost,
     },
   ];
 };

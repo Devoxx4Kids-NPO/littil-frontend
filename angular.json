@@ -26,14 +26,8 @@
             "polyfills": "src/polyfills.ts",
             "tsConfig": "tsconfig.app.json",
             "inlineStyleLanguage": "scss",
-            "assets": [
-              "src/favicon.ico",
-              "src/assets",
-              "src/config.js"
-            ],
-            "styles": [
-              "src/styles.scss"
-            ],
+            "assets": ["src/assets", "src/config.js"],
+            "styles": ["src/styles.scss"],
             "scripts": []
           },
           "configurations": {
@@ -64,7 +58,8 @@
               "vendorChunk": true,
               "extractLicenses": false,
               "sourceMap": true,
-              "namedChunks": true
+              "namedChunks": true,
+              "assets": ["src/assets", "src/config.js"]
             }
           },
           "defaultConfiguration": "production"
@@ -76,7 +71,8 @@
               "browserTarget": "littil-org-website:build:production"
             },
             "development": {
-              "browserTarget": "littil-org-website:build:development"
+              "browserTarget": "littil-org-website:build:development",
+              "port": 4200
             }
           },
           "defaultConfiguration": "development"
@@ -90,5 +86,7 @@
       }
     }
   },
-  "defaultProject": "littil-org-website"
+  "cli": {
+    "analytics": "b0b5d120-349d-45ff-ac13-ffeee8324a32"
+  }
 }
