@@ -11,7 +11,7 @@ export class OpenStreetMapService implements CoordinatesService {
 
   constructor(private http: HttpClient) { }
 
-  getCoordinates(location: string): Observable<Coordinates> {
+  getCoordinates(location: string | undefined): Observable<Coordinates> {
     const url = `${this.baseUrl}/?q=${location}&format=json`;
     return this.http.get<OSMResult[]>(url).pipe(
       map(data => data.map(item => new Coordinates(parseFloat(item.lat), parseFloat(item.lon)))),

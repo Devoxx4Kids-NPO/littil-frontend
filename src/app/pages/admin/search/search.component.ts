@@ -11,6 +11,7 @@ import { LittilTeacherService } from '../../../services/littil-teacher/littil-te
 import { LittilSchoolService } from '../../../services/littil-school/littil-school.service';
 import { Observable, switchMap, tap } from 'rxjs';
 import { MAP_OPTIONS, MapZoomLevels } from './map-options';
+import { ProfileController } from '../../../services/profile.controller';
 
 @Component({
   selector: 'littil-search',
@@ -42,12 +43,15 @@ export class SearchComponent {
     private coordinatesService: CoordinatesService,
     private littilTeacherService: LittilTeacherService,
     private littilSchoolService: LittilSchoolService,
+    private profileController: ProfileController
   ) {
     this.roleType = this.permissionController.getRoleType()
     this.roleId = this.permissionController.getRoleId();
   }
 
   public ngOnInit(): void {
+    console.log("Search profile: " + JSON.stringify(this.profileController.profile));
+    console.log("Search coordinates: " + JSON.stringify(this.profileController.coordinates));
     this.permissionController.getRoleId();
     this.fetchSearchResults().subscribe((result) => {
         this.mapData = this.getMapDataFromSearchResults(result);
