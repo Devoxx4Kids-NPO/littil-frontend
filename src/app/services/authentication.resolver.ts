@@ -27,8 +27,8 @@ export class AuthenticatorResolver implements Resolve<any> {
               this.profileController.handleProfile(
                 userProfile,
                 this.permissionController.getRoleId(),
-                this.permissionController.getRoleType())
-              ;
+                this.permissionController.getRoleType()
+              );
             }
           }
         );

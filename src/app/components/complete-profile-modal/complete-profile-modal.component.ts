@@ -10,6 +10,8 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { AuthService } from '@auth0/auth0-angular';
 import { firstValueFrom, Observable, Subscription } from 'rxjs';
 import {
+  ApiV1GuestTeachersGet200Response,
+  ApiV1SchoolsGet200Response,
   GuestTeacherPostResource,
   SchoolPostResource,
 } from '../../api/generated';
@@ -117,7 +119,7 @@ export class CompleteProfileModalComponent
       }
 
       let createOrUpdateCall: Observable<
-        GuestTeacherPostResource | SchoolPostResource
+        ApiV1GuestTeachersGet200Response | ApiV1SchoolsGet200Response
       >;
       const formValues = {
         name: this.completeProfileForm.controls['schoolName'].value,

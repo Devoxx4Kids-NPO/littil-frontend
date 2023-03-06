@@ -1,6 +1,10 @@
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { GuestTeacherPostResource, TeacherService } from '../../api/generated';
+import {
+  ApiV1GuestTeachersGet200Response,
+  GuestTeacherPostResource,
+  TeacherService,
+} from '../../api/generated';
 import { GuestTeacher } from '../../api/generated/model/guestTeacher';
 
 @Injectable({
@@ -17,11 +21,13 @@ export class LittilTeacherService {
     return this.teacherService.apiV1GuestTeachersGet();
   }
 
-  createOrUpdate(teacher: GuestTeacherPostResource): Observable<any> {
+  createOrUpdate(
+    teacher: GuestTeacherPostResource
+  ): Observable<ApiV1GuestTeachersGet200Response> {
     return this.teacherService.apiV1GuestTeachersPut(teacher);
   }
 
-  delete(id: string): Observable<number> {
+  delete(id: string): Observable<any> {
     return this.teacherService.apiV1GuestTeachersIdDelete(id);
   }
 }
