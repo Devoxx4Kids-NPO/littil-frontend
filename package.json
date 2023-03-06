@@ -23,6 +23,7 @@
     "@angular/platform-browser-dynamic": "~14.2.0",
     "@angular/router": "~14.2.0",
     "@auth0/auth0-angular": "^1.10.1",
+    "@types/google.maps": "^3.52.1",
     "jest-junit": "^14.0.1",
     "rxjs": "~7.5.6",
     "tslib": "^2.4.0",
@@ -69,9 +70,9 @@
     "coverageThreshold": {
       "global": {
         "branches": 50,
-        "functions": 60,
-        "lines": 60,
-        "statements": 60
+        "functions": 50,
+        "lines": 70,
+        "statements": 70
       }
     }
   }

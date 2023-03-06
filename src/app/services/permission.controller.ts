@@ -32,6 +32,11 @@ export class PermissionController {
   }
 
   setRoles(authorizations: IAuth0Authorizations) {
+    // TODO: mock roles until BE bug is fixed
+    // authorizations = {
+    //   guest_teachers: ['1'],
+    //   schools: [],
+    // };
     this.authorizations = authorizations;
     this._onPermissionChange.next();
   }
