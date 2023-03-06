@@ -32,8 +32,33 @@ export class PermissionController {
   }
 
   setRoles(authorizations: IAuth0Authorizations) {
+    // TODO: mock roles until BE bug is fixed
+    // authorizations = {
+    //   guest_teachers: ['1'],
+    //   schools: [],
+    // };
     this.authorizations = authorizations;
     this._onPermissionChange.next();
+  }
+
+  getRoleType(): Roles {
+    if (this.authorizations && this.authorizations.schools.length > 0) {
+      return Roles.School;
+    }
+    if (this.authorizations && this.authorizations.guest_teachers.length > 0) {
+      return Roles.GuestTeacher;
+    }
+    throw new Error('RoleType not found');
+  }
+
+  getRoleId(): string {
+    if (this.authorizations && this.authorizations.schools.length > 0) {
+      return this.authorizations.schools[0];
+    }
+    if (this.authorizations && this.authorizations.guest_teachers.length > 0) {
+      return this.authorizations.guest_teachers[0];
+    }
+    throw new Error('RoleId not found');
   }
 
   hasAnyRole(): boolean {

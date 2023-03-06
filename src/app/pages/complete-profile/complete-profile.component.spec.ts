@@ -5,6 +5,7 @@ import { CompleteProfileModalComponent } from '../../components/complete-profile
 import { ModalControllerModule } from '../../components/modal/modal.controller.module';
 import { CompleteProfilePageComponent } from './complete-profile.component';
 
+// TODO: add unit tests
 describe('CompleteProfilePageComponent', () => {
   let spectator: Spectator<CompleteProfilePageComponent>;
 

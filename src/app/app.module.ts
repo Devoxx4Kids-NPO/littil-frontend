@@ -1,5 +1,9 @@
 import { CommonModule } from '@angular/common';
-import { HTTP_INTERCEPTORS, HttpClient, HttpClientModule, } from '@angular/common/http';
+import {
+  HTTP_INTERCEPTORS,
+  HttpClient,
+  HttpClientModule,
+} from '@angular/common/http';
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
@@ -14,6 +18,7 @@ import { MainMenuButtonModule } from './components/main-menu-button/main-menu-bu
 import { MainMenuDropdownButtonModule } from './components/main-menu-dropdown-button/main-menu-dropdown-button.module';
 import { ModalControllerModule } from './components/modal/modal.controller.module';
 import { RegisterModalModule } from './components/register-modal/register-modal.module';
+import { GoogleMapsModule } from '@angular/google-maps';
 
 const littilConfig = getLittilConfigFromWindow();
 
@@ -35,6 +40,7 @@ const littilConfig = getLittilConfigFromWindow();
     RegisterModalModule,
     MainMenuButtonModule,
     MainMenuDropdownButtonModule,
+    GoogleMapsModule,
     ModalControllerModule.forRoot(),
     AuthModule.forRoot({
       domain: littilConfig.auth0Domain,
@@ -64,5 +70,4 @@ const littilConfig = getLittilConfigFromWindow();
   bootstrap: [AppComponent],
   exports: [],
 })
-export class AppModule {
-}
+export class AppModule {}

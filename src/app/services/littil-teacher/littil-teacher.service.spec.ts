@@ -1,26 +1,27 @@
 import { HttpClientTestingModule } from '@angular/common/http/testing';
-import { TestBed } from '@angular/core/testing';
-import { createHttpFactory, HttpMethod, SpectatorHttp, } from '@ngneat/spectator';
+import {
+  createHttpFactory,
+  HttpMethod,
+  SpectatorHttp,
+} from '@ngneat/spectator';
 import { GuestTeacherPostResource, TeacherService } from '../../api/generated';
 import { LittilTeacherService } from './littil-teacher.service';
 
 describe('LittilTeacherService', () => {
   let baseUrl = 'http://localhost:8080';
-  let service: LittilTeacherService;
   let spectator: SpectatorHttp<LittilTeacherService>;
-  const createHttp = createHttpFactory(LittilTeacherService);
+  const createHttp = createHttpFactory({
+    service: LittilTeacherService,
+    imports: [HttpClientTestingModule],
+    providers: [TeacherService],
+  });
 
   beforeEach(() => {
-    TestBed.configureTestingModule({
-      imports: [HttpClientTestingModule],
-      providers: [TeacherService],
-    });
-    service = TestBed.inject(LittilTeacherService);
     spectator = createHttp();
   });
 
   it('should be created', () => {
-    expect(service).toBeTruthy();
+    expect(spectator.service).toBeTruthy();
   });
 
   describe('getById', () => {
