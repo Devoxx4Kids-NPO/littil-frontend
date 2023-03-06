@@ -1,13 +1,17 @@
-import { TestBed } from '@angular/core/testing';
+import { createServiceFactory, SpectatorService } from '@ngneat/spectator';
 import { PermissionController } from './permission.controller';
 
-describe.skip('PermissionController', () => {
-  let controller: PermissionController;
+// TODO: add unit tests
+describe('PermissionController', () => {
+  let spectator: SpectatorService<PermissionController>;
+  const createController = createServiceFactory({
+    service: PermissionController,
+  });
 
   beforeEach(() => {
-    controller = TestBed.inject(PermissionController);
+    spectator = createController();
   });
   it('should be created', () => {
-    expect(controller).toBeTruthy();
+    expect(spectator.service).toBeTruthy();
   });
 });

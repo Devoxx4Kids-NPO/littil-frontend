@@ -1,20 +1,22 @@
 import { HttpClientTestingModule } from '@angular/common/http/testing';
-import { TestBed } from '@angular/core/testing';
+import { createHttpFactory, SpectatorHttp } from '@ngneat/spectator';
 import { CoordinatesService } from './coordinates.service';
+import { OpenStreetMapService } from './open-street-map.service';
 
 // TODO: add unit tests
-describe.skip('CoordinatesService', () => {
-  let service: CoordinatesService;
+describe('CoordinatesService', () => {
+  let spectator: SpectatorHttp<CoordinatesService>;
+  const createHttp = createHttpFactory({
+    service: OpenStreetMapService,
+    imports: [HttpClientTestingModule],
+    providers: [CoordinatesService],
+  });
 
   beforeEach(() => {
-    TestBed.configureTestingModule({
-      imports: [HttpClientTestingModule],
-      providers: [CoordinatesService],
-    });
-    service = TestBed.inject(CoordinatesService);
+    spectator = createHttp();
   });
 
   it('should be created', () => {
-    expect(service).toBeTruthy();
+    expect(spectator.service).toBeTruthy();
   });
 });

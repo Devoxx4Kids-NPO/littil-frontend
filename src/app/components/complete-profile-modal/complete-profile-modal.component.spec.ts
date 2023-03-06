@@ -22,6 +22,7 @@ describe('CompleteProfileModalComponent', () => {
 
   const createComponent = createComponentFactory({
     component: CompleteProfileModalComponent,
+    imports: [HttpClientTestingModule, ReactiveFormsModule, FormsModule],
     declarations: [
       MockComponent(FormInputTextComponent),
       MockComponent(FormInputRadioComponent),
@@ -40,9 +41,6 @@ describe('CompleteProfileModalComponent', () => {
   });
 
   beforeEach(() => {
-    TestBed.configureTestingModule({
-      imports: [HttpClientTestingModule, ReactiveFormsModule, FormsModule],
-    });
     spectator = createComponent();
     spectator.detectChanges();
     spectator.component.close = () => true;

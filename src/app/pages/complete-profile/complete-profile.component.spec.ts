@@ -6,7 +6,7 @@ import { ModalControllerModule } from '../../components/modal/modal.controller.m
 import { CompleteProfilePageComponent } from './complete-profile.component';
 
 // TODO: add unit tests
-describe.skip('CompleteProfilePageComponent', () => {
+describe('CompleteProfilePageComponent', () => {
   let spectator: Spectator<CompleteProfilePageComponent>;
 
   const createComponent = createRoutingFactory({
