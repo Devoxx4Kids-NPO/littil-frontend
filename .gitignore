@@ -43,6 +43,6 @@ testem.log
 Thumbs.db
 
 # generated OpenAPI folder
-/src/app/api
+/src/app/api/generated
 
 .env
