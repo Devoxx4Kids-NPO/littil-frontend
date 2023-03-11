@@ -5,34 +5,7 @@
   <div>
     <img src="assets/littil_logo.png" class="h-12" alt="LITTIL logo" />
   </div>
-  <ng-container *ngIf="loggedIn">
-    <div class="user-menu">
-      <div>{{ permissionController.activeAccount.name }}</div>
-    </div>
-  </ng-container>
-  <div>
-    <littil-button
-      *ngIf="!loggedIn"
-      [inline]="true"
-      data-test="register-btn"
-      (click)="openRegisterModal()"
-      >Registeren</littil-button
-    >
-    <littil-button
-      *ngIf="!loggedIn"
-      [inline]="true"
-      data-test="login-btn"
-      (click)="openLoginModal()"
-      >Inloggen
-    </littil-button>
-    <littil-button
-      *ngIf="loggedIn"
-      [inline]="true"
-      data-test="logout-btn"
-      (click)="logOut()"
-      >Uitloggen
-    </littil-button>
-  </div>
+  <littil-user-menu></littil-user-menu>
 </littil-content-container>
 <littil-content-container
   outerClasses="bg-yellow-100 mb-6"
