@@ -1,4 +1,4 @@
-import { UserMenuComponent } from './user-menu.component';
+import {UserMenuComponent} from './user-menu.component';
 import {Spectator} from "@ngneat/spectator";
 import {PermissionController} from "../../services/permission.controller";
 import {AuthService} from "@auth0/auth0-angular";
@@ -34,7 +34,9 @@ describe('UserMenuComponent', () => {
     ],
     providers: [
       MockProvider(ModalController),
-      MockProvider(AuthService, {}),
+      MockProvider(AuthService, {
+        isLoading$: of(false)
+      }),
       MockProvider(PermissionController, {
         onPermissionChange: of(),
         activeAccount: undefined,
@@ -102,7 +104,7 @@ describe('UserMenuComponent', () => {
     });
 
     it('should call logOut() when clicked on Logout button', () => {
-      permissionController.activeAccount = { name: '' };
+      permissionController.activeAccount = {name: ''};
       permissionController.loggedIn = true;
       spectator.detectChanges();
 

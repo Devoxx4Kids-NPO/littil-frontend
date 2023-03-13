@@ -1,35 +1,32 @@
-<ng-container *ngIf="loggedIn; else notLoggedIn">
-
-  <div class="user-menu flex flex-row items-center gap-2">
+<ng-container *ngIf="loaded">
+  <div class="user-menu flex flex-row items-center gap-2" *ngIf="loggedIn; else notLoggedIn">
     <span>{{ permissionController.activeAccount.name }}</span>
-    <span class="inline-flex h-10 w-10 items-center justify-center rounded-full bg-blue-200">
-      <span class="text-xs font-medium leading-none text-white">{{ avatarInitials }}</span>
-    </span>
+    <littil-avatar [avatarText]="permissionController.activeAccount.name"></littil-avatar>
     <littil-button-rounded
-      *ngIf="loggedIn"
       [inline]="true"
       data-test="logout-btn"
       (click)="logOut()">Uitloggen
     </littil-button-rounded>
   </div>
-</ng-container>
-<ng-template #notLoggedIn>
-  <littil-button-rounded
-    *ngIf="!loggedIn"
-    [colorClass]="'yellow-100'"
-    [hoverColorClass]="'yellow-200'"
-    [inline]="true"
-    data-test="login-btn"
-    (click)="openLoginModal()"
-  >Inloggen
-  </littil-button-rounded>
-  <littil-button-rounded
-    *ngIf="!loggedIn"
-    [inline]="true"
-    data-test="register-btn"
-    (click)="openRegisterModal()"
-  >Registeren
-  </littil-button-rounded
-  >
+  <ng-template #notLoggedIn>
+    <littil-button-rounded
+      *ngIf="!loggedIn"
+      [colorClass]="'yellow-100'"
+      [hoverColorClass]="'yellow-200'"
+      [inline]="true"
+      data-test="login-btn"
+      (click)="openLoginModal()"
+    >Inloggen
+    </littil-button-rounded>
+    <littil-button-rounded
+      *ngIf="!loggedIn"
+      [inline]="true"
+      data-test="register-btn"
+      (click)="openRegisterModal()"
+    >Registeren
+    </littil-button-rounded
+    >
 
-</ng-template>
+  </ng-template>
+</ng-container>
+

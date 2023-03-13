@@ -12,18 +12,19 @@ import {RegisterModalComponent} from "../register-modal/register-modal.component
   templateUrl: './user-menu.component.html'
 })
 export class UserMenuComponent implements OnInit {
+
+  loaded: boolean = false;
+
   constructor(
     public readonly permissionController: PermissionController,
     private modalController: ModalController,
     public auth: AuthService,
-  ) {
-  }
+  ) {}
 
   ngOnInit(): void {
-    // console.log(this.profile.handleProfile())
-    // this.userService.getById(this.permissionController.userId).subscribe(user => {
-    //   console.log(user)
-    // });
+    this.auth.isLoading$.subscribe((loading) => {
+      this.loaded = !loading
+    });
   }
 
   public get loggedIn(): boolean {
@@ -42,22 +43,5 @@ export class UserMenuComponent implements OnInit {
 
   public openLoginModal() {
     this.auth.loginWithRedirect();
-  }
-
-  get avatarInitials(): string {
-    //TODO: replace with actual name once the user data is being fetched by the auth service
-    const nameComponents: string[] | undefined = this.permissionController.activeAccount.name?.split("@")
-    let name: string = ''
-
-    if (!Array.isArray(nameComponents)) {
-      return 'L'
-    }
-
-    for (let s of nameComponents) {
-      name = `${name}${s.split('')[0]}`
-    }
-
-    return name.toUpperCase()
-
   }
 }
