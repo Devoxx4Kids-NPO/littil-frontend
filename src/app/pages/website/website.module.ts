@@ -8,12 +8,13 @@ import { MainMenuDropdownButtonModule } from '../../components/main-menu-dropdow
 import { RegisterModalModule } from '../../components/register-modal/register-modal.module';
 import { WebsiteComponent } from './website.component';
 import { websiteRoutes } from './website.routing';
-
+import {ContactBannerModule} from "../../components/contact-banner/contact-banner.module";
 @NgModule({
   declarations: [WebsiteComponent],
   imports: [
     CommonModule,
     ContentContainerModule,
+    ContactBannerModule,
     ButtonModule,
     RegisterModalModule,
     MainMenuButtonModule,

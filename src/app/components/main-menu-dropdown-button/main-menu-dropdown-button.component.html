@@ -1,12 +1,11 @@
 <div class="relative group">
   <!-- Dropdown button -->
-  <div class="shrink-0 transition-colors hover:bg-yellow-50 flex">
+  <div class="flex-1 flex justify-center transition-colors hover:bg-yellow-50 flex">
     <a
-      class="flex items-center gap-x-1 px-10 py-5 cursor-pointer"
+      class="flex items-center gap-x-1 pl-8 pr-5 py-6 cursor-pointer"
       [routerLink]="path"
       routerLinkActive="bg-yellow-50"
-    >
-      <ng-content></ng-content>
+    ><ng-content></ng-content>
       <svg class="h-5 w-5" viewBox="0 0 24 24">
         <path
           fill="currentColor"
@@ -22,7 +21,7 @@
     <ng-container *ngFor="let route of subRoutes">
       <a
         *ngIf="!route.disabled"
-        class="flex px-10 py-5 cursor-pointer hover:bg-yellow-50"
+        class="flex px-10 py-6 cursor-pointer hover:bg-yellow-50"
         [routerLink]="route.path"
         routerLinkActive="bg-yellow-50"
       >

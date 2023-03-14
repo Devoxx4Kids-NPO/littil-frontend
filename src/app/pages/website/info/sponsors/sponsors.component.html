@@ -9,10 +9,10 @@
 
     <p>Maar het opzetten en onderhouden van het LITTIL platform kost geld. Daarom zoeken wij sponsors!</p>
 
-    <p class="font-bold text-3xl">
-      Mocht u interesse hebben om uw bedrijf te verbinden aan dit initiatief, neem dan
-      <a class="text-blue-200 hover:text-blue-100 cursor-pointer" href="https://www.littil.org/contact/"
-         target="_blank">contact</a> met ons op!
-    </p>
+    <littil-contact-banner
+      [bannerText]="'Mocht u interesse hebben om uw bedrijf te verbinden aan dit initiatief, ' +
+       'neem dan contact met ons op!'"
+      [linkWord]="'contact'"
+    ></littil-contact-banner>
 </littil-content-container>
 

@@ -12,6 +12,7 @@ import { FormErrorMessageComponent } from '../forms/form-error-message/form-erro
 import { FormInputPasswordComponent } from '../forms/password-input/form-input-password.component';
 import { FormInputTextComponent } from '../forms/text-input/form-input-text.component';
 import { RegisterModalComponent } from './register-modal.component';
+import {ButtonRoundedComponent} from "../button/button-rounded.component";
 
 describe('RegisterModalComponent', () => {
   let spectator: Spectator<RegisterModalComponent>;
@@ -25,6 +26,7 @@ describe('RegisterModalComponent', () => {
       MockComponent(FormInputPasswordComponent),
       MockComponent(FormErrorMessageComponent),
       MockComponent(ButtonComponent),
+      MockComponent(ButtonRoundedComponent),
     ],
     imports: [NoopAnimationsModule],
     providers: [
