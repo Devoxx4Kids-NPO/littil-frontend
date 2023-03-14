@@ -1,4 +1,4 @@
-<div [@hideShow]="loading ? 'hidden' : 'visible'">
+<div [@hideShow]="loading ? 'hidden' : 'visible'" class="prose">
   <h1 class="font-bold text-lg text-blue-200 mb-3">Registeren</h1>
   <p>
     Vul hier uw e-mailadres in om u te registreren. U ontvangt een e-mail om uw
@@ -29,13 +29,13 @@
     </littil-form-input-text>
   </form>
 
-  <littil-button [inline]="true" (click)="onClickRegister()"
-    >Registreren</littil-button
+  <littil-button-rounded [inline]="true" (click)="onClickRegister()"
+    >Registreren</littil-button-rounded
   >
-  <littil-button
+  <littil-button-rounded
     [inline]="true"
-    colorClass="bg-yellow-50"
+    [color]="'yellow'"
     (click)="onClickCancel()"
-    >Annuleren</littil-button
+    >Annuleren</littil-button-rounded
   >
 </div>
