@@ -21,6 +21,7 @@ import { ModalControllerModule } from './components/modal/modal.controller.modul
 import { RegisterModalModule } from './components/register-modal/register-modal.module';
 import { GoogleMapsModule } from '@angular/google-maps';
 
+
 const littilConfig = getLittilConfigFromWindow();
 
 @NgModule({

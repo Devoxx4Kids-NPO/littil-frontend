@@ -2,7 +2,7 @@ module.exports = {
   content: ["./src/**/*.{html,ts}"],
   theme: {
     fontFamily: {
-      body: ["Poppins"],
+      body: ["Poppins", "Helvetica", "Arial", "sans-serif"],
     },
     extend: {
       colors: {
@@ -24,5 +24,8 @@ module.exports = {
       },
     },
   },
-  plugins: [require("@tailwindcss/forms")],
+  plugins: [
+    require("@tailwindcss/forms"),
+    require('@tailwindcss/typography'),
+  ],
 };

@@ -20,7 +20,7 @@ import { RegisterModalComponent } from './register-modal.component';
     FormInputTextModule,
     FormInputPasswordModule,
     FormInputRadioModule,
-    FormErrorMessageModule,
+    FormErrorMessageModule
   ],
   exports: [RegisterModalComponent],
   entryComponents: [RegisterModalComponent],
