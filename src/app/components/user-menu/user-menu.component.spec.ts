@@ -12,6 +12,7 @@ import {MainMenuButtonComponent} from "../main-menu-button/main-menu-button.comp
 import {MainMenuDropdownButtonComponent} from "../main-menu-dropdown-button/main-menu-dropdown-button.component";
 import {of} from "rxjs";
 import {RegisterModalComponent} from "../register-modal/register-modal.component";
+import {AvatarComponent} from "../avatar/avatar.component";
 
 describe('UserMenuComponent', () => {
   let spectator: Spectator<UserMenuComponent>;
@@ -31,6 +32,7 @@ describe('UserMenuComponent', () => {
       MockComponent(ButtonRoundedComponent),
       MockComponent(MainMenuButtonComponent),
       MockComponent(MainMenuDropdownButtonComponent),
+      MockComponent(AvatarComponent)
     ],
     providers: [
       MockProvider(ModalController),
@@ -106,6 +108,7 @@ describe('UserMenuComponent', () => {
     it('should call logOut() when clicked on Logout button', () => {
       permissionController.activeAccount = {name: ''};
       permissionController.loggedIn = true;
+      spectator.component.open = true;
       spectator.detectChanges();
 
       const logoutBtn = spectator.query('[data-test="logout-btn"]');
