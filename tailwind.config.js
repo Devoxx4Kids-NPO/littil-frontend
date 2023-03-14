@@ -8,7 +8,9 @@ module.exports = {
       colors: {
         white: "#ffffff",
         black: "#000000",
-        gray: "#acacac",
+        gray: {
+          "littil": "#acacac"
+        },
         yellow: {
           50: "#efa55c",
           100: "#f18f2d",
@@ -17,6 +19,7 @@ module.exports = {
         blue: {
           100: "#a1c5ea",
           200: "#2d2e83",
+          300: "#5f60b5"
         },
       },
     },

@@ -13,6 +13,7 @@ import { ApiModule, Configuration } from './api/generated';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { ButtonModule } from './components/button/button.module';
+import { UserMenuModule } from "./components/user-menu/user-menu.module";
 import { ContentContainerModule } from './components/content-container/content-container.module';
 import { MainMenuButtonModule } from './components/main-menu-button/main-menu-button.module';
 import { MainMenuDropdownButtonModule } from './components/main-menu-dropdown-button/main-menu-dropdown-button.module';
@@ -37,6 +38,7 @@ const littilConfig = getLittilConfigFromWindow();
     CommonModule,
     ContentContainerModule,
     ButtonModule,
+    UserMenuModule,
     RegisterModalModule,
     MainMenuButtonModule,
     MainMenuDropdownButtonModule,
