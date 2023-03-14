@@ -1,18 +1,38 @@
 <ng-container *ngIf="loaded">
   <div class="user-menu flex flex-row items-center gap-2" *ngIf="loggedIn; else notLoggedIn">
-    <span>{{ permissionController.activeAccount.name }}</span>
-    <littil-avatar [avatarText]="permissionController.activeAccount.name"></littil-avatar>
-    <littil-button-rounded
-      [inline]="true"
-      data-test="logout-btn"
-      (click)="logOut()">Uitloggen
-    </littil-button-rounded>
+    <span class="flex flex-row gap-2 items-center cursor-pointer" (click)="toggleMenu()">
+      <span>{{ permissionController.activeAccount.name }}</span>
+      <littil-avatar [avatarText]="permissionController.activeAccount.name"></littil-avatar>
+    </span>
+    <div class="relative inline-block text-left">
+      <button type="button"
+              class="flex items-center rounded-full bg-gray-100 text-gray-400 hover:text-gray-600 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 focus:ring-offset-gray-100"
+              id="menu-button" aria-expanded="true" aria-haspopup="true" (click)="toggleMenu()">
+        <span class="sr-only">Open opties</span>
+        <svg class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
+          <path
+            d="M10 3a1.5 1.5 0 110 3 1.5 1.5 0 010-3zM10 8.5a1.5 1.5 0 110 3 1.5 1.5 0 010-3zM11.5 15.5a1.5 1.5 0 10-3 0 1.5 1.5 0 003 0z"/>
+        </svg>
+      </button>
+      <div class="absolute right-0 z-10 mt-2 w-56 origin-top-right divide-y divide-gray-100 rounded-md bg-white shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none" role="menu" aria-orientation="vertical" aria-labelledby="menu-button" tabindex="-1" *ngIf="open" (outsideClick)="toggleMenu()">
+        <div class="px-4 py-3 flex flex-col" role="none">
+          <span class="text-sm" role="none">U bent ingelogd als</span>
+          <span class="truncate text-sm font-medium text-blue-200" role="none">{{ permissionController.activeAccount.name }}</span>
+        </div>
+        <div class="py-1" role="none">
+          <!-- Active: "bg-gray-100 text-gray-900", Not Active: "text-gray-700" -->
+          <a href="#" class="text-gray-700 block px-4 py-2 text-sm" role="menuitem" tabindex="-1" id="menu-item-0">Profielinstellingen</a>
+        </div>
+        <div class="py-1" role="none">
+            <button data-test="logout-btn" class="text-gray-700 block w-full px-4 py-2 text-left text-sm" role="menuitem" tabindex="-1" id="menu-item-3" (click)="logOut()">Uitloggen</button>
+        </div>
+      </div>
+    </div>
   </div>
   <ng-template #notLoggedIn>
     <littil-button-rounded
       *ngIf="!loggedIn"
-      [colorClass]="'yellow-100'"
-      [hoverColorClass]="'yellow-200'"
+      [color]="'yellow'"
       [inline]="true"
       data-test="login-btn"
       (click)="openLoginModal()"
@@ -21,6 +41,7 @@
     <littil-button-rounded
       *ngIf="!loggedIn"
       [inline]="true"
+      [color]="'blue'"
       data-test="register-btn"
       (click)="openRegisterModal()"
     >Registeren

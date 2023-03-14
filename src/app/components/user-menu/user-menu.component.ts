@@ -9,11 +9,11 @@ import {RegisterModalComponent} from "../register-modal/register-modal.component
 
 @Component({
   selector: 'littil-user-menu',
-  templateUrl: './user-menu.component.html'
+  templateUrl: './user-menu.component.html',
 })
 export class UserMenuComponent implements OnInit {
-
   loaded: boolean = false;
+  open: boolean = false
 
   constructor(
     public readonly permissionController: PermissionController,
@@ -31,7 +31,7 @@ export class UserMenuComponent implements OnInit {
     return !!this.permissionController.activeAccount;
   }
 
-  public logOut() {
+  public logOut(): void {
     this.auth.logout();
   }
 
@@ -41,7 +41,11 @@ export class UserMenuComponent implements OnInit {
     });
   }
 
-  public openLoginModal() {
+  public toggleMenu(): void {
+    this.open = !this.open;
+  }
+
+  public openLoginModal(): void {
     this.auth.loginWithRedirect();
   }
 }
