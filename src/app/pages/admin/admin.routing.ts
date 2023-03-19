@@ -18,6 +18,10 @@ export const routes: Routes = [
         loadChildren: () =>
           import('./search/search.module').then((m) => m.SearchModule),
       },
+      {
+        path: 'profile',
+        loadChildren: () => import('./profile/profile.module').then((m) => m.ProfileModule)
+      }
     ],
   },
 ];
