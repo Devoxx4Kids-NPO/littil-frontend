@@ -3,26 +3,26 @@
   [innerClasses]="'flex justify-between'"
 >
   <div>
-    <img src="assets/littil_logo.png" class="h-12" alt="LITTIL logo" />
+    <img src="assets/littil_logo.png" class="h-12" alt="LITTIL logo"/>
   </div>
   <littil-user-menu></littil-user-menu>
 </littil-content-container>
-<littil-content-container
-  outerClasses="bg-yellow-100 mb-6"
-  innerClasses="text-white uppercase flex"
->
-  <ng-container *ngFor="let route of menuRoutes">
-    <littil-main-menu-button
-      *ngIf="!route.subRoutes && !route.disabled"
-      [path]="route.path"
-      >{{ route.menuText }}</littil-main-menu-button
-    >
-    <littil-main-menu-dropdown-button
-      *ngIf="route.subRoutes"
-      [path]="route.path"
-      [subRoutes]="route.subRoutes"
-      >{{ route.menuText }}</littil-main-menu-dropdown-button
-    >
-  </ng-container>
-</littil-content-container>
+<div class="bg-yellow-100 mb-6">
+  <div
+    class="mx-auto max-w-screen-lg text-white uppercase flex justify-items-stretch text-sm antialiased divide-x divide-yellow-200">
+    <ng-container *ngFor="let route of menuRoutes">
+      <littil-main-menu-button
+        class="flex-1 flex items-center"
+        *ngIf="!route.subRoutes && !route.disabled"
+        [path]="route.path"
+      >{{ route.menuText }}</littil-main-menu-button>
+          <littil-main-menu-dropdown-button
+            class="flex-1"
+            *ngIf="route.subRoutes"
+            [path]="route.path"
+            [subRoutes]="route.subRoutes"
+            >{{ route.menuText }}</littil-main-menu-dropdown-button>
+    </ng-container>
+  </div>
+</div>
 <router-outlet></router-outlet>

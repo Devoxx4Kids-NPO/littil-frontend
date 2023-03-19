@@ -2,6 +2,7 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { ContentContainerComponent } from '../../../../components/content-container/content-container.component';
 import { TitleComponent } from '../../../../components/title/title.component';
 import { InformationComponent } from './information.component';
+import {ContactBannerComponent} from "../../../../components/contact-banner/contact-banner.component";
 
 describe('InformationComponent', () => {
   let component: InformationComponent;
@@ -13,6 +14,7 @@ describe('InformationComponent', () => {
         InformationComponent,
         TitleComponent,
         ContentContainerComponent,
+        ContactBannerComponent
       ],
     }).compileComponents();
 
