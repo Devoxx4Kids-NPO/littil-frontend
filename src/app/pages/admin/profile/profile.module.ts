@@ -6,6 +6,9 @@ import {ContentContainerModule} from "../../../components/content-container/cont
 import {ButtonModule} from "../../../components/button/button.module";
 import {MatCheckboxModule} from "@angular/material/checkbox";
 import {ReactiveFormsModule} from "@angular/forms";
+import {FormInputTextModule} from "../../../components/forms/text-input/form-input-text.module";
+import {FormInputRadioModule} from "../../../components/forms/radio-input/form-input-radio.module";
+import {FormErrorMessageModule} from "../../../components/forms/form-error-message/form-error-message.module";
 
 const routes: Routes = [
   {
@@ -25,6 +28,9 @@ const routes: Routes = [
     ButtonModule,
     MatCheckboxModule,
     ReactiveFormsModule,
+    FormInputTextModule,
+    FormInputRadioModule,
+    FormErrorMessageModule
   ],
   exports: [
     ProfileComponent

@@ -1,5 +1,5 @@
-<div class="flex justify-center mb-3 {{ outerClasses }}">
-  <div class="{{ widthClass }} flex-1 items-center prose {{ innerClasses }}">
+<div [ngClass]="[outerClasses, 'flex justify-center']">
+  <div [ngClass]="[widthClass, 'flex-1 items-center prose', innerClasses ]">
     <ng-content></ng-content>
   </div>
 </div>
