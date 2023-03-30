@@ -1,11 +1,6 @@
-import {ComponentFixture, TestBed} from '@angular/core/testing';
-
 import {AvatarComponent} from './avatar.component';
 import {AuthService} from "@auth0/auth0-angular";
 import {createComponentFactory, Spectator} from "@ngneat/spectator/jest";
-import {ButtonComponent} from "../button/button.component";
-import {MockProvider} from "ng-mocks";
-import {EMPTY} from "rxjs";
 
 describe('AvatarComponent', () => {
   let spectator: Spectator<AvatarComponent>;
@@ -56,6 +51,23 @@ describe('AvatarComponent', () => {
       spectator.setInput('avatarText', '')
       expect(spectator.query('div')?.textContent).toEqual('L');
       spectator.setInput('avatarText', undefined)
+      expect(spectator.query('div')?.textContent).toEqual('L');
+    });
+
+    it('should handle an image', () => {
+      let src: string = 'https://localhost:8080/image.png'
+      spectator.setInput('avatarImage', src)
+      expect(spectator.query('div')).toBeNull()
+      expect(spectator.query('img')).toBeDefined()
+      expect(spectator.query('img')?.getAttribute('src')).toEqual(src)
+    });
+
+    it('should ignore an empty image and revert to default', () => {
+      let src: string = ''
+      spectator.setInput('avatarImage', src)
+      spectator.setInput('avatarText', '')
+      expect(spectator.query('div')).toBeDefined()
+      expect(spectator.query('img')).toBeNull()
       expect(spectator.query('div')?.textContent).toEqual('L');
     });
   })

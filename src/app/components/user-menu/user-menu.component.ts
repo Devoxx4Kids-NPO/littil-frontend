@@ -36,10 +36,8 @@ export class UserMenuComponent implements OnInit {
     });
   }
 
-  public goToProfile(): void {
-    // this.router.navigate(['/admin/profile']).then(() => {
-    //   this.open = false
-    // });
+  get userAvatar(): string {
+    return this.permissionController.activeAccount.picture || '';
   }
 
   public get loggedIn(): boolean {

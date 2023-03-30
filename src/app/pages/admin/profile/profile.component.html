@@ -1,4 +1,7 @@
 <littil-content-container innerClasses="lg:px-32" *ngIf="!loading">
+  <h1>
+    Profiel wijzigen
+  </h1>
   <form
   [formGroup]="profileForm"
   data-test="form-profile"
@@ -71,6 +74,27 @@
            Postcode is verplicht"></littil-form-error-message>
       </littil-form-input-text>
     </div>
-    <littil-button-rounded [inline]="true" (click)="onClickSaveProfile()">Profiel opslaan</littil-button-rounded>
+    <div class="flex flex-row gap-4 justify-between mt-4">
+      <div>
+        <littil-button-rounded [inline]="true" (click)="onClickSaveProfile()">Profiel opslaan</littil-button-rounded>
+        <littil-button-rounded [inline]="true" (click)="onCancelChanges($event)" color="yellow">Wijzigingen annuleren</littil-button-rounded>
+      </div>
+      <littil-button-rounded data-test="enable_delete_profile" [inline]="true" color="red" (click)="deleteProfileOpen = !deleteProfileOpen; $event.preventDefault()">Profiel verwijderen</littil-button-rounded>
+    </div>
+  </form>
+  <form data-test="delete_profile" class="border border-red-600 rounded rounded-md p-2 mt-8 text-red-900"
+        *ngIf="deleteProfileOpen"
+        [formGroup]="deleteProfileForm">
+    Weet u zeker dat u uw profiel wilt verwijderen? Al uw gegevens worden verwijderd. Dit kan niet ongedaan worden gemaakt. Geef hieronder uw e-mailadres in en klik op verwijderen om door te gaan.
+    <div class="flex flex-row gap-4 pt-2">
+      <littil-form-input-text formControlName="email" placeholder="uwnaam@example.com" class="flex-1" [hasError]="FormUtil.InValid(deleteProfileForm.controls['email'])">
+        <littil-form-error-message
+          *ngIf="FormUtil.InValid(deleteProfileForm.controls['email'])"
+          [errorText]="'Vul ter bevestiging uw eigen e-mailadres in'"></littil-form-error-message>
+
+      </littil-form-input-text>
+      <littil-button-rounded [inline]="true" color="red" (click)="deleteProfile(); $event.preventDefault()">Profiel definitief verwijderen</littil-button-rounded>
+      <littil-button-rounded [inline]="true" (click)="deleteProfileOpen = !deleteProfileOpen; $event.preventDefault()" color="yellow">Verwijderen annuleren</littil-button-rounded>
+    </div>
   </form>
 </littil-content-container>

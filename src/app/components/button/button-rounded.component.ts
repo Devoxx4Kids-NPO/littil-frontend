@@ -6,7 +6,7 @@ import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 })
 export class ButtonRoundedComponent implements OnInit {
   @Input() customColorClass: string | undefined
-  @Input() color: 'blue' | 'yellow' | undefined
+  @Input() color: 'blue' | 'yellow' | 'red' | undefined
   @Input() inline: boolean = false;
   @Output() public onClick = new EventEmitter<any>();
 
@@ -19,6 +19,7 @@ export class ButtonRoundedComponent implements OnInit {
   private colorVariant = {
     'blue': 'bg-blue-200 hover:bg-blue-300 focus-visible:outline-blue-200',
     'yellow': 'bg-yellow-200 hover:bg-yellow-100 focus-visible:outline-yellow-200',
+    'red': 'bg-red-600 hover:bg-red-500 focus-visible:outline-red-600',
   }
 
   get colorClasses(): string {

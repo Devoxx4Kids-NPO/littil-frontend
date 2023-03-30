@@ -9,9 +9,11 @@ import {
   GuestTeacher, GuestTeacherPostResource,
   School, SchoolPostResource
 } from "../../../api/generated";
-import {FormBuilder, FormControl, FormGroup, Validators} from "@angular/forms";
+import {FormBuilder, FormControl, FormGroup, ValidationErrors, Validators} from "@angular/forms";
 import {AvailabilityService} from "../../../services/availability.service";
 import {FormUtil} from '../../../utils/form.util';
+import {HttpResponse} from "@angular/common/http";
+import {AuthService} from "@auth0/auth0-angular";
 
 @Component({
   selector: 'littil-profile',
@@ -26,14 +28,18 @@ export class ProfileComponent implements OnInit {
   public FormUtil = FormUtil;
   public profileForm!: FormGroup;
   public isSchool = false;
+  public deleteProfileOpen = false;
+
+  public deleteProfileForm = new FormGroup({
+    email: new FormControl('', [Validators.required, Validators.email])
+  })
 
   constructor(
     private permissionController: PermissionController,
     private littilTeacherService: LittilTeacherService,
     private littilSchoolService: LittilSchoolService,
-    private guestTeacherService: LittilTeacherService,
-    private schoolService: LittilSchoolService,
-    private _formBuilder: FormBuilder
+    private _formBuilder: FormBuilder,
+    public auth: AuthService,
   ) {
     this.roleType = this.permissionController.getRoleType();
     this.roleId = this.permissionController.getRoleId();
@@ -44,6 +50,7 @@ export class ProfileComponent implements OnInit {
         : this.littilSchoolService.getById(this.roleId);
 
     this.isSchool = this.roleType === Roles.School;
+
     this.userObservable.subscribe((user: School | GuestTeacher) => {
       this.user = user;
       this.profileForm = this._createForm()
@@ -83,7 +90,8 @@ export class ProfileComponent implements OnInit {
     return form;
   }
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+  }
 
   parseDaysOfTheWeek(days: { [key: string]: boolean }): Array<DayOfWeek> {
     let result: DayOfWeek[] = []
@@ -93,6 +101,22 @@ export class ProfileComponent implements OnInit {
       }
     }
     return result
+  }
+
+  public onCancelChanges(event: Event): void {
+    event.preventDefault()
+    const form = this.profileForm as FormGroup
+    for (let control in form.controls) {
+      if (control in this.user && control !== 'availability') {
+        form.controls[control].setValue(this.user[control as keyof typeof this.user])
+      }
+      if (control === 'availability') {
+        const availabilityGroup = form.controls[control] as FormGroup
+        for (let availabilityControl in availabilityGroup.controls) {
+          availabilityGroup.controls[availabilityControl].setValue(this.user[control as keyof typeof this.user]?.includes(availabilityControl))
+        }
+      }
+    }
   }
 
   public onClickSaveProfile(): Promise<boolean> {
@@ -105,25 +129,24 @@ export class ProfileComponent implements OnInit {
       let createOrUpdateCall: Observable<ApiV1GuestTeachersGet200Response | ApiV1SchoolsGet200Response>;
       const formValues = {
         id: this.user.id,
-        name: this.profileForm.controls['schoolName']?.value,
         firstName: this.profileForm.controls['firstName'].value,
         prefix: this.profileForm.controls['prefix'].value,
         surname: this.profileForm.controls['surname'].value,
         address: this.profileForm.controls['address'].value,
         postalCode: this.profileForm.controls['postalCode'].value,
-        availability: this.parseDaysOfTheWeek(this.profileForm.controls['availability']?.value)
       };
 
-      console.log(formValues)
-
       if (this.roleType === Roles.GuestTeacher) {
-        delete formValues.name;
-        createOrUpdateCall = this.guestTeacherService.createOrUpdate(
-          formValues as GuestTeacherPostResource
-        );
+        const teacher: GuestTeacher = Object.assign(formValues, {
+          availability: this.parseDaysOfTheWeek(this.profileForm.controls['availability']?.value)
+        })
+        createOrUpdateCall = this.littilTeacherService.createOrUpdate(teacher as GuestTeacherPostResource);
       } else {
-        createOrUpdateCall = this.schoolService.createOrUpdate(
-          formValues as SchoolPostResource
+        const school: School = Object.assign(formValues, {
+          name: this.profileForm.controls['schoolName']?.value
+        })
+        createOrUpdateCall = this.littilSchoolService.createOrUpdate(
+          school as SchoolPostResource
         );
       }
       return firstValueFrom(createOrUpdateCall)
@@ -131,9 +154,29 @@ export class ProfileComponent implements OnInit {
           return true;
         })
         .catch((error: any) => {
+          console.log(error)
           console.error('createOrUpdate profile error');
           return false;
         });
     });
+  }
+
+  deleteProfile(): void {
+    const control = this.deleteProfileForm.controls['email']
+    if (control.value !== this.permissionController.activeAccount.email) {
+      control.markAsTouched()
+      control.setErrors({email_missing: true})
+      return;
+    }
+    const deletionObservable =
+      this.roleType == Roles.GuestTeacher
+        ? this.littilTeacherService.delete(this.roleId)
+        : this.littilSchoolService.delete(this.roleId);
+
+    deletionObservable.subscribe((response: HttpResponse<any>) => {
+      if (response.ok) {
+        this.auth.logout()
+      }
+    })
   }
 }

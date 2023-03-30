@@ -1,4 +1,5 @@
 import {Injectable} from '@angular/core';
+import {DayOfWeek} from "../api/generated";
 
 interface Day {
   description: string,
@@ -9,16 +10,16 @@ interface Day {
 export class AvailabilityService {
 
   private static DaysOfTheWeek: Day[] = [
-    {value: 'MONDAY', description: 'Maandag'},
-    {value: 'TUESDAY', description: 'Dinsdag'},
-    {value: 'WEDNESDAY', description: 'Woensdag'},
-    {value: 'THURSDAY', description: 'Donderdag'},
-    {value: 'FRIDAY', description: 'Vrijdag'},
-    {value: 'SATURDAY', description: 'Zaterdag'},
-    {value: 'SUNDAY', description: 'Zondag'}
+    {"value": DayOfWeek.Monday, "description": 'Maandag'},
+    {"value": DayOfWeek.Tuesday, "description": 'Dinsdag'},
+    {"value": DayOfWeek.Wednesday, "description": 'Woensdag'},
+    {"value": DayOfWeek.Thursday, "description": 'Donderdag'},
+    {"value": DayOfWeek.Friday, "description": 'Vrijdag'},
+    {"value": DayOfWeek.Saturday, "description": 'Zaterdag'},
+    {"value": DayOfWeek.Sunday, "description": 'Zondag'}
   ]
 
-  getByCode(code: string): string {
+  static getByCode(code: string): string {
     const day = AvailabilityService.DaysOfTheWeek.find((day: Day) => {
       return day.value === code
     })

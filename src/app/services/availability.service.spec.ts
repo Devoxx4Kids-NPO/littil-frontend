@@ -1,16 +1,17 @@
-import { TestBed } from '@angular/core/testing';
+import {TestBed} from '@angular/core/testing';
 
-import { AvailabilityService } from './availability.service';
+import {AvailabilityService} from './availability.service';
+import {DayOfWeek} from "../api/generated";
 
-const DaysOfTheWeek: {[key: string]: string} = {
-  'MONDAY': 'Maandag',
-  'TUESDAY': 'Dinsdag',
-  'WEDNESDAY': 'Woensdag',
-  'THURSDAY': 'Donderdag',
-  'FRIDAY': 'Vrijdag',
-  'SATURDAY': 'Zaterdag',
-  'SUNDAY': 'Zondag'
-}
+const DaysOfTheWeek: { [key: string]: string }[] = [
+  {"value": DayOfWeek.Monday, "description": 'Maandag'},
+  {"value": DayOfWeek.Tuesday, "description": 'Dinsdag'},
+  {"value": DayOfWeek.Wednesday, "description": 'Woensdag'},
+  {"value": DayOfWeek.Thursday, "description": 'Donderdag'},
+  {"value": DayOfWeek.Friday, "description": 'Vrijdag'},
+  {"value": DayOfWeek.Saturday, "description": 'Zaterdag'},
+  {"value": DayOfWeek.Sunday, "description": 'Zondag'}
+]
 
 describe('AvailabilityService', () => {
   let service: AvailabilityService;
@@ -25,17 +26,20 @@ describe('AvailabilityService', () => {
   });
 
   it('Should have the mapping with all values', () => {
-    expect(service.getAll()).toEqual(DaysOfTheWeek)
+    expect(AvailabilityService.getAll()).toEqual(DaysOfTheWeek)
   });
 
   it('Should return the right value for the right code', () => {
-      for (const [code, value] of Object.entries(DaysOfTheWeek)) {
-        expect(service.getByCode(code)).toEqual(value)
-      }
+    for (let day of DaysOfTheWeek) {
+      expect(AvailabilityService.getByCode(day['value'])).toEqual(day['description'])
+    }
   });
 
   it('Should throw an error on a non existing team', () => {
-      expect(() => service.getByCode('NONEDAY')).toThrow(new Error('Ongeldige dag'))
+
+    expect(() =>
+      AvailabilityService.getByCode('NONEDAY')
+    ).toThrow(new Error('Ongeldige dag'))
 
   });
 });
