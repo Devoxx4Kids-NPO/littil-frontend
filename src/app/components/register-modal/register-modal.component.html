@@ -1,41 +1,69 @@
-<div [@hideShow]="loading ? 'hidden' : 'visible'" class="prose">
-  <h1 class="font-bold text-lg text-blue-200 mb-3">Registeren</h1>
-  <p>
-    Vul hier uw e-mailadres in om u te registreren. U ontvangt een e-mail om uw
-    inschrijving te bevestigen en een wachtwoord aan te maken.
-  </p>
-  <p>Na activatie van uw account kunt u uw profiel verder afmaken.</p>
-  <form
-    [formGroup]="registerForm"
-    data-test="form-register"
-    (submit)="onClickRegister()"
-  >
-    <littil-form-input-text
-      formControlName="email"
-      id="email"
-      label="E-mailadres"
-      [hasError]="FormUtil.InValid(registerForm.controls['email'])"
+<div [@hideShow]="loading || hideForm ? 'hidden' : 'visible'" class="prose">
+  <ng-container *ngIf="!hideForm">
+    <h1 class="font-bold text-lg text-blue-200 mb-3">Registeren</h1>
+    <p>
+      Vul hier uw e-mailadres in om u te registreren. U ontvangt een e-mail om
+      uw inschrijving te bevestigen en een wachtwoord aan te maken.
+    </p>
+    <p>Na activatie van uw account kunt u uw profiel verder afmaken.</p>
+    <form
+      [formGroup]="registerForm"
+      data-test="form-register"
+      (submit)="onClickRegister()"
     >
-      <littil-form-error-message
-        *ngIf="
-          FormUtil.ContainsError(registerForm.controls['email'], 'required')
-        "
-        errorText="E-mailadres is verplicht"
-      ></littil-form-error-message>
-      <littil-form-error-message
-        *ngIf="FormUtil.ContainsError(registerForm.controls['email'], 'email')"
-        errorText="Vul een geldig e-mailadres in"
-      ></littil-form-error-message>
-    </littil-form-input-text>
-  </form>
+      <littil-form-input-text
+        formControlName="email"
+        id="email"
+        label="E-mailadres"
+        [hasError]="FormUtil.InValid(registerForm.controls['email'])"
+      >
+        <littil-form-error-message
+          *ngIf="
+            FormUtil.ContainsError(registerForm.controls['email'], 'required')
+          "
+          errorText="E-mailadres is verplicht"
+        ></littil-form-error-message>
+        <littil-form-error-message
+          *ngIf="
+            FormUtil.ContainsError(registerForm.controls['email'], 'email')
+          "
+          errorText="Vul een geldig e-mailadres in"
+        ></littil-form-error-message>
+      </littil-form-input-text>
+    </form>
 
-  <littil-button-rounded [inline]="true" (click)="onClickRegister()"
-    >Registreren</littil-button-rounded
-  >
-  <littil-button-rounded
-    [inline]="true"
-    [color]="'yellow'"
-    (click)="onClickCancel()"
-    >Annuleren</littil-button-rounded
-  >
+    <littil-button-rounded
+      data-test="registerButton"
+      [inline]="true"
+      (click)="onClickRegister()"
+      >Registreren</littil-button-rounded
+    >
+    <littil-button-rounded
+      data-test="cancelButton"
+      [inline]="true"
+      [color]="'yellow'"
+      (click)="closeModal()"
+      >Annuleren</littil-button-rounded
+    >
+  </ng-container>
+</div>
+
+<div [@hideShow]="hideConfirmation ? 'hidden' : 'visible'" class="prose">
+  <ng-container *ngIf="!hideConfirmation">
+    <h1 class="font-bold text-lg text-blue-200 mb-3">Registratie gelukt</h1>
+    <p>Check je inbox om in te loggen en een eigen wachtwoord aan te maken.</p>
+    <littil-button-rounded
+      data-test="loginButton"
+      [inline]="true"
+      (click)="onClickLogin()"
+      >Inloggen</littil-button-rounded
+    >
+    <littil-button-rounded
+      data-test="closeButton"
+      [inline]="true"
+      [color]="'yellow'"
+      (click)="closeModal()"
+      >Sluiten</littil-button-rounded
+    >
+  </ng-container>
 </div>
