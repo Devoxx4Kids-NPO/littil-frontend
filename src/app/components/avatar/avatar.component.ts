@@ -8,6 +8,7 @@ export class AvatarComponent implements OnInit {
 
   @Input() avatarText: string | undefined = 'info@littil.org';
   @Input() avatarBackgroundColor: string = 'bg-blue-200';
+  @Input() avatarImage: string | undefined;
 
   constructor() { }
 

@@ -1,0 +1,100 @@
+<littil-content-container innerClasses="lg:px-32" *ngIf="!loading">
+  <h1>
+    Profiel wijzigen
+  </h1>
+  <form
+  [formGroup]="profileForm"
+  data-test="form-profile"
+  (submit)="onClickSaveProfile()"
+  >
+    <littil-form-input-text
+      *ngIf="isSchool"
+      formControlName="schoolName"
+      id="schoolName"
+      label="Naam van de school"
+      data-test="schoolNameControl"
+      [hasError]="FormUtil.InValid(profileForm.controls['schoolName'])"
+    >
+      <littil-form-error-message
+        *ngIf="FormUtil.InValid(profileForm.controls['schoolName'])"
+        errorText="Naam van de school is verplicht"
+      ></littil-form-error-message>
+    </littil-form-input-text>
+    <div class="flex flex-row justify-evenly gap-4 ">
+      <littil-form-input-text class="flex-1" formControlName="firstName" id="firstName" label="Voornaam"
+        [hasError]="FormUtil.InValid(profileForm.controls['firstName'])">
+        <littil-form-error-message
+          *ngIf="FormUtil.InValid(profileForm.controls['firstName'])"
+          errorText="Voornaam is verplicht"
+        ></littil-form-error-message>
+      </littil-form-input-text>
+      <littil-form-input-text formControlName="prefix" id="prefix" label="Tussenvoegsel">
+      </littil-form-input-text>
+      <littil-form-input-text class="flex-1" formControlName="surname" id="surname" label="Achternaam"
+        [hasError]="FormUtil.InValid(profileForm.controls['surname'])">
+        <littil-form-error-message
+          *ngIf="FormUtil.InValid(profileForm.controls['surname'])"
+          errorText="Achternaam is verplicht"
+        ></littil-form-error-message>
+      </littil-form-input-text>
+    </div>
+
+    <fieldset *ngIf="!isSchool">
+      <legend class="font-bold ng-star-inserted mb-1">Beschikbaarheid</legend>
+      <div class="grid grid-cols-4" formGroupName="availability">
+        <div class="relative flex items-start" *ngFor="let day of days">
+            <label class="font-medium text-gray-900">
+              <input [id]="day.value" [name]="day.value" type="checkbox" [formControlName]="day.value"
+                     class="h-4 w-4 rounded border-gray-300 text-indigo-600 focus:ring-indigo-600">
+              {{ day.description }}</label>
+          </div>
+      </div>
+    </fieldset>
+    <p>
+      Om scholen en gastdocenten elkaar te laten vinden, hebben wij uw adres
+      nodig. Deze gegevens worden niet met derden gedeeld en alleen gebruikt om
+      uw locatie op de plattegrond te tonen.
+    </p>
+
+    <div class="flex flex-row justify-evenly gap-4 mb-3">
+
+      <littil-form-input-text formControlName="address" id="address" label="Straat" class="flex-1"
+        [hasError]="FormUtil.InValid(profileForm.controls['address'])">
+        <littil-form-error-message
+          *ngIf="FormUtil.InValid(profileForm.controls['address'])"
+          errorText="Straat is verplicht"></littil-form-error-message>
+      </littil-form-input-text>
+
+
+      <littil-form-input-text formControlName="postalCode" id="postalCode" label="Postcode"
+        [hasError]="FormUtil.InValid(profileForm.controls['postalCode'])">
+        <littil-form-error-message
+          *ngIf="FormUtil.InValid(profileForm.controls['postalCode'])"
+          errorText="
+           Postcode is verplicht"></littil-form-error-message>
+      </littil-form-input-text>
+    </div>
+    <div class="flex flex-row gap-4 justify-between mt-4">
+      <div>
+        <littil-button-rounded [inline]="true" (click)="onClickSaveProfile()">Profiel opslaan</littil-button-rounded>
+        <littil-button-rounded [inline]="true" (click)="onCancelChanges($event)" color="yellow">Wijzigingen annuleren</littil-button-rounded>
+      </div>
+      <littil-button-rounded data-test="enable_delete_profile" [inline]="true" color="red" (click)="deleteProfileOpen = !deleteProfileOpen; $event.preventDefault()">Profiel verwijderen</littil-button-rounded>
+    </div>
+  </form>
+  <form data-test="delete_profile" class="border border-red-600 rounded rounded-md p-2 mt-8 text-red-900"
+        *ngIf="deleteProfileOpen"
+        [formGroup]="deleteProfileForm">
+    Weet u zeker dat u uw profiel wilt verwijderen? Al uw gegevens worden verwijderd. Dit kan niet ongedaan worden gemaakt. Geef hieronder uw e-mailadres in en klik op verwijderen om door te gaan.
+    <div class="flex flex-row gap-4 pt-2">
+      <littil-form-input-text formControlName="email" placeholder="uwnaam@example.com" class="flex-1" [hasError]="FormUtil.InValid(deleteProfileForm.controls['email'])">
+        <littil-form-error-message
+          *ngIf="FormUtil.InValid(deleteProfileForm.controls['email'])"
+          [errorText]="'Vul ter bevestiging uw eigen e-mailadres in'"></littil-form-error-message>
+
+      </littil-form-input-text>
+      <littil-button-rounded [inline]="true" color="red" (click)="deleteProfile(); $event.preventDefault()">Profiel definitief verwijderen</littil-button-rounded>
+      <littil-button-rounded [inline]="true" (click)="deleteProfileOpen = !deleteProfileOpen; $event.preventDefault()" color="yellow">Verwijderen annuleren</littil-button-rounded>
+    </div>
+  </form>
+</littil-content-container>

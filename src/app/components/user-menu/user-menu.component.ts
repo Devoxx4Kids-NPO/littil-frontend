@@ -6,7 +6,6 @@ import {IRegisterModalOutput, RegisterModalComponent,} from '../register-modal/r
 import {filter} from 'rxjs/operators';
 import {NavigationEnd, Router} from "@angular/router";
 
-
 @Component({
   selector: 'littil-user-menu',
   templateUrl: './user-menu.component.html',
