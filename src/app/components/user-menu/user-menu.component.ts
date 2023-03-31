@@ -2,10 +2,12 @@ import {
   ModalController,
   ModalSize,
 } from '../modal/modal.controller';
+import {NavigationEnd, Router} from "@angular/router";
 import {Component, OnInit} from '@angular/core';
 import {PermissionController} from '../../services/permission.controller';
 import {AuthService} from '@auth0/auth0-angular';
 import {RegisterModalComponent} from "../register-modal/register-modal.component";
+import { filter } from 'rxjs/operators';
 
 @Component({
   selector: 'littil-user-menu',
@@ -19,12 +21,23 @@ export class UserMenuComponent implements OnInit {
     public readonly permissionController: PermissionController,
     private modalController: ModalController,
     public auth: AuthService,
-  ) {}
+    private router: Router
+  ) {
+    router.events.pipe(
+      filter((event) => event instanceof NavigationEnd)
+    ).subscribe(() => {
+      this.open = false
+    })
+  }
 
   ngOnInit(): void {
     this.auth.isLoading$.subscribe((loading) => {
       this.loaded = !loading
     });
+  }
+
+  get userAvatar(): string {
+    return this.permissionController.activeAccount.picture || '';
   }
 
   public get loggedIn(): boolean {
