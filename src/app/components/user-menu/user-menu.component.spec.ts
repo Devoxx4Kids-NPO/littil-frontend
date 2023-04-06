@@ -1,18 +1,18 @@
-import {UserMenuComponent} from './user-menu.component';
-import {Spectator} from "@ngneat/spectator";
-import {PermissionController} from "../../services/permission.controller";
-import {AuthService} from "@auth0/auth0-angular";
-import {ModalController, ModalSize} from "../modal/modal.controller";
-import {createRoutingFactory} from "@ngneat/spectator/jest";
-import {MockComponent, MockProvider} from "ng-mocks";
-import {ContentContainerComponent} from "../content-container/content-container.component";
-import {ButtonComponent} from "../button/button.component";
-import {ButtonRoundedComponent} from "../button/button-rounded.component";
-import {MainMenuButtonComponent} from "../main-menu-button/main-menu-button.component";
-import {MainMenuDropdownButtonComponent} from "../main-menu-dropdown-button/main-menu-dropdown-button.component";
-import {of} from "rxjs";
-import {RegisterModalComponent} from "../register-modal/register-modal.component";
-import {AvatarComponent} from "../avatar/avatar.component";
+import { UserMenuComponent } from './user-menu.component';
+import { Spectator } from '@ngneat/spectator';
+import { PermissionController } from '../../services/permission.controller';
+import { AuthService } from '@auth0/auth0-angular';
+import { ModalController, ModalSize } from '../modal/modal.controller';
+import { createRoutingFactory } from '@ngneat/spectator/jest';
+import { MockComponent, MockProvider } from 'ng-mocks';
+import { ContentContainerComponent } from '../content-container/content-container.component';
+import { ButtonComponent } from '../button/button.component';
+import { ButtonRoundedComponent } from '../button/button-rounded.component';
+import { MainMenuButtonComponent } from '../main-menu-button/main-menu-button.component';
+import { MainMenuDropdownButtonComponent } from '../main-menu-dropdown-button/main-menu-dropdown-button.component';
+import { of } from 'rxjs';
+import { RegisterModalComponent } from '../register-modal/register-modal.component';
+import { AvatarComponent } from '../avatar/avatar.component';
 
 describe('UserMenuComponent', () => {
   let spectator: Spectator<UserMenuComponent>;
@@ -32,12 +32,12 @@ describe('UserMenuComponent', () => {
       MockComponent(ButtonRoundedComponent),
       MockComponent(MainMenuButtonComponent),
       MockComponent(MainMenuDropdownButtonComponent),
-      MockComponent(AvatarComponent)
+      MockComponent(AvatarComponent),
     ],
     providers: [
       MockProvider(ModalController),
       MockProvider(AuthService, {
-        isLoading$: of(false)
+        isLoading$: of(false),
       }),
       MockProvider(PermissionController, {
         onPermissionChange: of(),
@@ -56,7 +56,9 @@ describe('UserMenuComponent', () => {
     authServiceLogoutSpy = jest.spyOn(authService, 'logout');
 
     modalController = spectator.inject(ModalController);
-    modalControllerSpy = jest.spyOn(modalController, 'present');
+    modalControllerSpy = jest
+      .spyOn(modalController, 'present')
+      .mockReturnValue(Promise.resolve({ triggerLogin: false }));
     openLoginModalSpy = jest.spyOn(spectator.component, 'openLoginModal');
 
     spectator.detectChanges();
@@ -82,6 +84,21 @@ describe('UserMenuComponent', () => {
       }
       expect(modalControllerSpy).toHaveBeenCalledTimes(1);
     });
+
+    it('should not call openLoginModal when modal returns triggerLogin false', async () => {
+      await spectator.component.openRegisterModal();
+      expect(modalControllerSpy).toHaveBeenCalledTimes(1);
+      expect(openLoginModalSpy).not.toHaveBeenCalled();
+    });
+
+    it('should call openLoginModal when modal returns triggerLogin true', async () => {
+      modalControllerSpy = jest
+        .spyOn(modalController, 'present')
+        .mockReturnValue(Promise.resolve({ triggerLogin: true }));
+      await spectator.component.openRegisterModal();
+      expect(modalControllerSpy).toHaveBeenCalledTimes(1);
+      expect(openLoginModalSpy).toHaveBeenCalledTimes(1);
+    });
   });
 
   describe('openLoginModal', () => {
@@ -95,6 +112,7 @@ describe('UserMenuComponent', () => {
       if (loginBtn) {
         spectator.click(loginBtn);
       }
+      expect(openLoginModalSpy).toHaveBeenCalledTimes(1);
       expect(authServiceLoginSpy).toHaveBeenCalledTimes(1);
     });
   });
@@ -106,7 +124,7 @@ describe('UserMenuComponent', () => {
     });
 
     it('should call logOut() when clicked on Logout button', () => {
-      permissionController.activeAccount = {name: ''};
+      permissionController.activeAccount = { name: '' };
       permissionController.loggedIn = true;
       spectator.component.open = true;
       spectator.detectChanges();

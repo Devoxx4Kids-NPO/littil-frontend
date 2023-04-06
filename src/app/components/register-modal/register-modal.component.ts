@@ -35,10 +35,12 @@ import { IModalComponent } from '../modal/modal.controller';
   ],
 })
 export class RegisterModalComponent
-  implements IModalComponent<undefined, undefined>
+  implements IModalComponent<IRegisterModalOutput, undefined>
 {
-  close!: () => undefined;
+  close!: (response: IRegisterModalOutput) => IRegisterModalOutput;
   public loading = false;
+  public hideForm = false;
+  public hideConfirmation = true;
   FormUtil = FormUtil;
 
   registerForm: FormGroup = new FormGroup({
@@ -47,7 +49,7 @@ export class RegisterModalComponent
 
   constructor(private readonly userService: LittilUserService) {}
 
-  public onClickRegister(): Promise<boolean> {
+  public async onClickRegister(): Promise<boolean> {
     return Promise.resolve().then(() => {
       FormUtil.ValidateAll(this.registerForm);
       if (this.registerForm.invalid) {
@@ -59,7 +61,8 @@ export class RegisterModalComponent
         } as User)
       )
         .then(() => {
-          this.close();
+          this.hideForm = true;
+          this.hideConfirmation = false;
           return true;
         })
         .catch((error: any) => {
@@ -69,7 +72,15 @@ export class RegisterModalComponent
     });
   }
 
-  public onClickCancel() {
-    this.close();
+  public closeModal() {
+    this.close({ triggerLogin: false });
   }
+
+  public onClickLogin() {
+    this.close({ triggerLogin: true });
+  }
+}
+
+export interface IRegisterModalOutput {
+  triggerLogin: boolean;
 }
