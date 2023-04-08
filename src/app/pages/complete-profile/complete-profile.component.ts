@@ -23,14 +23,15 @@ export class CompleteProfilePageComponent implements OnInit {
   async ngOnInit(): Promise<void> {
     return Promise.resolve().then(async () => {
       if (this.permissionController.hasAnyRole()) {
-        this.router.navigateByUrl('/admin/search');
+        await this.router.navigateByUrl('/admin/search');
+        return;
       }
       await this.modalController
         .present(CompleteProfileModalComponent, {
           modalSize: undefined,
           disableClose: true,
         } as IModalComponentOptions)
-        .then(() => {
+        .then(async () => {
           return this.authService
             .getAccessTokenSilently({ ignoreCache: true })
             .subscribe(() => {
