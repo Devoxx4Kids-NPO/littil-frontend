@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { AuthService } from '@auth0/auth0-angular';
 import { CompleteProfileModalComponent } from '../../components/complete-profile-modal/complete-profile-modal.component';
 import {
   IModalComponentOptions,
@@ -16,27 +15,22 @@ export class CompleteProfilePageComponent implements OnInit {
   constructor(
     private router: Router,
     private modalController: ModalController,
-    private permissionController: PermissionController,
-    private readonly authService: AuthService
+    private permissionController: PermissionController
   ) {}
 
-  async ngOnInit(): Promise<void> {
+  async ngOnInit(): Promise<any> {
     return Promise.resolve().then(async () => {
       if (this.permissionController.hasAnyRole()) {
         await this.router.navigateByUrl('/admin/search');
         return;
       }
-      await this.modalController
+      return this.modalController
         .present(CompleteProfileModalComponent, {
           modalSize: undefined,
           disableClose: true,
         } as IModalComponentOptions)
-        .then(async () => {
-          return this.authService
-            .getAccessTokenSilently({ ignoreCache: true })
-            .subscribe(() => {
-              return this.router.navigateByUrl('/admin/search');
-            });
+        .then(() => {
+          return this.router.navigateByUrl('/admin/search');
         });
     });
   }

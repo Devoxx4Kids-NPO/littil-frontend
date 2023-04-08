@@ -1,10 +1,8 @@
 import { Router } from '@angular/router';
 import { RouterTestingModule } from '@angular/router/testing';
-import { AuthService } from '@auth0/auth0-angular';
 import { Spectator } from '@ngneat/spectator';
 import { createRoutingFactory } from '@ngneat/spectator/jest';
 import { MockComponent, MockProvider } from 'ng-mocks';
-import { of } from 'rxjs';
 import { CompleteProfileModalComponent } from '../../components/complete-profile-modal/complete-profile-modal.component';
 import { ModalController } from '../../components/modal/modal.controller';
 import { PermissionController } from '../../services/permission.controller';
@@ -15,7 +13,6 @@ describe('CompleteProfilePageComponent', () => {
   let router: Router;
   let modalController: ModalController;
   let permissionController: PermissionController;
-  let authService: AuthService;
 
   const createComponent = createRoutingFactory({
     component: CompleteProfilePageComponent,
@@ -31,9 +28,6 @@ describe('CompleteProfilePageComponent', () => {
       MockProvider(ModalController, {
         present: (): any => Promise.resolve(),
       }),
-      MockProvider(AuthService, {
-        getAccessTokenSilently: () => of(),
-      }),
     ],
   });
 
@@ -41,8 +35,6 @@ describe('CompleteProfilePageComponent', () => {
     spectator = createComponent();
 
     router = spectator.inject(Router);
-    authService = spectator.inject(AuthService);
-    jest.spyOn(authService, 'getAccessTokenSilently');
     permissionController = spectator.inject(PermissionController);
     modalController = spectator.inject(ModalController);
     jest.spyOn(modalController, 'present');
@@ -53,7 +45,6 @@ describe('CompleteProfilePageComponent', () => {
       expect(router.navigateByUrl).toHaveBeenCalledTimes(1);
       expect(router.navigateByUrl).toHaveBeenCalledWith('/admin/search');
       expect(modalController.present).not.toHaveBeenCalled();
-      expect(authService.getAccessTokenSilently).not.toHaveBeenCalled();
     });
   });
 });
