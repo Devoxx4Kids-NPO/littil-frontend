@@ -1,12 +1,13 @@
 import { HttpHeaders } from '@angular/common/http';
-import { Observable } from 'rxjs';
+import { Observable, of } from 'rxjs';
 import { Configuration, SearchResult } from '../generated';
+import { MOCK_SEARCH } from './data/search.data.mock';
 
 export class MockSearchService {
   defaultHeaders: HttpHeaders = new HttpHeaders();
   configuration: Configuration = new Configuration();
 
   apiV1SearchGet(): Observable<SearchResult[]> {
-    throw new Error('Method not implemented.');
+    return of(MOCK_SEARCH);
   }
 }
