@@ -6,87 +6,78 @@ import {
   rest,
 } from 'msw';
 import { firstValueFrom } from 'rxjs';
-import {
-  ApiV1GuestTeachersGet200Response,
-  GuestTeacher,
-} from '../../generated';
-import { MockTeacherService } from '../teacher.service.mock';
+import { ApiV1UsersUserGet201Response, User } from '../../generated';
+import { MockUserService } from '../user.service.mock';
 import { MockConfigEndpoint } from './config';
 import { MockHandlers } from './mock.handler';
 
-export class MockHandlersTeachers extends MockHandlers {
+export class MockHandlersUser extends MockHandlers {
   constructor(config: MockConfigEndpoint) {
     super(config);
     this.addHandler(
-      rest.get(`${config.base_url}`, this.getAllTeachersHandler())
+      rest.get(`${config.base_url}/user`, this.getUsersHandler())
     );
     this.addHandler(
-      rest.get(`${config.base_url}/*`, this.getTeacherByIdHandler())
+      rest.get(`${config.base_url}/user/*`, this.getUserByIdHandler())
     );
     this.addHandler(
-      rest.put(`${config.base_url}`, this.createOrUpdateTeacherHandler())
+      rest.post(`${config.base_url}/user`, this.createUserHandler())
     );
     this.addHandler(
-      rest.delete(`${config.base_url}/*`, this.deleteTeacherHandler())
+      rest.delete(`${config.base_url}/user/*`, this.deleteUserHandler())
     );
   }
 
-  public getAllTeachersHandler() {
+  public getUsersHandler() {
     return async (
       req: RestRequest,
       res: ResponseFunction,
       ctx: RestContext
-    ): Promise<MockedResponse<GuestTeacher[]> | undefined> => {
+    ): Promise<MockedResponse<User[]> | undefined> => {
       const data = await firstValueFrom(
-        new MockTeacherService().apiV1GuestTeachersGet()
+        new MockUserService().apiV1UsersUserGet()
       );
       if (!data) return this.response404(res, ctx);
       return this.response200(res, ctx, data);
     };
   }
 
-  public getTeacherByIdHandler() {
+  public getUserByIdHandler() {
     return async (
       req: RestRequest,
       res: ResponseFunction,
       ctx: RestContext
-    ): Promise<MockedResponse<GuestTeacher> | undefined> => {
+    ): Promise<MockedResponse<ApiV1UsersUserGet201Response> | undefined> => {
       const data = await firstValueFrom(
-        new MockTeacherService().apiV1GuestTeachersIdGet(
-          req.params[0] as string
-        )
+        new MockUserService().apiV1UsersUserIdGet(req.params[0] as string)
       );
       if (!data) return this.response404(res, ctx);
       return this.response200(res, ctx, data);
     };
   }
 
-  public createOrUpdateTeacherHandler() {
+  public createUserHandler() {
     return async (
       req: RestRequest,
       res: ResponseFunction,
       ctx: RestContext
-    ): Promise<
-      MockedResponse<ApiV1GuestTeachersGet200Response> | undefined
-    > => {
+    ): Promise<MockedResponse<ApiV1UsersUserGet201Response> | undefined> => {
       const data = await firstValueFrom(
-        new MockTeacherService().apiV1GuestTeachersPut()
+        new MockUserService().apiV1UsersUserPost()
       );
       if (!data) return this.response404(res, ctx);
       return this.response200(res, ctx, data);
     };
   }
 
-  public deleteTeacherHandler() {
+  public deleteUserHandler() {
     return async (
       req: RestRequest,
       res: ResponseFunction,
       ctx: RestContext
     ): Promise<MockedResponse<any> | undefined> => {
       const data = await firstValueFrom(
-        new MockTeacherService().apiV1GuestTeachersIdDelete(
-          req.params[0] as string
-        )
+        new MockUserService().apiV1UsersUserIdDelete(req.params[0] as string)
       );
       if (!data) return this.response404(res, ctx);
       return this.response200(res, ctx, data);
