@@ -1,11 +1,6 @@
-import {
-  ApiV1GuestTeachersGet200Response,
-  GuestTeacher,
-} from '../../generated';
+import { GuestTeacher } from '../../generated';
 
-export const MOCK_GUEST_TEACHER:
-  | GuestTeacher
-  | ApiV1GuestTeachersGet200Response = {
+export const MOCK_GUEST_TEACHER: GuestTeacher = {
   id: '59cc4dfa-62f0-42b0-a78c-b4ebad713993',
   firstName: 'Name',
   prefix: 'of',

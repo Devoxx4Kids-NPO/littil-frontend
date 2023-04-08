@@ -1,11 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import {
-  ApiV1SchoolsGet200Response,
-  School,
-  SchoolPostResource,
-  SchoolService,
-} from '../../api/generated';
+import { School, SchoolService } from '../../api/generated';
 
 @Injectable({
   providedIn: 'root',
@@ -13,7 +8,7 @@ import {
 export class LittilSchoolService {
   constructor(private schoolService: SchoolService) {}
 
-  getById(id: string): Observable<ApiV1SchoolsGet200Response> {
+  getById(id: string): Observable<School> {
     return this.schoolService.apiV1SchoolsIdGet(id);
   }
 
@@ -24,9 +19,7 @@ export class LittilSchoolService {
     return this.schoolService.apiV1SchoolsNameNameGet(name);
   }
 
-  createOrUpdate(
-    school: SchoolPostResource
-  ): Observable<ApiV1SchoolsGet200Response> {
+  createOrUpdate(school: School): Observable<School> {
     return this.schoolService.apiV1SchoolsPut(school);
   }
 

@@ -1,6 +1,6 @@
-import { ApiV1SchoolsGet200Response, School } from '../../generated';
+import { School } from '../../generated';
 
-export const MOCK_SCHOOL: School | ApiV1SchoolsGet200Response = {
+export const MOCK_SCHOOL: School = {
   id: '9beae92a-c735-454d-9535-20a54b411b5c',
   name: 'Schoolname',
   address: 'Street 1',

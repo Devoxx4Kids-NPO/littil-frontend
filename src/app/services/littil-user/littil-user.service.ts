@@ -1,10 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import {
-  ApiV1UsersUserGet201Response,
-  User,
-  UsersService,
-} from '../../api/generated';
+import { User, UsersService } from '../../api/generated';
 
 @Injectable({
   providedIn: 'root',
@@ -20,7 +16,7 @@ export class LittilUserService {
     return this.userService.apiV1UsersUserGet();
   }
 
-  create(user: User): Observable<ApiV1UsersUserGet201Response> {
+  create(user: User): Observable<User> {
     return this.userService.apiV1UsersUserPost(user);
   }
 

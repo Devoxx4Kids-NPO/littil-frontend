@@ -4,7 +4,7 @@ import {
   HttpMethod,
   SpectatorHttp,
 } from '@ngneat/spectator';
-import { GuestTeacherPostResource, TeacherService } from '../../api/generated';
+import { GuestTeacher, TeacherService } from '../../api/generated';
 import { LittilTeacherService } from './littil-teacher.service';
 
 describe('LittilTeacherService', () => {
@@ -50,7 +50,7 @@ describe('LittilTeacherService', () => {
           surname: 'Docent',
           address: 'Street 1',
           postalCode: '1000AA',
-        } as GuestTeacherPostResource)
+        } as GuestTeacher)
         .subscribe();
       spectator.expectOne(baseUrl + '/api/v1/guest-teachers', HttpMethod.PUT);
     });

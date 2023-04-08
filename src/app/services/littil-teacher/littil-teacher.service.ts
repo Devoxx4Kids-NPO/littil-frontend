@@ -1,10 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import {
-  ApiV1GuestTeachersGet200Response,
-  GuestTeacherPostResource,
-  TeacherService,
-} from '../../api/generated';
+import { TeacherService } from '../../api/generated';
 import { GuestTeacher } from '../../api/generated/model/guestTeacher';
 
 @Injectable({
@@ -21,9 +17,7 @@ export class LittilTeacherService {
     return this.teacherService.apiV1GuestTeachersGet();
   }
 
-  createOrUpdate(
-    teacher: GuestTeacherPostResource
-  ): Observable<ApiV1GuestTeachersGet200Response> {
+  createOrUpdate(teacher: GuestTeacher): Observable<GuestTeacher> {
     return this.teacherService.apiV1GuestTeachersPut(teacher);
   }
 

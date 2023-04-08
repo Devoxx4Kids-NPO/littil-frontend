@@ -6,7 +6,7 @@ import {
   rest,
 } from 'msw';
 import { firstValueFrom } from 'rxjs';
-import { ApiV1SchoolsGet200Response, School } from '../../generated';
+import { School } from '../../generated';
 import { MockSchoolService } from '../school.service.mock';
 import { MockConfigEndpoint } from './config';
 import { MockHandlers } from './mock.handler';
@@ -45,7 +45,7 @@ export class MockHandlersSchools extends MockHandlers {
       req: RestRequest,
       res: ResponseFunction,
       ctx: RestContext
-    ): Promise<MockedResponse<ApiV1SchoolsGet200Response> | undefined> => {
+    ): Promise<MockedResponse<School> | undefined> => {
       let data = undefined;
       if ((req.params[0] as string).match('9beae92a')) {
         data = await firstValueFrom(
@@ -69,7 +69,7 @@ export class MockHandlersSchools extends MockHandlers {
       req: RestRequest,
       res: ResponseFunction,
       ctx: RestContext
-    ): Promise<MockedResponse<ApiV1SchoolsGet200Response> | undefined> => {
+    ): Promise<MockedResponse<School> | undefined> => {
       const data = await firstValueFrom(
         new MockSchoolService().apiV1SchoolsPut()
       );

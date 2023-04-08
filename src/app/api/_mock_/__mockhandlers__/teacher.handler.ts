@@ -6,10 +6,7 @@ import {
   rest,
 } from 'msw';
 import { firstValueFrom } from 'rxjs';
-import {
-  ApiV1GuestTeachersGet200Response,
-  GuestTeacher,
-} from '../../generated';
+import { GuestTeacher } from '../../generated';
 import { MockTeacherService } from '../teacher.service.mock';
 import { MockConfigEndpoint } from './config';
 import { MockHandlers } from './mock.handler';
@@ -66,9 +63,7 @@ export class MockHandlersTeachers extends MockHandlers {
       req: RestRequest,
       res: ResponseFunction,
       ctx: RestContext
-    ): Promise<
-      MockedResponse<ApiV1GuestTeachersGet200Response> | undefined
-    > => {
+    ): Promise<MockedResponse<GuestTeacher> | undefined> => {
       const data = await firstValueFrom(
         new MockTeacherService().apiV1GuestTeachersPut()
       );

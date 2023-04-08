@@ -6,7 +6,7 @@ import {
   rest,
 } from 'msw';
 import { firstValueFrom } from 'rxjs';
-import { ApiV1UsersUserGet201Response, UserSetting } from '../../generated';
+import { UserSetting } from '../../generated';
 import { MockUserSettingsService } from '../userSettings.service.mock';
 import { MockConfigEndpoint } from './config';
 import { MockHandlers } from './mock.handler';
@@ -50,7 +50,7 @@ export class MockHandlersUserSettings extends MockHandlers {
       req: RestRequest,
       res: ResponseFunction,
       ctx: RestContext
-    ): Promise<MockedResponse<ApiV1UsersUserGet201Response> | undefined> => {
+    ): Promise<MockedResponse<UserSetting[]> | undefined> => {
       const data = await firstValueFrom(
         new MockUserSettingsService().apiV1UserSettingsKeyGet(
           req.params[0] as string
@@ -66,7 +66,7 @@ export class MockHandlersUserSettings extends MockHandlers {
       req: RestRequest,
       res: ResponseFunction,
       ctx: RestContext
-    ): Promise<MockedResponse<ApiV1UsersUserGet201Response> | undefined> => {
+    ): Promise<MockedResponse<UserSetting> | undefined> => {
       const data = await firstValueFrom(
         new MockUserSettingsService().apiV1UserSettingsKeyPut(
           req.params[0] as string
@@ -82,7 +82,7 @@ export class MockHandlersUserSettings extends MockHandlers {
       req: RestRequest,
       res: ResponseFunction,
       ctx: RestContext
-    ): Promise<MockedResponse<ApiV1UsersUserGet201Response> | undefined> => {
+    ): Promise<MockedResponse<UserSetting> | undefined> => {
       const data = await firstValueFrom(
         new MockUserSettingsService().apiV1UserSettingsPost()
       );

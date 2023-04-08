@@ -1,6 +1,6 @@
-import { ApiV1UserSettingsGet201Response, UserSetting } from '../../generated';
+import { UserSetting } from '../../generated';
 
-export const MOCK_USER_SETTING: ApiV1UserSettingsGet201Response = {
+export const MOCK_USER_SETTING: UserSetting = {
   key: 'keyValue',
   value: 'valueValue',
 };

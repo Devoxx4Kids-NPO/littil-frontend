@@ -8,13 +8,8 @@ import {
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { AuthService } from '@auth0/auth0-angular';
-import { firstValueFrom, Observable, Subscription } from 'rxjs';
-import {
-  ApiV1GuestTeachersGet200Response,
-  ApiV1SchoolsGet200Response,
-  GuestTeacherPostResource,
-  SchoolPostResource,
-} from '../../api/generated';
+import { Observable, Subscription, firstValueFrom } from 'rxjs';
+import { GuestTeacher, School } from '../../api/generated';
 import { LittilSchoolService } from '../../services/littil-school/littil-school.service';
 import { LittilTeacherService } from '../../services/littil-teacher/littil-teacher.service';
 import { Roles } from '../../services/permission.controller';
@@ -118,9 +113,7 @@ export class CompleteProfileModalComponent
         return false;
       }
 
-      let createOrUpdateCall: Observable<
-        ApiV1GuestTeachersGet200Response | ApiV1SchoolsGet200Response
-      >;
+      let createOrUpdateCall: Observable<GuestTeacher | School>;
       const formValues = {
         name: this.completeProfileForm.controls['schoolName'].value,
         firstName: this.completeProfileForm.controls['firstName'].value,
@@ -139,11 +132,11 @@ export class CompleteProfileModalComponent
       ) {
         delete formValues.name;
         createOrUpdateCall = this.guestTeacherService.createOrUpdate(
-          formValues as GuestTeacherPostResource
+          formValues as GuestTeacher
         );
       } else {
         createOrUpdateCall = this.schoolService.createOrUpdate(
-          formValues as SchoolPostResource
+          formValues as School
         );
       }
       return firstValueFrom(createOrUpdateCall)
