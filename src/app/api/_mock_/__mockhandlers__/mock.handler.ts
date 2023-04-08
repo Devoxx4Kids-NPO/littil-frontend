@@ -35,6 +35,16 @@ export class MockHandlers {
     );
   }
 
+  public response503(
+    res: ResponseFunction,
+    ctx: RestContext
+  ): MockedResponse<any> | Promise<MockedResponse<any>> {
+    return res(
+      ctx.status(503),
+      ctx.json({ errorMessage: `Request not available.` })
+    );
+  }
+
   public response200(
     res: ResponseFunction,
     ctx: RestContext,

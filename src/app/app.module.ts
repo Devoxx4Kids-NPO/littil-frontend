@@ -1,25 +1,23 @@
 import { CommonModule } from '@angular/common';
-import {
-  HTTP_INTERCEPTORS,
-  HttpClient,
-  HttpClientModule,
-} from '@angular/common/http';
+import { HttpClient, HttpClientModule } from '@angular/common/http';
 import { NgModule } from '@angular/core';
+import { GoogleMapsModule } from '@angular/google-maps';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { AuthHttpInterceptor, AuthModule } from '@auth0/auth0-angular';
+import { AuthModule } from '@auth0/auth0-angular';
 import { getLittilConfigFromWindow } from '../littilConfig';
 import { ApiModule, Configuration } from './api/generated';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { ButtonModule } from './components/button/button.module';
-import { UserMenuModule } from "./components/user-menu/user-menu.module";
 import { ContentContainerModule } from './components/content-container/content-container.module';
+import { ErrorModalModule } from './components/error-modal/error-modal.module';
 import { MainMenuButtonModule } from './components/main-menu-button/main-menu-button.module';
 import { MainMenuDropdownButtonModule } from './components/main-menu-dropdown-button/main-menu-dropdown-button.module';
 import { ModalControllerModule } from './components/modal/modal.controller.module';
 import { RegisterModalModule } from './components/register-modal/register-modal.module';
-import { GoogleMapsModule } from '@angular/google-maps';
+import { UserMenuModule } from './components/user-menu/user-menu.module';
+import { interceptorProviders } from './interceptors/http-interceptors';
 
 const littilConfig = getLittilConfigFromWindow();
 
@@ -40,6 +38,7 @@ const littilConfig = getLittilConfigFromWindow();
     ButtonModule,
     UserMenuModule,
     RegisterModalModule,
+    ErrorModalModule,
     MainMenuButtonModule,
     MainMenuDropdownButtonModule,
     GoogleMapsModule,
@@ -61,14 +60,7 @@ const littilConfig = getLittilConfigFromWindow();
       },
     }),
   ],
-  providers: [
-    HttpClient,
-    {
-      provide: HTTP_INTERCEPTORS,
-      useClass: AuthHttpInterceptor,
-      multi: true,
-    },
-  ],
+  providers: [HttpClient, interceptorProviders],
   bootstrap: [AppComponent],
   exports: [],
 })
