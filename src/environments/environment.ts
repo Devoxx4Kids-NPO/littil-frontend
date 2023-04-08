@@ -11,28 +11,28 @@ export const environment = {
   production: false,
 };
 
-enableMocking({
-  schoolApi: {
-    base_url: `${littilConfig.apiHost}/api/v1/schools`,
-    delay: 0,
-  },
-  teacherApi: {
-    base_url: `${littilConfig.apiHost}/api/v1/guest-teachers`,
-    delay: 0,
-  },
-  searchApi: {
-    base_url: `${littilConfig.apiHost}/api/v1/search`,
-    delay: 0,
-  },
-  userApi: {
-    base_url: `${littilConfig.apiHost}/api/v1/users`,
-    delay: 0,
-  },
-  userSettingsApi: {
-    base_url: `${littilConfig.apiHost}/api/v1/user-settings`,
-    delay: 0,
-  },
-});
+// enableMocking({
+//   schoolApi: {
+//     base_url: `${littilConfig.apiHost}/api/v1/schools`,
+//     delay: 0,
+//   },
+//   teacherApi: {
+//     base_url: `${littilConfig.apiHost}/api/v1/guest-teachers`,
+//     delay: 0,
+//   },
+//   searchApi: {
+//     base_url: `${littilConfig.apiHost}/api/v1/search`,
+//     delay: 0,
+//   },
+//   userApi: {
+//     base_url: `${littilConfig.apiHost}/api/v1/users`,
+//     delay: 0,
+//   },
+//   userSettingsApi: {
+//     base_url: `${littilConfig.apiHost}/api/v1/user-settings`,
+//     delay: 0,
+//   },
+// });
 
 /*
  * For easier debugging in development mode, you can import the following file
