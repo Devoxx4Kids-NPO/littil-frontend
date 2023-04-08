@@ -3,6 +3,7 @@ import { MockConfig } from './config';
 import { MockHandlersSchools } from './school.handler';
 import { MockHandlersTeachers } from './teacher.handler';
 import { MockHandlersUser } from './user.handler';
+import { MockHandlersUserSettings } from './userSettings.handler';
 
 export const getHandlers = (config: MockConfig): RestHandler[] => {
   const handlers = [];
@@ -19,6 +20,12 @@ export const getHandlers = (config: MockConfig): RestHandler[] => {
 
   if (config.userApi) {
     const handler = new MockHandlersUser(config.userApi).handlers;
+    handlers.push(...handler);
+  }
+
+  if (config.userSettingsApi) {
+    const handler = new MockHandlersUserSettings(config.userSettingsApi)
+      .handlers;
     handlers.push(...handler);
   }
 

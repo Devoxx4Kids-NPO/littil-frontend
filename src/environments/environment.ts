@@ -24,6 +24,10 @@ enableMocking({
     base_url: `${littilConfig.apiHost}/api/v1/users`,
     delay: 0,
   },
+  userSettingsApi: {
+    base_url: `${littilConfig.apiHost}/api/v1/user-settings`,
+    delay: 0,
+  },
 });
 
 /*
