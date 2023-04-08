@@ -20,6 +20,10 @@ enableMocking({
     base_url: `${littilConfig.apiHost}/api/v1/guest-teachers`,
     delay: 0,
   },
+  searchApi: {
+    base_url: `${littilConfig.apiHost}/api/v1/search`,
+    delay: 0,
+  },
   userApi: {
     base_url: `${littilConfig.apiHost}/api/v1/users`,
     delay: 0,
