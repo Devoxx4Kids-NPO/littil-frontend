@@ -1,11 +1,6 @@
 import { HttpHeaders } from '@angular/common/http';
 import { Observable, of } from 'rxjs';
-import {
-  ApiV1GuestTeachersGet200Response,
-  Configuration,
-  GuestTeacher,
-  GuestTeacherPostResource,
-} from '../generated';
+import { Configuration, GuestTeacher } from '../generated';
 import {
   MOCK_GUEST_TEACHER,
   MOCK_GUEST_TEACHERS,
@@ -27,9 +22,7 @@ export class MockTeacherService {
     }
     return of();
   }
-  apiV1GuestTeachersPut(
-    teacher?: GuestTeacherPostResource
-  ): Observable<ApiV1GuestTeachersGet200Response> {
+  apiV1GuestTeachersPut(teacher?: GuestTeacher): Observable<GuestTeacher> {
     if (teacher) {
       return of(MOCK_GUEST_TEACHER);
     }

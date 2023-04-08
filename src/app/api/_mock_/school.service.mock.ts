@@ -1,11 +1,6 @@
 import { HttpHeaders } from '@angular/common/http';
 import { Observable, of } from 'rxjs';
-import {
-  ApiV1SchoolsGet200Response,
-  Configuration,
-  School,
-  SchoolPostResource,
-} from '../generated';
+import { Configuration, School } from '../generated';
 import { MOCK_SCHOOL, MOCK_SCHOOLS } from './data/schools.data.mock';
 
 export class MockSchoolService {
@@ -18,7 +13,7 @@ export class MockSchoolService {
   apiV1SchoolsIdDelete(id: string): Observable<any> {
     return of(true);
   }
-  apiV1SchoolsIdGet(id: string): Observable<ApiV1SchoolsGet200Response> {
+  apiV1SchoolsIdGet(id: string): Observable<School> {
     if (id.match('9beae92a-')) {
       return of(MOCK_SCHOOL);
     }
@@ -30,9 +25,7 @@ export class MockSchoolService {
     }
     return of();
   }
-  apiV1SchoolsPut(
-    school?: SchoolPostResource
-  ): Observable<ApiV1SchoolsGet200Response> {
+  apiV1SchoolsPut(school?: School): Observable<School> {
     if (school) {
       return of(MOCK_SCHOOL);
     }

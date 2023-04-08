@@ -1,10 +1,6 @@
 import { HttpHeaders } from '@angular/common/http';
 import { Observable, of } from 'rxjs';
-import {
-  ApiV1UsersUserGet201Response,
-  Configuration,
-  User,
-} from '../generated';
+import { Configuration, User } from '../generated';
 import {
   MOCK_SCHOOL_USER,
   MOCK_TEACHER_USER,
@@ -27,7 +23,7 @@ export class MockUserService {
   apiV1UsersUserGet(): Observable<User[]> {
     return of(MOCK_USERS);
   }
-  apiV1UsersUserPost(): Observable<ApiV1UsersUserGet201Response> {
+  apiV1UsersUserPost(): Observable<User> {
     return of(MOCK_SCHOOL_USER);
   }
   apiV1UsersUserIdDelete(id: string): Observable<any> {
