@@ -22,7 +22,6 @@ export class AuthenticatorResolver implements Resolve<any> {
         }
         this.authService.user$.subscribe(
           (userProfile: User | null | undefined) => {
-            console.log('userProfile', userProfile);
             if (userProfile) {
               this.permissionController.handleNewUser(userProfile);
               this.profileController.handleProfile(

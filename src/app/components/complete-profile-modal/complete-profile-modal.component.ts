@@ -111,7 +111,7 @@ export class CompleteProfileModalComponent
     }
   }
 
-  public onClickSaveProfile(): Promise<boolean> {
+  public async onClickSaveProfile(): Promise<boolean> {
     return Promise.resolve().then(() => {
       FormUtil.ValidateAll(this.completeProfileForm);
       if (this.completeProfileForm.invalid) {

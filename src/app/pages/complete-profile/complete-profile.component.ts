@@ -31,18 +31,12 @@ export class CompleteProfilePageComponent implements OnInit {
           disableClose: true,
         } as IModalComponentOptions)
         .then(() => {
-          this.authService
-            .getAccessTokenSilently({ detailedResponse: true })
+          return this.authService
+            .getAccessTokenSilently({ ignoreCache: true })
             .subscribe(() => {
-              this.router.navigateByUrl('/admin/search');
+              return this.router.navigateByUrl('/admin/search');
             });
         });
     });
   }
-
-  // async ngOnDestroy(): Promise<GetTokenSilentlyVerboseResponse> {
-  //   return firstValueFrom(
-  //     this.authService.getAccessTokenSilently({ detailedResponse: true })
-  //   );
-  // }
 }
