@@ -84,6 +84,12 @@ export class ProfileComponent implements OnInit {
       }))
     }
 
+    if ("modules" in this.user && this.user.modules !== undefined) {
+      form.addControl('modules', new FormGroup({
+        TEST: new FormControl(true),
+      }))
+    }
+
     if ("name" in this.user) {
       form.addControl('schoolName', new FormControl(this.user.name, Validators.required))
     }
@@ -107,13 +113,15 @@ export class ProfileComponent implements OnInit {
     event.preventDefault()
     const form = this.profileForm as FormGroup
     for (let control in form.controls) {
-      if (control in this.user && control !== 'availability') {
-        form.controls[control].setValue(this.user[control as keyof typeof this.user])
-      }
-      if (control === 'availability') {
-        const availabilityGroup = form.controls[control] as FormGroup
-        for (let availabilityControl in availabilityGroup.controls) {
-          availabilityGroup.controls[availabilityControl].setValue(this.user[control as keyof typeof this.user]?.includes(availabilityControl))
+      if (control in this.user) {
+        if (control === 'availability') {
+          const availabilityGroup = form.controls[control] as FormGroup
+          for (let availabilityControl in availabilityGroup.controls) {
+            // @ts-ignore
+            availabilityGroup.controls[availabilityControl].setValue(this.user['availability' as keyof typeof this.user]?.includes(availabilityControl))
+          }
+        } else {
+          form.controls[control].setValue(this.user[control as keyof typeof this.user])
         }
       }
     }
