@@ -9,6 +9,7 @@ import {ReactiveFormsModule} from "@angular/forms";
 import {FormInputTextModule} from "../../../components/forms/text-input/form-input-text.module";
 import {FormInputRadioModule} from "../../../components/forms/radio-input/form-input-radio.module";
 import {FormErrorMessageModule} from "../../../components/forms/form-error-message/form-error-message.module";
+import {ProfileContainerModule} from "../../../components/profile-container/profile-container.module";
 
 const routes: Routes = [
   {
@@ -19,11 +20,12 @@ const routes: Routes = [
 
 @NgModule({
   declarations: [
-    ProfileComponent
+    ProfileComponent,
   ],
   imports: [
     CommonModule,
     RouterModule.forChild(routes),
+    ProfileContainerModule,
     ContentContainerModule,
     ButtonModule,
     MatCheckboxModule,

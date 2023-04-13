@@ -12,3 +12,4 @@ import { routes } from './admin.routing';
   entryComponents: [],
 })
 export class AdminModule {}
+

@@ -1,6 +1,6 @@
-import { Routes } from '@angular/router';
-import { AuthGuard } from '@auth0/auth0-angular';
-import { AdminComponent } from './admin.component';
+import {Routes} from '@angular/router';
+import {AuthGuard} from '@auth0/auth0-angular';
+import {AdminComponent} from './admin.component';
 
 export const routes: Routes = [
   {
@@ -21,6 +21,10 @@ export const routes: Routes = [
       {
         path: 'profile',
         loadChildren: () => import('./profile/profile.module').then((m) => m.ProfileModule)
+      },
+      {
+        path: 'modules',
+        loadChildren: () => import('./modules/modules.module').then((m) => m.ModulesModule)
       }
     ],
   },

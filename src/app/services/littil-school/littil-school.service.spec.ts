@@ -61,4 +61,22 @@ describe('LittilSchoolService', () => {
       spectator.expectOne(baseUrl + '/api/v1/schools/123', HttpMethod.DELETE);
     });
   });
+
+  describe('modules', () => {
+    it('should get modules for school', () => {
+      spectator.service.getModules('123').subscribe();
+      spectator.expectOne(baseUrl + '/api/v1/schools/123/modules', HttpMethod.GET);
+    });
+    it('should add a module for a school', () => {
+      spectator.service.addModule('123', {
+        id: "test",
+        name: "name"
+      }).subscribe();
+      spectator.expectOne(baseUrl + '/api/v1/schools/123/modules', HttpMethod.POST);
+    });
+    it('should delete a module for a school', () => {
+      spectator.service.removeModule('123', '567').subscribe();
+      spectator.expectOne(baseUrl + '/api/v1/schools/123/modules/567', HttpMethod.DELETE);
+    });
+  });
 });

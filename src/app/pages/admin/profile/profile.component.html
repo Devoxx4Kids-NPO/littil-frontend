@@ -1,7 +1,4 @@
-<littil-content-container innerClasses="lg:px-32" *ngIf="!loading">
-  <h1>
-    Profiel wijzigen
-  </h1>
+<littil-profile-container title="Profiel wijzigen" *ngIf="!loading">
   <form
   [formGroup]="profileForm"
   data-test="form-profile"
@@ -45,7 +42,7 @@
         <div class="relative flex items-start" *ngFor="let day of days">
             <label class="font-medium text-gray-900">
               <input [id]="day.value" [name]="day.value" type="checkbox" [formControlName]="day.value"
-                     class="h-4 w-4 rounded border-gray-300 text-indigo-600 focus:ring-indigo-600">
+                     class="h-4 w-4 rounded border-gray-300 text-blue-200 focus:ring-blue-200">
               {{ day.description }}</label>
           </div>
       </div>
@@ -97,4 +94,4 @@
       <littil-button-rounded [inline]="true" (click)="deleteProfileOpen = !deleteProfileOpen; $event.preventDefault()" color="yellow">Verwijderen annuleren</littil-button-rounded>
     </div>
   </form>
-</littil-content-container>
+</littil-profile-container>
