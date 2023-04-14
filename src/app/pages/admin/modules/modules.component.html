@@ -7,9 +7,10 @@
           <input [id]="availableModule.id"
                  [name]="availableModule.id"
                  (change)="saveModuleStatus(availableModule)"
+                 [checked]="isModuleUsedByUser(availableModule)"
                  [disabled]="isModuleBeingSaved(availableModule)"
                  [ngClass]="isModuleBeingSaved(availableModule)
-                 ? 'text-gray-500 focus:ring-gray-500' : 'text-green-700 focus:ring-green-700'"
+                 ? 'text-gray-200 focus:ring-gray-200' : 'text-green-700 focus:ring-green-700'"
                  aria-describedby="comments-description"
                  type="checkbox" class="h-4 w-4 rounded border-gray-300">
         </div>

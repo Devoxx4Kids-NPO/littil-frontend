@@ -65,4 +65,24 @@ describe('LittilTeacherService', () => {
       );
     });
   });
+
+  describe('modules', () => {
+    it('should get modules for teacher', () => {
+      spectator.service.getModules('123').subscribe();
+      spectator.expectOne(baseUrl + '/api/v1/guest-teachers/123/modules', HttpMethod.GET);
+    });
+    it('should add a module for a teacher', () => {
+      spectator.service.addModule('123', {
+        id: "test",
+        name: "name"
+      }).subscribe();
+      spectator.expectOne(baseUrl + '/api/v1/guest-teachers/123/modules', HttpMethod.POST);
+    });
+    it('should delete a module for a teacher', () => {
+      spectator.service.removeModule('123', '567').subscribe();
+      spectator.expectOne(baseUrl + '/api/v1/guest-teachers/123/modules/567', HttpMethod.DELETE);
+    });
+  });
+  // http://localhost:8080/api/v1/guest-teachers/123/modules/567
+  // http://localhost:8080/api/v1/guest-teachers/567/modules/12
 });
