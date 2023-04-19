@@ -21,7 +21,6 @@ const routes: Routes = [
     ProfileContainerModule,
     RouterModule.forChild(routes),
     ReactiveFormsModule,
-
   ],
   exports: [
     ModulesComponent

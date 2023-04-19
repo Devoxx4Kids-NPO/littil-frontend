@@ -1,53 +1,44 @@
-import { Component, OnInit } from '@angular/core';
-import {GuestTeacher, Module, ModuleService, School} from "../../../api/generated";
+import {Component} from '@angular/core';
+import {Module} from "../../../api/generated";
 import {LittilModulesService} from "../../../services/littil-modules/littil-modules.service";
 import {LittilTeacherService} from "../../../services/littil-teacher/littil-teacher.service";
 import {LittilSchoolService} from "../../../services/littil-school/littil-school.service";
 import {PermissionController, Roles} from "../../../services/permission.controller";
-import {Observable} from "rxjs";
+import {IHasManageableModules} from "../../../services/littil-modules/littil-modules-user.interface";
+import {forkJoin} from "rxjs";
+import {map} from "rxjs/operators";
 
 @Component({
   selector: 'littil-modules',
   templateUrl: './modules.component.html'
 })
-export class ModulesComponent implements OnInit {
+export class ModulesComponent {
   private readonly roleType: Roles;
   private readonly roleId: string;
-  private userModuleObservable: Observable<Module[]>;
   public availableModules: Module[] = [];
   public userModules: Module[] = [];
-  public availableModulesLoading: boolean = true;
-  public userModulesLoading: boolean = true;
   public modulesSaving: string[] = [];
+  private userModuleManager: IHasManageableModules
 
   constructor(
-      private littilModulesService: LittilModulesService,
-      private permissionController: PermissionController,
-      private littilTeacherService: LittilTeacherService,
-      private littilSchoolService: LittilSchoolService,
+    private littilModulesService: LittilModulesService,
+    private permissionController: PermissionController,
+    private littilTeacherService: LittilTeacherService,
+    private littilSchoolService: LittilSchoolService,
   ) {
     this.roleType = this.permissionController.getRoleType();
     this.roleId = this.permissionController.getRoleId();
+    this.userModuleManager = this.roleType == Roles.GuestTeacher ? littilTeacherService : littilSchoolService;
 
-    this.userModuleObservable =
-      this.roleType == Roles.GuestTeacher
-        ? this.littilTeacherService.getModules(this.roleId)
-        : this.littilSchoolService.getModules(this.roleId);
-
-    this.littilModulesService.getAll().subscribe((modules: Module[]) => {
-      this.availableModules = modules;
-      this.availableModulesLoading = false;
-    });
-
-    this.userModuleObservable.subscribe((modules: Module[]) => {
-      this.userModules = modules;
-      this.userModulesLoading = false;
-    });
-
-  }
-
-  ngOnInit(): void {
-
+    forkJoin([
+      this.littilModulesService.getAll(),
+      this.userModuleManager.getModules(this.roleId)
+    ]).pipe(
+      map(([availableModules, userModules]) => {
+        this.availableModules = availableModules;
+        this.userModules = userModules;
+      })
+    ).subscribe()
   }
 
   isModuleUsedByUser(module: Module): boolean {
@@ -58,11 +49,26 @@ export class ModulesComponent implements OnInit {
     return this.modulesSaving.includes((module.id as string))
   }
 
+  removeModuleFromSaving(moduleId: string): void {
+    this.modulesSaving = this.modulesSaving.filter(m => moduleId !== m);
+  }
+
   saveModuleStatus(module: Module): void {
     const moduleId = module.id as string;
+
     if (!this.modulesSaving.includes(moduleId)) {
       this.modulesSaving.push(moduleId);
-      this.userModules.push(module);
+      if (this.isModuleUsedByUser(module)) {
+        this.userModuleManager.removeModule(this.roleId, moduleId).subscribe(() => {
+          this.removeModuleFromSaving(moduleId);
+          this.userModules = this.userModules.filter(m => moduleId !== m.id);
+        });
+      } else {
+        this.userModuleManager.addModule(this.roleId, module).subscribe(() => {
+          this.removeModuleFromSaving(moduleId);
+          this.userModules.push(module);
+        })
+      }
     }
   }
 }

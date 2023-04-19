@@ -6,11 +6,12 @@ import {
   TeacherService,
 } from '../../api/generated';
 import {GuestTeacher} from '../../api/generated';
+import {IHasManageableModules} from "../littil-modules/littil-modules-user.interface";
 
 @Injectable({
   providedIn: 'root',
 })
-export class LittilTeacherService {
+export class LittilTeacherService implements IHasManageableModules{
   constructor(
     private teacherService: TeacherService,
     private teacherModulesService: TeacherModulesService
