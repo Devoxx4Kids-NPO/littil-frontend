@@ -49,6 +49,8 @@ describe('Teacher Modules Component', () => {
         }),
         MockProvider(LittilTeacherService, {
           getModules: () => of(teacherModules),
+          addModule: () => of(true),
+          removeModule: () => of(true),
         }),
         MockProvider(LittilSchoolService, {
           getModules: () => of(schoolModules),
@@ -67,14 +69,41 @@ describe('Teacher Modules Component', () => {
   });
 
   it('should show a list of modules', () => {
-    const debug: DebugElement = fixture.debugElement
-    const list: DebugElement = debug.query(By.css('[data-test="module-list"]'))
+    const debug: DebugElement = fixture.debugElement;
+    const list: DebugElement = debug.query(By.css('[data-test="module-list"]'));
     expect(list.children.length).toEqual(availableModules.length);
 
     availableModules.forEach(module => {
-      let input: DebugElement = debug.query(By.css(`[id="${module.id}"]`))
-      expect(input).toBeDefined()
-    })
+      let input: DebugElement = debug.query(By.css(`[id="${module.id}"]`));
+      expect(input).toBeDefined();
+      expect(input.nativeElement.checked).toBe(!!teacherModules.find(m => m.id === module.id));
+    });
+  });
 
+  it('can be clicked to add a module', () => {
+    const debug: DebugElement = fixture.debugElement;
+    const checkbox: DebugElement = debug.query(By.css(`[id="${availableModules[1].id}"]`));
+
+    expect(checkbox).toBeDefined();
+    expect(checkbox.nativeElement.checked).toBe(false);
+
+    checkbox.nativeElement.click();
+    expect(checkbox.nativeElement.checked).toBe(true);
+    expect(component.userModules.find(m => m.id === availableModules[1].id)).toBeTruthy()
+
+    expect(component.isModuleBeingSaved(availableModules[1])).toBeFalsy()
+  });
+
+  it('can be clicked to remove a module', () => {
+    const debug: DebugElement = fixture.debugElement;
+    const checkbox: DebugElement = debug.query(By.css(`[id="${availableModules[0].id}"]`));
+
+    expect(checkbox).toBeDefined();
+    expect(checkbox.nativeElement.checked).toBeTruthy();
+
+    checkbox.nativeElement.click();
+    expect(checkbox.nativeElement.checked).toBeFalsy();
+    expect(component.userModules.find(m => m.id === availableModules[1].id)).toBeFalsy()
+    expect(component.isModuleBeingSaved(availableModules[1])).toBeFalsy()
   });
 });
