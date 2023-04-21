@@ -26,7 +26,7 @@ export class UserMenuComponent implements OnInit {
     router.events.pipe(
       filter((event) => event instanceof NavigationEnd)
     ).subscribe(() => {
-      this.open = false
+      this.open = false;
     })
   }
 
