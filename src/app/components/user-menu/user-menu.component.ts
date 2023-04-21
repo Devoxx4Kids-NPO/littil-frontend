@@ -1,10 +1,13 @@
-import { ModalController, ModalSize, } from '../modal/modal.controller';
-import { NavigationEnd, Router } from "@angular/router";
+import { ModalController, ModalSize } from '../modal/modal.controller';
 import { Component, OnInit } from '@angular/core';
 import { PermissionController } from '../../services/permission.controller';
 import { AuthService } from '@auth0/auth0-angular';
-import { RegisterModalComponent } from "../register-modal/register-modal.component";
+import {
+  IRegisterModalOutput,
+  RegisterModalComponent,
+} from '../register-modal/register-modal.component';
 import { filter } from 'rxjs/operators';
+import {NavigationEnd, Router} from "@angular/router";
 
 @Component({
   selector: 'littil-user-menu',
@@ -24,7 +27,7 @@ export class UserMenuComponent implements OnInit {
       filter((event) => event instanceof NavigationEnd)
     ).subscribe(() => {
       this.open = false;
-    });
+    })
   }
 
   ngOnInit(): void {
@@ -45,10 +48,16 @@ export class UserMenuComponent implements OnInit {
     this.auth.logout();
   }
 
-  public openRegisterModal() {
-    return this.modalController.present(RegisterModalComponent, undefined, {
-      modalSize: ModalSize.SM,
-    });
+  public async openRegisterModal() {
+    return this.modalController
+      .present(RegisterModalComponent, undefined, {
+        modalSize: ModalSize.SM,
+      })
+      .then((response: IRegisterModalOutput) => {
+        if (response.triggerLogin) {
+          return this.openLoginModal();
+        }
+      });
   }
 
   public toggleMenu(): void {
