@@ -1,28 +1,38 @@
 import { HttpHeaders } from '@angular/common/http';
-import { Observable } from 'rxjs';
+import { Observable, of } from 'rxjs';
 import {
   ApiV1GuestTeachersGet200Response,
   Configuration,
   GuestTeacher,
   GuestTeacherPostResource,
 } from '../generated';
+import {
+  MOCK_GUEST_TEACHER,
+  MOCK_GUEST_TEACHERS,
+} from './data/teachers.data.mock';
 
 export class MockTeacherService {
   defaultHeaders: HttpHeaders = new HttpHeaders();
   configuration: Configuration = new Configuration();
 
   apiV1GuestTeachersGet(): Observable<GuestTeacher[]> {
-    throw new Error('Method not implemented.');
+    return of(MOCK_GUEST_TEACHERS);
   }
   apiV1GuestTeachersIdDelete(id: string): Observable<any> {
-    throw new Error('Method not implemented.');
+    return of(true);
   }
   apiV1GuestTeachersIdGet(id: string): Observable<GuestTeacher> {
-    throw new Error('Method not implemented.');
+    if (id.match('59cc4dfa-')) {
+      return of(MOCK_GUEST_TEACHER);
+    }
+    return of();
   }
   apiV1GuestTeachersPut(
     teacher?: GuestTeacherPostResource
   ): Observable<ApiV1GuestTeachersGet200Response> {
-    throw new Error('Method not implemented.');
+    if (teacher) {
+      return of(MOCK_GUEST_TEACHER);
+    }
+    return of();
   }
 }

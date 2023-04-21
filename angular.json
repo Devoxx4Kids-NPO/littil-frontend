@@ -59,7 +59,11 @@
               "extractLicenses": false,
               "sourceMap": true,
               "namedChunks": true,
-              "assets": ["src/assets", "src/config.js"]
+              "assets": [
+                "src/assets",
+                "src/config.js",
+                "src/mockServiceWorker.js"
+              ]
             }
           },
           "defaultConfiguration": "production"
