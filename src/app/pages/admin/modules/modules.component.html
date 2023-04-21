@@ -11,8 +11,7 @@
                  [disabled]="isModuleBeingSaved(availableModule)"
                  [ngClass]="isModuleBeingSaved(availableModule)
                  ? 'text-gray-200 focus:ring-gray-200' : 'text-green-700 focus:ring-green-700'"
-                 aria-describedby="comments-description"
-                 type="checkbox" class="h-4 w-4 rounded border-gray-300">
+                 aria-describedby="comments-description" type="checkbox" class="h-4 w-4 rounded border-gray-300">
         </div>
         <div class="ml-3 text-sm leading-6">
           <label [for]="availableModule.id" class="font-medium text-gray-900">{{ availableModule.name}}</label>
