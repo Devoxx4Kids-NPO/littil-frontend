@@ -27,7 +27,7 @@ export class ModalController {
       dialogConfig.closeOnNavigation = options && !options.disableClose;
       dialogConfig.disableClose = true;
       dialogConfig.minWidth = '20%';
-      dialogConfig.minHeight = '50vh';
+      // dialogConfig.minHeight = '50vh';
       if (options && options.modalSize) {
         switch (options.modalSize) {
           case ModalSize.SM:
