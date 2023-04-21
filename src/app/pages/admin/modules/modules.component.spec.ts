@@ -102,7 +102,7 @@ describe('Teacher Modules Component', () => {
 
     checkbox.nativeElement.click();
     expect(checkbox.nativeElement.checked).toBeFalsy();
-    expect(component.userModules.find(m => m.id === availableModules[1].id)).toBeFalsy();
-    expect(component.isModuleBeingSaved(availableModules[1])).toBeFalsy();
+    expect(component.userModules.find(m => m.id === availableModules[0].id)).toBeFalsy();
+    expect(component.isModuleBeingSaved(availableModules[0])).toBeFalsy();
   });
 });
