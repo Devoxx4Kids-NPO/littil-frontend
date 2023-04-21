@@ -1,12 +1,9 @@
-import { ModalController, ModalSize } from '../modal/modal.controller';
-import { Component, OnInit } from '@angular/core';
-import { PermissionController } from '../../services/permission.controller';
-import { AuthService } from '@auth0/auth0-angular';
-import {
-  IRegisterModalOutput,
-  RegisterModalComponent,
-} from '../register-modal/register-modal.component';
-import { filter } from 'rxjs/operators';
+import {ModalController, ModalSize} from '../modal/modal.controller';
+import {Component, OnInit} from '@angular/core';
+import {PermissionController} from '../../services/permission.controller';
+import {AuthService} from '@auth0/auth0-angular';
+import {IRegisterModalOutput, RegisterModalComponent,} from '../register-modal/register-modal.component';
+import {filter} from 'rxjs/operators';
 import {NavigationEnd, Router} from "@angular/router";
 
 @Component({
