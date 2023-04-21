@@ -18,16 +18,20 @@ export class CompleteProfilePageComponent implements OnInit {
     private permissionController: PermissionController
   ) {}
 
-  async ngOnInit(): Promise<void> {
+  async ngOnInit(): Promise<any> {
     return Promise.resolve().then(async () => {
       if (this.permissionController.hasAnyRole()) {
-        this.router.navigateByUrl('/admin/search');
+        await this.router.navigateByUrl('/admin/search');
+        return;
       }
-      await this.modalController.present(CompleteProfileModalComponent, {
-        modalSize: undefined,
-        disableClose: true,
-      } as IModalComponentOptions);
-      this.router.navigateByUrl('/admin/search');
+      return this.modalController
+        .present(CompleteProfileModalComponent, {
+          modalSize: undefined,
+          disableClose: true,
+        } as IModalComponentOptions)
+        .then(() => {
+          return this.router.navigateByUrl('/admin/search');
+        });
     });
   }
 }
