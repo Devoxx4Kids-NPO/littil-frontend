@@ -1,9 +1,9 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ModulesComponent } from './modules.component';
-import {RouterModule, Routes} from "@angular/router";
-import {ProfileContainerModule} from "../../../components/profile-container/profile-container.module";
-import {ReactiveFormsModule} from "@angular/forms";
+import { RouterModule, Routes } from "@angular/router";
+import { ProfileContainerModule } from "../../../components/profile-container/profile-container.module";
+import { ReactiveFormsModule } from "@angular/forms";
 
 const routes: Routes = [
   {
@@ -26,4 +26,5 @@ const routes: Routes = [
     ModulesComponent
   ]
 })
-export class ModulesModule { }
+export class ModulesModule {
+}

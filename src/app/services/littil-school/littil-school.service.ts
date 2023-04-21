@@ -1,22 +1,24 @@
-import {Injectable} from '@angular/core';
-import {Observable} from 'rxjs';
+import { Injectable } from '@angular/core';
+import { Observable } from 'rxjs';
 import {
   ApiV1SchoolsGet200Response,
+  Module,
   School,
+  SchoolModulesService,
   SchoolPostResource,
-  SchoolService,
-  SchoolModulesService, Module
+  SchoolService
 } from '../../api/generated';
-import {IHasManageableModules} from "../littil-modules/littil-modules-user.interface";
+import { IHasManageableModules } from "../littil-modules/littil-modules-user.interface";
 
 @Injectable({
   providedIn: 'root',
 })
-export class LittilSchoolService implements IHasManageableModules{
+export class LittilSchoolService implements IHasManageableModules {
   constructor(
     private schoolService: SchoolService,
     private schoolModulesService: SchoolModulesService
-  ) {}
+  ) {
+  }
 
   getById(id: string): Observable<ApiV1SchoolsGet200Response> {
     return this.schoolService.apiV1SchoolsIdGet(id);

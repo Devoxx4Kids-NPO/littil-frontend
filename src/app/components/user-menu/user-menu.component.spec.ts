@@ -58,7 +58,7 @@ describe('UserMenuComponent', () => {
     modalController = spectator.inject(ModalController);
     modalControllerSpy = jest
       .spyOn(modalController, 'present')
-      .mockReturnValue(Promise.resolve({ triggerLogin: false }));
+      .mockReturnValue(Promise.resolve({triggerLogin: false}));
     openLoginModalSpy = jest.spyOn(spectator.component, 'openLoginModal');
 
     spectator.detectChanges();
@@ -94,7 +94,7 @@ describe('UserMenuComponent', () => {
     it('should call openLoginModal when modal returns triggerLogin true', async () => {
       modalControllerSpy = jest
         .spyOn(modalController, 'present')
-        .mockReturnValue(Promise.resolve({ triggerLogin: true }));
+        .mockReturnValue(Promise.resolve({triggerLogin: true}));
       await spectator.component.openRegisterModal();
       expect(modalControllerSpy).toHaveBeenCalledTimes(1);
       expect(openLoginModalSpy).toHaveBeenCalledTimes(1);
@@ -124,7 +124,7 @@ describe('UserMenuComponent', () => {
     });
 
     it('should call logOut() when clicked on Logout button', () => {
-      permissionController.activeAccount = { name: '' };
+      permissionController.activeAccount = {name: ''};
       permissionController.loggedIn = true;
       spectator.component.open = true;
       spectator.detectChanges();

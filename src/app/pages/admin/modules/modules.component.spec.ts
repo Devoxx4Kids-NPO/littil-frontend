@@ -1,17 +1,16 @@
-import {ComponentFixture, TestBed} from '@angular/core/testing';
+import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import {ModulesComponent} from './modules.component';
-import {MockProvider} from "ng-mocks";
-import {LittilTeacherService} from "../../../services/littil-teacher/littil-teacher.service";
-import {of} from "rxjs";
-import {HttpResponse} from "@angular/common/http";
-import {LittilSchoolService} from "../../../services/littil-school/littil-school.service";
-import {LittilModulesService} from "../../../services/littil-modules/littil-modules.service";
-import {Module} from "../../../api/generated";
-import {PermissionController, Roles} from "../../../services/permission.controller";
-import {ProfileContainerComponent} from "../../../components/profile-container/profile-container.component";
-import {DebugElement, DebugNode, NO_ERRORS_SCHEMA} from "@angular/core";
-import {By} from "@angular/platform-browser";
+import { ModulesComponent } from './modules.component';
+import { MockProvider } from "ng-mocks";
+import { LittilTeacherService } from "../../../services/littil-teacher/littil-teacher.service";
+import { of } from "rxjs";
+import { LittilSchoolService } from "../../../services/littil-school/littil-school.service";
+import { LittilModulesService } from "../../../services/littil-modules/littil-modules.service";
+import { Module } from "../../../api/generated";
+import { PermissionController, Roles } from "../../../services/permission.controller";
+import { ProfileContainerComponent } from "../../../components/profile-container/profile-container.component";
+import { DebugElement, NO_ERRORS_SCHEMA } from "@angular/core";
+import { By } from "@angular/platform-browser";
 
 
 const availableModules: Module[] = [
@@ -21,15 +20,15 @@ const availableModules: Module[] = [
   {"id": "34000000-0000-0000-0000-000000000000", "name": "Lego WeDo"},
   {"id": "32000000-0000-0000-0000-000000000000", "name": "MBot's"},
   {"id": "30000000-0000-0000-0000-000000000000", "name": "Scratch"}
-]
+];
 
 const teacherModules: Module[] = [
   {"id": "31000000-0000-0000-0000-000000000000", "name": "CodeCombat"}
-]
+];
 const schoolModules: Module[] = [
   {"id": "32000000-0000-0000-0000-000000000000", "name": "MBot's"},
   {"id": "35000000-0000-0000-0000-000000000000", "name": "Hedycode"},
-]
+];
 
 
 describe('Teacher Modules Component', () => {
@@ -38,8 +37,8 @@ describe('Teacher Modules Component', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ModulesComponent, ProfileContainerComponent],
-      schemas: [NO_ERRORS_SCHEMA],
+      declarations: [ ModulesComponent, ProfileContainerComponent ],
+      schemas: [ NO_ERRORS_SCHEMA ],
       providers: [
         MockProvider(PermissionController, {
           getRoleType: () => Roles.GuestTeacher,
@@ -57,7 +56,7 @@ describe('Teacher Modules Component', () => {
         }),
       ]
     })
-      .compileComponents();
+                 .compileComponents();
 
     fixture = TestBed.createComponent(ModulesComponent);
     component = fixture.componentInstance;
@@ -89,9 +88,9 @@ describe('Teacher Modules Component', () => {
 
     checkbox.nativeElement.click();
     expect(checkbox.nativeElement.checked).toBe(true);
-    expect(component.userModules.find(m => m.id === availableModules[1].id)).toBeTruthy()
+    expect(component.userModules.find(m => m.id === availableModules[1].id)).toBeTruthy();
 
-    expect(component.isModuleBeingSaved(availableModules[1])).toBeFalsy()
+    expect(component.isModuleBeingSaved(availableModules[1])).toBeFalsy();
   });
 
   it('can be clicked to remove a module', () => {
@@ -103,7 +102,7 @@ describe('Teacher Modules Component', () => {
 
     checkbox.nativeElement.click();
     expect(checkbox.nativeElement.checked).toBeFalsy();
-    expect(component.userModules.find(m => m.id === availableModules[1].id)).toBeFalsy()
-    expect(component.isModuleBeingSaved(availableModules[1])).toBeFalsy()
+    expect(component.userModules.find(m => m.id === availableModules[1].id)).toBeFalsy();
+    expect(component.isModuleBeingSaved(availableModules[1])).toBeFalsy();
   });
 });

@@ -1,12 +1,9 @@
-import {
-  ModalController,
-  ModalSize,
-} from '../modal/modal.controller';
-import {NavigationEnd, Router} from "@angular/router";
-import {Component, OnInit} from '@angular/core';
-import {PermissionController} from '../../services/permission.controller';
-import {AuthService} from '@auth0/auth0-angular';
-import {RegisterModalComponent} from "../register-modal/register-modal.component";
+import { ModalController, ModalSize, } from '../modal/modal.controller';
+import { NavigationEnd, Router } from "@angular/router";
+import { Component, OnInit } from '@angular/core';
+import { PermissionController } from '../../services/permission.controller';
+import { AuthService } from '@auth0/auth0-angular';
+import { RegisterModalComponent } from "../register-modal/register-modal.component";
 import { filter } from 'rxjs/operators';
 
 @Component({
@@ -15,7 +12,7 @@ import { filter } from 'rxjs/operators';
 })
 export class UserMenuComponent implements OnInit {
   loaded: boolean = false;
-  open: boolean = false
+  open: boolean = false;
 
   constructor(
     public readonly permissionController: PermissionController,
@@ -26,13 +23,13 @@ export class UserMenuComponent implements OnInit {
     router.events.pipe(
       filter((event) => event instanceof NavigationEnd)
     ).subscribe(() => {
-      this.open = false
-    })
+      this.open = false;
+    });
   }
 
   ngOnInit(): void {
     this.auth.isLoading$.subscribe((loading) => {
-      this.loaded = !loading
+      this.loaded = !loading;
     });
   }
 

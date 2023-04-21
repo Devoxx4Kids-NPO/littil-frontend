@@ -1,12 +1,12 @@
-import {Component} from '@angular/core';
-import {Module} from "../../../api/generated";
-import {LittilModulesService} from "../../../services/littil-modules/littil-modules.service";
-import {LittilTeacherService} from "../../../services/littil-teacher/littil-teacher.service";
-import {LittilSchoolService} from "../../../services/littil-school/littil-school.service";
-import {PermissionController, Roles} from "../../../services/permission.controller";
-import {IHasManageableModules} from "../../../services/littil-modules/littil-modules-user.interface";
-import {forkJoin} from "rxjs";
-import {map} from "rxjs/operators";
+import { Component } from '@angular/core';
+import { Module } from "../../../api/generated";
+import { LittilModulesService } from "../../../services/littil-modules/littil-modules.service";
+import { LittilTeacherService } from "../../../services/littil-teacher/littil-teacher.service";
+import { LittilSchoolService } from "../../../services/littil-school/littil-school.service";
+import { PermissionController, Roles } from "../../../services/permission.controller";
+import { IHasManageableModules } from "../../../services/littil-modules/littil-modules-user.interface";
+import { forkJoin } from "rxjs";
+import { map } from "rxjs/operators";
 
 @Component({
   selector: 'littil-modules',
@@ -18,7 +18,7 @@ export class ModulesComponent {
   public availableModules: Module[] = [];
   public userModules: Module[] = [];
   public modulesSaving: string[] = [];
-  private userModuleManager: IHasManageableModules
+  private userModuleManager: IHasManageableModules;
 
   constructor(
     private littilModulesService: LittilModulesService,
@@ -34,11 +34,11 @@ export class ModulesComponent {
       this.littilModulesService.getAll(),
       this.userModuleManager.getModules(this.roleId)
     ]).pipe(
-      map(([availableModules, userModules]) => {
+      map(([ availableModules, userModules ]) => {
         this.availableModules = availableModules;
         this.userModules = userModules;
       })
-    ).subscribe()
+    ).subscribe();
   }
 
   isModuleUsedByUser(module: Module): boolean {
@@ -46,7 +46,7 @@ export class ModulesComponent {
   }
 
   isModuleBeingSaved(module: Module): boolean {
-    return this.modulesSaving.includes((module.id as string))
+    return this.modulesSaving.includes((module.id as string));
   }
 
   removeModuleFromSaving(moduleId: string): void {
@@ -67,7 +67,7 @@ export class ModulesComponent {
         this.userModuleManager.addModule(this.roleId, module).subscribe(() => {
           this.removeModuleFromSaving(moduleId);
           this.userModules.push(module);
-        })
+        });
       }
     }
   }
