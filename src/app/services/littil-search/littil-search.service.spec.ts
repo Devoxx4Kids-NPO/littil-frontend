@@ -26,9 +26,9 @@ describe('LittilSearchService', () => {
 
   describe('getById', () => {
     it('should get search results', () => {
-      spectator.service.getSearchResult(52.3, 4.5, 'userType').subscribe();
+      spectator.service.getSearchResult(Array.of('Scratch'),52.3, 4.5, 300,'userType').subscribe();
       spectator.expectOne(
-        baseUrl + '/api/v1/search?lat=52.3&long=4.5&userType=userType',
+        baseUrl + '/api/v1/search?expectedModules=Scratch&lat=52.3&long=4.5&maxDistance=300&userType=userType',
         HttpMethod.GET
       );
     });

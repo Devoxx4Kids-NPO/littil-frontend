@@ -9,7 +9,7 @@ export class LittilSearchService {
 
   constructor(private searchService: SearchService) {}
 
-  getSearchResult(lat: number, long: number, userType: string): Observable<SearchResult[]> {
-    return this.searchService.apiV1SearchGet(lat, long, userType);
+  getSearchResult(expectedModules: string[], lat: number, long: number, maxDistance: number, userType: string ): Observable<SearchResult[]> {
+    return this.searchService.apiV1SearchGet(expectedModules, lat, long, maxDistance, userType );
   }
 }
