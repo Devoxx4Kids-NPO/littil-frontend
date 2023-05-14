@@ -87,7 +87,7 @@ export class ProfileComponent implements OnInit {
       }));
     }
 
-    if ("modules" in this.user && this.user.modules !== undefined) {
+    if ("modules" in this.user) {
       form.addControl('modules', new FormGroup({
         TEST: new FormControl(true),
       }));
