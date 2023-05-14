@@ -85,9 +85,11 @@ export class SearchComponent {
       }),
       switchMap((coordinates: Coordinates) => {
         return this.searchService.getSearchResult(
+          [],
           coordinates.lat,
           coordinates.lon,
-          this.getRequiredRoleForSearchResult(this.roleType)
+           300,
+           this.getRequiredRoleForSearchResult(this.roleType)
         );
       })
     );

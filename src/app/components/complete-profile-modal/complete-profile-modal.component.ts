@@ -8,7 +8,7 @@ import {
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { AuthService } from '@auth0/auth0-angular';
-import { firstValueFrom, Observable, Subscription } from 'rxjs';
+import { firstValueFrom, Observable, Subscription, switchMap, tap } from 'rxjs';
 import {
   ApiV1GuestTeachersGet200Response,
   ApiV1SchoolsGet200Response,
@@ -86,7 +86,7 @@ export class CompleteProfileModalComponent
   constructor(
     private guestTeacherService: LittilTeacherService,
     private schoolService: LittilSchoolService,
-    public auth: AuthService
+    private readonly authService: AuthService
   ) {
     this.completeProfileForm.markAsPristine();
     this.completeProfileForm.markAsUntouched();
@@ -111,7 +111,7 @@ export class CompleteProfileModalComponent
     }
   }
 
-  public onClickSaveProfile(): Promise<boolean> {
+  public async onClickSaveProfile(): Promise<boolean> {
     return Promise.resolve().then(() => {
       FormUtil.ValidateAll(this.completeProfileForm);
       if (this.completeProfileForm.invalid) {
@@ -148,7 +148,13 @@ export class CompleteProfileModalComponent
       }
       return firstValueFrom(createOrUpdateCall)
         .then(() => {
-          return this.close();
+          return firstValueFrom(
+            this.authService
+              .getAccessTokenSilently({ ignoreCache: true })
+              .pipe(switchMap(() => this.authService.user$))
+          ).then(() => {
+            return this.close();
+          });
         })
         .catch((error: any) => {
           console.error('createOrUpdate profile error');
@@ -158,6 +164,6 @@ export class CompleteProfileModalComponent
   }
 
   public logOut(): void {
-    this.auth.logout();
+    this.authService.logout();
   }
 }

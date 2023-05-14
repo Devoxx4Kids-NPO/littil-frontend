@@ -127,12 +127,6 @@
                       "items" : {
                         "$ref" : "#/components/schemas/DayOfWeek"
                       }
-                    },
-                    "modules" : {
-                      "type" : "array",
-                      "items" : {
-                        "$ref" : "#/components/schemas/Module"
-                      }
                     }
                   }
                 }
@@ -362,12 +356,6 @@
                       "items" : {
                         "$ref" : "#/components/schemas/DayOfWeek"
                       }
-                    },
-                    "modules" : {
-                      "type" : "array",
-                      "items" : {
-                        "$ref" : "#/components/schemas/Module"
-                      }
                     }
                   }
                 }
@@ -537,12 +525,6 @@
                     "surname" : {
                       "minLength" : 1,
                       "type" : "string"
-                    },
-                    "modules" : {
-                      "type" : "array",
-                      "items" : {
-                        "$ref" : "#/components/schemas/Module"
-                      }
                     }
                   }
                 }
@@ -676,12 +658,6 @@
                     "surname" : {
                       "minLength" : 1,
                       "type" : "string"
-                    },
-                    "modules" : {
-                      "type" : "array",
-                      "items" : {
-                        "$ref" : "#/components/schemas/Module"
-                      }
                     }
                   }
                 }
@@ -873,6 +849,15 @@
         "tags" : [ "Search" ],
         "summary" : "Fetch a list of teachers or school ordered by distance",
         "parameters" : [ {
+          "name" : "expectedModules",
+          "in" : "query",
+          "schema" : {
+            "type" : "array",
+            "items" : {
+              "type" : "string"
+            }
+          }
+        }, {
           "name" : "lat",
           "in" : "query",
           "schema" : {
@@ -885,6 +870,13 @@
           "schema" : {
             "format" : "double",
             "type" : "number"
+          }
+        }, {
+          "name" : "maxDistance",
+          "in" : "query",
+          "schema" : {
+            "format" : "int32",
+            "type" : "integer"
           }
         }, {
           "name" : "userType",
@@ -1543,12 +1535,6 @@
             "items" : {
               "$ref" : "#/components/schemas/DayOfWeek"
             }
-          },
-          "modules" : {
-            "type" : "array",
-            "items" : {
-              "$ref" : "#/components/schemas/Module"
-            }
           }
         }
       },
@@ -1636,12 +1622,6 @@
           "surname" : {
             "minLength" : 1,
             "type" : "string"
-          },
-          "modules" : {
-            "type" : "array",
-            "items" : {
-              "$ref" : "#/components/schemas/Module"
-            }
           }
         }
       },
