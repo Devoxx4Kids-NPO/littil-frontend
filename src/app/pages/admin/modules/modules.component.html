@@ -1,0 +1,22 @@
+<littil-profile-container title="Modules wijzigen">
+  <fieldset class="not-prose">
+    <legend class="sr-only">Modules</legend>
+    <div data-test="module-list">
+      <div data-test="module-list-item" class="relative flex items-start" *ngFor="let availableModule of availableModules">
+        <div class="flex h-6 items-center">
+          <input [id]="availableModule.id"
+                 [name]="availableModule.id"
+                 (change)="saveModuleStatus(availableModule)"
+                 [checked]="isModuleUsedByUser(availableModule)"
+                 [disabled]="isModuleBeingSaved(availableModule)"
+                 [ngClass]="isModuleBeingSaved(availableModule)
+                 ? 'text-gray-200 focus:ring-gray-200' : 'text-green-700 focus:ring-green-700'"
+                 aria-describedby="comments-description" type="checkbox" class="h-4 w-4 rounded border-gray-300">
+        </div>
+        <div class="ml-3 text-sm leading-6">
+          <label [for]="availableModule.id" class="font-medium text-gray-900">{{ availableModule.name}}</label>
+        </div>
+      </div>
+    </div>
+  </fieldset>
+</littil-profile-container>
