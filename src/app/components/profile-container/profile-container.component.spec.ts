@@ -9,10 +9,8 @@ describe('ProfileContainerComponent', () => {
   let fixture: ComponentFixture<ProfileContainerComponent>;
 
   beforeEach(async () => {
-
     await TestBed.configureTestingModule({
-      declarations: [ ProfileContainerComponent]
-      ,
+      declarations: [ ProfileContainerComponent ],
       providers: [
         MockProvider(PermissionController, {
           getRoleType: () => Roles.GuestTeacher })
@@ -29,5 +27,4 @@ describe('ProfileContainerComponent', () => {
     expect(component).toBeTruthy();
     expect(component.isGuestTeacher).toBe(true);
   });
-
 });
