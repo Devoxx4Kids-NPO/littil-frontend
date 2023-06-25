@@ -109,24 +109,20 @@
     <div>
       <div class="flex">
         <littil-form-input-text
-          formControlName="postalCodeNumbers"
-          id="postalCodeNumbers"
+          formControlName="postalCode"
+          id="postalCode"
           label="Postcode"
-          maxLength="4"
+          maxLength="6"
           widthClass="w-32"
           class="mr-2"
           [hasError]="
-            FormUtil.InValid(completeProfileForm.controls['postalCodeNumbers'])
+            FormUtil.InValid(completeProfileForm.controls['postalCode'])
           "
         >
           <littil-form-error-message
             *ngIf="
               FormUtil.ContainsError(
-                completeProfileForm.controls['postalCodeNumbers'],
-                'pattern'
-              ) ||
-              FormUtil.ContainsError(
-                completeProfileForm.controls['postalCodeLetters'],
+                completeProfileForm.controls['postalCode'],
                 'pattern'
               )
             "
@@ -135,28 +131,12 @@
           <littil-form-error-message
             *ngIf="
               FormUtil.ContainsError(
-                completeProfileForm.controls['postalCodeNumbers'],
-                'required'
-              ) ||
-              FormUtil.ContainsError(
-                completeProfileForm.controls['postalCodeLetters'],
+                completeProfileForm.controls['postalCode'],
                 'required'
               )
             "
             errorText="Postcode is verplicht"
           ></littil-form-error-message>
-        </littil-form-input-text>
-        <littil-form-input-text
-          formControlName="postalCodeLetters"
-          id="postalCodeLetters"
-          label="&nbsp;"
-          maxLength="2"
-          widthClass="w-12"
-          class="mr-2"
-          [hasError]="
-            FormUtil.InValid(completeProfileForm.controls['postalCodeLetters'])
-          "
-        >
         </littil-form-input-text>
       </div>
     </div>
