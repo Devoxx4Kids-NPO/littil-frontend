@@ -21,6 +21,9 @@
     "description" : "Auto generated value"
   } ],
   "tags" : [ {
+    "name" : "Coordinates",
+    "description" : "Resolve address to lat lng"
+  }, {
     "name" : "Module",
     "description" : "Read Operation"
   }, {
@@ -46,6 +49,34 @@
     "description" : "CRUD Operations for users"
   } ],
   "paths" : {
+    "/api/v1/coordinates" : {
+      "get" : {
+        "tags" : [ "Coordinates" ],
+        "parameters" : [ {
+          "name" : "q",
+          "in" : "query",
+          "schema" : {
+            "type" : "string"
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "OK"
+          },
+          "401" : {
+            "description" : "Not Authorized"
+          },
+          "403" : {
+            "description" : "Not Allowed"
+          }
+        },
+        "security" : [ {
+          "Auth0" : [ ]
+        }, {
+          "Auth0" : [ ]
+        } ]
+      }
+    },
     "/api/v1/guest-teachers" : {
       "get" : {
         "tags" : [ "Teacher" ],
@@ -157,6 +188,9 @@
           "404" : {
             "description" : "No Teacher found for id provided"
           },
+          "409" : {
+            "description" : "Current user already has authorizations"
+          },
           "500" : {
             "description" : "Persistence error occurred. Failed to persist teacher.",
             "content" : {
@@ -165,135 +199,6 @@
           },
           "401" : {
             "description" : "Not Authorized"
-          },
-          "403" : {
-            "description" : "Not Allowed"
-          }
-        },
-        "security" : [ {
-          "Auth0" : [ ]
-        }, {
-          "Auth0" : [ ]
-        } ]
-      }
-    },
-    "/api/v1/guest-teachers/{guestTeacher_id}/modules" : {
-      "get" : {
-        "tags" : [ "Teacher Modules" ],
-        "summary" : "Fetch the list of modules for a specific guestTeacher",
-        "parameters" : [ {
-          "name" : "guestTeacher_id",
-          "in" : "path",
-          "required" : true,
-          "schema" : {
-            "$ref" : "#/components/schemas/UUID"
-          }
-        } ],
-        "responses" : {
-          "200" : {
-            "description" : "Modules for guestTeacher with Id found.",
-            "content" : {
-              "application/json" : {
-                "schema" : {
-                  "type" : "array",
-                  "items" : {
-                    "$ref" : "#/components/schemas/Module"
-                  }
-                }
-              }
-            }
-          },
-          "404" : {
-            "description" : "GuestTeacher with specific Id was not found."
-          },
-          "401" : {
-            "description" : "Current user is not owner of this guestTeacher"
-          },
-          "403" : {
-            "description" : "Not Allowed"
-          }
-        },
-        "security" : [ {
-          "Auth0" : [ ]
-        }, {
-          "Auth0" : [ ]
-        } ]
-      },
-      "post" : {
-        "tags" : [ "Teacher Modules" ],
-        "summary" : "Add an existing module to the list of modules for a specific guestTeacher",
-        "parameters" : [ {
-          "name" : "guestTeacher_id",
-          "in" : "path",
-          "required" : true,
-          "schema" : {
-            "$ref" : "#/components/schemas/UUID"
-          }
-        } ],
-        "requestBody" : {
-          "content" : {
-            "application/json" : {
-              "schema" : {
-                "$ref" : "#/components/schemas/Module"
-              }
-            }
-          }
-        },
-        "responses" : {
-          "200" : {
-            "description" : "Successfully added the module for the given guestTeacher.",
-            "content" : {
-              "application/json" : { }
-            }
-          },
-          "404" : {
-            "description" : "The guestTeacher or module to add was not found."
-          },
-          "401" : {
-            "description" : "Current user is not owner of this guestTeacher"
-          },
-          "403" : {
-            "description" : "Not Allowed"
-          }
-        },
-        "security" : [ {
-          "Auth0" : [ ]
-        }, {
-          "Auth0" : [ ]
-        } ]
-      }
-    },
-    "/api/v1/guest-teachers/{guestTeacher_id}/modules/{module_id}" : {
-      "delete" : {
-        "tags" : [ "Teacher Modules" ],
-        "summary" : "Delete a module with an id for a given guestTeacher",
-        "parameters" : [ {
-          "name" : "guestTeacher_id",
-          "in" : "path",
-          "required" : true,
-          "schema" : {
-            "$ref" : "#/components/schemas/UUID"
-          }
-        }, {
-          "name" : "module_id",
-          "in" : "path",
-          "required" : true,
-          "schema" : {
-            "$ref" : "#/components/schemas/UUID"
-          }
-        } ],
-        "responses" : {
-          "200" : {
-            "description" : "Successfully deleted the module for the given guestTeacher.",
-            "content" : {
-              "application/json" : { }
-            }
-          },
-          "404" : {
-            "description" : "The guestTeacher or module to delete was not found."
-          },
-          "401" : {
-            "description" : "Current user is not owner of this guestTeacher"
           },
           "403" : {
             "description" : "Not Allowed"
@@ -404,6 +309,135 @@
           },
           "401" : {
             "description" : "Current user is not owner of this guest teacher profile"
+          },
+          "403" : {
+            "description" : "Not Allowed"
+          }
+        },
+        "security" : [ {
+          "Auth0" : [ ]
+        }, {
+          "Auth0" : [ ]
+        } ]
+      }
+    },
+    "/api/v1/guest-teachers/{id}/modules" : {
+      "get" : {
+        "tags" : [ "Teacher Modules" ],
+        "summary" : "Fetch the list of modules for a specific guestTeacher",
+        "parameters" : [ {
+          "name" : "id",
+          "in" : "path",
+          "required" : true,
+          "schema" : {
+            "$ref" : "#/components/schemas/UUID"
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "Modules for guestTeacher with Id found.",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "type" : "array",
+                  "items" : {
+                    "$ref" : "#/components/schemas/Module"
+                  }
+                }
+              }
+            }
+          },
+          "404" : {
+            "description" : "GuestTeacher with specific Id was not found."
+          },
+          "401" : {
+            "description" : "Current user is not owner of this guestTeacher"
+          },
+          "403" : {
+            "description" : "Not Allowed"
+          }
+        },
+        "security" : [ {
+          "Auth0" : [ ]
+        }, {
+          "Auth0" : [ ]
+        } ]
+      },
+      "post" : {
+        "tags" : [ "Teacher Modules" ],
+        "summary" : "Add an existing module to the list of modules for a specific guestTeacher",
+        "parameters" : [ {
+          "name" : "id",
+          "in" : "path",
+          "required" : true,
+          "schema" : {
+            "$ref" : "#/components/schemas/UUID"
+          }
+        } ],
+        "requestBody" : {
+          "content" : {
+            "application/json" : {
+              "schema" : {
+                "$ref" : "#/components/schemas/Module"
+              }
+            }
+          }
+        },
+        "responses" : {
+          "201" : {
+            "description" : "Successfully added the module for the given guestTeacher.",
+            "content" : {
+              "application/json" : { }
+            }
+          },
+          "404" : {
+            "description" : "The guestTeacher or module to add was not found."
+          },
+          "401" : {
+            "description" : "Current user is not owner of this guestTeacher"
+          },
+          "403" : {
+            "description" : "Not Allowed"
+          }
+        },
+        "security" : [ {
+          "Auth0" : [ ]
+        }, {
+          "Auth0" : [ ]
+        } ]
+      }
+    },
+    "/api/v1/guest-teachers/{id}/modules/{module_id}" : {
+      "delete" : {
+        "tags" : [ "Teacher Modules" ],
+        "summary" : "Delete a module with an id for a given guestTeacher",
+        "parameters" : [ {
+          "name" : "id",
+          "in" : "path",
+          "required" : true,
+          "schema" : {
+            "$ref" : "#/components/schemas/UUID"
+          }
+        }, {
+          "name" : "module_id",
+          "in" : "path",
+          "required" : true,
+          "schema" : {
+            "$ref" : "#/components/schemas/UUID"
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "Successfully deleted the module for the given guestTeacher.",
+            "content" : {
+              "application/json" : { }
+            }
+          },
+          "404" : {
+            "description" : "The guestTeacher or module to delete was not found."
+          },
+          "401" : {
+            "description" : "Current user is not owner of this guestTeacher"
           },
           "403" : {
             "description" : "Not Allowed"
@@ -554,6 +588,9 @@
           },
           "401" : {
             "description" : "Current user is not owner of this school"
+          },
+          "409" : {
+            "description" : "Current user already has authorizations"
           },
           "500" : {
             "description" : "Persistence error occurred. Failed to persist school."
@@ -715,12 +752,12 @@
         } ]
       }
     },
-    "/api/v1/schools/{school_id}/modules" : {
+    "/api/v1/schools/{id}/modules" : {
       "get" : {
         "tags" : [ "School Modules" ],
         "summary" : "Fetch the list of modules for a specific school",
         "parameters" : [ {
-          "name" : "school_id",
+          "name" : "id",
           "in" : "path",
           "required" : true,
           "schema" : {
@@ -761,7 +798,7 @@
         "tags" : [ "School Modules" ],
         "summary" : "Add an existing module to the list of modules for a specific school",
         "parameters" : [ {
-          "name" : "school_id",
+          "name" : "id",
           "in" : "path",
           "required" : true,
           "schema" : {
@@ -778,7 +815,7 @@
           }
         },
         "responses" : {
-          "200" : {
+          "201" : {
             "description" : "Successfully added the module for the given school.",
             "content" : {
               "application/json" : { }
@@ -801,19 +838,19 @@
         } ]
       }
     },
-    "/api/v1/schools/{school_id}/modules/{module_id}" : {
+    "/api/v1/schools/{id}/modules/{module_id}" : {
       "delete" : {
         "tags" : [ "School Modules" ],
         "summary" : "Delete a module with an id for a given school",
         "parameters" : [ {
-          "name" : "module_id",
+          "name" : "id",
           "in" : "path",
           "required" : true,
           "schema" : {
             "$ref" : "#/components/schemas/UUID"
           }
         }, {
-          "name" : "school_id",
+          "name" : "module_id",
           "in" : "path",
           "required" : true,
           "schema" : {
@@ -1759,7 +1796,7 @@
         "description" : "Authentication",
         "flows" : {
           "implicit" : {
-            "authorizationUrl" : "https://oidc_tenant/authorize?audience=https://oidc_tenant/api/v2/"
+            "authorizationUrl" : "https://dev-g60bne29.eu.auth0.com/authorize?audience=https://dev-g60bne29.eu.auth0.com/api/v2/"
           }
         }
       }
