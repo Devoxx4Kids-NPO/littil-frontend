@@ -12,7 +12,7 @@ class Coordinates {
   providedIn: 'root',
 })
 abstract class CoordinatesService {
-  abstract getCoordinates(location: String | undefined): Observable<Coordinates>;
+  abstract getCoordinates(location: string): Observable<Coordinates>;
 }
 
 export { Coordinates, CoordinatesService };
