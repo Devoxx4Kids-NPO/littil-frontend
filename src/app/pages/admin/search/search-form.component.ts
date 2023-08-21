@@ -1,6 +1,6 @@
 import {Component, EventEmitter, Output, ViewEncapsulation} from "@angular/core";
 import {CitiesService, MunicipalitiesJson, Municipality} from "../../../services/coordinates/cities.service";
-import {FormArray, FormBuilder, FormControl, FormGroup, ɵElement} from "@angular/forms";
+import {FormArray, FormBuilder, FormControl} from "@angular/forms";
 import {Module} from "../../../api/generated";
 import {LittilModulesService} from "../../../services/littil-modules/littil-modules.service";
 
@@ -42,16 +42,21 @@ export class SearchFormComponent {
   ngOnInit() {
     this.citiesService.fetchLocations().subscribe(provinces => this.provinces = provinces);
     this.modulesService.getAll().subscribe(modules=> {
-      modules = modules.slice().sort((a,b) => a.name.localeCompare(b.name));
-      this.modules = modules;
-      const formModules = this.searchForm.controls.modules;
-      formModules.clear();
-      modules.forEach(() => formModules.push(new FormControl(false)));
+      this.modules = (modules = modules.slice().sort(compareModulesByName));
+      this.updateModuleCheckboxes();
     });
   }
 
+  private updateModuleCheckboxes() {
+    this.searchForm.controls.modules.clear();
+    this.modules.forEach(() => this.searchForm.controls.modules.push(new FormControl(false)));
+  }
+
   onSubmit() {
-    const {location, distance} = this.searchForm.value;
+    const {
+      location,
+      distance,
+    } = this.searchForm.value;
     if (!location || !distance) {
       return;
     }
@@ -68,4 +73,8 @@ export class SearchFormComponent {
       (_, index) => this.searchForm.value.modules?.[index]
     );
   }
+}
+
+function compareModulesByName(a: Module, b: Module) {
+  return a.name.localeCompare(b.name);
 }
