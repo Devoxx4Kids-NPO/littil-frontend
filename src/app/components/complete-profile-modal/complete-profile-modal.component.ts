@@ -127,7 +127,7 @@ export class CompleteProfileModalComponent
           ' ' +
           this.completeProfileForm.controls['addressHousenumber'].value,
         postalCode:
-          this.completeProfileForm.controls['postalCode'].value,
+          this.completeProfileForm.controls['postalCode'].value.toUpperCase(),
       };
       if (
         this.completeProfileForm.controls['role'].value === Roles.GuestTeacher
