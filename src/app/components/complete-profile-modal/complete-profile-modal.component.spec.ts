@@ -80,11 +80,8 @@ describe('CompleteProfileModalComponent', () => {
         .get('addressHousenumber')
         ?.setValue('123');
       spectator.component.completeProfileForm
-        .get('postalCodeNumbers')
-        ?.setValue('1234');
-      spectator.component.completeProfileForm
-        .get('postalCodeLetters')
-        ?.setValue('AA');
+        .get('postalCode')
+        ?.setValue('1234AA');
       await spectator.component.onClickSaveProfile();
       expect(spectator.component.completeProfileForm.invalid).toBe(false);
       // expect(closeSpy).toHaveBeenCalledTimes(1);
