@@ -60,14 +60,10 @@ export class CompleteProfileModalComponent
     surname: new FormControl('', Validators.required),
     addressStreet: new FormControl('', Validators.required),
     addressHousenumber: new FormControl('', Validators.required),
-    postalCodeNumbers: new FormControl('', [
+    postalCode: new FormControl('', [
       Validators.required,
-      Validators.pattern('^[0-9]{4}$'),
-    ]),
-    postalCodeLetters: new FormControl('', [
-      Validators.required,
-      Validators.pattern('^[A-Za-z]{2}$'),
-    ]),
+      Validators.pattern('^[0-9]{4}[A-Za-z]{2}$'),
+    ])
   });
 
   roleChoices: RadioInput[] = [
@@ -131,8 +127,7 @@ export class CompleteProfileModalComponent
           ' ' +
           this.completeProfileForm.controls['addressHousenumber'].value,
         postalCode:
-          this.completeProfileForm.controls['postalCodeNumbers'].value +
-          this.completeProfileForm.controls['postalCodeLetters'].value,
+          this.completeProfileForm.controls['postalCode'].value.toUpperCase(),
       };
       if (
         this.completeProfileForm.controls['role'].value === Roles.GuestTeacher
