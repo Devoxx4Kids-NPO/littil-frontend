@@ -51,6 +51,6 @@ export class LittilSchoolService implements IHasManageableModules {
   }
 
   removeModule(schoolId: string, moduleId: string): Observable<any> {
-    return this.schoolModulesService.apiV1SchoolsIdModulesModuleIdDelete(moduleId, schoolId);
+    return this.schoolModulesService.apiV1SchoolsIdModulesModuleIdDelete(schoolId, moduleId);
   }
 }
