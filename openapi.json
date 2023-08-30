@@ -76,8 +76,6 @@
         },
         "security" : [ {
           "Auth0" : [ ]
-        }, {
-          "Auth0" : [ ]
         } ]
       },
       "post" : {
@@ -147,8 +145,6 @@
         },
         "security" : [ {
           "Auth0" : [ ]
-        }, {
-          "Auth0" : [ ]
         } ]
       }
     },
@@ -178,8 +174,6 @@
           }
         },
         "security" : [ {
-          "Auth0" : [ ]
-        }, {
           "Auth0" : [ ]
         } ]
       },
@@ -281,8 +275,6 @@
         },
         "security" : [ {
           "Auth0" : [ ]
-        }, {
-          "Auth0" : [ ]
         } ]
       }
     },
@@ -354,8 +346,6 @@
         },
         "security" : [ {
           "Auth0" : [ ]
-        }, {
-          "Auth0" : [ ]
         } ]
       },
       "delete" : {
@@ -390,8 +380,6 @@
           }
         },
         "security" : [ {
-          "Auth0" : [ ]
-        }, {
           "Auth0" : [ ]
         } ]
       }
@@ -434,8 +422,6 @@
         },
         "security" : [ {
           "Auth0" : [ ]
-        }, {
-          "Auth0" : [ ]
         } ]
       },
       "post" : {
@@ -476,8 +462,6 @@
           }
         },
         "security" : [ {
-          "Auth0" : [ ]
-        }, {
           "Auth0" : [ ]
         } ]
       }
@@ -520,8 +504,6 @@
         },
         "security" : [ {
           "Auth0" : [ ]
-        }, {
-          "Auth0" : [ ]
         } ]
       }
     },
@@ -552,8 +534,6 @@
         },
         "security" : [ {
           "Auth0" : [ ]
-        }, {
-          "Auth0" : [ ]
         } ]
       }
     },
@@ -583,8 +563,6 @@
           }
         },
         "security" : [ {
-          "Auth0" : [ ]
-        }, {
           "Auth0" : [ ]
         } ]
       },
@@ -676,8 +654,6 @@
         },
         "security" : [ {
           "Auth0" : [ ]
-        }, {
-          "Auth0" : [ ]
         } ]
       }
     },
@@ -718,8 +694,6 @@
           }
         },
         "security" : [ {
-          "Auth0" : [ ]
-        }, {
           "Auth0" : [ ]
         } ]
       }
@@ -788,8 +762,6 @@
         },
         "security" : [ {
           "Auth0" : [ ]
-        }, {
-          "Auth0" : [ ]
         } ]
       },
       "delete" : {
@@ -821,8 +793,6 @@
           }
         },
         "security" : [ {
-          "Auth0" : [ ]
-        }, {
           "Auth0" : [ ]
         } ]
       }
@@ -865,8 +835,6 @@
         },
         "security" : [ {
           "Auth0" : [ ]
-        }, {
-          "Auth0" : [ ]
         } ]
       },
       "post" : {
@@ -908,8 +876,6 @@
         },
         "security" : [ {
           "Auth0" : [ ]
-        }, {
-          "Auth0" : [ ]
         } ]
       }
     },
@@ -950,8 +916,6 @@
           }
         },
         "security" : [ {
-          "Auth0" : [ ]
-        }, {
           "Auth0" : [ ]
         } ]
       }
@@ -1041,8 +1005,6 @@
         },
         "security" : [ {
           "Auth0" : [ ]
-        }, {
-          "Auth0" : [ ]
         } ]
       }
     },
@@ -1072,8 +1034,6 @@
           }
         },
         "security" : [ {
-          "Auth0" : [ ]
-        }, {
           "Auth0" : [ ]
         } ]
       },
@@ -1147,8 +1107,6 @@
         },
         "security" : [ {
           "Auth0" : [ ]
-        }, {
-          "Auth0" : [ ]
         } ]
       }
     },
@@ -1186,8 +1144,6 @@
           }
         },
         "security" : [ {
-          "Auth0" : [ ]
-        }, {
           "Auth0" : [ ]
         } ]
       },
@@ -1275,8 +1231,6 @@
         },
         "security" : [ {
           "Auth0" : [ ]
-        }, {
-          "Auth0" : [ ]
         } ]
       },
       "delete" : {
@@ -1312,8 +1266,6 @@
         },
         "security" : [ {
           "Auth0" : [ ]
-        }, {
-          "Auth0" : [ ]
         } ]
       }
     },
@@ -1343,8 +1295,6 @@
           }
         },
         "security" : [ {
-          "Auth0" : [ "admin" ]
-        }, {
           "Auth0" : [ "admin" ]
         } ]
       },
@@ -1497,8 +1447,6 @@
         },
         "security" : [ {
           "Auth0" : [ ]
-        }, {
-          "Auth0" : [ ]
         } ]
       }
     },
@@ -1560,8 +1508,6 @@
         },
         "security" : [ {
           "Auth0" : [ "admin" ]
-        }, {
-          "Auth0" : [ "admin" ]
         } ]
       },
       "delete" : {
@@ -1590,8 +1536,6 @@
           }
         },
         "security" : [ {
-          "Auth0" : [ "admin" ]
-        }, {
           "Auth0" : [ "admin" ]
         } ]
       }
@@ -1915,7 +1859,7 @@
         "description" : "Authentication",
         "flows" : {
           "implicit" : {
-            "authorizationUrl" : "https://oidc_tenant/authorize?audience=https://oidc_tenant/api/v2/"
+            "authorizationUrl" : "https://dev-g60bne29.eu.auth0.com/authorize?audience=https://dev-g60bne29.eu.auth0.com/api/v2/"
           }
         }
       }
