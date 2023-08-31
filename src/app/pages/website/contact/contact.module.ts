@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { FooterModule } from '../../../components/footer/footer.module';
 import { ContactComponent } from './contact.component';
 import { RouterModule, Routes } from "@angular/router";
 import { ContentContainerModule } from "../../../components/content-container/content-container.module";
@@ -27,6 +28,7 @@ const routes: Routes = [
         ReactiveFormsModule,
         RouterModule.forChild(routes),
         TitleModule,
+        FooterModule,
     ]
 })
 export class ContactModule {

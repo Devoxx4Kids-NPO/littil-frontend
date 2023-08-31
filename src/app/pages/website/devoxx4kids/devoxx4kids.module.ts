@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule, Routes } from "@angular/router";
+import { FooterModule } from '../../../components/footer/footer.module';
 import { Devoxx4kidsComponent } from './devoxx4kids.component';
 import { TitleModule } from "../../../components/title/title.module";
 import { ContentContainerModule } from "../../../components/content-container/content-container.module";
@@ -14,12 +15,13 @@ const routes: Routes = [
 
 @NgModule({
   declarations: [Devoxx4kidsComponent],
-  imports: [
-    CommonModule,
-    ContentContainerModule,
-    TitleModule,
-    RouterModule.forChild(routes),
-  ]
+    imports: [
+        CommonModule,
+        ContentContainerModule,
+        TitleModule,
+        RouterModule.forChild(routes),
+        FooterModule,
+    ]
 })
 export class Devoxx4kidsModule {
 }
