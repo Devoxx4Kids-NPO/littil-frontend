@@ -1,6 +1,5 @@
 import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { GoogleMapsModule } from '@angular/google-maps';
 import { MatCheckbox } from '@angular/material/checkbox';
 import { initialize as initializeGoogleMaps } from '@googlemaps/jest-mocks';
 import { Spectator } from '@ngneat/spectator';
@@ -29,7 +28,6 @@ describe('SearchComponent', () => {
       HttpClientTestingModule,
       ReactiveFormsModule,
       FormsModule,
-      GoogleMapsModule,
     ],
     providers: [
       MockProvider(PermissionController, {

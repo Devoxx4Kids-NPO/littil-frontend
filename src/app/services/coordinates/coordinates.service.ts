@@ -16,3 +16,5 @@ abstract class CoordinatesService {
 }
 
 export { Coordinates, CoordinatesService };
+
+export type LatLng = {lat: number; lng: number};

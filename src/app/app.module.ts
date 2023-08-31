@@ -1,7 +1,6 @@
 import { CommonModule } from '@angular/common';
 import { HttpClient, HttpClientModule } from '@angular/common/http';
 import { NgModule } from '@angular/core';
-import { GoogleMapsModule } from '@angular/google-maps';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { AuthModule } from '@auth0/auth0-angular';
@@ -41,7 +40,6 @@ const littilConfig = getLittilConfigFromWindow();
     ErrorModalModule,
     MainMenuButtonModule,
     MainMenuDropdownButtonModule,
-    GoogleMapsModule,
     ModalControllerModule.forRoot(),
     AuthModule.forRoot({
       domain: littilConfig.auth0Domain,
