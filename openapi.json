@@ -21,8 +21,8 @@
     "description" : "Auto generated value"
   } ],
   "tags" : [ {
-    "name" : "Coordinates",
-    "description" : "Resolve address to lat lng"
+    "name" : "Contact",
+    "description" : "CRUD Operations"
   }, {
     "name" : "Module",
     "description" : "Read Operation"
@@ -34,7 +34,7 @@
     "description" : "CRUD Operations"
   }, {
     "name" : "Search",
-    "description" : "CRUD Operations"
+    "description" : "Read Operations"
   }, {
     "name" : "Teacher",
     "description" : "CRUD Operations"
@@ -49,22 +49,26 @@
     "description" : "CRUD Operations for users"
   } ],
   "paths" : {
-    "/api/v1/coordinates" : {
+    "/api/v1/contacts" : {
       "get" : {
-        "tags" : [ "Coordinates" ],
-        "parameters" : [ {
-          "name" : "q",
-          "in" : "query",
-          "schema" : {
-            "type" : "string"
-          }
-        } ],
+        "tags" : [ "Contact" ],
+        "summary" : "Get all my contacts",
         "responses" : {
           "200" : {
-            "description" : "OK"
+            "description" : "Get all my contacts",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "type" : "array",
+                  "items" : {
+                    "$ref" : "#/components/schemas/ContactResponse"
+                  }
+                }
+              }
+            }
           },
           "401" : {
-            "description" : "Not Authorized"
+            "description" : "Not authenticated"
           },
           "403" : {
             "description" : "Not Allowed"
@@ -72,7 +76,74 @@
         },
         "security" : [ {
           "Auth0" : [ ]
-        }, {
+        } ]
+      },
+      "post" : {
+        "tags" : [ "Contact" ],
+        "summary" : "Send and save a contact",
+        "requestBody" : {
+          "content" : {
+            "application/json" : {
+              "schema" : {
+                "$ref" : "#/components/schemas/ContactPostResource"
+              }
+            }
+          }
+        },
+        "responses" : {
+          "200" : {
+            "description" : "Contact successfully sent and created",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "type" : "object",
+                  "properties" : {
+                    "id" : {
+                      "$ref" : "#/components/schemas/UUID"
+                    },
+                    "recipient" : {
+                      "$ref" : "#/components/schemas/UUID"
+                    },
+                    "contactDate" : {
+                      "$ref" : "#/components/schemas/LocalDateTime"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400" : {
+            "description" : "Validation errors occurred.",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "type" : "object",
+                  "properties" : {
+                    "errorId" : {
+                      "type" : "string"
+                    },
+                    "errors" : {
+                      "type" : "array",
+                      "items" : {
+                        "$ref" : "#/components/schemas/ErrorMessage"
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "401" : {
+            "description" : "Not authenticated"
+          },
+          "500" : {
+            "description" : "error occurred. Failed to send or persist contact."
+          },
+          "403" : {
+            "description" : "Not Allowed"
+          }
+        },
+        "security" : [ {
           "Auth0" : [ ]
         } ]
       }
@@ -95,16 +166,14 @@
               }
             }
           },
-          "401" : {
-            "description" : "Not Authorized"
-          },
           "403" : {
             "description" : "Not Allowed"
+          },
+          "401" : {
+            "description" : "Not Authorized"
           }
         },
         "security" : [ {
-          "Auth0" : [ ]
-        }, {
           "Auth0" : [ ]
         } ]
       },
@@ -197,16 +266,14 @@
               "application/json" : { }
             }
           },
-          "401" : {
-            "description" : "Not Authorized"
-          },
           "403" : {
             "description" : "Not Allowed"
+          },
+          "401" : {
+            "description" : "Not Authorized"
           }
         },
         "security" : [ {
-          "Auth0" : [ ]
-        }, {
           "Auth0" : [ ]
         } ]
       }
@@ -270,16 +337,14 @@
           "404" : {
             "description" : "Teacher with specific Id was not found."
           },
-          "401" : {
-            "description" : "Not Authorized"
-          },
           "403" : {
             "description" : "Not Allowed"
+          },
+          "401" : {
+            "description" : "Not Authorized"
           }
         },
         "security" : [ {
-          "Auth0" : [ ]
-        }, {
           "Auth0" : [ ]
         } ]
       },
@@ -315,8 +380,6 @@
           }
         },
         "security" : [ {
-          "Auth0" : [ ]
-        }, {
           "Auth0" : [ ]
         } ]
       }
@@ -359,8 +422,6 @@
         },
         "security" : [ {
           "Auth0" : [ ]
-        }, {
-          "Auth0" : [ ]
         } ]
       },
       "post" : {
@@ -401,8 +462,6 @@
           }
         },
         "security" : [ {
-          "Auth0" : [ ]
-        }, {
           "Auth0" : [ ]
         } ]
       }
@@ -445,8 +504,6 @@
         },
         "security" : [ {
           "Auth0" : [ ]
-        }, {
-          "Auth0" : [ ]
         } ]
       }
     },
@@ -468,16 +525,14 @@
               }
             }
           },
-          "401" : {
-            "description" : "Not Authorized"
-          },
           "403" : {
             "description" : "Not Allowed"
+          },
+          "401" : {
+            "description" : "Not Authorized"
           }
         },
         "security" : [ {
-          "Auth0" : [ ]
-        }, {
           "Auth0" : [ ]
         } ]
       }
@@ -500,16 +555,14 @@
               }
             }
           },
-          "401" : {
-            "description" : "Not Authorized"
-          },
           "403" : {
             "description" : "Not Allowed"
+          },
+          "401" : {
+            "description" : "Not Authorized"
           }
         },
         "security" : [ {
-          "Auth0" : [ ]
-        }, {
           "Auth0" : [ ]
         } ]
       },
@@ -601,8 +654,6 @@
         },
         "security" : [ {
           "Auth0" : [ ]
-        }, {
-          "Auth0" : [ ]
         } ]
       }
     },
@@ -635,16 +686,14 @@
           "404" : {
             "description" : "School with specific name was not found."
           },
-          "401" : {
-            "description" : "Not Authorized"
-          },
           "403" : {
             "description" : "Not Allowed"
+          },
+          "401" : {
+            "description" : "Not Authorized"
           }
         },
         "security" : [ {
-          "Auth0" : [ ]
-        }, {
           "Auth0" : [ ]
         } ]
       }
@@ -704,16 +753,14 @@
           "404" : {
             "description" : "School with specific Id was not found."
           },
-          "401" : {
-            "description" : "Not Authorized"
-          },
           "403" : {
             "description" : "Not Allowed"
+          },
+          "401" : {
+            "description" : "Not Authorized"
           }
         },
         "security" : [ {
-          "Auth0" : [ ]
-        }, {
           "Auth0" : [ ]
         } ]
       },
@@ -746,8 +793,6 @@
           }
         },
         "security" : [ {
-          "Auth0" : [ ]
-        }, {
           "Auth0" : [ ]
         } ]
       }
@@ -790,8 +835,6 @@
         },
         "security" : [ {
           "Auth0" : [ ]
-        }, {
-          "Auth0" : [ ]
         } ]
       },
       "post" : {
@@ -833,8 +876,6 @@
         },
         "security" : [ {
           "Auth0" : [ ]
-        }, {
-          "Auth0" : [ ]
         } ]
       }
     },
@@ -875,8 +916,6 @@
           }
         },
         "security" : [ {
-          "Auth0" : [ ]
-        }, {
           "Auth0" : [ ]
         } ]
       }
@@ -957,16 +996,14 @@
               }
             }
           },
-          "401" : {
-            "description" : "Not Authorized"
-          },
           "403" : {
             "description" : "Not Allowed"
+          },
+          "401" : {
+            "description" : "Not Authorized"
           }
         },
         "security" : [ {
-          "Auth0" : [ ]
-        }, {
           "Auth0" : [ ]
         } ]
       }
@@ -989,16 +1026,14 @@
               }
             }
           },
-          "401" : {
-            "description" : "Not Authorized"
-          },
           "403" : {
             "description" : "Not Allowed"
+          },
+          "401" : {
+            "description" : "Not Authorized"
           }
         },
         "security" : [ {
-          "Auth0" : [ ]
-        }, {
           "Auth0" : [ ]
         } ]
       },
@@ -1063,16 +1098,14 @@
               "application/json" : { }
             }
           },
-          "401" : {
-            "description" : "Not Authorized"
-          },
           "403" : {
             "description" : "Not Allowed"
+          },
+          "401" : {
+            "description" : "Not Authorized"
           }
         },
         "security" : [ {
-          "Auth0" : [ ]
-        }, {
           "Auth0" : [ ]
         } ]
       }
@@ -1103,16 +1136,14 @@
               }
             }
           },
-          "401" : {
-            "description" : "Not Authorized"
-          },
           "403" : {
             "description" : "Not Allowed"
+          },
+          "401" : {
+            "description" : "Not Authorized"
           }
         },
         "security" : [ {
-          "Auth0" : [ ]
-        }, {
           "Auth0" : [ ]
         } ]
       },
@@ -1191,16 +1222,14 @@
               "application/json" : { }
             }
           },
-          "401" : {
-            "description" : "Not Authorized"
-          },
           "403" : {
             "description" : "Not Allowed"
+          },
+          "401" : {
+            "description" : "Not Authorized"
           }
         },
         "security" : [ {
-          "Auth0" : [ ]
-        }, {
           "Auth0" : [ ]
         } ]
       },
@@ -1228,16 +1257,14 @@
               "application/json" : { }
             }
           },
-          "401" : {
-            "description" : "Not Authorized"
-          },
           "403" : {
             "description" : "Not Allowed"
+          },
+          "401" : {
+            "description" : "Not Authorized"
           }
         },
         "security" : [ {
-          "Auth0" : [ ]
-        }, {
           "Auth0" : [ ]
         } ]
       }
@@ -1260,16 +1287,14 @@
               }
             }
           },
-          "401" : {
-            "description" : "Not Authorized"
-          },
           "403" : {
             "description" : "Not Allowed"
+          },
+          "401" : {
+            "description" : "Not Authorized"
           }
         },
         "security" : [ {
-          "Auth0" : [ "admin" ]
-        }, {
           "Auth0" : [ "admin" ]
         } ]
       },
@@ -1422,8 +1447,6 @@
         },
         "security" : [ {
           "Auth0" : [ ]
-        }, {
-          "Auth0" : [ ]
         } ]
       }
     },
@@ -1476,16 +1499,14 @@
           "404" : {
             "description" : "User with specific Id was not found."
           },
-          "401" : {
-            "description" : "Not Authorized"
-          },
           "403" : {
             "description" : "Not Allowed"
+          },
+          "401" : {
+            "description" : "Not Authorized"
           }
         },
         "security" : [ {
-          "Auth0" : [ "admin" ]
-        }, {
           "Auth0" : [ "admin" ]
         } ]
       },
@@ -1507,16 +1528,14 @@
           "404" : {
             "description" : "The user to delete was not found."
           },
-          "401" : {
-            "description" : "Not Authorized"
-          },
           "403" : {
             "description" : "Not Allowed"
+          },
+          "401" : {
+            "description" : "Not Authorized"
           }
         },
         "security" : [ {
-          "Auth0" : [ "admin" ]
-        }, {
           "Auth0" : [ "admin" ]
         } ]
       }
@@ -1524,6 +1543,38 @@
   },
   "components" : {
     "schemas" : {
+      "ContactPostResource" : {
+        "required" : [ "recipient", "medium", "message" ],
+        "type" : "object",
+        "properties" : {
+          "recipient" : {
+            "$ref" : "#/components/schemas/UUID"
+          },
+          "medium" : {
+            "minLength" : 1,
+            "type" : "string"
+          },
+          "message" : {
+            "maxLength" : 1000,
+            "minLength" : 1,
+            "type" : "string"
+          }
+        }
+      },
+      "ContactResponse" : {
+        "type" : "object",
+        "properties" : {
+          "id" : {
+            "$ref" : "#/components/schemas/UUID"
+          },
+          "recipient" : {
+            "$ref" : "#/components/schemas/UUID"
+          },
+          "contactDate" : {
+            "$ref" : "#/components/schemas/LocalDateTime"
+          }
+        }
+      },
       "DayOfWeek" : {
         "enum" : [ "MONDAY", "TUESDAY", "WEDNESDAY", "THURSDAY", "FRIDAY", "SATURDAY", "SUNDAY" ],
         "type" : "string"
@@ -1613,6 +1664,11 @@
           }
         }
       },
+      "LocalDateTime" : {
+        "format" : "date-time",
+        "type" : "string",
+        "example" : "2022-03-10T12:15:50"
+      },
       "Module" : {
         "required" : [ "name" ],
         "type" : "object",
@@ -1695,10 +1751,17 @@
         }
       },
       "SearchResult" : {
-        "required" : [ "id", "name", "userType" ],
+        "required" : [ "id", "userId", "name", "userType" ],
         "type" : "object",
         "properties" : {
           "id" : {
+            "minLength" : 1,
+            "type" : "string",
+            "allOf" : [ {
+              "$ref" : "#/components/schemas/UUID"
+            } ]
+          },
+          "userId" : {
             "minLength" : 1,
             "type" : "string",
             "allOf" : [ {
@@ -1796,7 +1859,7 @@
         "description" : "Authentication",
         "flows" : {
           "implicit" : {
-            "authorizationUrl" : "https://dev-g60bne29.eu.auth0.com/authorize?audience=https://dev-g60bne29.eu.auth0.com/api/v2/"
+            "authorizationUrl" : "https://oidc_tenant/authorize?audience=https://oidc_tenant/api/v2/"
           }
         }
       }
