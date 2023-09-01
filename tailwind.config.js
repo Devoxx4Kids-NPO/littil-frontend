@@ -36,6 +36,9 @@ module.exports = {
           200: "#2d2e83",
           300: "#5f60b5"
         },
+        lightblue: {
+          100: "#a0c4e9",
+        }
       },
     },
   },

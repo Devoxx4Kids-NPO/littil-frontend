@@ -2,6 +2,7 @@ import {NgModule} from '@angular/core';
 import {CommonModule} from '@angular/common';
 import {ContentContainerModule} from "../../../components/content-container/content-container.module";
 import {RouterModule, Routes} from "@angular/router";
+import { FooterModule } from '../../../components/footer/footer.module';
 import {InformationComponent} from "./information/information.component";
 import {SchoolsComponent} from './schools/schools.component';
 import { SpecialistsComponent } from './specialists/specialists.component';
@@ -40,7 +41,8 @@ const routes: Routes = [
     ContentContainerModule,
     RouterModule.forChild(routes),
     TitleModule,
-    ContactBannerModule
+    ContactBannerModule,
+    FooterModule
   ],
   exports: [ContactBannerModule]
 })

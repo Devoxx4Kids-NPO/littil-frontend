@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { Router } from "@angular/router";
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'littil-about-us',
@@ -7,7 +7,7 @@ import { Router } from "@angular/router";
 })
 export class AboutUsComponent {
 
-  managementMock: any[] = [
+  managementMock: { name: string, role: string }[] = [
     {
       name: 'Koen Aerts',
       role: 'Voorzitter Devoxx4Kids Nederland'
