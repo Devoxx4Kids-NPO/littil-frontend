@@ -17,6 +17,7 @@ import { ModalControllerModule } from './components/modal/modal.controller.modul
 import { RegisterModalModule } from './components/register-modal/register-modal.module';
 import { UserMenuModule } from './components/user-menu/user-menu.module';
 import { interceptorProviders } from './interceptors/http-interceptors';
+import { environment } from "../environments/environment";
 
 const littilConfig = getLittilConfigFromWindow();
 
@@ -56,6 +57,7 @@ const littilConfig = getLittilConfigFromWindow();
           },
         ],
       },
+      cacheLocation: environment.production ? undefined :  'localstorage',
     }),
   ],
   providers: [HttpClient, interceptorProviders],

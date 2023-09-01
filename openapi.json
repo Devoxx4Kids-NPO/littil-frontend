@@ -21,6 +21,9 @@
     "description" : "Auto generated value"
   } ],
   "tags" : [ {
+    "name" : "Contact",
+    "description" : "CRUD Operations"
+  }, {
     "name" : "Module",
     "description" : "Read Operation"
   }, {
@@ -31,7 +34,7 @@
     "description" : "CRUD Operations"
   }, {
     "name" : "Search",
-    "description" : "CRUD Operations"
+    "description" : "Read Operations"
   }, {
     "name" : "Teacher",
     "description" : "CRUD Operations"
@@ -46,6 +49,105 @@
     "description" : "CRUD Operations for users"
   } ],
   "paths" : {
+    "/api/v1/contacts" : {
+      "get" : {
+        "tags" : [ "Contact" ],
+        "summary" : "Get all my contacts",
+        "responses" : {
+          "200" : {
+            "description" : "Get all my contacts",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "type" : "array",
+                  "items" : {
+                    "$ref" : "#/components/schemas/ContactResponse"
+                  }
+                }
+              }
+            }
+          },
+          "401" : {
+            "description" : "Not authenticated"
+          },
+          "403" : {
+            "description" : "Not Allowed"
+          }
+        },
+        "security" : [ {
+          "Auth0" : [ ]
+        } ]
+      },
+      "post" : {
+        "tags" : [ "Contact" ],
+        "summary" : "Send and save a contact",
+        "requestBody" : {
+          "content" : {
+            "application/json" : {
+              "schema" : {
+                "$ref" : "#/components/schemas/ContactPostResource"
+              }
+            }
+          }
+        },
+        "responses" : {
+          "200" : {
+            "description" : "Contact successfully sent and created",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "type" : "object",
+                  "properties" : {
+                    "id" : {
+                      "$ref" : "#/components/schemas/UUID"
+                    },
+                    "recipient" : {
+                      "$ref" : "#/components/schemas/UUID"
+                    },
+                    "contactDate" : {
+                      "$ref" : "#/components/schemas/LocalDateTime"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400" : {
+            "description" : "Validation errors occurred.",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "type" : "object",
+                  "properties" : {
+                    "errorId" : {
+                      "type" : "string"
+                    },
+                    "errors" : {
+                      "type" : "array",
+                      "items" : {
+                        "$ref" : "#/components/schemas/ErrorMessage"
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "401" : {
+            "description" : "Not authenticated"
+          },
+          "500" : {
+            "description" : "error occurred. Failed to send or persist contact."
+          },
+          "403" : {
+            "description" : "Not Allowed"
+          }
+        },
+        "security" : [ {
+          "Auth0" : [ ]
+        } ]
+      }
+    },
     "/api/v1/guest-teachers" : {
       "get" : {
         "tags" : [ "Teacher" ],
@@ -64,16 +166,14 @@
               }
             }
           },
-          "401" : {
-            "description" : "Not Authorized"
-          },
           "403" : {
             "description" : "Not Allowed"
+          },
+          "401" : {
+            "description" : "Not Authorized"
           }
         },
         "security" : [ {
-          "Auth0" : [ ]
-        }, {
           "Auth0" : [ ]
         } ]
       },
@@ -157,151 +257,23 @@
           "404" : {
             "description" : "No Teacher found for id provided"
           },
+          "409" : {
+            "description" : "Current user already has authorizations"
+          },
           "500" : {
             "description" : "Persistence error occurred. Failed to persist teacher.",
             "content" : {
               "application/json" : { }
             }
           },
+          "403" : {
+            "description" : "Not Allowed"
+          },
           "401" : {
             "description" : "Not Authorized"
-          },
-          "403" : {
-            "description" : "Not Allowed"
           }
         },
         "security" : [ {
-          "Auth0" : [ ]
-        }, {
-          "Auth0" : [ ]
-        } ]
-      }
-    },
-    "/api/v1/guest-teachers/{guestTeacher_id}/modules" : {
-      "get" : {
-        "tags" : [ "Teacher Modules" ],
-        "summary" : "Fetch the list of modules for a specific guestTeacher",
-        "parameters" : [ {
-          "name" : "guestTeacher_id",
-          "in" : "path",
-          "required" : true,
-          "schema" : {
-            "$ref" : "#/components/schemas/UUID"
-          }
-        } ],
-        "responses" : {
-          "200" : {
-            "description" : "Modules for guestTeacher with Id found.",
-            "content" : {
-              "application/json" : {
-                "schema" : {
-                  "type" : "array",
-                  "items" : {
-                    "$ref" : "#/components/schemas/Module"
-                  }
-                }
-              }
-            }
-          },
-          "404" : {
-            "description" : "GuestTeacher with specific Id was not found."
-          },
-          "401" : {
-            "description" : "Current user is not owner of this guestTeacher"
-          },
-          "403" : {
-            "description" : "Not Allowed"
-          }
-        },
-        "security" : [ {
-          "Auth0" : [ ]
-        }, {
-          "Auth0" : [ ]
-        } ]
-      },
-      "post" : {
-        "tags" : [ "Teacher Modules" ],
-        "summary" : "Add an existing module to the list of modules for a specific guestTeacher",
-        "parameters" : [ {
-          "name" : "guestTeacher_id",
-          "in" : "path",
-          "required" : true,
-          "schema" : {
-            "$ref" : "#/components/schemas/UUID"
-          }
-        } ],
-        "requestBody" : {
-          "content" : {
-            "application/json" : {
-              "schema" : {
-                "$ref" : "#/components/schemas/Module"
-              }
-            }
-          }
-        },
-        "responses" : {
-          "200" : {
-            "description" : "Successfully added the module for the given guestTeacher.",
-            "content" : {
-              "application/json" : { }
-            }
-          },
-          "404" : {
-            "description" : "The guestTeacher or module to add was not found."
-          },
-          "401" : {
-            "description" : "Current user is not owner of this guestTeacher"
-          },
-          "403" : {
-            "description" : "Not Allowed"
-          }
-        },
-        "security" : [ {
-          "Auth0" : [ ]
-        }, {
-          "Auth0" : [ ]
-        } ]
-      }
-    },
-    "/api/v1/guest-teachers/{guestTeacher_id}/modules/{module_id}" : {
-      "delete" : {
-        "tags" : [ "Teacher Modules" ],
-        "summary" : "Delete a module with an id for a given guestTeacher",
-        "parameters" : [ {
-          "name" : "guestTeacher_id",
-          "in" : "path",
-          "required" : true,
-          "schema" : {
-            "$ref" : "#/components/schemas/UUID"
-          }
-        }, {
-          "name" : "module_id",
-          "in" : "path",
-          "required" : true,
-          "schema" : {
-            "$ref" : "#/components/schemas/UUID"
-          }
-        } ],
-        "responses" : {
-          "200" : {
-            "description" : "Successfully deleted the module for the given guestTeacher.",
-            "content" : {
-              "application/json" : { }
-            }
-          },
-          "404" : {
-            "description" : "The guestTeacher or module to delete was not found."
-          },
-          "401" : {
-            "description" : "Current user is not owner of this guestTeacher"
-          },
-          "403" : {
-            "description" : "Not Allowed"
-          }
-        },
-        "security" : [ {
-          "Auth0" : [ ]
-        }, {
           "Auth0" : [ ]
         } ]
       }
@@ -365,16 +337,14 @@
           "404" : {
             "description" : "Teacher with specific Id was not found."
           },
-          "401" : {
-            "description" : "Not Authorized"
-          },
           "403" : {
             "description" : "Not Allowed"
+          },
+          "401" : {
+            "description" : "Not Authorized"
           }
         },
         "security" : [ {
-          "Auth0" : [ ]
-        }, {
           "Auth0" : [ ]
         } ]
       },
@@ -411,7 +381,128 @@
         },
         "security" : [ {
           "Auth0" : [ ]
+        } ]
+      }
+    },
+    "/api/v1/guest-teachers/{id}/modules" : {
+      "get" : {
+        "tags" : [ "Teacher Modules" ],
+        "summary" : "Fetch the list of modules for a specific guestTeacher",
+        "parameters" : [ {
+          "name" : "id",
+          "in" : "path",
+          "required" : true,
+          "schema" : {
+            "$ref" : "#/components/schemas/UUID"
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "Modules for guestTeacher with Id found.",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "type" : "array",
+                  "items" : {
+                    "$ref" : "#/components/schemas/Module"
+                  }
+                }
+              }
+            }
+          },
+          "404" : {
+            "description" : "GuestTeacher with specific Id was not found."
+          },
+          "401" : {
+            "description" : "Current user is not owner of this guestTeacher"
+          },
+          "403" : {
+            "description" : "Not Allowed"
+          }
+        },
+        "security" : [ {
+          "Auth0" : [ ]
+        } ]
+      },
+      "post" : {
+        "tags" : [ "Teacher Modules" ],
+        "summary" : "Add an existing module to the list of modules for a specific guestTeacher",
+        "parameters" : [ {
+          "name" : "id",
+          "in" : "path",
+          "required" : true,
+          "schema" : {
+            "$ref" : "#/components/schemas/UUID"
+          }
+        } ],
+        "requestBody" : {
+          "content" : {
+            "application/json" : {
+              "schema" : {
+                "$ref" : "#/components/schemas/Module"
+              }
+            }
+          }
+        },
+        "responses" : {
+          "201" : {
+            "description" : "Successfully added the module for the given guestTeacher.",
+            "content" : {
+              "application/json" : { }
+            }
+          },
+          "404" : {
+            "description" : "The guestTeacher or module to add was not found."
+          },
+          "401" : {
+            "description" : "Current user is not owner of this guestTeacher"
+          },
+          "403" : {
+            "description" : "Not Allowed"
+          }
+        },
+        "security" : [ {
+          "Auth0" : [ ]
+        } ]
+      }
+    },
+    "/api/v1/guest-teachers/{id}/modules/{module_id}" : {
+      "delete" : {
+        "tags" : [ "Teacher Modules" ],
+        "summary" : "Delete a module with an id for a given guestTeacher",
+        "parameters" : [ {
+          "name" : "id",
+          "in" : "path",
+          "required" : true,
+          "schema" : {
+            "$ref" : "#/components/schemas/UUID"
+          }
         }, {
+          "name" : "module_id",
+          "in" : "path",
+          "required" : true,
+          "schema" : {
+            "$ref" : "#/components/schemas/UUID"
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "Successfully deleted the module for the given guestTeacher.",
+            "content" : {
+              "application/json" : { }
+            }
+          },
+          "404" : {
+            "description" : "The guestTeacher or module to delete was not found."
+          },
+          "401" : {
+            "description" : "Current user is not owner of this guestTeacher"
+          },
+          "403" : {
+            "description" : "Not Allowed"
+          }
+        },
+        "security" : [ {
           "Auth0" : [ ]
         } ]
       }
@@ -434,16 +525,14 @@
               }
             }
           },
-          "401" : {
-            "description" : "Not Authorized"
-          },
           "403" : {
             "description" : "Not Allowed"
+          },
+          "401" : {
+            "description" : "Not Authorized"
           }
         },
         "security" : [ {
-          "Auth0" : [ ]
-        }, {
           "Auth0" : [ ]
         } ]
       }
@@ -466,16 +555,14 @@
               }
             }
           },
-          "401" : {
-            "description" : "Not Authorized"
-          },
           "403" : {
             "description" : "Not Allowed"
+          },
+          "401" : {
+            "description" : "Not Authorized"
           }
         },
         "security" : [ {
-          "Auth0" : [ ]
-        }, {
           "Auth0" : [ ]
         } ]
       },
@@ -555,6 +642,9 @@
           "401" : {
             "description" : "Current user is not owner of this school"
           },
+          "409" : {
+            "description" : "Current user already has authorizations"
+          },
           "500" : {
             "description" : "Persistence error occurred. Failed to persist school."
           },
@@ -563,8 +653,6 @@
           }
         },
         "security" : [ {
-          "Auth0" : [ ]
-        }, {
           "Auth0" : [ ]
         } ]
       }
@@ -598,16 +686,14 @@
           "404" : {
             "description" : "School with specific name was not found."
           },
-          "401" : {
-            "description" : "Not Authorized"
-          },
           "403" : {
             "description" : "Not Allowed"
+          },
+          "401" : {
+            "description" : "Not Authorized"
           }
         },
         "security" : [ {
-          "Auth0" : [ ]
-        }, {
           "Auth0" : [ ]
         } ]
       }
@@ -667,16 +753,14 @@
           "404" : {
             "description" : "School with specific Id was not found."
           },
-          "401" : {
-            "description" : "Not Authorized"
-          },
           "403" : {
             "description" : "Not Allowed"
+          },
+          "401" : {
+            "description" : "Not Authorized"
           }
         },
         "security" : [ {
-          "Auth0" : [ ]
-        }, {
           "Auth0" : [ ]
         } ]
       },
@@ -710,17 +794,15 @@
         },
         "security" : [ {
           "Auth0" : [ ]
-        }, {
-          "Auth0" : [ ]
         } ]
       }
     },
-    "/api/v1/schools/{school_id}/modules" : {
+    "/api/v1/schools/{id}/modules" : {
       "get" : {
         "tags" : [ "School Modules" ],
         "summary" : "Fetch the list of modules for a specific school",
         "parameters" : [ {
-          "name" : "school_id",
+          "name" : "id",
           "in" : "path",
           "required" : true,
           "schema" : {
@@ -753,15 +835,13 @@
         },
         "security" : [ {
           "Auth0" : [ ]
-        }, {
-          "Auth0" : [ ]
         } ]
       },
       "post" : {
         "tags" : [ "School Modules" ],
         "summary" : "Add an existing module to the list of modules for a specific school",
         "parameters" : [ {
-          "name" : "school_id",
+          "name" : "id",
           "in" : "path",
           "required" : true,
           "schema" : {
@@ -778,7 +858,7 @@
           }
         },
         "responses" : {
-          "200" : {
+          "201" : {
             "description" : "Successfully added the module for the given school.",
             "content" : {
               "application/json" : { }
@@ -796,24 +876,22 @@
         },
         "security" : [ {
           "Auth0" : [ ]
-        }, {
-          "Auth0" : [ ]
         } ]
       }
     },
-    "/api/v1/schools/{school_id}/modules/{module_id}" : {
+    "/api/v1/schools/{id}/modules/{module_id}" : {
       "delete" : {
         "tags" : [ "School Modules" ],
         "summary" : "Delete a module with an id for a given school",
         "parameters" : [ {
-          "name" : "module_id",
+          "name" : "id",
           "in" : "path",
           "required" : true,
           "schema" : {
             "$ref" : "#/components/schemas/UUID"
           }
         }, {
-          "name" : "school_id",
+          "name" : "module_id",
           "in" : "path",
           "required" : true,
           "schema" : {
@@ -838,8 +916,6 @@
           }
         },
         "security" : [ {
-          "Auth0" : [ ]
-        }, {
           "Auth0" : [ ]
         } ]
       }
@@ -920,16 +996,14 @@
               }
             }
           },
-          "401" : {
-            "description" : "Not Authorized"
-          },
           "403" : {
             "description" : "Not Allowed"
+          },
+          "401" : {
+            "description" : "Not Authorized"
           }
         },
         "security" : [ {
-          "Auth0" : [ ]
-        }, {
           "Auth0" : [ ]
         } ]
       }
@@ -952,16 +1026,14 @@
               }
             }
           },
-          "401" : {
-            "description" : "Not Authorized"
-          },
           "403" : {
             "description" : "Not Allowed"
+          },
+          "401" : {
+            "description" : "Not Authorized"
           }
         },
         "security" : [ {
-          "Auth0" : [ ]
-        }, {
           "Auth0" : [ ]
         } ]
       },
@@ -1026,16 +1098,14 @@
               "application/json" : { }
             }
           },
-          "401" : {
-            "description" : "Not Authorized"
-          },
           "403" : {
             "description" : "Not Allowed"
+          },
+          "401" : {
+            "description" : "Not Authorized"
           }
         },
         "security" : [ {
-          "Auth0" : [ ]
-        }, {
           "Auth0" : [ ]
         } ]
       }
@@ -1066,16 +1136,14 @@
               }
             }
           },
-          "401" : {
-            "description" : "Not Authorized"
-          },
           "403" : {
             "description" : "Not Allowed"
+          },
+          "401" : {
+            "description" : "Not Authorized"
           }
         },
         "security" : [ {
-          "Auth0" : [ ]
-        }, {
           "Auth0" : [ ]
         } ]
       },
@@ -1154,16 +1222,14 @@
               "application/json" : { }
             }
           },
-          "401" : {
-            "description" : "Not Authorized"
-          },
           "403" : {
             "description" : "Not Allowed"
+          },
+          "401" : {
+            "description" : "Not Authorized"
           }
         },
         "security" : [ {
-          "Auth0" : [ ]
-        }, {
           "Auth0" : [ ]
         } ]
       },
@@ -1191,16 +1257,14 @@
               "application/json" : { }
             }
           },
-          "401" : {
-            "description" : "Not Authorized"
-          },
           "403" : {
             "description" : "Not Allowed"
+          },
+          "401" : {
+            "description" : "Not Authorized"
           }
         },
         "security" : [ {
-          "Auth0" : [ ]
-        }, {
           "Auth0" : [ ]
         } ]
       }
@@ -1223,16 +1287,14 @@
               }
             }
           },
-          "401" : {
-            "description" : "Not Authorized"
-          },
           "403" : {
             "description" : "Not Allowed"
+          },
+          "401" : {
+            "description" : "Not Authorized"
           }
         },
         "security" : [ {
-          "Auth0" : [ "admin" ]
-        }, {
           "Auth0" : [ "admin" ]
         } ]
       },
@@ -1385,8 +1447,6 @@
         },
         "security" : [ {
           "Auth0" : [ ]
-        }, {
-          "Auth0" : [ ]
         } ]
       }
     },
@@ -1439,16 +1499,14 @@
           "404" : {
             "description" : "User with specific Id was not found."
           },
-          "401" : {
-            "description" : "Not Authorized"
-          },
           "403" : {
             "description" : "Not Allowed"
+          },
+          "401" : {
+            "description" : "Not Authorized"
           }
         },
         "security" : [ {
-          "Auth0" : [ "admin" ]
-        }, {
           "Auth0" : [ "admin" ]
         } ]
       },
@@ -1470,16 +1528,14 @@
           "404" : {
             "description" : "The user to delete was not found."
           },
-          "401" : {
-            "description" : "Not Authorized"
-          },
           "403" : {
             "description" : "Not Allowed"
+          },
+          "401" : {
+            "description" : "Not Authorized"
           }
         },
         "security" : [ {
-          "Auth0" : [ "admin" ]
-        }, {
           "Auth0" : [ "admin" ]
         } ]
       }
@@ -1487,6 +1543,38 @@
   },
   "components" : {
     "schemas" : {
+      "ContactPostResource" : {
+        "required" : [ "recipient", "medium", "message" ],
+        "type" : "object",
+        "properties" : {
+          "recipient" : {
+            "$ref" : "#/components/schemas/UUID"
+          },
+          "medium" : {
+            "minLength" : 1,
+            "type" : "string"
+          },
+          "message" : {
+            "maxLength" : 1000,
+            "minLength" : 1,
+            "type" : "string"
+          }
+        }
+      },
+      "ContactResponse" : {
+        "type" : "object",
+        "properties" : {
+          "id" : {
+            "$ref" : "#/components/schemas/UUID"
+          },
+          "recipient" : {
+            "$ref" : "#/components/schemas/UUID"
+          },
+          "contactDate" : {
+            "$ref" : "#/components/schemas/LocalDateTime"
+          }
+        }
+      },
       "DayOfWeek" : {
         "enum" : [ "MONDAY", "TUESDAY", "WEDNESDAY", "THURSDAY", "FRIDAY", "SATURDAY", "SUNDAY" ],
         "type" : "string"
@@ -1576,6 +1664,11 @@
           }
         }
       },
+      "LocalDateTime" : {
+        "format" : "date-time",
+        "type" : "string",
+        "example" : "2022-03-10T12:15:50"
+      },
       "Module" : {
         "required" : [ "name" ],
         "type" : "object",
@@ -1658,10 +1751,17 @@
         }
       },
       "SearchResult" : {
-        "required" : [ "id", "name", "userType" ],
+        "required" : [ "id", "userId", "name", "userType" ],
         "type" : "object",
         "properties" : {
           "id" : {
+            "minLength" : 1,
+            "type" : "string",
+            "allOf" : [ {
+              "$ref" : "#/components/schemas/UUID"
+            } ]
+          },
+          "userId" : {
             "minLength" : 1,
             "type" : "string",
             "allOf" : [ {

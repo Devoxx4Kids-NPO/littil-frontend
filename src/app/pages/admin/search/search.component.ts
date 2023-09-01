@@ -1,8 +1,8 @@
 import {Component, NgZone} from '@angular/core';
 import {FormBuilder} from '@angular/forms';
-import {combineLatest, map, Observable, switchMap} from 'rxjs';
-import {GuestTeacher, School, SearchResult} from '../../../api/generated';
-import {Coordinates, CoordinatesService,} from '../../../services/coordinates/coordinates.service';
+import {combineLatest, map, Observable, switchMap, from, of, EMPTY, Subject, take, tap, startWith} from 'rxjs';
+import {GuestTeacher, Module, ModuleService, School, SearchResult} from '../../../api/generated';
+import {Coordinates, CoordinatesService} from '../../../services/coordinates/coordinates.service';
 import {OpenStreetMapService} from '../../../services/coordinates/open-street-map.service';
 import {LittilSchoolService} from '../../../services/littil-school/littil-school.service';
 import {LittilSearchService} from '../../../services/littil-search/littil-search.service';
@@ -10,6 +10,9 @@ import {LittilTeacherService} from '../../../services/littil-teacher/littil-teac
 import {PermissionController, Roles,} from '../../../services/permission.controller';
 import {MAP_OPTIONS} from './map-options';
 import {Icon, Layer, marker, Marker, MarkerOptions} from "leaflet";
+import {CitiesService, MunicipalitiesJson} from "../../../services/coordinates/cities.service";
+import {SearchQuery} from "./search-form.component";
+import {LittilModulesService} from "../../../services/littil-modules/littil-modules.service";
 
 @Component({
   selector: 'littil-search',
@@ -22,15 +25,23 @@ export class SearchComponent {
   private roleId: string;
   public mapOptions: L.MapOptions = MAP_OPTIONS;
   public mapLayers: Layer[] = [];
-
-  searchForm = this.formBuilder.group({
-    straal: '',
-    locatie: '',
-  });
+  private searchQuery$ = new Subject<SearchQuery>();
+  private searchResults$: Observable<SearchResult[]> = this.searchQuery$.pipe(
+    switchMap(query => {
+      return this.searchService.getSearchResult(
+        query.modules,
+        query.lat,
+        query.lng,
+        query.distance,
+        this.getRequiredRoleForSearchResult(this.roleType)
+      );
+    }),
+  );
 
   constructor(
     private permissionController: PermissionController,
     private searchService: LittilSearchService,
+    private moduleService: LittilModulesService,
     private formBuilder: FormBuilder,
     private coordinatesService: CoordinatesService,
     private littilTeacherService: LittilTeacherService,
@@ -45,12 +56,9 @@ export class SearchComponent {
     const user$ = this.fetchUserInfo();
     const pos$ = this.fetchUserCoordinate(user$);
     const userMarker$ = this.makeUserMarker(user$, pos$);
-
-    const results$ = this.fetchSearchResults(pos$);
-    const resultMarkers$ = this.makeResultMarkers(results$);
-
-    const allMarkers$ = combineLatest([userMarker$, resultMarkers$]).subscribe(([userMarker, resultMarkers]) => {
-      this.mapLayers = [userMarker, ...resultMarkers];
+    const resultMarkers$ = this.makeResultMarkers(this.searchResults$);
+    const allMarkers$ = combineLatest([userMarker$, resultMarkers$.pipe(startWith([]))]).subscribe(([userMarker, resultMarkers]) => {
+      this.mapLayers = userMarker ? [userMarker, ...resultMarkers] : resultMarkers;
     });
   }
 
@@ -62,17 +70,22 @@ export class SearchComponent {
     return userObservable
   }
 
-  private fetchUserCoordinate(user: Observable<GuestTeacher | School>): Observable<Coordinates> {
+  private fetchUserCoordinate(user: Observable<GuestTeacher | School>): Observable<Coordinates | null> {
     return user.pipe(
       switchMap((user: GuestTeacher | School) => {
         // TODO: Some users will not give permission to use their address, in that case they need to use the search form for an initial search
-        return this.coordinatesService.getCoordinates(user.address)
+        if (user.address) {
+          return this.coordinatesService.getCoordinates(user.address)
+        } else {
+          return of(null);
+        }
       }));
   }
 
-  private makeUserMarker(user: Observable<GuestTeacher | School>, position: Observable<Coordinates>): Observable<Marker> {
+  private makeUserMarker(user: Observable<GuestTeacher | School>, position: Observable<Coordinates | null>): Observable<Marker | null> {
     return combineLatest([user, position])
       .pipe(map(([user, position]) => {
+        if (position === null) return null;
         const opt: MarkerOptions = {
           title: `${user.firstName} ${user.surname}`,
           icon: new Icon({
@@ -84,23 +97,8 @@ export class SearchComponent {
       }));
   }
 
-  // TODO: Fetching the Teacher / School & Coordinates should be moved to a separate class (profile controller?)
-  // This class can be injected in this component to access the data.
-  private fetchSearchResults(pos$: Observable<Coordinates>): Observable<SearchResult[]> {
-    return pos$.pipe(
-      switchMap((coordinates: Coordinates) => {
-        return this.searchService.getSearchResult(
-          [],
-          coordinates.lat,
-          coordinates.lon,
-          300,
-          this.getRequiredRoleForSearchResult(this.roleType)
-        );
-      })
-    );
-  }
-
-  public onSubmit(): void {
+  public onSubmit(query: SearchQuery): void {
+    this.searchQuery$.next(query);
   }
 
   private getRequiredRoleForSearchResult(role: Roles): string {
@@ -121,7 +119,7 @@ export class SearchComponent {
               iconUrl: 'assets/marker.svg',
               iconSize: [25, 25],
             }),
-          }).on('click', event =>this.zone.run(() => this.onMarkerClick(event.target)))
+          }).on('click', event => this.zone.run(() => this.onMarkerClick(event.target)))
       )
     }));
   }

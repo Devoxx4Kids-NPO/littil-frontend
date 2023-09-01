@@ -1,0 +1,33 @@
+<form [formGroup]="searchForm" (ngSubmit)="onSubmit()">
+  <h2>Filter</h2>
+  <strong>Op modules</strong>
+  <ul>
+    <li formArrayName="modules" *ngFor="let module of modules; let i = index">
+      <label>
+        <mat-checkbox [formControlName]="i"></mat-checkbox>
+        {{modules[i].name}}
+      </label>
+    </li>
+  </ul>
+
+  <div class="mt-6 mb-6 grid gap-6 grid-cols-2 items-center">
+    <span class="self-center justify-self-end whitespace-nowrap">
+      Binnen een straal van
+    </span>
+    <span class="relative">
+      <input required class="w-full" type="number" formControlName="distance">
+      <span class="absolute pointer-events-none" style="right:2.5rem;top:.6rem">km</span>
+    </span>
+    <span class="self-center justify-self-end">
+      rond
+    </span>
+    <select required formControlName="location">
+      <optgroup *ngFor="let province of provinces" [label]="province.label">
+        <option *ngFor="let municipality of province.municipalities" [ngValue]="municipality">
+          {{municipality.name}}
+        </option>
+      </optgroup>
+    </select>
+  </div>
+  <littil-button type="submit">Zoeken</littil-button>
+</form>

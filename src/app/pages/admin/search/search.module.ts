@@ -7,6 +7,9 @@ import { LeafletModule } from '@asymmetrik/ngx-leaflet'
 import { ButtonModule } from '../../../components/button/button.module';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { ReactiveFormsModule } from '@angular/forms';
+import {FormInputSelectModule} from "../../../components/forms/select-input/form-input-select.module";
+import {SearchFormComponent} from "./search-form.component";
+import {FormInputTextModule} from "../../../components/forms/text-input/form-input-text.module";
 
 const routes: Routes = [
   {
@@ -16,7 +19,7 @@ const routes: Routes = [
 ];
 
 @NgModule({
-  declarations: [SearchComponent],
+  declarations: [SearchComponent, SearchFormComponent],
   imports: [
     CommonModule,
     RouterModule.forChild(routes),
@@ -25,6 +28,8 @@ const routes: Routes = [
     ButtonModule,
     MatCheckboxModule,
     ReactiveFormsModule,
+    FormInputSelectModule,
+    FormInputTextModule,
   ],
   providers: [],
   exports: [SearchComponent],

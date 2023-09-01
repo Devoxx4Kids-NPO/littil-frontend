@@ -21,64 +21,7 @@
        [leafletOptions]="mapOptions"
        [leafletLayers]="mapLayers">
   </div>
-  <div
-    class="top-0 w-3/12 z-[2] bg-blue-50 p-4 drop-shadow-md">
-    <h2>Filter</h2>
-    <strong>Op modules</strong>
-    <ul>
-      <li>
-        <label>
-          <mat-checkbox></mat-checkbox>
-          Scratch
-        </label>
-      </li>
-      <li>
-        <label>
-          <mat-checkbox></mat-checkbox>
-          CodeCombat
-        </label>
-      </li>
-      <li>
-        <label>
-          <mat-checkbox></mat-checkbox>
-          MBot's
-        </label>
-      </li>
-      <li>
-        <label>
-          <mat-checkbox></mat-checkbox>
-          Lego Mindstorms
-        </label>
-      </li>
-      <li>
-        <label>
-          <mat-checkbox></mat-checkbox>
-          Lego WeDo
-        </label>
-      </li>
-      <li>
-        <label>
-          <mat-checkbox></mat-checkbox>
-          Hedycode
-        </label>
-      </li>
-    </ul>
-    <form [formGroup]="searchForm" (ngSubmit)="onSubmit()">
-      <div class="flex flex-row mt-6 mb-6 leading-10">
-        <div class="mr-2">
-        <span class="mt-6 text-right whitespace-nowrap">
-          Binnen een straal van
-          <br>
-          rond
-        </span>
-        </div>
-        <div>
-          <input placeholder="25km" formControlName="straal" class="mb-2">
-          <br>
-          <input placeholder="Antwerpen" formControlName="locatie">
-        </div>
-      </div>
-      <littil-button type="submit">Zoeken</littil-button>
-    </form>
+  <div class="top-0 w-3/12 z-[2] bg-blue-50 p-4 drop-shadow-md">
+    <search-form (search)="onSubmit($event)"></search-form>
   </div>
 </div>
