@@ -51,6 +51,13 @@ export const websiteRoutes: Routes = [
         loadChildren: () =>
           import('./contact/contact.module').then((m) => m.ContactModule),
       },
-    ],
+      {
+        path: 'privacy-policy',
+        data: {
+          menuText: 'Privacy Policy',
+        },
+        loadChildren: () =>
+          import('./privacy-policy/privacy-policy.module').then((m) => m.PrivacyPolicyModule),
+      },    ],
   },
 ];
