@@ -51,6 +51,14 @@ export const websiteRoutes: Routes = [
         loadChildren: () =>
           import('./contact/contact.module').then((m) => m.ContactModule),
       },
+      {
+        path: 'disclaimer',
+        data: {
+          menuText: 'Disclaimer',
+        },
+        loadChildren: () =>
+          import('./disclaimer/disclaimer.module').then((m) => m.DisclaimerModule),
+      },
     ],
   },
 ];
