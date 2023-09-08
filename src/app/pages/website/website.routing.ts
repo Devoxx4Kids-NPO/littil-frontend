@@ -58,6 +58,15 @@ export const websiteRoutes: Routes = [
         },
         loadChildren: () =>
           import('./privacy-policy/privacy-policy.module').then((m) => m.PrivacyPolicyModule),
-      },    ],
+      },
+      {
+        path: 'disclaimer',
+        data: {
+          menuText: 'Disclaimer',
+        },
+        loadChildren: () =>
+          import('./disclaimer/disclaimer.module').then((m) => m.DisclaimerModule),
+      },
+    ],
   },
 ];
