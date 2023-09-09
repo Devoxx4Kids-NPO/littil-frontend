@@ -17,6 +17,9 @@
         errorText="Naam van de school is verplicht"
       ></littil-form-error-message>
     </littil-form-input-text>
+    <fieldset *ngIf="isSchool">
+      <strong>Gegevens contactpersoon</strong>
+    </fieldset>
     <div class="flex flex-row justify-evenly gap-4 ">
       <littil-form-input-text class="flex-1" formControlName="firstName" id="firstName" label="Voornaam"
         [hasError]="FormUtil.InValid(profileForm.controls['firstName'])">
@@ -47,12 +50,16 @@
           </div>
       </div>
     </fieldset>
-    <p>
+    <p *ngIf="!isSchool">
       Om scholen en gastdocenten elkaar te laten vinden, hebben wij uw adres
       nodig. Deze gegevens worden niet met derden gedeeld en alleen gebruikt om
       uw locatie op de plattegrond te tonen.
     </p>
-
+    <p *ngIf="isSchool">
+      Om scholen en gastdocenten elkaar te laten vinden, hebben wij het adres
+      van de school nodig. Deze gegevens worden niet met derden gedeeld en alleen
+      gebruikt om de locatie van de school op de plattegrond te tonen.
+    </p>
     <div class="flex flex-row justify-evenly gap-4 mb-3">
 
       <littil-form-input-text formControlName="address" id="address" label="Straat" class="flex-1"
