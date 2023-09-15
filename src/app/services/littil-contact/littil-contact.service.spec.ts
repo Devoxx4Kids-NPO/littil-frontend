@@ -21,7 +21,7 @@ describe('LittilContactService', () => {
   });
 
   describe('sendEmail', () => {
-    it('should send email', () => {
+    it('should save contact information and send email', () => {
       spectator.service
         .sendEmail({
           recipient: "recipient",

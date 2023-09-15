@@ -82,8 +82,7 @@ export class ContactModalComponent
           return true;
         })
         .catch((error: any) => {
-          console.log(error);
-          console.error('send email error');
+          console.error('save contact information/send email error');
           return false;
         });
       });
