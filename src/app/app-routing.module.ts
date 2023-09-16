@@ -46,7 +46,8 @@ const routes: Routes = [
 @NgModule({
   imports: [RouterModule.forRoot(routes, {
     scrollPositionRestoration: 'top',
-    enableTracing: false })],
+    enableTracing: false,
+    useHash: true })],
   exports: [RouterModule],
 })
 export class AppRoutingModule {}

@@ -27,8 +27,8 @@
             "tsConfig": "tsconfig.app.json",
             "inlineStyleLanguage": "scss",
             "assets": ["src/assets", "src/config.js"],
-            "styles": ["src/styles.scss", "./node_modules/leaflet/dist/leaflet.css"],
-            "scripts": []
+            "styles": ["src/styles.scss", "./node_modules/leaflet/dist/leaflet.css", "./node_modules/cookieconsent/build/cookieconsent.min.css"],
+            "scripts": ["./node_modules/cookieconsent/build/cookieconsent.min.js"]
           },
           "configurations": {
             "production": {
@@ -91,6 +91,6 @@
     }
   },
   "cli": {
-    "analytics": "b0b5d120-349d-45ff-ac13-ffeee8324a32"
+    "analytics": false
   }
 }
