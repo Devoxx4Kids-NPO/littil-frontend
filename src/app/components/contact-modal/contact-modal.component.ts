@@ -88,7 +88,4 @@ export class ContactModalComponent
       });
   }
 
-  public closeModal() {
-    this.close();
-  }
 }

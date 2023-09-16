@@ -63,7 +63,7 @@ describe('ContactModalComponent', () => {
     spectator.component.close = () => true;
     component = spectator.component;
     contactSpy = jest.spyOn(component, 'onClickSendEmail');
-    cancelSpy = jest.spyOn(component, 'closeModal');
+    cancelSpy = jest.spyOn(component, 'close');
     closeSpy = jest.spyOn(component, 'close');
     formUtilSpy = jest.spyOn(FormUtil, 'ValidateAll');
   });
@@ -136,14 +136,6 @@ describe('ContactModalComponent', () => {
       expect(closeSpy).toHaveBeenCalledWith();
     });
 
-  });
-
-  describe('closeModal', () => {
-    it('should close modal when clicked on cancel', async () => {
-      component.closeModal();
-      expect(closeSpy).toHaveBeenCalledTimes(1);
-      expect(closeSpy).toHaveBeenCalledWith();
-    });
   });
 
   describe('Template', () => {
