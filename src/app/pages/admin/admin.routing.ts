@@ -1,6 +1,6 @@
-import {Routes} from '@angular/router';
-import {AuthGuard} from '@auth0/auth0-angular';
-import {AdminComponent} from './admin.component';
+import { Routes } from '@angular/router';
+import { AuthGuard } from '@auth0/auth0-angular';
+import { AdminComponent } from './admin.component';
 
 export const routes: Routes = [
   {
@@ -15,8 +15,7 @@ export const routes: Routes = [
       },
       {
         path: 'search',
-        loadChildren: () =>
-          import('./search/search.module').then((m) => m.SearchModule),
+        loadChildren: () => import('./search/search.module').then((m) => m.SearchModule),
       },
       {
         path: 'profile',
