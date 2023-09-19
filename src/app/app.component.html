@@ -1,8 +1,8 @@
 <littil-content-container [outerClasses]="'bg-blue-50 flex'" [innerClasses]="'flex justify-between'">
-  <div>
+  <div class="hidden md:block">
     <img src="assets/littil_logo.png" class="h-12" alt="LITTIL logo"/>
   </div>
-  <div class="flex items-center">
+  <div class="hidden md:flex items-center">
     <div>
       <img src="assets/playschool-top-icon-location@2x.png">
     </div>
@@ -14,7 +14,7 @@
       </p>
     </div>
   </div>
-  <div class="flex items-center">
+  <div class="hidden md:flex items-center">
     <div>
       <img src="assets/playschool-top-icon-email@2x.png">
     </div>
@@ -25,11 +25,13 @@
       </p>
     </div>
   </div>
-  <littil-user-menu></littil-user-menu>
+  <div class="hidden md:block">
+    <littil-user-menu></littil-user-menu>
+  </div>
 </littil-content-container>
 <div class="bg-yellow-100 mb-6">
   <div
-    class="mx-auto max-w-screen-lg text-white uppercase flex justify-items-stretch text-sm antialiased divide-x divide-yellow-200">
+    class="mx-auto max-w-screen-lg text-white uppercase hidden md:flex justify-items-stretch text-sm antialiased divide-x divide-yellow-200">
     <ng-container *ngFor="let route of menuRoutes">
       <littil-main-menu-button
         class="flex-1 flex items-center"

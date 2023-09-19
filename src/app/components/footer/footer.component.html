@@ -1,8 +1,8 @@
 <div class="w-full bg-contain bg-center bg-no-repeat bg-lightblue-100 mt-6"
      style="background-image: url('./assets/footer.png')">
   <littil-content-container>
-    <div class="flex justify-between gap-10 pb-10 text-white">
-      <div>
+    <div class="hidden md:flex justify-between gap-10 pb-10 text-white">
+      <div class="hidden lg:block">
         <h2 class="text-white">Vind ons</h2>
         <div>
           <iframe
@@ -10,7 +10,7 @@
             id="gmap_canvas" scrolling="no" style="width: 300px; height: 171px;" frameborder="0"></iframe>
         </div>
       </div>
-      <div>
+      <div class="ml-24 lg:ml-0">
         <h2 class="text-white">Contact</h2>
         <div class="flex items-center">
           <div>
@@ -36,7 +36,7 @@
           </div>
         </div>
       </div>
-      <div>
+      <div class="mr-24 lg:mr-0">
         <h2 class="text-white">Quick links</h2>
         <div class="grid grid-cols-2 gap-5 mb-5">
           <a class="text-white" [routerLink]="'/home'">Home</a>
