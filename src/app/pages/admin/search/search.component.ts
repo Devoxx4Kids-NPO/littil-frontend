@@ -87,7 +87,7 @@ export class SearchComponent {
       .pipe(map(([user, position]) => {
         if (position === null) return null;
         const opt: MarkerOptions = {
-          title: `${user.firstName} ${user.surname}`,
+          title: `${user.firstName} ${user.prefix} ${user.surname}`,
           icon: new Icon({
             iconUrl: 'assets/user-location.svg',
             iconSize: [25, 25],
