@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { FooterModule } from '../../../components/footer/footer.module';
 import { ProfileComponent } from './profile.component';
 import { RouterModule, Routes } from "@angular/router";
 import { ContentContainerModule } from "../../../components/content-container/content-container.module";
@@ -32,7 +33,8 @@ const routes: Routes = [
     ReactiveFormsModule,
     FormInputTextModule,
     FormInputRadioModule,
-    FormErrorMessageModule
+    FormErrorMessageModule,
+    FooterModule
   ],
   exports: [
     ProfileComponent

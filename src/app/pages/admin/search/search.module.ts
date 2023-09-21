@@ -1,6 +1,7 @@
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
+import { FooterModule } from '../../../components/footer/footer.module';
 import { SearchComponent } from './search.component';
 import { ContentContainerModule } from '../../../components/content-container/content-container.module';
 import { LeafletModule } from '@asymmetrik/ngx-leaflet'
@@ -30,6 +31,7 @@ const routes: Routes = [
     ReactiveFormsModule,
     FormInputSelectModule,
     FormInputTextModule,
+    FooterModule,
   ],
   providers: [],
   exports: [SearchComponent],
