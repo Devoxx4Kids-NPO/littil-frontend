@@ -1,10 +1,12 @@
 <div class="md:hidden bg-yellow-100">
     <mat-toolbar class="bg-yellow-100">
-      <button mat-icon-button (click)="toggleMobileMenu()">
+      <button mat-icon-button class="text-white" (click)="toggleMobileMenu()">
         <mat-icon>menu</mat-icon>
       </button>
     </mat-toolbar>
-  <div [class.hidden]="!mobileMenuOpen">
+  <div
+    class="mx-auto max-w-screen-lg text-white uppercase hidden text-sm antialiased"
+    [class.hidden]="!mobileMenuOpen">
     <ng-container *ngFor="let route of menuRoutes">
       <littil-main-menu-button
         class="flex-1 flex items-center"
