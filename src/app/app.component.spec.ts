@@ -9,6 +9,7 @@ import { MainMenuButtonComponent } from './components/main-menu-button/main-menu
 import { MainMenuDropdownButtonComponent } from './components/main-menu-dropdown-button/main-menu-dropdown-button.component';
 import {UserMenuComponent} from "./components/user-menu/user-menu.component";
 import { PermissionController } from './services/permission.controller';
+import { NgcCookieConsentService } from 'ngx-cookieconsent';
 
 describe('AppComponent', () => {
   let spectator: Spectator<AppComponent>;
@@ -32,6 +33,7 @@ describe('AppComponent', () => {
         activeAccount: undefined,
       }),
       MockProvider(Document),
+      MockProvider(NgcCookieConsentService)
     ],
   });
 

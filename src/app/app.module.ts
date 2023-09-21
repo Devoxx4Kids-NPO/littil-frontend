@@ -18,12 +18,45 @@ import { RegisterModalModule } from './components/register-modal/register-modal.
 import { UserMenuModule } from './components/user-menu/user-menu.module';
 import { interceptorProviders } from './interceptors/http-interceptors';
 import { environment } from "../environments/environment";
+import {NgcCookieConsentConfig, NgcCookieConsentModule} from "ngx-cookieconsent";
 
 const littilConfig = getLittilConfigFromWindow();
+
+const cookieConfig:NgcCookieConsentConfig = {
+  cookie: {
+    domain: environment.cookieDomain
+    // it is mandatory to set a domain, for cookies to work properly (see https://goo.gl/S2Hy2A)
+  },
+  palette: {
+    popup: {
+      background: '#000'
+    },
+    button: {
+      background: '#f1d600'
+    }
+  },
+  theme: 'edgeless',
+  type: 'info',
+  elements:{
+    messagelink: `
+      <span id="cookieconsent:desc" class="cc-message">{{message}}
+        <a aria-label="learn more about cookies" tabindex="0" class="cc-link" href="{{privacyPolicyHref}}"
+           target="_self">{{privacyPolicyLink}}</a>,
+        </span>
+      `},
+    content: {
+      message: "Deze website gebruikt cookies. Meer hierover kun je lezen in onze ",
+      dismiss: "akkoord",
+      target: "_self",
+      privacyPolicyLink: 'privacy policy',
+      privacyPolicyHref: '#/privacy-policy',
+    },
+};
 
 @NgModule({
   declarations: [AppComponent],
   imports: [
+    NgcCookieConsentModule.forRoot(cookieConfig),
     ApiModule.forRoot(() => {
       return new Configuration({
         basePath: littilConfig.apiHost,
