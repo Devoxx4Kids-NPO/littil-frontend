@@ -32,4 +32,8 @@ export class AppComponent implements OnInit {
   public toggleMobileMenu(): void {
     this.mobileMenuOpen = !this.mobileMenuOpen;
   }
+
+  public hideMobileMenu(): void {
+    this.mobileMenuOpen = false;
+  }
 }
