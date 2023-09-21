@@ -1,3 +1,27 @@
+<div class="md:hidden bg-yellow-100">
+    <mat-toolbar class="bg-yellow-100">
+      <button mat-icon-button (click)="toggleMobileMenu()">
+        <mat-icon>menu</mat-icon>
+      </button>
+    </mat-toolbar>
+  <div [class.hidden]="!mobileMenuOpen">
+    <ng-container *ngFor="let route of menuRoutes">
+      <littil-main-menu-button
+        class="flex-1 flex items-center"
+        *ngIf="!route.disabled"
+        [path]="route.path"
+        (click)="toggleMobileMenu()"
+      >{{ route.menuText }}</littil-main-menu-button>
+      <ng-container *ngFor="let subRoute of route.subRoutes">
+        <littil-main-menu-button
+          class="flex-1 flex items-center"
+          *ngIf="!subRoute.disabled"
+          [path]="subRoute.path"
+        >{{route.menuText}} &gt; {{ subRoute.menuText }}</littil-main-menu-button>
+      </ng-container>
+    </ng-container>
+  </div>
+</div>
 <littil-content-container [outerClasses]="'bg-blue-50 flex'" [innerClasses]="'flex justify-between'">
   <div class="hidden md:block">
     <img src="assets/littil_logo.png" class="h-12" alt="LITTIL logo"/>
