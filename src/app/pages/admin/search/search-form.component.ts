@@ -23,7 +23,7 @@ interface SearchForm {
   templateUrl: './search-form.component.html', encapsulation: ViewEncapsulation.None,
 })
 export class SearchFormComponent {
-  private roleType: Roles;
+  public readonly currentRoleIsSchool;
   @Output() search = new EventEmitter<SearchQuery>();
 
   constructor(
@@ -31,9 +31,7 @@ export class SearchFormComponent {
     private citiesService: CitiesService,
     private modulesService: LittilModulesService,
     private permissionController: PermissionController) {
-
-    this.roleType = this.permissionController.getRoleType();
-
+       this.currentRoleIsSchool= this.permissionController.getRoleType() === Roles.School;
   }
 
   public modules: Module[] = [];
@@ -78,10 +76,6 @@ export class SearchFormComponent {
     return this.modules.filter(
       (_, index) => this.searchForm.value.modules?.[index]
     );
-  }
-
-  public isSchool(): boolean {
-    return this.roleType == Roles.School;
   }
 
 }

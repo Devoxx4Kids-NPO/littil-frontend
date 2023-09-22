@@ -1,12 +1,12 @@
 <form [formGroup]="searchForm" (ngSubmit)="onSubmit()">
   <h2>Filter</h2>
-  <ng-container *ngIf="isSchool()">
+  <ng-container *ngIf="currentRoleIsSchool">
     <strong>Op modules</strong>
     <ul>
       <li formArrayName="modules" *ngFor="let module of modules; let i = index">
         <label>
           <mat-checkbox [formControlName]="i"></mat-checkbox>
-          {{modules[i].name}}
+          {{module.name}}
         </label>
       </li>
     </ul>
