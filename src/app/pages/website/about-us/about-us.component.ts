@@ -35,12 +35,12 @@ export class AboutUsComponent {
     },
     {
       name: 'Anja van Hagen',
-      role: 'Lead Front-End Developers Devoxx4Kids Nederland',
+      role: 'Lead Front-End Developers LITTIL',
       image: 'anja.jpg',
     },
     {
       name: 'Lennert Gijsen',
-      role: 'Lead Infra Devoxx4Kids Nederland',
+      role: 'Lead Infra LITTIL',
       image: 'lennert.jpg',
     },
   ];
