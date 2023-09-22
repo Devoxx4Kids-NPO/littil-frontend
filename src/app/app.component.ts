@@ -2,7 +2,6 @@ import { DOCUMENT } from '@angular/common';
 import { Component, Inject, OnInit } from '@angular/core';
 import { LITTILCONFIG, LittilConfig } from '../littilConfig';
 import { FeedbackfinProvider, FeedbackFinToken } from './feedback/feedbackfin.token';
-// import { LittilConfig, LITTILCONFIG } from '../littilConfig';
 import { IMenuItem, menuRoutes, MenuType } from './pages/menu.routes';
 import { PermissionController } from './services/permission.controller';
 
