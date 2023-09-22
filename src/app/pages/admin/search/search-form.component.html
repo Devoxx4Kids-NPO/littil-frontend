@@ -1,15 +1,16 @@
 <form [formGroup]="searchForm" (ngSubmit)="onSubmit()">
   <h2>Filter</h2>
-  <strong>Op modules</strong>
-  <ul>
-    <li formArrayName="modules" *ngFor="let module of modules; let i = index">
-      <label>
-        <mat-checkbox [formControlName]="i"></mat-checkbox>
-        {{modules[i].name}}
-      </label>
-    </li>
-  </ul>
-
+  <ng-container *ngIf="currentRoleIsSchool">
+    <strong>Op modules</strong>
+    <ul>
+      <li formArrayName="modules" *ngFor="let module of modules; let i = index">
+        <label>
+          <mat-checkbox [formControlName]="i"></mat-checkbox>
+          {{module.name}}
+        </label>
+      </li>
+    </ul>
+  </ng-container>
   <div class="mt-6 mb-6 grid gap-6 grid-cols-2 items-center">
     <span class="self-center justify-self-end whitespace-nowrap">
       Binnen een straal van

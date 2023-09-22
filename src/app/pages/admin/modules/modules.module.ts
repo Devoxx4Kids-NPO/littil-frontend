@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { FooterModule } from '../../../components/footer/footer.module';
 import { ModulesComponent } from './modules.component';
 import { RouterModule, Routes } from "@angular/router";
 import { ProfileContainerModule } from "../../../components/profile-container/profile-container.module";
@@ -21,6 +22,7 @@ const routes: Routes = [
     ProfileContainerModule,
     RouterModule.forChild(routes),
     ReactiveFormsModule,
+    FooterModule,
   ],
   exports: [
     ModulesComponent

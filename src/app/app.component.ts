@@ -4,6 +4,7 @@ import { LITTILCONFIG, LittilConfig } from '../littilConfig';
 import { FeedbackfinProvider, FeedbackFinToken } from './feedback/feedbackfin.token';
 import { IMenuItem, menuRoutes, MenuType } from './pages/menu.routes';
 import { PermissionController } from './services/permission.controller';
+import { NgcCookieConsentService } from "ngx-cookieconsent";
 
 @Component({
   selector: 'app-root',
@@ -15,6 +16,7 @@ export class AppComponent implements OnInit {
 
   constructor(
     private readonly permissionController: PermissionController,
+    private readonly ccService: NgcCookieConsentService,
     @Inject(DOCUMENT) private readonly document: Document,
     @Inject(FeedbackFinToken) private readonly feedbackFin: FeedbackfinProvider,
     @Inject(LITTILCONFIG) private readonly littilConfig: LittilConfig,

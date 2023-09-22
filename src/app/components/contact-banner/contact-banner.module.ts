@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import {ContactBannerComponent} from "./contact-banner.component";
+import { ContactBannerComponent } from './contact-banner.component';
+import { RouterLinkWithHref } from '@angular/router';
 
 @NgModule({
   declarations: [
@@ -10,7 +11,8 @@ import {ContactBannerComponent} from "./contact-banner.component";
     ContactBannerComponent
   ],
   imports: [
-    CommonModule
+    CommonModule,
+    RouterLinkWithHref
   ]
 })
 export class ContactBannerModule { }

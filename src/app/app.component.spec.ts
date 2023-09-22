@@ -13,6 +13,7 @@ import {
 import { UserMenuComponent } from './components/user-menu/user-menu.component';
 import { FeedbackFinToken } from './feedback/feedbackfin.token';
 import { PermissionController } from './services/permission.controller';
+import { NgcCookieConsentService } from 'ngx-cookieconsent';
 
 describe('AppComponent', () => {
   let spectator: Spectator<AppComponent>;
@@ -47,7 +48,8 @@ describe('AppComponent', () => {
         useValue: ({
           apiHost: 'localhost',
         } as LittilConfig),
-      }
+      },
+      MockProvider(NgcCookieConsentService)
     ],
   });
 

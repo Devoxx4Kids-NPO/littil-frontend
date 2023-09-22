@@ -1,7 +1,7 @@
 import {Component, NgZone} from '@angular/core';
 import {FormBuilder} from '@angular/forms';
-import {combineLatest, map, Observable, switchMap, from, of, EMPTY, Subject, take, tap, startWith} from 'rxjs';
-import {GuestTeacher, Module, ModuleService, School, SearchResult} from '../../../api/generated';
+import {combineLatest, map, Observable, switchMap, of, Subject, startWith} from 'rxjs';
+import {GuestTeacher, School, SearchResult} from '../../../api/generated';
 import {Coordinates, CoordinatesService} from '../../../services/coordinates/coordinates.service';
 import {OpenStreetMapService} from '../../../services/coordinates/open-street-map.service';
 import {LittilSchoolService} from '../../../services/littil-school/littil-school.service';
@@ -10,7 +10,6 @@ import {LittilTeacherService} from '../../../services/littil-teacher/littil-teac
 import {PermissionController, Roles,} from '../../../services/permission.controller';
 import {MAP_OPTIONS} from './map-options';
 import {Icon, Layer, marker, Marker, MarkerOptions} from "leaflet";
-import {CitiesService, MunicipalitiesJson} from "../../../services/coordinates/cities.service";
 import {SearchQuery} from "./search-form.component";
 import {LittilModulesService} from "../../../services/littil-modules/littil-modules.service";
 
@@ -63,11 +62,9 @@ export class SearchComponent {
   }
 
   private fetchUserInfo(): Observable<GuestTeacher | School> {
-    const userObservable: Observable<GuestTeacher | School> = this.roleType == Roles.GuestTeacher
+    return this.roleType == Roles.GuestTeacher
       ? this.littilTeacherService.getById(this.roleId)
       : this.littilSchoolService.getById(this.roleId);
-
-    return userObservable
   }
 
   private fetchUserCoordinate(user: Observable<GuestTeacher | School>): Observable<Coordinates | null> {
@@ -87,7 +84,7 @@ export class SearchComponent {
       .pipe(map(([user, position]) => {
         if (position === null) return null;
         const opt: MarkerOptions = {
-          title: `${user.firstName} ${user.surname}`,
+          title: `${user.firstName}${user.prefix ? ` ${user.prefix}` : ''} ${user.surname}`,
           icon: new Icon({
             iconUrl: 'assets/user-location.svg',
             iconSize: [25, 25],
