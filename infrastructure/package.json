@@ -10,23 +10,24 @@
     "test": "jest",
     "cdk": "cdk",
     "cdk:list": "cdk ls",
-    "cdk:synth:acc": "cdk synth --context environment=acc",
-    "cdk:deploy:acc": "cdk deploy WebsiteCertificatesStack WebsiteStack DemoWebsiteStack --profile=littil-cdk-staging-frontend --require-approval=never --context environment=acc",
-    "cdk:deploy:acc:ci": "cdk deploy WebsiteCertificatesStack WebsiteStack DemoWebsiteStack --require-approval=never --context environment=acc"
+    "cdk:synth:staging": "cdk synth --context environment=staging",
+    "cdk:deploy:staging": "cdk deploy WebsiteCertificatesStack WebsiteStack --require-approval=never --context environment=staging",
+
+    "cdk:synth:production": "cdk synth --context environment=production",
+    "cdk:deploy:production": "cdk deploy WebsiteCertificatesStack WebsiteStack --require-approval=never --context environment=production"
   },
   "devDependencies": {
-    "@types/jest": "^27.5.2",
-    "@types/node": "10.17.27",
-    "@types/prettier": "2.6.0",
-    "jest": "^27.5.1",
-    "ts-jest": "^27.1.4",
-    "aws-cdk": "2.43.1",
-    "ts-node": "^10.9.1",
-    "typescript": "~3.9.7"
+    "@types/jest": "29.5.5",
+    "@types/node": "20.6.4",
+    "jest": "29.7.0",
+    "ts-jest": "29.1.1",
+    "aws-cdk": "2.97.0",
+    "ts-node": "10.9.1",
+    "typescript": "5.2.2"
   },
   "dependencies": {
-    "aws-cdk-lib": "2.43.1",
-    "constructs": "^10.0.0",
-    "source-map-support": "^0.5.21"
+    "aws-cdk-lib": "2.97.0",
+    "constructs": "10.2.70",
+    "source-map-support": "0.5.21"
   }
 }

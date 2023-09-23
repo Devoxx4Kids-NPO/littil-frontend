@@ -6,6 +6,8 @@ test('S3 bucket and Cloudfront distribution created', () => {
   const app = new cdk.App();
   // WHEN
   const props = {
+    littilEnvironment: 'test',
+    domains: ['local.littil.org'],
     env: {
       region: 'eu-west-1',
     },
@@ -18,14 +20,14 @@ test('S3 bucket and Cloudfront distribution created', () => {
 
   template
     .hasResourceProperties('AWS::S3::Bucket', {
-      BucketName: 'littil-acc-website',
+      BucketName: 'littil-test-website',
     });
 
   template
     .hasResourceProperties('AWS::CloudFront::Distribution', {
       DistributionConfig: {
         Aliases: [
-          'staging.littil.org',
+          'local.littil.org',
         ],
       },
     });

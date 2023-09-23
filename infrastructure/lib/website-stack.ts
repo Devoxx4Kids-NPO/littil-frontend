@@ -1,35 +1,24 @@
-import * as cdk from 'aws-cdk-lib';
-import { CfnOutput, RemovalPolicy } from 'aws-cdk-lib';
+import { CfnOutput, RemovalPolicy, Stack, StackProps } from 'aws-cdk-lib';
 import { Certificate } from 'aws-cdk-lib/aws-certificatemanager';
-import {
-  AllowedMethods,
-  Distribution,
-  PriceClass,
-  ViewerProtocolPolicy,
-} from 'aws-cdk-lib/aws-cloudfront';
+import { AllowedMethods, Distribution, PriceClass, ViewerProtocolPolicy } from 'aws-cdk-lib/aws-cloudfront';
 import { S3Origin } from 'aws-cdk-lib/aws-cloudfront-origins';
-import {
-  Effect,
-  OpenIdConnectProvider,
-  Policy,
-  PolicyStatement,
-  Role,
-  WebIdentityPrincipal,
-} from 'aws-cdk-lib/aws-iam';
+import { Effect, Policy, PolicyStatement, Role, WebIdentityPrincipal } from 'aws-cdk-lib/aws-iam';
 import { BlockPublicAccess, Bucket } from 'aws-cdk-lib/aws-s3';
 import { Construct } from 'constructs';
 import { cloudfrontSpaErrorResponses } from './cloudfront-spa-error-responses';
 
-export interface WebsiteStackProps extends cdk.StackProps {
+export interface WebsiteStackProps extends StackProps {
+  littilEnvironment: string;
   certificateArn: string;
+  domains: string[],
 }
 
-export class WebsiteStack extends cdk.Stack {
+export class WebsiteStack extends Stack {
   constructor(scope: Construct, id: string, props: WebsiteStackProps) {
     super(scope, id, props);
 
     const siteBucket = new Bucket(this, 'WebsiteS3Bucket', {
-      bucketName: 'littil-staging-website',
+      bucketName: 'littil-' + props.littilEnvironment + '-website',
       blockPublicAccess: BlockPublicAccess.BLOCK_ALL,
       removalPolicy: RemovalPolicy.DESTROY,
     });
@@ -45,9 +34,7 @@ export class WebsiteStack extends cdk.Stack {
       // Price class 100: USA, Canada, Europe, & Israel
       priceClass: PriceClass.PRICE_CLASS_100,
       defaultRootObject: 'index.html',
-      domainNames: [
-        'staging.littil.org',
-      ],
+      domainNames: props.domains,
       certificate: Certificate.fromCertificateArn(this, 'Certificate', props.certificateArn),
     });
 
