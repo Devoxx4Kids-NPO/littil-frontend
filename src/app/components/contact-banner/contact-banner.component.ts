@@ -1,4 +1,5 @@
 import {Component, Input} from '@angular/core';
+import {Router} from "@angular/router";
 
 @Component({
   selector: 'littil-contact-banner',
@@ -29,5 +30,12 @@ export class ContactBannerComponent {
       return parsedText[part]
     }
     return ''
+  }
+
+  constructor(private router: Router) {
+  }
+
+  navToContact(): void {
+    this.router.navigateByUrl('contact');
   }
 }
