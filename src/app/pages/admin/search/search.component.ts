@@ -71,8 +71,8 @@ export class SearchComponent {
     return user.pipe(
       switchMap((user: GuestTeacher | School) => {
         // TODO: Some users will not give permission to use their address, in that case they need to use the search form for an initial search
-        if (user.address) {
-          return this.coordinatesService.getCoordinates(user.address)
+        if (user.postalCode) {
+          return this.coordinatesService.getCoordinates(user.postalCode)
         } else {
           return of(null);
         }
