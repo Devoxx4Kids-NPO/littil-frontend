@@ -49,7 +49,7 @@ export class CompleteProfileModalComponent
   close!: () => boolean;
   public loading = false;
   public isSchool = false;
-  public saveProfile = false;
+  public disableButtons = false;
   private roleValueSubscription!: Subscription;
   FormUtil = FormUtil;
 
@@ -111,11 +111,10 @@ export class CompleteProfileModalComponent
   public async onClickSaveProfile(): Promise<boolean> {
     return Promise.resolve().then(() => {
       FormUtil.ValidateAll(this.completeProfileForm);
-      // TODO refactor this and use ng-disabled
-      if (this.completeProfileForm.invalid || this.saveProfile) {
+      if (this.completeProfileForm.invalid) {
         return false;
       }
-      this.saveProfile=true;
+      this.disableButtons=true;
 
       let createOrUpdateCall: Observable<
         ApiV1GuestTeachersGet200Response | ApiV1SchoolsGet200Response
@@ -156,7 +155,7 @@ export class CompleteProfileModalComponent
         })
         .catch((error: any) => {
           console.error('createOrUpdate profile error');
-          this.saveProfile=false;
+          this.disableButtons=false;
           return false;
         });
     });
