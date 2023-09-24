@@ -7,6 +7,6 @@ import { Component } from '@angular/core';
 export class Devoxx4kidsComponent {
 
   navToDevoxx(): void {
-    window.open('http://www.devoxx4kids.org/nederland/', '_blank');
+    window.open('https://www.devoxx4kids.org/nederland/', '_blank');
   }
 }
