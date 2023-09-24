@@ -40,7 +40,13 @@ export class SearchFormComponent {
 
 
   ngOnInit() {
-    this.citiesService.fetchLocations().subscribe(provinces => this.provinces = provinces);
+    this.citiesService.fetchLocations().subscribe(provinces => {
+      this.provinces = provinces;
+      // TODO can we use this example ? Hardcoded to Ede for now
+      // const defaultLocation = provinces.find (province=>province.label === "Gelderland")
+      //   .municipalities.find(municipality=> municipality.name === "Ede");
+      this.searchForm.controls.location.patchValue( this.provinces[6].municipalities[15]);
+    });
     this.modulesService.getAll().subscribe(modules=> {
       this.modules = (modules = modules.slice().sort(compareModulesByName));
       this.updateModuleCheckboxes();
