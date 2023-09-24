@@ -16,18 +16,27 @@ const crossStackReferenceExportNames = {
   websiteCertificateArn: 'apiCertificateArn',
 };
 
-const domains = littilEnvironment === 'staging' ?
-  ['staging.littil.org']
-  : [
-    'littil.org',
-    'prod.littil.org',
-  ];
+const domainConfig = littilEnvironment === 'staging' ?
+  {
+    certificates: ['staging.littil.org'],
+    availableAt: ['staging.littil.org'],
+  }
+  : {
+    certificates: [
+      'littil.org',
+      'www.littil.org',
+      'prod.littil.org',
+    ],
+    availableAt: [
+      'www.littil.org'
+    ],
+  };
 
 const certificateStackProps: CertificateStackProps = {
   env: {
     region: 'us-east-1',
   },
-  domains,
+  domains: domainConfig.certificates,
   websiteCertificateArnExportName: crossStackReferenceExportNames.websiteCertificateArn,
 };
 new CertificatesStack(app, 'WebsiteCertificatesStack', certificateStackProps);
@@ -37,7 +46,7 @@ const websiteStackProps: WebsiteStackProps = {
     region: 'eu-west-1',
   },
   littilEnvironment,
-  domains,
+  domains: domainConfig.availableAt,
   certificateArn: 'arn:aws:acm:us-east-1:367915668564:certificate/b0ab5655-f229-4605-a38d-06042c69e07a'//Fn.importValue(crossStackReferenceExportNames.websiteCertificateArn),
 };
 new WebsiteStack(app, 'WebsiteStack', websiteStackProps);
