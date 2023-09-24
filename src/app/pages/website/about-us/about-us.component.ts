@@ -20,17 +20,12 @@ export class AboutUsComponent {
     },
     {
       name: 'Eddy Vos',
-      role: 'Penningmeester Devoxx4Kids Nederland',
-      image: 'eddy.jpg',
-    },
-    {
-      name: 'Eddy Vos',
-      role: 'Product Owner / Scrum Master Devoxx4Kids LITTIL',
+      role: 'Penningmeester Devoxx4Kids Nederland / Product owner LITTIL',
       image: 'eddy.jpg',
     },
     {
       name: 'Pepijn Schildkamp',
-      role: 'Lead Back-End Developers Devoxx4Kids Nederland',
+      role: 'Bestuurslid Devoxx4Kids Nederland',
       image: 'pepijn.jpg',
     },
     {
@@ -42,6 +37,11 @@ export class AboutUsComponent {
       name: 'Lennert Gijsen',
       role: 'Lead Infra LITTIL',
       image: 'lennert.jpg',
+    },
+    {
+      name: 'Marcel Wildenburg',
+      role: 'Lead Back-End Developers LITTIL',
+      image: 'marcel.jpg',
     },
   ];
 
