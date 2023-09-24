@@ -161,11 +161,17 @@
     </littil-form-input-text> -->
   </form>
 
-  <littil-button [inline]="true" (click)="onClickSaveProfile()"
-    >Profiel opslaan</littil-button
-  >
-  <littil-button [inline]="true" colorClass="bg-yellow-200" (click)="logOut()"
-    >Uitloggen</littil-button
-  >
-  <p *ngIf="saveProfile">Uw profiel wordt opgeslagen</p>
+  <littil-button-rounded
+    [inline]="true"
+    [disabled]="disableButtons"
+    (click)="onClickSaveProfile()">
+    Profiel opslaan
+  </littil-button-rounded>
+  <littil-button-rounded
+    [inline]="true"
+    [disabled]="disableButtons"
+    colorClass="bg-yellow-200"
+    (click)="logOut()">
+    Uitloggen</littil-button-rounded>
+  <p *ngIf="disableButtons">Uw profiel wordt opgeslagen</p>
 </div>
