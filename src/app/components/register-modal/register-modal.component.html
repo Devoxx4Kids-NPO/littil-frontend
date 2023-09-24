@@ -35,24 +35,20 @@
     <littil-button-rounded
       data-test="registerButton"
       [inline]="true"
+      [disabled]="disableButtons"
       (click)="onClickRegister()"
       >Registreren</littil-button-rounded
     >
     <littil-button-rounded
       data-test="cancelButton"
       [inline]="true"
+      [disabled]="disableButtons"
       [color]="'yellow'"
       (click)="closeModal()"
       >Annuleren</littil-button-rounded
     >
-    <littil-button-rounded
-      data-test="test"
-      [inline]="true"
-      [color]="'yellow'"
-      (click)="setDisabled()"
-    >test</littil-button-rounded>
   </ng-container>
-  <p *ngIf="createUser">Uw account wordt aangemaakt</p>
+  <p *ngIf="disableButtons">Uw account wordt aangemaakt</p>
 </div>
 
 <div [@hideShow]="hideConfirmation ? 'hidden' : 'visible'" class="prose">
