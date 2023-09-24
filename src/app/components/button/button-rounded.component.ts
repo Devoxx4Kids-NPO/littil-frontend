@@ -8,6 +8,7 @@ export class ButtonRoundedComponent implements OnInit {
   @Input() customColorClass: string | undefined
   @Input() color: 'blue' | 'yellow' | 'red' | undefined
   @Input() inline: boolean = false;
+  @Input() disabled: boolean = false;
   @Output() public onClick = new EventEmitter<any>();
 
   ngOnInit(): void {

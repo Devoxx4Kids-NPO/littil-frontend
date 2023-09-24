@@ -8,7 +8,7 @@ import {
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { AuthService } from '@auth0/auth0-angular';
-import { firstValueFrom, Observable, Subscription, switchMap, tap } from 'rxjs';
+import { firstValueFrom, Observable, Subscription, switchMap } from 'rxjs';
 import {
   ApiV1GuestTeachersGet200Response,
   ApiV1SchoolsGet200Response,
@@ -49,6 +49,7 @@ export class CompleteProfileModalComponent
   close!: () => boolean;
   public loading = false;
   public isSchool = false;
+  public savingProfile = false;
   private roleValueSubscription!: Subscription;
   FormUtil = FormUtil;
 
@@ -113,6 +114,7 @@ export class CompleteProfileModalComponent
       if (this.completeProfileForm.invalid) {
         return false;
       }
+      this.savingProfile=true;
 
       let createOrUpdateCall: Observable<
         ApiV1GuestTeachersGet200Response | ApiV1SchoolsGet200Response
@@ -153,6 +155,7 @@ export class CompleteProfileModalComponent
         })
         .catch((error: any) => {
           console.error('createOrUpdate profile error');
+          this.savingProfile=false;
           return false;
         });
     });

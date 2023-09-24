@@ -41,6 +41,8 @@ export class RegisterModalComponent
   public loading = false;
   public hideForm = false;
   public hideConfirmation = true;
+  public creatingProfile = false;
+
   FormUtil = FormUtil;
 
   registerForm: FormGroup = new FormGroup({
@@ -55,6 +57,7 @@ export class RegisterModalComponent
       if (this.registerForm.invalid) {
         return false;
       }
+      this.creatingProfile = true;
       return firstValueFrom(
         this.userService.create({
           emailAddress: this.registerForm.controls['email'].value,
@@ -67,6 +70,7 @@ export class RegisterModalComponent
         })
         .catch((error: any) => {
           console.error('Creating user error', error);
+          this.creatingProfile = false;
           return false;
         });
     });
