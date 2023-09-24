@@ -18,16 +18,7 @@
         [hasError]="FormUtil.InValid(registerForm.controls['email'])"
       >
         <littil-form-error-message
-          *ngIf="
-            FormUtil.ContainsError(registerForm.controls['email'], 'required')
-          "
-          errorText="E-mailadres is verplicht"
-        ></littil-form-error-message>
-        <littil-form-error-message
-          *ngIf="
-            FormUtil.ContainsError(registerForm.controls['email'], 'email')
-          "
-          errorText="Vul een geldig e-mailadres in"
+          [errorText]="FormUtil.ContainsError(registerForm.controls['email'], 'required') ? 'E-mailadres is verplicht' : (FormUtil.ContainsError(registerForm.controls['email'], 'email') ? 'Vul een geldig e-mailadres in' : '&nbsp;')"
         ></littil-form-error-message>
       </littil-form-input-text>
     </form>
