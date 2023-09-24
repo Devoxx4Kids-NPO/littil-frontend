@@ -163,15 +163,15 @@
 
   <littil-button-rounded
     [inline]="true"
-    [disabled]="disableButtons"
+    [disabled]="savingProfile"
     (click)="onClickSaveProfile()">
     Profiel opslaan
   </littil-button-rounded>
   <littil-button-rounded
     [inline]="true"
-    [disabled]="disableButtons"
+    [disabled]="savingProfile"
     colorClass="bg-yellow-200"
     (click)="logOut()">
     Uitloggen</littil-button-rounded>
-  <p *ngIf="disableButtons">Uw profiel wordt opgeslagen</p>
+  <p *ngIf="savingProfile">Uw profiel wordt opgeslagen</p>
 </div>

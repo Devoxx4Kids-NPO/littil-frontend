@@ -49,7 +49,7 @@ export class CompleteProfileModalComponent
   close!: () => boolean;
   public loading = false;
   public isSchool = false;
-  public disableButtons = false;
+  public savingProfile = false;
   private roleValueSubscription!: Subscription;
   FormUtil = FormUtil;
 
@@ -114,7 +114,7 @@ export class CompleteProfileModalComponent
       if (this.completeProfileForm.invalid) {
         return false;
       }
-      this.disableButtons=true;
+      this.savingProfile=true;
 
       let createOrUpdateCall: Observable<
         ApiV1GuestTeachersGet200Response | ApiV1SchoolsGet200Response
@@ -155,7 +155,7 @@ export class CompleteProfileModalComponent
         })
         .catch((error: any) => {
           console.error('createOrUpdate profile error');
-          this.disableButtons=false;
+          this.savingProfile=false;
           return false;
         });
     });
