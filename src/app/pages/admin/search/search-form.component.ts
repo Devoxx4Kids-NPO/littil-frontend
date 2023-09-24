@@ -1,8 +1,9 @@
-import {Component, EventEmitter, Output, ViewEncapsulation} from "@angular/core";
-import {CitiesService, MunicipalitiesJson, Municipality} from "../../../services/coordinates/cities.service";
-import {FormArray, FormBuilder, FormControl} from "@angular/forms";
-import {Module} from "../../../api/generated";
-import {LittilModulesService} from "../../../services/littil-modules/littil-modules.service";
+import { Component, EventEmitter, Output, ViewEncapsulation } from '@angular/core';
+import { CitiesService, MunicipalitiesJson, Municipality } from '../../../services/coordinates/cities.service';
+import { FormArray, FormBuilder, FormControl } from '@angular/forms';
+import { Module } from '../../../api/generated';
+import { LittilModulesService } from '../../../services/littil-modules/littil-modules.service';
+import { PermissionController, Roles } from '../../../services/permission.controller';
 
 export interface SearchQuery {
   modules: string[];
@@ -22,12 +23,15 @@ interface SearchForm {
   templateUrl: './search-form.component.html', encapsulation: ViewEncapsulation.None,
 })
 export class SearchFormComponent {
+  public readonly currentRoleIsSchool;
   @Output() search = new EventEmitter<SearchQuery>();
 
   constructor(
     private formBuilder: FormBuilder,
     private citiesService: CitiesService,
-    private modulesService: LittilModulesService) {
+    private modulesService: LittilModulesService,
+    private permissionController: PermissionController) {
+       this.currentRoleIsSchool= this.permissionController.getRoleType() === Roles.School;
   }
 
   public modules: Module[] = [];
@@ -73,6 +77,7 @@ export class SearchFormComponent {
       (_, index) => this.searchForm.value.modules?.[index]
     );
   }
+
 }
 
 function compareModulesByName(a: Module, b: Module) {

@@ -35,18 +35,18 @@ const routes: Routes = [
   },
   {
     path: '**',
-    component: NotFoundComponent,
-    canActivate: [CompleteProfileGuardService],
-    resolve: {
-      auth: AuthenticatorResolver,
-    },
+    loadChildren: () =>
+      import('./pages/website/not-found/not-found.module').then((m) => m.NotFoundModule),
   },
 ];
 
 @NgModule({
   imports: [RouterModule.forRoot(routes, {
     scrollPositionRestoration: 'top',
-    enableTracing: false })],
+    enableTracing: false,
+    useHash: true
+  })],
   exports: [RouterModule],
 })
-export class AppRoutingModule {}
+export class AppRoutingModule {
+}
