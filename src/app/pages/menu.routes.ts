@@ -56,12 +56,12 @@ export const menuRoutes: IMenuItem[] = [
       },
     ],
   },
-  {
-    path: '/blog',
-    menuText: 'Blog',
-    type: MenuType.Default,
-    disabled: false,
-  },
+  // {
+  //   path: '/blog',
+  //   menuText: 'Blog',
+  //   type: MenuType.Default,
+  //   disabled: false,
+  // },
   {
     path: '/contact',
     menuText: 'Contact',
