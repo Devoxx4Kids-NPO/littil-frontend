@@ -5,10 +5,11 @@
       <div class="sm:ml-6">
         <div class="sm:border-l sm:border-gray-200 sm:pl-6">
           <h1 class="text-4xl font-extrabold text-yellow-100 tracking-tight sm:text-5xl">Oops...</h1>
-          <p class="mt-2 text-base text-gray-500">Sorry, het lijkt erop dat deze pagina niet (meer) bestaat of misschien verhuisd is.</p>
+          <p class="mt-2 text-base text-gray-500">Sorry, het lijkt erop dat deze pagina niet (meer) bestaat of misschien
+            verhuisd is.</p>
         </div>
         <div class="mt-10 flex space-x-3 sm:border-l sm:border-transparent sm:pl-6">
-          <a routerLink=""
+          <a [routerLink]="'/'"
              class="inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md shadow-sm text-white bg-yellow-100 hover:bg-yellow-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
             Terug naar homepage
           </a>
@@ -17,3 +18,4 @@
     </main>
   </div>
 </div>
+<littil-footer></littil-footer>

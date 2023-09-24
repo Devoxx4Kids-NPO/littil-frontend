@@ -66,11 +66,9 @@ export class SearchComponent {
   }
 
   private fetchUserInfo(): Observable<GuestTeacher | School> {
-    const userObservable: Observable<GuestTeacher | School> = this.roleType == Roles.GuestTeacher
+    return this.roleType == Roles.GuestTeacher
       ? this.littilTeacherService.getById(this.roleId)
       : this.littilSchoolService.getById(this.roleId);
-
-    return userObservable
   }
 
   private fetchUserCoordinate(user: Observable<GuestTeacher | School>): Observable<Coordinates | null> {
@@ -90,7 +88,7 @@ export class SearchComponent {
       .pipe(map(([user, position]) => {
         if (position === null) return null;
         const opt: MarkerOptions = {
-          title: `${user.firstName} ${user.surname}`,
+          title: `${user.firstName}${user.prefix ? ` ${user.prefix}` : ''} ${user.surname}`,
           icon: new Icon({
             iconUrl: 'assets/user-location.svg',
             iconSize: [25, 25],
