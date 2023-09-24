@@ -41,6 +41,8 @@ export class RegisterModalComponent
   public loading = false;
   public hideForm = false;
   public hideConfirmation = true;
+  public createUser = false;
+
   FormUtil = FormUtil;
 
   registerForm: FormGroup = new FormGroup({
@@ -52,9 +54,11 @@ export class RegisterModalComponent
   public async onClickRegister(): Promise<boolean> {
     return Promise.resolve().then(() => {
       FormUtil.ValidateAll(this.registerForm);
-      if (this.registerForm.invalid) {
+      // TODO refactor this and use ng-disabled
+      if (this.registerForm.invalid || this.createUser) {
         return false;
       }
+      this.createUser = true;
       return firstValueFrom(
         this.userService.create({
           emailAddress: this.registerForm.controls['email'].value,
@@ -67,6 +71,7 @@ export class RegisterModalComponent
         })
         .catch((error: any) => {
           console.error('Creating user error', error);
+          this.createUser = false;
           return false;
         });
     });
@@ -78,6 +83,10 @@ export class RegisterModalComponent
 
   public onClickLogin() {
     this.close({ triggerLogin: true });
+  }
+
+  public setDisabled() {
+    this.createUser=true;
   }
 }
 
