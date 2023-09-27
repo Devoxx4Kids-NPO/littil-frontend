@@ -17,29 +17,32 @@
         label="E-mailadres"
         [hasError]="FormUtil.InValid(registerForm.controls['email'])"
       >
-        <littil-form-error-message
-          [errorText]="FormUtil.ContainsError(registerForm.controls['email'], 'required') ? 'E-mailadres is verplicht' : (FormUtil.ContainsError(registerForm.controls['email'], 'email') ? 'Vul een geldig e-mailadres in' : '&nbsp;')"
-        ></littil-form-error-message>
       </littil-form-input-text>
     </form>
 
-    <littil-button-rounded
-      data-test="registerButton"
-      [inline]="true"
-      [disabled]="creatingProfile"
-      (click)="onClickRegister()"
-      >Registreren</littil-button-rounded
-    >
-    <littil-button-rounded
-      data-test="cancelButton"
-      [inline]="true"
-      [disabled]="creatingProfile"
-      [color]="'yellow'"
-      (click)="closeModal()"
-      >Annuleren</littil-button-rounded
-    >
+    <div class="flex">
+      <littil-button-rounded
+        data-test="registerButton"
+        [inline]="true"
+        [disabled]="creatingProfile"
+        (click)="onClickRegister()"
+        >Registreren</littil-button-rounded
+      >
+      <littil-button-rounded
+        data-test="cancelButton"
+        [inline]="true"
+        [disabled]="creatingProfile"
+        [color]="'yellow'"
+        (click)="closeModal()"
+        class="mr-4"
+        >Annuleren</littil-button-rounded
+      >
+      <littil-form-error-message *ngIf="registerForm.controls['email'].dirty || registerForm.controls['email'].touched"
+          [errorText]="FormUtil.ContainsError(registerForm.controls['email'], 'required') ? 'E-mailadres is verplicht' : (FormUtil.ContainsError(registerForm.controls['email'], 'email') ? 'Vul een geldig e-mailadres in' : '')"
+      ></littil-form-error-message>
+    </div>
+    <p *ngIf="creatingProfile">Uw account wordt aangemaakt</p>
   </ng-container>
-  <p *ngIf="creatingProfile">Uw account wordt aangemaakt</p>
 </div>
 
 <div [@hideShow]="hideConfirmation ? 'hidden' : 'visible'" class="prose">
