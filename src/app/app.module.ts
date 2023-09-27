@@ -50,7 +50,7 @@ const cookieConfig:NgcCookieConsentConfig = {
       dismiss: "akkoord",
       target: "_self",
       privacyPolicyLink: 'privacy policy',
-      privacyPolicyHref: '#/privacy-policy',
+      privacyPolicyHref: '/privacy-policy',
     },
 };
 
