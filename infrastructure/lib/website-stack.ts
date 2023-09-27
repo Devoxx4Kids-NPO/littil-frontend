@@ -1,4 +1,4 @@
-import { CfnOutput, RemovalPolicy, Stack, StackProps } from 'aws-cdk-lib';
+import { RemovalPolicy, Stack, StackProps } from 'aws-cdk-lib';
 import { Certificate } from 'aws-cdk-lib/aws-certificatemanager';
 import { AllowedMethods, Distribution, PriceClass, ViewerProtocolPolicy } from 'aws-cdk-lib/aws-cloudfront';
 import { S3Origin } from 'aws-cdk-lib/aws-cloudfront-origins';
@@ -9,7 +9,7 @@ import { cloudfrontSpaErrorResponses } from './cloudfront-spa-error-responses';
 
 export interface WebsiteStackProps extends StackProps {
   littilEnvironment: string;
-  certificateArn: string;
+  certificate: Certificate;
   domains: string[],
 }
 
@@ -35,11 +35,8 @@ export class WebsiteStack extends Stack {
       priceClass: PriceClass.PRICE_CLASS_100,
       defaultRootObject: 'index.html',
       domainNames: props.domains,
-      certificate: Certificate.fromCertificateArn(this, 'Certificate', props.certificateArn),
+      certificate: props.certificate,
     });
-
-    new CfnOutput(this, 'CloudfrontDistributionId', {value: distribution.distributionId});
-    new CfnOutput(this, 'CloudfrontDomainName', {value: distribution.domainName});
 
     /* Sync to S3 statement. */
     const s3Statement = new PolicyStatement({
