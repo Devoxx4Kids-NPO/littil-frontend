@@ -1,9 +1,14 @@
 <div class="md:hidden bg-yellow-100">
-    <mat-toolbar class="bg-yellow-100">
-      <button mat-icon-button class="text-white" (click)="toggleMobileMenu()">
-        <mat-icon>menu</mat-icon> Menu
-      </button>
-    </mat-toolbar>
+  <mat-toolbar class="bg-yellow-100 flex justify-between">
+    <button mat-icon-button class="text-white" (click)="toggleMobileMenu()">
+      <mat-icon>menu</mat-icon>
+      Menu
+    </button>
+
+    <div class="text-white">
+      <littil-user-menu></littil-user-menu>
+    </div>
+  </mat-toolbar>
   <div
     class="mx-auto max-w-screen-lg text-white uppercase hidden text-sm antialiased"
     [class.hidden]="!mobileMenuOpen">

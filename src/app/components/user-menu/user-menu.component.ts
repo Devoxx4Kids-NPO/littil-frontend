@@ -51,7 +51,7 @@ export class UserMenuComponent implements OnInit {
   public async openRegisterModal() {
     return this.modalController
       .present(RegisterModalComponent, undefined, {
-        modalSize: ModalSize.SM,
+        modalSize: ModalSize.MD,
       })
       .then((response: IRegisterModalOutput) => {
         if (response.triggerLogin) {
