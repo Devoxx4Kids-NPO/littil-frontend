@@ -19,6 +19,7 @@
         errorText="Een rol opgeven is verplicht"
       ></littil-form-error-message>
     </littil-form-input-radio>
+
     <littil-form-input-text
       *ngIf="isSchool"
       formControlName="schoolName"
@@ -33,10 +34,15 @@
       ></littil-form-error-message>
       <strong>Gegevens contactpersoon</strong>
     </littil-form-input-text>
-    <littil-form-input-text
+
+    <div>
+      <div class="flex">
+      <littil-form-input-text
       formControlName="firstName"
       id="firstName"
       label="Voornaam"
+      widthClass="w-64"
+      class="mr-2"
       [hasError]="FormUtil.InValid(completeProfileForm.controls['firstName'])"
     >
       <littil-form-error-message
@@ -44,16 +50,20 @@
         errorText="Voornaam is verplicht"
       ></littil-form-error-message>
     </littil-form-input-text>
-    <littil-form-input-text
+      <littil-form-input-text
       formControlName="prefix"
       id="prefix"
       label="Tussenvoegsel"
-    >
+      widthClass="w-32"
+      class="mr-2"
+      >
     </littil-form-input-text>
-    <littil-form-input-text
+      <littil-form-input-text
       formControlName="surname"
       id="surname"
       label="Achternaam"
+      widthClass="w-64"
+      class="mr-2"
       [hasError]="FormUtil.InValid(completeProfileForm.controls['surname'])"
     >
       <littil-form-error-message
@@ -61,16 +71,18 @@
         errorText="Achternaam is verplicht"
       ></littil-form-error-message>
     </littil-form-input-text>
+    </div>
+    </div>
 
     <p *ngIf="!isSchool">
       Om scholen en gastdocenten elkaar te laten vinden, hebben wij uw adres nodig.<br>
-      Deze gegevens worden niet met derden gedeeld en alleen gebruikt om uw locatie<br>
+      Deze gegevens worden niet met derden gedeeld en alleen gebruikt om uw locatie
       op de plattegrond te tonen.
     </p>
     <p *ngIf="isSchool">
-      Om scholen en gastdocenten elkaar te laten vinden, hebben wij het adres van  <br>
-      de school nodig.Deze gegevens worden niet met derden gedeeld en alleen<br>
-      gebruikt om de locatie van de school op de plattegrond te tonen.
+      Om scholen en gastdocenten elkaar te laten vinden, hebben wij het adres van
+      de school nodig. Deze gegevens worden niet <br>
+      met derden gedeeld en alleen gebruikt om de locatie van de school op de plattegrond te tonen.
     </p>
     <div>
       <div class="flex">
@@ -78,7 +90,7 @@
           formControlName="addressStreet"
           id="addressStreet"
           label="Straat"
-          widthClass="w-44"
+          widthClass="w-64"
           class="mr-2"
           [hasError]="
             FormUtil.InValid(completeProfileForm.controls['addressStreet'])
@@ -95,7 +107,8 @@
           formControlName="addressHousenumber"
           id="addressHousenumber"
           label="Huisnummer"
-          widthClass="w-24"
+          widthClass="w-32"
+          class="mr-2"
           [hasError]="
             FormUtil.InValid(completeProfileForm.controls['addressHousenumber'])
           "
@@ -109,11 +122,6 @@
             errorText="Huisnummber is verplicht"
           ></littil-form-error-message>
         </littil-form-input-text>
-      </div>
-    </div>
-
-    <div>
-      <div class="flex">
         <littil-form-input-text
           formControlName="postalCode"
           id="postalCode"
@@ -161,10 +169,17 @@
     </littil-form-input-text> -->
   </form>
 
-  <littil-button [inline]="true" (click)="onClickSaveProfile()"
-    >Profiel opslaan</littil-button
-  >
-  <littil-button [inline]="true" colorClass="bg-yellow-200" (click)="logOut()"
-    >Uitloggen</littil-button
-  >
+  <littil-button-rounded
+    [inline]="true"
+    [disabled]="savingProfile"
+    (click)="onClickSaveProfile()">
+    Profiel opslaan
+  </littil-button-rounded>
+  <littil-button-rounded
+    [inline]="true"
+    [disabled]="savingProfile"
+    colorClass="bg-yellow-200"
+    (click)="logOut()">
+    Uitloggen</littil-button-rounded>
+  <p *ngIf="savingProfile">Uw profiel wordt opgeslagen</p>
 </div>

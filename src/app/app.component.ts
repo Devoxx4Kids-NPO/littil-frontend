@@ -3,6 +3,7 @@ import { DOCUMENT } from '@angular/common';
 import { Component, Inject, OnInit } from '@angular/core';
 import { IMenuItem, menuRoutes, MenuType } from './pages/menu.routes';
 import { PermissionController } from './services/permission.controller';
+import { NgcCookieConsentService } from "ngx-cookieconsent";
 
 @Component({
   selector: 'app-root',
@@ -15,7 +16,8 @@ export class AppComponent implements OnInit {
 
   constructor(
     public readonly permissionController: PermissionController,
-    @Inject(DOCUMENT) public document: Document
+    @Inject(DOCUMENT) public document: Document,
+    private ccService: NgcCookieConsentService
   ) {}
 
   public ngOnInit(): void {
