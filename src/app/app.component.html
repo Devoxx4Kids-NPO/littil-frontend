@@ -1,7 +1,7 @@
 <div class="md:hidden bg-yellow-100">
     <mat-toolbar class="bg-yellow-100">
       <button mat-icon-button class="text-white" (click)="toggleMobileMenu()">
-        <mat-icon>menu</mat-icon>
+        <mat-icon>menu</mat-icon> Menu
       </button>
     </mat-toolbar>
   <div
@@ -19,6 +19,7 @@
           class="flex-1 flex items-center"
           *ngIf="!subRoute.disabled"
           [path]="subRoute.path"
+          (click)="hideMobileMenu()"
         >{{route.menuText}} &gt; {{ subRoute.menuText }}</littil-main-menu-button>
       </ng-container>
     </ng-container>
