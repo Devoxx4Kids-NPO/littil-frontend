@@ -39,15 +39,11 @@ export class LittilTeacherService implements IHasManageableModules {
   }
 
   getModules(id: string): Observable<Module[]> {
-    return this.teacherModulesService.apiV1GuestTeachersIdModulesGet(id);
+    return this.teacherModulesService.apiV2GuestTeachersIdModulesGet(id);
   }
 
-  addModule(teacherId: string, module: Module): Observable<any> {
-    return this.teacherModulesService.apiV1GuestTeachersIdModulesPost(teacherId, module);
-  }
-
-  removeModule(teacherId: string, moduleId: string): Observable<any> {
-    return this.teacherModulesService.apiV1GuestTeachersIdModulesModuleIdDelete(teacherId, moduleId);
+  addModules(teacherId: string, modules: string[]): Observable<any> {
+    return this.teacherModulesService.apiV2GuestTeachersIdModulesPost(teacherId, modules);
   }
 
 }

@@ -1,4 +1,5 @@
 <littil-profile-container title="Modules wijzigen">
+
   <fieldset class="not-prose">
     <legend class="sr-only">Modules</legend>
     <div data-test="module-list">
@@ -6,11 +7,9 @@
         <div class="flex h-6 items-center">
           <input [id]="availableModule.id"
                  [name]="availableModule.id"
-                 (change)="saveModuleStatus(availableModule)"
-                 [checked]="isModuleUsedByUser(availableModule)"
-                 [disabled]="isModuleBeingSaved(availableModule)"
-                 [ngClass]="isModuleBeingSaved(availableModule)
-                 ? 'text-gray-200 focus:ring-gray-200' : 'text-green-700 focus:ring-green-700'"
+                 (change)="updateSelectedModules(availableModule)"
+                 [checked]="isSelectedModule(availableModule)"
+                 [ngClass]="'text-blue-200 focus:ring-blue-200'"
                  aria-describedby="comments-description" type="checkbox" class="h-4 w-4 rounded border-gray-300">
         </div>
         <div class="ml-3 text-sm leading-6">
@@ -19,5 +18,12 @@
       </div>
     </div>
   </fieldset>
+
+  <div class="flex flex-row gap-4 justify-between mt-4">
+    <div>
+      <littil-button-rounded data-test="saveButton" [inline]="true" (click)="onClickSaveModules()">Modules opslaan</littil-button-rounded>
+      <littil-button-rounded data-test="cancelButton" [inline]="true" (click)="onClickCancelChanges()" color="yellow">Wijzigingen annuleren</littil-button-rounded>
+    </div>
+  </div>
 </littil-profile-container>
 <littil-footer></littil-footer>
