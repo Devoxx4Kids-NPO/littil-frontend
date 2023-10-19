@@ -2,7 +2,7 @@
   <div class="w-2/12 z-[2] bg-blue-50 p-4 drop-shadow-md">
     <ng-container *ngIf="selectedMarker">
       <h2 class="text-yellow-200 text-xl">{{ selectedMarker.options.title }}</h2>
-      <p *ngIf="selectedSearchResult">{{ selectedSearchResult.userType.toLowerCase() }}</p>
+      <p *ngIf="selectedSearchResult">{{ getSelectedSearchResultRole() }}</p>
 <!--      <ng-container *ngIf="selectedMarker.modules && selectedMarker.modules.length > 0"> -->
 <!--        <h2 class="text-yellow-200 text-xl">Geeft les in modules:</h2>-->
 <!--        <ul>-->

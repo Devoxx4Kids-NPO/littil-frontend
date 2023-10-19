@@ -1,19 +1,19 @@
-import {Component, NgZone} from '@angular/core';
-import {FormBuilder} from '@angular/forms';
-import {combineLatest, map, Observable, switchMap, of, Subject, startWith} from 'rxjs';
-import {GuestTeacher, School, SearchResult} from '../../../api/generated';
-import {Coordinates, CoordinatesService} from '../../../services/coordinates/coordinates.service';
-import {OpenStreetMapService} from '../../../services/coordinates/open-street-map.service';
-import {LittilSchoolService} from '../../../services/littil-school/littil-school.service';
-import {LittilSearchService} from '../../../services/littil-search/littil-search.service';
-import {LittilTeacherService} from '../../../services/littil-teacher/littil-teacher.service';
-import {PermissionController, Roles,} from '../../../services/permission.controller';
-import {MAP_OPTIONS} from './map-options';
-import {Icon, Layer, marker, Marker, MarkerOptions} from "leaflet";
-import {SearchQuery} from "./search-form.component";
-import {LittilModulesService} from "../../../services/littil-modules/littil-modules.service";
-import {ModalController, ModalSize} from "../../../components/modal/modal.controller";
-import {ContactModalComponent} from "../../../components/contact-modal/contact-modal.component";
+import { Component, NgZone } from '@angular/core';
+import { FormBuilder } from '@angular/forms';
+import { combineLatest, map, Observable, switchMap, of, Subject, startWith } from 'rxjs';
+import { GuestTeacher, School, SearchResult, UserType } from '../../../api/generated';
+import { Coordinates, CoordinatesService } from '../../../services/coordinates/coordinates.service';
+import { OpenStreetMapService } from '../../../services/coordinates/open-street-map.service';
+import { LittilSchoolService } from '../../../services/littil-school/littil-school.service';
+import { LittilSearchService } from '../../../services/littil-search/littil-search.service';
+import { LittilTeacherService } from '../../../services/littil-teacher/littil-teacher.service';
+import { PermissionController, Roles } from '../../../services/permission.controller';
+import { MAP_OPTIONS } from './map-options';
+import { Icon, Layer, marker, Marker, MarkerOptions } from 'leaflet';
+import { SearchQuery } from './search-form.component';
+import { LittilModulesService } from '../../../services/littil-modules/littil-modules.service';
+import { ModalController, ModalSize } from '../../../components/modal/modal.controller';
+import { ContactModalComponent } from '../../../components/contact-modal/contact-modal.component';
 
 @Component({
   selector: 'littil-search',
@@ -112,6 +112,11 @@ export class SearchComponent {
 
   private getRequiredRoleForSearchResult(role: Roles): string {
     return role == Roles.School ? MapTypes.GUEST_TEACHER : MapTypes.SCHOOL;
+  }
+
+  public getSelectedSearchResultRole(): string {
+    return this.selectedSearchResult?.userType === UserType.School ? "school" :
+      this.selectedSearchResult?.userType === UserType.GuestTeacher ? "gastdocent" : "";
   }
 
   public onMarkerClick(marker: Marker, searchResult: SearchResult | undefined) {
