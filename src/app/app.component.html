@@ -1,8 +1,40 @@
+<div class="md:hidden bg-yellow-100">
+  <mat-toolbar class="bg-yellow-100 flex justify-between">
+    <button mat-icon-button class="text-white" (click)="toggleMobileMenu()">
+      <mat-icon>menu</mat-icon>
+      Menu
+    </button>
+
+    <div class="text-white">
+      <littil-user-menu></littil-user-menu>
+    </div>
+  </mat-toolbar>
+  <div
+    class="mx-auto max-w-screen-lg text-white uppercase hidden text-sm antialiased"
+    [class.hidden]="!mobileMenuOpen">
+    <ng-container *ngFor="let route of menuRoutes">
+      <littil-main-menu-button
+        class="flex-1 flex items-center"
+        *ngIf="!route.disabled"
+        [path]="route.path"
+        (click)="hideMobileMenu()"
+      >{{ route.menuText }}</littil-main-menu-button>
+      <ng-container *ngFor="let subRoute of route.subRoutes">
+        <littil-main-menu-button
+          class="flex-1 flex items-center"
+          *ngIf="!subRoute.disabled"
+          [path]="subRoute.path"
+          (click)="hideMobileMenu()"
+        >{{route.menuText}} &gt; {{ subRoute.menuText }}</littil-main-menu-button>
+      </ng-container>
+    </ng-container>
+  </div>
+</div>
 <littil-content-container [outerClasses]="'bg-blue-50 flex'" [innerClasses]="'flex justify-between'">
-  <div>
+  <div class="hidden md:block">
     <img src="assets/littil_logo.png" class="h-12" alt="LITTIL logo"/>
   </div>
-  <div class="flex items-center">
+  <div class="hidden md:flex items-center">
     <div>
       <img src="assets/playschool-top-icon-email@2x.png">
     </div>
@@ -13,11 +45,13 @@
       </p>
     </div>
   </div>
-  <littil-user-menu></littil-user-menu>
+  <div class="hidden md:block">
+    <littil-user-menu></littil-user-menu>
+  </div>
 </littil-content-container>
 <div class="bg-yellow-100 mb-6">
   <div
-    class="mx-auto max-w-screen-lg text-white uppercase flex justify-items-stretch text-sm antialiased divide-x divide-yellow-200">
+    class="mx-auto max-w-screen-lg text-white uppercase hidden md:flex justify-items-stretch text-sm antialiased divide-x divide-yellow-200">
     <ng-container *ngFor="let route of menuRoutes">
       <littil-main-menu-button
         class="flex-1 flex items-center"
