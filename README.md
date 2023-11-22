@@ -55,6 +55,12 @@ Run `ng e2e` to execute the end-to-end tests via a platform of your choice. To u
 
 Run `npm run openapi` to generate API servicees and models
 
+## Manual deployment to a staging environment
+
+Note that production-grade deployments should happen from a pipeline so that one single build (artifact) can be tested on staging, then deployed production, and persisted in the pipeline (for at least some time).
+
+To do a manual deployment to staging though, run `npm run build` to produce the compiled application in `./dist`. Deploy this application by copying all files in `./dist/littil-org-website/` to a static web server file-system (such as the S3 bucket used in AWS). Finally, copy the local `config.staging.js` to `config.js` in the target.
+
 ## Further help
 
 To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI Overview and Command Reference](https://angular.io/cli) page.
