@@ -1539,6 +1539,176 @@
           "Auth0" : [ "admin" ]
         } ]
       }
+    },
+    "/api/v2/guest-teachers/{id}/modules" : {
+      "get" : {
+        "tags" : [ "Teacher Modules" ],
+        "summary" : "Fetch the list of modules for a specific guestTeacher",
+        "parameters" : [ {
+          "name" : "id",
+          "in" : "path",
+          "required" : true,
+          "schema" : {
+            "$ref" : "#/components/schemas/UUID"
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "Modules for guestTeacher with Id found.",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "type" : "array",
+                  "items" : {
+                    "$ref" : "#/components/schemas/Module"
+                  }
+                }
+              }
+            }
+          },
+          "404" : {
+            "description" : "GuestTeacher with specific Id was not found."
+          },
+          "401" : {
+            "description" : "Current user is not owner of this guestTeacher"
+          },
+          "403" : {
+            "description" : "Not Allowed"
+          }
+        },
+        "security" : [ {
+          "Auth0" : [ ]
+        } ]
+      },
+      "post" : {
+        "tags" : [ "Teacher Modules" ],
+        "summary" : "Update the list of modules for a specific guestTeacher",
+        "parameters" : [ {
+          "name" : "id",
+          "in" : "path",
+          "required" : true,
+          "schema" : {
+            "$ref" : "#/components/schemas/UUID"
+          }
+        } ],
+        "requestBody" : {
+          "content" : {
+            "application/json" : {
+              "schema" : {
+                "type" : "array",
+                "items" : {
+                  "type" : "string"
+                }
+              }
+            }
+          }
+        },
+        "responses" : {
+          "200" : {
+            "description" : "Successfully updated the modules for the given guestTeacher.",
+            "content" : {
+              "application/json" : { }
+            }
+          },
+          "404" : {
+            "description" : "The guestTeacher or one of the modules was not found."
+          },
+          "401" : {
+            "description" : "Current user is not owner of this guestTeacher"
+          },
+          "403" : {
+            "description" : "Not Allowed"
+          }
+        },
+        "security" : [ {
+          "Auth0" : [ ]
+        } ]
+      }
+    },
+    "/api/v2/schools/{id}/modules" : {
+      "get" : {
+        "tags" : [ "School Modules" ],
+        "summary" : "Fetch the list of modules for a specific school",
+        "parameters" : [ {
+          "name" : "id",
+          "in" : "path",
+          "required" : true,
+          "schema" : {
+            "$ref" : "#/components/schemas/UUID"
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "Modules for school with Id found.",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "type" : "array",
+                  "items" : {
+                    "$ref" : "#/components/schemas/Module"
+                  }
+                }
+              }
+            }
+          },
+          "404" : {
+            "description" : "School with specific Id was not found."
+          },
+          "401" : {
+            "description" : "Current user is not owner of this school"
+          },
+          "403" : {
+            "description" : "Not Allowed"
+          }
+        },
+        "security" : [ {
+          "Auth0" : [ ]
+        } ]
+      },
+      "post" : {
+        "tags" : [ "School Modules" ],
+        "summary" : "Update the list of modules for a specific school",
+        "parameters" : [ {
+          "name" : "id",
+          "in" : "path",
+          "required" : true,
+          "schema" : {
+            "$ref" : "#/components/schemas/UUID"
+          }
+        } ],
+        "requestBody" : {
+          "content" : {
+            "application/json" : {
+              "schema" : {
+                "type" : "array",
+                "items" : {
+                  "type" : "string"
+                }
+              }
+            }
+          }
+        },
+        "responses" : {
+          "200" : {
+            "description" : "Successfully updated the modules for the given school.",
+            "content" : {
+              "application/json" : { }
+            }
+          },
+          "404" : {
+            "description" : "The school or one of the modules was not found."
+          },
+          "401" : {
+            "description" : "Current user is not owner of this school"
+          },
+          "403" : {
+            "description" : "Not Allowed"
+          }
+        },
+        "security" : [ {
+          "Auth0" : [ ]
+        } ]
+      }
     }
   },
   "components" : {
