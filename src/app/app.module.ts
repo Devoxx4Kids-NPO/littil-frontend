@@ -1,6 +1,9 @@
 import { CommonModule } from '@angular/common';
 import { HttpClient, HttpClientModule } from '@angular/common/http';
 import { NgModule } from '@angular/core';
+import { MatButtonModule } from '@angular/material/button';
+import { MatIconModule } from '@angular/material/icon';
+import { MatToolbarModule } from '@angular/material/toolbar';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { AuthModule } from '@auth0/auth0-angular';
@@ -18,6 +21,7 @@ import { RegisterModalModule } from './components/register-modal/register-modal.
 import { UserMenuModule } from './components/user-menu/user-menu.module';
 import { interceptorProviders } from './interceptors/http-interceptors';
 import { environment } from "../environments/environment";
+import {ContactModalModule} from "./components/contact-modal/contact-modal.module";
 import {NgcCookieConsentConfig, NgcCookieConsentModule} from "ngx-cookieconsent";
 
 const littilConfig = getLittilConfigFromWindow();
@@ -49,7 +53,7 @@ const cookieConfig:NgcCookieConsentConfig = {
       dismiss: "akkoord",
       target: "_self",
       privacyPolicyLink: 'privacy policy',
-      privacyPolicyHref: '#/privacy-policy',
+      privacyPolicyHref: '/privacy-policy',
     },
 };
 
@@ -70,6 +74,7 @@ const cookieConfig:NgcCookieConsentConfig = {
     ContentContainerModule,
     ButtonModule,
     UserMenuModule,
+    ContactModalModule,
     RegisterModalModule,
     ErrorModalModule,
     MainMenuButtonModule,
@@ -90,8 +95,11 @@ const cookieConfig:NgcCookieConsentConfig = {
           },
         ],
       },
-      cacheLocation: environment.production ? undefined :  'localstorage',
+      cacheLocation: environment.production ? undefined : 'localstorage',
     }),
+    MatToolbarModule,
+    MatButtonModule,
+    MatIconModule,
   ],
   providers: [HttpClient, interceptorProviders],
   bootstrap: [AppComponent],

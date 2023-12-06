@@ -2,18 +2,18 @@
   <div class="w-2/12 z-[2] bg-blue-50 p-4 drop-shadow-md">
     <ng-container *ngIf="selectedMarker">
       <h2 class="text-yellow-200 text-xl">{{ selectedMarker.options.title }}</h2>
-      <p>Gastdocent</p>
-<!--      <ng-container *ngIf="selectedMarker.modules && selectedMarker.modules.length > 0">-->
+      <p *ngIf="selectedSearchResult">{{ getSelectedSearchResultRole() }}</p>
+<!--      <ng-container *ngIf="selectedMarker.modules && selectedMarker.modules.length > 0"> -->
 <!--        <h2 class="text-yellow-200 text-xl">Geeft les in modules:</h2>-->
 <!--        <ul>-->
 <!--          <li *ngFor="let module of selectedMarker.modules">-->
 <!--            {{ module }}-->
 <!--          </li>-->
 <!--        </ul>-->
-<!--        <div class="mt-6">-->
-<!--          <littil-button>Neem contact op</littil-button>-->
-<!--        </div>-->
-<!--      </ng-container>-->
+<!--      </ng-container> -->
+      <div class="mt-6">
+        <littil-button *ngIf="selectedSearchResult" (click)="openContactModal()">Neem contact op</littil-button>
+      </div>
     </ng-container>
   </div>
   <div style="height: 600px; width: 600px;position: relative"
