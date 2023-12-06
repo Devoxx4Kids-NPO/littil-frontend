@@ -23,12 +23,26 @@ export class WebsiteStack extends Stack {
       removalPolicy: RemovalPolicy.DESTROY,
     });
 
+    const websiteConfigBucket = new Bucket(this, 'WebsiteConfigS3Bucket', {
+      bucketName: 'littil-' + props.littilEnvironment + '-website-config',
+      blockPublicAccess: BlockPublicAccess.BLOCK_ALL,
+      removalPolicy: RemovalPolicy.DESTROY,
+    });
+
     const distribution = new Distribution(this, 'WebsiteCloudfrontDistribution', {
       defaultBehavior: {
         origin: new S3Origin(siteBucket),
         compress: true,
         allowedMethods: AllowedMethods.ALLOW_GET_HEAD,
         viewerProtocolPolicy: ViewerProtocolPolicy.REDIRECT_TO_HTTPS,
+      },
+      additionalBehaviors: {
+        '/config.js': {
+          origin: new S3Origin(websiteConfigBucket),
+          compress: true,
+          allowedMethods: AllowedMethods.ALLOW_GET_HEAD,
+          viewerProtocolPolicy: ViewerProtocolPolicy.REDIRECT_TO_HTTPS,
+        }
       },
       errorResponses: cloudfrontSpaErrorResponses,
       // Price class 100: USA, Canada, Europe, & Israel

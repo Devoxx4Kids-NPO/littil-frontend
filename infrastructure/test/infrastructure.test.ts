@@ -7,18 +7,23 @@ test('S3 bucket and Cloudfront distribution created', () => {
   const app = new cdk.App();
 
   const certProps = {
+    env: {
+      region: 'us-east-1',
+    },
+    crossRegionReferences: true,
     domains: ['local.littil.org'],
   };
-  const certificateStack = new CertificatesStack(app, 'WebsiteStack', certProps);
+  const certificateStack = new CertificatesStack(app, 'CertificateStack', certProps);
 
   // WHEN
   const props = {
-    littilEnvironment: 'test',
-    domains: ['local.littil.org'],
     env: {
       region: 'eu-west-1',
     },
-    certificate: certificateStack.certificate
+    crossRegionReferences: true,
+    littilEnvironment: 'test',
+    domains: ['local.littil.org'],
+    certificate: certificateStack.certificate,
   };
   const stack = new WebsiteStack(app, 'WebsiteStack', props);
 
