@@ -23,9 +23,7 @@ import { RegisterModalModule } from './components/register-modal/register-modal.
 import { UserMenuModule } from './components/user-menu/user-menu.module';
 import { FeedbackFinProvider } from './feedback/feedbackfin.provider';
 import { interceptorProviders } from './interceptors/http-interceptors';
-import { environment } from '../environments/environment';
 import { ContactModalModule } from './components/contact-modal/contact-modal.module';
-import { NgcCookieConsentConfig, NgcCookieConsentModule } from 'ngx-cookieconsent';
 
 const littilConfig = getLittilConfigFromWindow();
 
