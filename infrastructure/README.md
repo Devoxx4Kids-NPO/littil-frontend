@@ -16,8 +16,8 @@ The NL LITTIL infrastructure needs to run in eu-west-1, but because of the deplo
 npm run build # Compile TypeScript code
 npm run test # Run tests
 npm run cdk:list # List stacks
-npm run cdk:synth:acc # Synthesize all stacks for deployment to acc (e.g. urls will change between environments)
-npm run cdk:deploy:acc # Deploy all stacks
+npm run cdk:synth:staging # Synthesize all stacks for deployment to staging (e.g. urls will change between environments)
+npm run cdk:deploy:staging # Deploy all stacks
 ```
 
 ## Bootstrapping

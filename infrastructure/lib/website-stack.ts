@@ -1,35 +1,30 @@
-import * as cdk from 'aws-cdk-lib';
-import { CfnOutput, RemovalPolicy } from 'aws-cdk-lib';
+import { RemovalPolicy, Stack, StackProps } from 'aws-cdk-lib';
 import { Certificate } from 'aws-cdk-lib/aws-certificatemanager';
-import {
-  AllowedMethods,
-  Distribution,
-  PriceClass,
-  ViewerProtocolPolicy,
-} from 'aws-cdk-lib/aws-cloudfront';
+import { AllowedMethods, Distribution, PriceClass, ViewerProtocolPolicy } from 'aws-cdk-lib/aws-cloudfront';
 import { S3Origin } from 'aws-cdk-lib/aws-cloudfront-origins';
-import {
-  Effect,
-  OpenIdConnectProvider,
-  Policy,
-  PolicyStatement,
-  Role,
-  WebIdentityPrincipal,
-} from 'aws-cdk-lib/aws-iam';
+import { Effect, Policy, PolicyStatement, Role, WebIdentityPrincipal } from 'aws-cdk-lib/aws-iam';
 import { BlockPublicAccess, Bucket } from 'aws-cdk-lib/aws-s3';
 import { Construct } from 'constructs';
 import { cloudfrontSpaErrorResponses } from './cloudfront-spa-error-responses';
 
-export interface WebsiteStackProps extends cdk.StackProps {
-  certificateArn: string;
+export interface WebsiteStackProps extends StackProps {
+  littilEnvironment: string;
+  certificate: Certificate;
+  domains: string[],
 }
 
-export class WebsiteStack extends cdk.Stack {
+export class WebsiteStack extends Stack {
   constructor(scope: Construct, id: string, props: WebsiteStackProps) {
     super(scope, id, props);
 
     const siteBucket = new Bucket(this, 'WebsiteS3Bucket', {
-      bucketName: 'littil-staging-website',
+      bucketName: 'littil-' + props.littilEnvironment + '-website',
+      blockPublicAccess: BlockPublicAccess.BLOCK_ALL,
+      removalPolicy: RemovalPolicy.DESTROY,
+    });
+
+    const websiteConfigBucket = new Bucket(this, 'WebsiteConfigS3Bucket', {
+      bucketName: 'littil-' + props.littilEnvironment + '-website-config',
       blockPublicAccess: BlockPublicAccess.BLOCK_ALL,
       removalPolicy: RemovalPolicy.DESTROY,
     });
@@ -41,18 +36,21 @@ export class WebsiteStack extends cdk.Stack {
         allowedMethods: AllowedMethods.ALLOW_GET_HEAD,
         viewerProtocolPolicy: ViewerProtocolPolicy.REDIRECT_TO_HTTPS,
       },
+      additionalBehaviors: {
+        '/config.js': {
+          origin: new S3Origin(websiteConfigBucket),
+          compress: true,
+          allowedMethods: AllowedMethods.ALLOW_GET_HEAD,
+          viewerProtocolPolicy: ViewerProtocolPolicy.REDIRECT_TO_HTTPS,
+        }
+      },
       errorResponses: cloudfrontSpaErrorResponses,
       // Price class 100: USA, Canada, Europe, & Israel
       priceClass: PriceClass.PRICE_CLASS_100,
       defaultRootObject: 'index.html',
-      domainNames: [
-        'staging.littil.org',
-      ],
-      certificate: Certificate.fromCertificateArn(this, 'Certificate', props.certificateArn),
+      domainNames: props.domains,
+      certificate: props.certificate,
     });
-
-    new CfnOutput(this, 'CloudfrontDistributionId', {value: distribution.distributionId});
-    new CfnOutput(this, 'CloudfrontDomainName', {value: distribution.domainName});
 
     /* Sync to S3 statement. */
     const s3Statement = new PolicyStatement({
