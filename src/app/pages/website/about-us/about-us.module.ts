@@ -6,6 +6,7 @@ import { FooterModule } from '../../../components/footer/footer.module';
 import { AboutUsComponent } from "./about-us.component";
 import { ButtonModule } from "../../../components/button/button.module";
 import { TitleModule } from "../../../components/title/title.module";
+import {ContactBannerModule} from "../../../components/contact-banner/contact-banner.module";
 
 const routes: Routes = [
   {
@@ -23,6 +24,7 @@ const routes: Routes = [
         TitleModule,
         RouterModule.forChild(routes),
         FooterModule,
+        ContactBannerModule,
     ],
 })
 export class AboutUsModule { }

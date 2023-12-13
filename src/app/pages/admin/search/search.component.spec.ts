@@ -16,6 +16,7 @@ import {
   Roles,
 } from '../../../services/permission.controller';
 import { SearchComponent } from './search.component';
+import {ModalController} from "../../../components/modal/modal.controller";
 
 // TODO: add unit tests
 describe('SearchComponent', () => {
@@ -46,6 +47,7 @@ describe('SearchComponent', () => {
       MockProvider(LittilTeacherService, {
         getById: () => of(),
       }),
+      MockProvider(ModalController),
     ],
   });
 

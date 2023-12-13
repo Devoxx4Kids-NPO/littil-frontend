@@ -1,3 +1,4 @@
+import { animate, state, style, transition, trigger } from '@angular/animations';
 import { DOCUMENT } from '@angular/common';
 import { Component, Inject, OnInit } from '@angular/core';
 import { LITTILCONFIG, LittilConfig } from '../littilConfig';
@@ -13,6 +14,8 @@ import { NgcCookieConsentService } from "ngx-cookieconsent";
 })
 export class AppComponent implements OnInit {
   public menuRoutes: IMenuItem[] = menuRoutes;
+
+  public mobileMenuOpen = false;
 
   constructor(
     private readonly permissionController: PermissionController,
@@ -37,5 +40,13 @@ export class AppComponent implements OnInit {
         item.disabled = !this.permissionController.loggedIn;
       });
     });
+  }
+
+  public toggleMobileMenu(): void {
+    this.mobileMenuOpen = !this.mobileMenuOpen;
+  }
+
+  public hideMobileMenu(): void {
+    this.mobileMenuOpen = false;
   }
 }

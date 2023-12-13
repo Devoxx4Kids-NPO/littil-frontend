@@ -26,11 +26,18 @@
             "polyfills": "src/polyfills.ts",
             "tsConfig": "tsconfig.app.json",
             "inlineStyleLanguage": "scss",
-            "assets": ["src/assets", "src/config.js"],
-            "styles": ["src/styles.scss",
-                       "./node_modules/leaflet/dist/leaflet.css",
-                       "./node_modules/cookieconsent/build/cookieconsent.min.css"],
-            "scripts": ["./node_modules/cookieconsent/build/cookieconsent.min.js"]
+            "assets": [
+              "src/assets"
+            ],
+            "styles": [
+              "./node_modules/@angular/material/prebuilt-themes/indigo-pink.css",
+              "src/styles.scss",
+              "./node_modules/leaflet/dist/leaflet.css",
+              "./node_modules/cookieconsent/build/cookieconsent.min.css"
+            ],
+            "scripts": [
+              "./node_modules/cookieconsent/build/cookieconsent.min.js"
+            ]
           },
           "configurations": {
             "production": {

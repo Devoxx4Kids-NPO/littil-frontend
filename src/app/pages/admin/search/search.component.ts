@@ -1,17 +1,19 @@
-import {Component, NgZone} from '@angular/core';
-import {FormBuilder} from '@angular/forms';
-import {combineLatest, map, Observable, switchMap, of, Subject, startWith} from 'rxjs';
-import {GuestTeacher, School, SearchResult} from '../../../api/generated';
-import {Coordinates, CoordinatesService} from '../../../services/coordinates/coordinates.service';
-import {OpenStreetMapService} from '../../../services/coordinates/open-street-map.service';
-import {LittilSchoolService} from '../../../services/littil-school/littil-school.service';
-import {LittilSearchService} from '../../../services/littil-search/littil-search.service';
-import {LittilTeacherService} from '../../../services/littil-teacher/littil-teacher.service';
-import {PermissionController, Roles,} from '../../../services/permission.controller';
-import {MAP_OPTIONS} from './map-options';
-import {Icon, Layer, marker, Marker, MarkerOptions} from "leaflet";
-import {SearchQuery} from "./search-form.component";
-import {LittilModulesService} from "../../../services/littil-modules/littil-modules.service";
+import { Component, NgZone } from '@angular/core';
+import { FormBuilder } from '@angular/forms';
+import { combineLatest, map, Observable, switchMap, of, Subject, startWith } from 'rxjs';
+import { GuestTeacher, School, SearchResult, UserType } from '../../../api/generated';
+import { Coordinates, CoordinatesService } from '../../../services/coordinates/coordinates.service';
+import { OpenStreetMapService } from '../../../services/coordinates/open-street-map.service';
+import { LittilSchoolService } from '../../../services/littil-school/littil-school.service';
+import { LittilSearchService } from '../../../services/littil-search/littil-search.service';
+import { LittilTeacherService } from '../../../services/littil-teacher/littil-teacher.service';
+import { PermissionController, Roles } from '../../../services/permission.controller';
+import { MAP_OPTIONS } from './map-options';
+import { Icon, Layer, marker, Marker, MarkerOptions } from 'leaflet';
+import { SearchQuery } from './search-form.component';
+import { LittilModulesService } from '../../../services/littil-modules/littil-modules.service';
+import { ModalController, ModalSize } from '../../../components/modal/modal.controller';
+import { ContactModalComponent } from '../../../components/contact-modal/contact-modal.component';
 
 @Component({
   selector: 'littil-search',
@@ -20,6 +22,7 @@ import {LittilModulesService} from "../../../services/littil-modules/littil-modu
 })
 export class SearchComponent {
   public selectedMarker: Marker | null = null;
+  public selectedSearchResult: SearchResult | undefined;
   private roleType: Roles;
   private roleId: string;
   public mapOptions: L.MapOptions = MAP_OPTIONS;
@@ -45,7 +48,8 @@ export class SearchComponent {
     private coordinatesService: CoordinatesService,
     private littilTeacherService: LittilTeacherService,
     private littilSchoolService: LittilSchoolService,
-    private zone: NgZone
+    private zone: NgZone,
+    private modalController: ModalController
   ) {
     this.roleType = this.permissionController.getRoleType();
     this.roleId = this.permissionController.getRoleId();
@@ -71,8 +75,8 @@ export class SearchComponent {
     return user.pipe(
       switchMap((user: GuestTeacher | School) => {
         // TODO: Some users will not give permission to use their address, in that case they need to use the search form for an initial search
-        if (user.address) {
-          return this.coordinatesService.getCoordinates(user.address)
+        if (user.postalCode) {
+          return this.coordinatesService.getCoordinates(user.postalCode)
         } else {
           return of(null);
         }
@@ -90,7 +94,8 @@ export class SearchComponent {
             iconSize: [25, 25],
           }),
         };
-        return marker([position.lat, position.lon], opt).on('click', event => this.zone.run(() => this.onMarkerClick(event.target)))
+        return marker([position.lat, position.lon], opt)
+          .on('click', event => this.zone.run(() => this.onMarkerClick(event.target, undefined )))
       }));
   }
 
@@ -98,12 +103,25 @@ export class SearchComponent {
     this.searchQuery$.next(query);
   }
 
+  public async openContactModal() {
+    return this.modalController
+      .present(ContactModalComponent, this.selectedSearchResult, {
+        modalSize: ModalSize.SM,
+      })
+  }
+
   private getRequiredRoleForSearchResult(role: Roles): string {
     return role == Roles.School ? MapTypes.GUEST_TEACHER : MapTypes.SCHOOL;
   }
 
-  public onMarkerClick(marker: Marker) {
+  public getSelectedSearchResultRole(): string {
+    return this.selectedSearchResult?.userType === UserType.School ? "school" :
+      this.selectedSearchResult?.userType === UserType.GuestTeacher ? "gastdocent" : "";
+  }
+
+  public onMarkerClick(marker: Marker, searchResult: SearchResult | undefined) {
     this.selectedMarker = marker;
+    this.selectedSearchResult = searchResult;
   }
 
   private makeResultMarkers(results$: Observable<SearchResult[]>): Observable<Marker[]> {
@@ -116,7 +134,7 @@ export class SearchComponent {
               iconUrl: 'assets/marker.svg',
               iconSize: [25, 25],
             }),
-          }).on('click', event => this.zone.run(() => this.onMarkerClick(event.target)))
+          }).on('click', event => this.zone.run(() => this.onMarkerClick(event.target, result)))
       )
     }));
   }

@@ -2,7 +2,6 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import {
   ApiV1SchoolsGet200Response,
-  Module,
   School,
   SchoolModulesService,
   SchoolPostResource,
@@ -43,14 +42,11 @@ export class LittilSchoolService implements IHasManageableModules {
   }
 
   getModules(id: string): Observable<any> {
-    return this.schoolModulesService.apiV1SchoolsIdModulesGet(id);
+    return this.schoolModulesService.apiV2SchoolsIdModulesGet(id);
   }
 
-  addModule(schoolId: string, module: Module): Observable<any> {
-    return this.schoolModulesService.apiV1SchoolsIdModulesPost(schoolId, module);
+  addModules(schoolId: string, modules: string[]): Observable<any> {
+    return this.schoolModulesService.apiV2SchoolsIdModulesPost(schoolId, modules);
   }
 
-  removeModule(schoolId: string, moduleId: string): Observable<any> {
-    return this.schoolModulesService.apiV1SchoolsIdModulesModuleIdDelete(schoolId, moduleId);
-  }
 }
