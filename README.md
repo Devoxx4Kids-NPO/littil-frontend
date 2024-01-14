@@ -64,3 +64,23 @@ To do a manual deployment to staging though, run `npm run build` to produce the 
 ## Further help
 
 To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI Overview and Command Reference](https://angular.io/cli) page.
+
+## Running the littil-backend
+
+There are different solutions to run the littil backend. You can run the backend by pulling the repository from GitHub and start it with quarkus:dev. 
+It is also possible to run the backend with docker. 
+
+Use the .env.example to create a .env file with the credentials that are required to run the backend.
+
+**running backend with local build image**
+Pull the littil-backend from GibHub and build a docker image with the docker file src/main/docker/Dockerfile.jvm in this project.
+Follow the instructions in this file to build the docker image.
+
+Start the backend with this docker image with the command `docker-compose -f docker/docker-compose-local.yml up -d`
+
+
+**running backend with ghcr.io image**
+Instead of building a local docker image it is also possible to run the backend with a docker image from ghcr.io. 
+This image is build  by the workflow of the littil-backend repository in GitHb.
+
+First login with  `docker login -u <username> -p <accessToken>` followed by `docker-compose -f docker/docker-compose-ghcr.yml up -d` to start the backend.
