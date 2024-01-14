@@ -11,11 +11,6 @@ services:
       - "3306:3306"
     networks:
       - littil
-    healthcheck:
-        test: "/usr/bin/mysql --user=littil --password=littil --execute SHOW DATABASES;"
-        interval: 2s
-        timeout: 20s
-        retries: 10
   littil-backend:
     image: quarkus/backend-jvm # Local image for now
     container_name: littil-backend
