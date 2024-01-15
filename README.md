@@ -76,11 +76,15 @@ Use the .env.example to create a .env file with the credentials that are require
 Pull the littil-backend from GibHub and build a docker image with the docker file src/main/docker/Dockerfile.jvm in this project.
 Follow the instructions in this file to build the docker image.
 
-Start the backend with this docker image with the command `docker-compose -f docker/docker-compose-local.yml up -d`
+Start the backend with this docker image with the command `docker-compose -f docker-compose-local.yml up -d`
 
 
 **running backend with ghcr.io image**
-Instead of building a local docker image it is also possible to run the backend with a docker image from ghcr.io. 
-This image is build  by the workflow of the littil-backend repository in GitHb.
+Instead of building a local docker image it is also possible to run the backend with a docker image from ghcr.io. This image is build  by the workflow of the littil-backend repository in GitHb.
 
-First login with  `docker login -u <username> -p <accessToken>` followed by `docker-compose -f docker/docker-compose-ghcr.yml up -d` to start the backend.
+Create a GitHub token with scopes of *write:packages* and *delete:packages*.
+Login with your GitHub account and the created token with the command `docker login ghcr.io -u <username> -p <accessToken>`. 
+
+Start the backend with `docker-compose -f docker-compose-ghcr.yml up -d`
+
+Look for the available tags at [ghcr.io/devoxx4kids-NP/littil-backend](https://ghcr.io/devoxx4kids-NPO/littil-backend)
