@@ -13,6 +13,7 @@ import {of} from "rxjs";
 import {FormUtil} from "../../utils/form.util";
 import {LittilUserService} from "../../services/littil-user/littil-user.service";
 import {LittilContactService} from "../../services/littil-contact/littil-contact.service";
+import {PermissionController} from "../../services/permission.controller";
 
 
 describe('ContactModalComponent', () => {
@@ -43,6 +44,11 @@ describe('ContactModalComponent', () => {
             medium: 'contactInfo',
             message: 'message',
           }),
+      }),
+      MockProvider(PermissionController, {
+        activeAccount: {
+          name: 'emailOfUser'
+        }
       }),
       MockProvider(LittilUserService, {
         create: () =>
