@@ -7,7 +7,8 @@
     "build": "ng build",
     "watch": "ng build --watch --configuration development",
     "test": "jest",
-    "openapi": "openapi-generator-cli generate -i ./openapi.json -g typescript-angular -o src/app/api/generated --skip-validate-spec --type-mappings=set=Array"
+    "openapi": "openapi-generator-cli generate -i ./openapi.json -g typescript-angular -o src/app/api/generated --skip-validate-spec --type-mappings=set=Array",
+    "postinstall": "npm run openapi"
   },
   "private": true,
   "dependencies": {
