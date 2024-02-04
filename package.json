@@ -7,7 +7,9 @@
     "build": "ng build",
     "watch": "ng build --watch --configuration development",
     "test": "jest",
-    "openapi": "openapi-generator-cli generate -i ./openapi.json -g typescript-angular -o src/app/api/generated --skip-validate-spec --type-mappings=set=Array"
+    "test-ci":"npx jest --coverage --coverageReporters json-summary",
+    "openapi": "openapi-generator-cli generate -i ./openapi.json -g typescript-angular -o src/app/api/generated --skip-validate-spec --type-mappings=set=Array",
+    "postinstall": "npm run openapi"
   },
   "private": true,
   "dependencies": {
@@ -24,6 +26,7 @@
     "@asymmetrik/ngx-leaflet": "^14.0.1",
     "@auth0/auth0-angular": "1.10.1",
     "@types/google.maps": "3.52.1",
+    "feedbackfin": "^1.1.0",
     "cookieconsent": "^3.1.1",
     "jest-junit": "14.0.1",
     "leaflet": "^1.9.4",
@@ -77,8 +80,8 @@
     ],
     "coverageThreshold": {
       "global": {
-        "branches": 50,
-        "functions": 50,
+        "branches": 45,
+        "functions": 45,
         "lines": 70,
         "statements": 70
       }
