@@ -64,3 +64,20 @@ To do a manual deployment to staging though, run `npm run build` to produce the 
 ## Further help
 
 To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI Overview and Command Reference](https://angular.io/cli) page.
+
+## Running the littil-backend
+
+Use the .env.example to create a .env file with the credentials that are required to run the backend.
+
+Create a [GitHub Personal Access Token](https://docs.github.com/en/packages/working-with-a-github-packages-registry/working-with-the-container-registry#authenticating-to-the-container-registry) 
+with scopes of `write:packages` and `delete:packages` or at least `read:packages`
+Login with your GitHub account and the created token with the command `docker login ghcr.io -u <username> -p <accessToken>`. 
+
+Start the backend 
+```bash
+docker-compose up -d
+```
+
+The version of the backend defaults to latest, but it can be set in the `.env` file using `LITTIL_BACKEND_VERSION`
+
+Look for the available tags at [ghcr.io/devoxx4kids-NP/littil-backend](https://ghcr.io/devoxx4kids-NPO/littil-backend)
