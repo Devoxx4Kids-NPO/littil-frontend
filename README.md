@@ -67,25 +67,15 @@ To get more help on the Angular CLI use `ng help` or go check out the [Angular C
 
 ## Running the littil-backend
 
-There are different solutions to run the littil backend. You can run the backend by pulling the repository from GitHub and start it with quarkus:dev. 
-It is also possible to run the backend with docker. 
-
 Use the .env.example to create a .env file with the credentials that are required to run the backend.
 
-**running backend with local build image**
-
-Pull the littil-backend from Github and build a docker image with the docker file src/main/docker/Dockerfile.jvm in this project.
-Follow the instructions in this file to build the docker image.
-
-Start the backend with this docker image with the command `docker-compose -f docker-compose-local.yml up -d`
-
-**running backend with ghcr.io image**
-
-Instead of building a local docker image it is also possible to run the backend with a docker image from ghcr.io. This image is build  by the workflow of the littil-backend repository in GitHub.
-
-Create a GitHub token with scopes of *write:packages* and *delete:packages*.
+Create a [GitHub Personal Access Token](https://docs.github.com/en/packages/working-with-a-github-packages-registry/working-with-the-container-registry#authenticating-to-the-container-registry) 
+with scopes of `write:packages` and `delete:packages` or at least `read:packages`
 Login with your GitHub account and the created token with the command `docker login ghcr.io -u <username> -p <accessToken>`. 
 
-Start the backend with `docker-compose -f docker-compose-ghcr.yml up -d`
+Start the backend 
+```bash
+docker-compose up -d
+```
 
 Look for the available tags at [ghcr.io/devoxx4kids-NP/littil-backend](https://ghcr.io/devoxx4kids-NPO/littil-backend)
