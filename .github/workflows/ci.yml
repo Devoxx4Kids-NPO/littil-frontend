@@ -22,7 +22,7 @@ jobs:
       - name: Install project
         run: npm ci
       - name: Verify project
-        run: npx jest --coverage --coverageReporters json-summary
+        run: npm run test-ci
       - name: Jest coverage comment
         uses: MishaKav/jest-coverage-comment@main
       - name: Build project
