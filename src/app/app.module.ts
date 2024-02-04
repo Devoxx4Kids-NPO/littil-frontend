@@ -7,6 +7,8 @@ import { MatToolbarModule } from '@angular/material/toolbar';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { AuthModule } from '@auth0/auth0-angular';
+import { NgcCookieConsentConfig, NgcCookieConsentModule } from 'ngx-cookieconsent';
+import { environment } from '../environments/environment';
 import { getLittilConfigFromWindow } from '../littilConfig';
 import { ApiModule, Configuration } from './api/generated';
 import { AppRoutingModule } from './app-routing.module';
@@ -19,10 +21,9 @@ import { MainMenuDropdownButtonModule } from './components/main-menu-dropdown-bu
 import { ModalControllerModule } from './components/modal/modal.controller.module';
 import { RegisterModalModule } from './components/register-modal/register-modal.module';
 import { UserMenuModule } from './components/user-menu/user-menu.module';
+import { FeedbackFinProvider } from './feedback/feedbackfin.provider';
 import { interceptorProviders } from './interceptors/http-interceptors';
-import { environment } from "../environments/environment";
-import {ContactModalModule} from "./components/contact-modal/contact-modal.module";
-import {NgcCookieConsentConfig, NgcCookieConsentModule} from "ngx-cookieconsent";
+import { ContactModalModule } from './components/contact-modal/contact-modal.module';
 
 const littilConfig = getLittilConfigFromWindow();
 
@@ -101,8 +102,13 @@ const cookieConfig:NgcCookieConsentConfig = {
     MatButtonModule,
     MatIconModule,
   ],
-  providers: [HttpClient, interceptorProviders],
+  providers: [
+    HttpClient,
+    interceptorProviders,
+    FeedbackFinProvider,
+  ],
   bootstrap: [AppComponent],
   exports: [],
 })
-export class AppModule {}
+export class AppModule {
+}
