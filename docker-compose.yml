@@ -12,7 +12,7 @@ services:
     networks:
       - littil
   littil-backend:
-    image: ghcr.io/devoxx4kids-npo/littil-backend
+    image: ghcr.io/devoxx4kids-npo/littil-backend:${LITTIL_BACKEND_VERSION:-latest}
     container_name: littil-backend
     entrypoint:
      - /bin/bash
