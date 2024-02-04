@@ -21,10 +21,8 @@ jobs:
           cache: "npm"
       - name: Install project
         run: npm ci
-      - name: Generate API
-        run: npm run openapi
       - name: Verify project
-        run: npx jest --coverage --coverageReporters json-summary
+        run: npm run test-ci
       - name: Jest coverage comment
         uses: MishaKav/jest-coverage-comment@main
       - name: Build project
