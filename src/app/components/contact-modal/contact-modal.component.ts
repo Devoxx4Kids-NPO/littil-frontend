@@ -16,6 +16,7 @@ import {
 import { FormUtil } from '../../utils/form.util';
 import { IModalComponent } from '../modal/modal.controller';
 import {LittilContactService} from "../../services/littil-contact/littil-contact.service";
+import {PermissionController} from "../../services/permission.controller";
 
 @Component({
   selector: 'littil-register-modal',
@@ -49,11 +50,11 @@ export class ContactModalComponent
   private searchResult: SearchResult = { } as SearchResult;
 
   contactForm: FormGroup = new FormGroup({
-    contactInfo: new FormControl('', [Validators.required]),
+    contactInfo: new FormControl(this.permissionController.activeAccount.name, [Validators.required]),
     message: new FormControl('', [Validators.required]),
   });
 
-  constructor(private readonly contactService: LittilContactService) {}
+  constructor(private readonly contactService: LittilContactService, private permissionController: PermissionController) {}
 
   public onOpen(searchResult: SearchResult) {
     this.searchResult = searchResult;
