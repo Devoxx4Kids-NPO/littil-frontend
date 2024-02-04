@@ -73,14 +73,15 @@ It is also possible to run the backend with docker.
 Use the .env.example to create a .env file with the credentials that are required to run the backend.
 
 **running backend with local build image**
-Pull the littil-backend from GibHub and build a docker image with the docker file src/main/docker/Dockerfile.jvm in this project.
+
+Pull the littil-backend from Github and build a docker image with the docker file src/main/docker/Dockerfile.jvm in this project.
 Follow the instructions in this file to build the docker image.
 
 Start the backend with this docker image with the command `docker-compose -f docker-compose-local.yml up -d`
 
-
 **running backend with ghcr.io image**
-Instead of building a local docker image it is also possible to run the backend with a docker image from ghcr.io. This image is build  by the workflow of the littil-backend repository in GitHb.
+
+Instead of building a local docker image it is also possible to run the backend with a docker image from ghcr.io. This image is build  by the workflow of the littil-backend repository in GitHub.
 
 Create a GitHub token with scopes of *write:packages* and *delete:packages*.
 Login with your GitHub account and the created token with the command `docker login ghcr.io -u <username> -p <accessToken>`. 
