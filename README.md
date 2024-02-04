@@ -78,4 +78,6 @@ Start the backend
 docker-compose up -d
 ```
 
+The version of the backend defaults to latest, but it can be set in the `.env` file using `LITTIL_BACKEND_VERSION`
+
 Look for the available tags at [ghcr.io/devoxx4kids-NP/littil-backend](https://ghcr.io/devoxx4kids-NPO/littil-backend)
