@@ -61,6 +61,11 @@ Note that production-grade deployments should happen from a pipeline so that one
 
 To do a manual deployment to staging though, run `npm run build` to produce the compiled application in `./dist`. Deploy this application by copying all files in `./dist/littil-org-website/` to a static web server file-system (such as the S3 bucket used in AWS). Finally, copy the local `config.staging.js` to `config.js` in the target.
 
+## Environment-specific configuration
+To enable environment-specific configuration without having to create a separate artifact per environment or resort to running a dedicated node server or container, a config.js file is used.
+
+This config.js is loaded in index.html using a regular <script> tag. It is therefore not compiled with the application (like external configuration should be). For development (local) the file is listed in angular.json as a asset. Therefore the default config.js is available when running `ng serve`. When building a production version however, config.js is not output. Per environment, a config.js should be deployed together with the created artifact's files, this enabling per-environment configuration while deploying the application as a static resource (suitable for CDNs).
+
 ## Further help
 
 To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI Overview and Command Reference](https://angular.io/cli) page.
