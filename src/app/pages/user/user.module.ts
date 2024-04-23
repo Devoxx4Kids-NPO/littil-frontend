@@ -1,15 +1,15 @@
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
-import { AdminComponent } from './admin.component';
-import { routes } from './admin.routing';
+import { UserComponent } from './user.component';
+import { routes } from './user.routing';
 
 @NgModule({
-  declarations: [AdminComponent],
+  declarations: [UserComponent],
   imports: [CommonModule, RouterModule.forChild(routes)],
   providers: [],
-  exports: [AdminComponent],
+  exports: [UserComponent],
   entryComponents: [],
 })
-export class AdminModule {}
+export class UserModule {}
 

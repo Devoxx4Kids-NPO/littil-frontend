@@ -1,12 +1,12 @@
 import { Spectator } from '@ngneat/spectator';
 import { createRoutingFactory } from '@ngneat/spectator/jest';
-import { AdminComponent } from './admin.component';
+import { UserComponent } from './user.component';
 
-describe('AdminComponent', () => {
-  let spectator: Spectator<AdminComponent>;
+describe('UserComponent', () => {
+  let spectator: Spectator<UserComponent>;
 
   const createComponent = createRoutingFactory({
-    component: AdminComponent,
+    component: UserComponent,
     declarations: [],
     providers: [],
   });

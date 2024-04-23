@@ -1,4 +1,3 @@
-import { animate, state, style, transition, trigger } from '@angular/animations';
 import { DOCUMENT } from '@angular/common';
 import { Component, Inject, OnInit } from '@angular/core';
 import { LITTILCONFIG, LittilConfig } from '../littilConfig';
@@ -33,10 +32,10 @@ export class AppComponent implements OnInit {
     (this.document.defaultView as any).feedbackfin = this.feedbackFin;
 
     this.permissionController.onPermissionChange.subscribe(() => {
-      const adminPages: IMenuItem[] = menuRoutes.filter(
-        (route) => route.type === MenuType.Admin
+      const userPages: IMenuItem[] = menuRoutes.filter(
+        (route) => route.type === MenuType.User
       );
-      adminPages.forEach((item: IMenuItem) => {
+      userPages.forEach((item: IMenuItem) => {
         item.disabled = !this.permissionController.loggedIn;
       });
     });

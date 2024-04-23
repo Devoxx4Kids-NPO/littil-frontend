@@ -5,9 +5,9 @@ import { CompleteProfileGuardService } from './services/complete-profile-guard.s
 
 const routes: Routes = [
   {
-    path: 'admin',
+    path: 'user',
     loadChildren: () =>
-      import('./pages/admin/admin.module').then((m) => m.AdminModule),
+      import('./pages/user/user.module').then((m) => m.UserModule),
     canActivate: [CompleteProfileGuardService],
     resolve: {
       auth: AuthenticatorResolver,

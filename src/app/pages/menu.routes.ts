@@ -1,5 +1,6 @@
 export enum MenuType {
   Default,
+  User,
   Admin,
 }
 
@@ -19,9 +20,9 @@ export const menuRoutes: IMenuItem[] = [
     disabled: false,
   },
   {
-    path: '/admin/search',
+    path: '/user/search',
     menuText: 'Zoeken',
-    type: MenuType.Admin,
+    type: MenuType.User,
     disabled: true,
   },
   {
