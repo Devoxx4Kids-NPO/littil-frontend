@@ -4,13 +4,33 @@
 @import "./app/components/modal/modal.scss";
 
 // TYPOGRAPHY
-h2 {
-  @apply mb-2 font-bold text-3xl;
-}
+@layer base {
+  h1 {
+    @apply font-bold;
+  }
 
-p {
-  @apply mb-6;
-}
+  h2 {
+    @apply mb-2 font-bold text-3xl;
+  }
 
-html, body { height: 100%; }
-body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+  h3 {
+    @apply mb-20 font-bold text-5xl;
+  }
+
+  h4 {
+    @apply font-bold;
+  }
+
+  p {
+    @apply mb-6;
+  }
+
+  html, body {
+    height: 100%;
+  }
+
+  body {
+    margin: 0;
+    font-family: Roboto, "Helvetica Neue", sans-serif;
+  }
+}
