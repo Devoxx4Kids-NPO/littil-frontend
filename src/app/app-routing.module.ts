@@ -14,6 +14,15 @@ const routes: Routes = [
     },
   },
   {
+    path: 'admin',
+    loadChildren: () =>
+      import('./pages/admin/admin.module').then((m) => m.AdminModule),
+    canActivate: [CompleteProfileGuardService],
+    resolve: {
+      auth: AuthenticatorResolver,
+    },
+  },
+  {
     path: 'complete-profile',
     loadChildren: () =>
       import('./pages/complete-profile/complete-profile.module').then(
@@ -42,7 +51,7 @@ const routes: Routes = [
 @NgModule({
   imports: [RouterModule.forRoot(routes, {
     scrollPositionRestoration: 'top',
-    enableTracing: false,
+    enableTracing: false,  // debugging purpose
   })],
   exports: [RouterModule],
 })

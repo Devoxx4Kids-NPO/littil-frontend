@@ -32,12 +32,8 @@ export class AppComponent implements OnInit {
     (this.document.defaultView as any).feedbackfin = this.feedbackFin;
 
     this.permissionController.onPermissionChange.subscribe(() => {
-      const userPages: IMenuItem[] = menuRoutes.filter(
-        (route) => route.type === MenuType.User
-      );
-      userPages.forEach((item: IMenuItem) => {
-        item.disabled = !this.permissionController.loggedIn;
-      });
+      updateMenuRoutes(menuRoutes, MenuType.User, !this.permissionController.loggedIn);
+      updateMenuRoutes(menuRoutes, MenuType.Admin, !this.permissionController.hasAdminRole());
     });
   }
 
@@ -48,4 +44,16 @@ export class AppComponent implements OnInit {
   public hideMobileMenu(): void {
     this.mobileMenuOpen = false;
   }
+}
+
+function updateMenuRoutes(menuRoutes: IMenuItem[], menuType: MenuType, disabled: boolean)  {
+  const pages : IMenuItem[] = menuRoutes.filter((route)=> route.type === menuType)
+  pages.forEach((item:IMenuItem)=> {
+    item.disabled = disabled;
+    if (!item.subRoutes) {
+      item.subRoutes = undefined
+    } else {
+      updateMenuRoutes(item.subRoutes, menuType, disabled)
+    }
+  })
 }

@@ -21,6 +21,7 @@ export class PermissionController {
   loggedIn: boolean = false;
   activeAccount!: User;
   userId!: string;
+  roles: string[] = [];
   authorizations!: IAuth0Authorizations;
   protected _onPermissionChange = new Subject<void>();
   onPermissionChange = this._onPermissionChange.asObservable();
@@ -28,20 +29,16 @@ export class PermissionController {
   handleNewUser(user: User): void {
     this.activeAccount = user;
     this.userId = user['https://littil.org/littil_user_id'];
-    this.setRoles(user['https://littil.org/authorizations']);
+    this.roles = user['https://littil.org/roles'];
+    this.setAuthorizations(user['https://littil.org/authorizations']);
   }
 
-  setRoles(authorizations: IAuth0Authorizations) {
-    // TODO: mock roles until BE bug is fixed
-    // authorizations = {
-    //   guest_teachers: ['1'],
-    //   schools: [],
-    // };
+  setAuthorizations(authorizations: IAuth0Authorizations) {
     this.authorizations = authorizations;
     this._onPermissionChange.next();
   }
 
-  getRoleType(): Roles {
+    getRoleType(): Roles {
     if (this.authorizations && this.authorizations.schools.length > 0) {
       return Roles.School;
     }
@@ -67,5 +64,9 @@ export class PermissionController {
       (this.authorizations.guest_teachers.length > 0 ||
         this.authorizations.schools.length > 0)
     );
+  }
+
+  hasAdminRole(): boolean {
+    return this.roles.includes("admin");
   }
 }

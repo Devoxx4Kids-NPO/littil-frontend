@@ -69,4 +69,18 @@ export const menuRoutes: IMenuItem[] = [
     type: MenuType.Default,
     disabled: false,
   },
+  {
+    path: '/admin',
+    menuText: 'Admin',
+    type: MenuType.Admin,
+    disabled: true,
+    subRoutes: [
+      {
+        path: '/admin/users',
+        menuText: 'Gebruikers',
+        type: MenuType.Admin,
+        disabled: true,
+      },
+    ],
+  },
 ];
