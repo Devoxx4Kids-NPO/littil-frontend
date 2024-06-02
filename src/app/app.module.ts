@@ -29,7 +29,7 @@ const littilConfig = getLittilConfigFromWindow();
 
 const cookieConfig:NgcCookieConsentConfig = {
   cookie: {
-    domain: environment.cookieDomain
+    domain: littilConfig.cookieDomain
     // it is mandatory to set a domain, for cookies to work properly (see https://goo.gl/S2Hy2A)
   },
   palette: {
