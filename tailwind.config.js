@@ -8,14 +8,8 @@ module.exports = {
       typography: {
         DEFAULT: {
           css: {
-            h1: {
-              fontWeight: '700',
-            },
-            h3: {
-              fontWeight: '700',
-            },
-            h4: {
-              fontWeight: '700',
+            a: {
+              color: '#f18f2d',
             },
           }
         }

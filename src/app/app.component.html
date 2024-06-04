@@ -36,7 +36,7 @@
   </div>
   <div class="hidden md:flex items-center">
     <div>
-      <img src="assets/playschool-top-icon-email@2x.png">
+      <img src="assets/playschool-top-icon-email@2x.png" alt="">
     </div>
     <div class="ml-3">
       <b>Email</b>
@@ -61,6 +61,7 @@
       <littil-main-menu-dropdown-button
         class="flex-1"
         *ngIf="!route.disabled && route.subRoutes"
+        [title]="route.menuText"
         [path]="route.path"
         [subRoutes]="route.subRoutes"
       >{{ route.menuText }}</littil-main-menu-dropdown-button>

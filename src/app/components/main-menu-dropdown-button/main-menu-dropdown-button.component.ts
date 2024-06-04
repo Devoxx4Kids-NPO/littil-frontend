@@ -6,6 +6,7 @@ import { IMenuItem } from '../../pages/menu.routes';
   templateUrl: './main-menu-dropdown-button.component.html',
 })
 export class MainMenuDropdownButtonComponent {
+  @Input() title?: string;
   @Input() path?: string;
   @Input() subRoutes?: IMenuItem[];
 }
