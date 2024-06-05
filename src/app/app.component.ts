@@ -50,10 +50,10 @@ function updateMenuRoutes(menuRoutes: IMenuItem[], menuType: MenuType, disabled:
   const pages : IMenuItem[] = menuRoutes.filter((route)=> route.type === menuType)
   pages.forEach((item:IMenuItem)=> {
     item.disabled = disabled;
-    if (!item.subRoutes) {
-      item.subRoutes = undefined
-    } else {
+    if (item.subRoutes) {
       updateMenuRoutes(item.subRoutes, menuType, disabled)
+    } else {
+      item.subRoutes = undefined
     }
   })
 }
