@@ -7,12 +7,9 @@ import { Router } from '@angular/router';
 })
 export class ModulesComponent {
 
-  
+  constructor(private router: Router) { }
 
-  constructor(private router: Router) {
-  }
-
-    navToContact(): void {
+  navToContact(): void {
     this.router.navigateByUrl('contact');
   }
 }
