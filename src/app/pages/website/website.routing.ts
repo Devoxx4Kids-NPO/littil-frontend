@@ -44,6 +44,14 @@ export const websiteRoutes: Routes = [
           import('./devoxx4kids/devoxx4kids.module').then((m) => m.Devoxx4kidsModule),
       },
       {
+        path: 'modules',
+        data: {
+          menuText: 'Modules',
+        },
+        loadChildren: () =>
+          import('./modules/modules.module').then((m) => m.ModulesModule),
+      },
+      {
         path: 'blog',
         data: {
           menuText: 'blog',

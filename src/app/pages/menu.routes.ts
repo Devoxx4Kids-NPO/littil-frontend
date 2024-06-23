@@ -57,6 +57,12 @@ export const menuRoutes: IMenuItem[] = [
     ],
   },
   {
+    path: '/modules',
+    menuText: 'Modules',
+    type: MenuType.Default,
+    disabled: false,
+  },
+  {
     path: '/contact',
     menuText: 'Contact',
     type: MenuType.Default,
