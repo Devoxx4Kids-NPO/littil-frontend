@@ -43,7 +43,7 @@ describe('CompleteProfilePageComponent', () => {
   describe('ngOnInit', () => {
     it('should navigate to search page if roles are set', async () => {
       expect(router.navigateByUrl).toHaveBeenCalledTimes(1);
-      expect(router.navigateByUrl).toHaveBeenCalledWith('/admin/search');
+      expect(router.navigateByUrl).toHaveBeenCalledWith('/user/search');
       expect(modalController.present).not.toHaveBeenCalled();
     });
   });

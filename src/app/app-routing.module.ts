@@ -5,6 +5,15 @@ import { CompleteProfileGuardService } from './services/complete-profile-guard.s
 
 const routes: Routes = [
   {
+    path: 'user',
+    loadChildren: () =>
+      import('./pages/user/user.module').then((m) => m.UserModule),
+    canActivate: [CompleteProfileGuardService],
+    resolve: {
+      auth: AuthenticatorResolver,
+    },
+  },
+  {
     path: 'admin',
     loadChildren: () =>
       import('./pages/admin/admin.module').then((m) => m.AdminModule),
@@ -42,7 +51,7 @@ const routes: Routes = [
 @NgModule({
   imports: [RouterModule.forRoot(routes, {
     scrollPositionRestoration: 'top',
-    enableTracing: false,
+    enableTracing: false,  // debugging purpose
   })],
   exports: [RouterModule],
 })

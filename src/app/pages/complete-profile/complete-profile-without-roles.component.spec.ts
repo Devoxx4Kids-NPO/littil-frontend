@@ -48,7 +48,7 @@ describe('CompleteProfilePageComponent', () => {
     it('should open registerModal when roles are not set', async () => {
       expect(modalController.present).toHaveBeenCalledTimes(1);
       expect(router.navigateByUrl).toHaveBeenCalledTimes(1);
-      expect(router.navigateByUrl).toHaveBeenCalledWith('/admin/search');
+      expect(router.navigateByUrl).toHaveBeenCalledWith('/user/search');
     });
   });
 });

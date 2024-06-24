@@ -1,5 +1,6 @@
 export enum MenuType {
   Default,
+  User,
   Admin,
 }
 
@@ -19,9 +20,9 @@ export const menuRoutes: IMenuItem[] = [
     disabled: false,
   },
   {
-    path: '/admin/search',
+    path: '/user/search',
     menuText: 'Zoeken',
-    type: MenuType.Admin,
+    type: MenuType.User,
     disabled: true,
   },
   {
@@ -73,5 +74,19 @@ export const menuRoutes: IMenuItem[] = [
     menuText: 'Devoxx4Kids',
     type: MenuType.Default,
     disabled: false,
+  },
+  {
+    path: '/admin',
+    menuText: 'Admin',
+    type: MenuType.Admin,
+    disabled: true,
+    subRoutes: [
+      {
+        path: '/admin/users',
+        menuText: 'Gebruikers',
+        type: MenuType.Admin,
+        disabled: true,
+      },
+    ],
   },
 ];
