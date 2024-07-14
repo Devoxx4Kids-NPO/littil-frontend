@@ -32,18 +32,24 @@
   <ng-template #notLoggedIn>
     <littil-button-rounded
       *ngIf="!loggedIn"
-      [color]="'yellow'"
+      [color]="'gray' || 'yellow'"
       [inline]="true"
+      [disabled]="true"
       data-test="login-btn"
       (click)="openLoginModal()"
+      aria-label="Registreren en inloggen is tijdelijk niet beschikbaar"
+      title="Registreren en inloggen is tijdelijk niet beschikbaar"
     >Inloggen
     </littil-button-rounded>
     <littil-button-rounded
       *ngIf="!loggedIn"
       [inline]="true"
-      [color]="'blue'"
+      [color]="'gray' || 'blue'"
+      [disabled]="true"
       data-test="register-btn"
       (click)="openRegisterModal()"
+      aria-label="Registreren en inloggen is tijdelijk niet beschikbaar"
+      title="Registreren en inloggen is tijdelijk niet beschikbaar"
     >Registeren
     </littil-button-rounded
     >
