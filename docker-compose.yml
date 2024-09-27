@@ -18,10 +18,15 @@ services:
     depends_on:
       dbhost:
         condition: service_healthy
+    volumes:
+      - type: bind
+        source: ./docker/backend
+        target: /app
     environment:
       - QUARKUS_BANNER_ENABLED=true
       - CLOUDWATCH_ENABLED=false
       - LITTIL_DEV_DATA=true
+      - LITTIL_DEV_DATA_FILE=/app/dev-users.csv
       - DATASOURCE_HOST=dbhost
       - HTTP_CORS_ORIGINS=http://localhost:4200
       - OIDC_CLIENT_ID=${OIDC_CLIENT_ID}
@@ -29,6 +34,7 @@ services:
       - OIDC_TENANT=${OIDC_TENANT}
       - M2M_CLIENT_ID=${M2M_CLIENT_ID}
       - M2M_CLIENT_SECRET=${M2M_CLIENT_SECRET}
+      - QUARKUS_MAILER_MOCK=true
       - SMTP_HOST=smtp-stub.local
       - SMTP_USERNAME=username
       - SMTP_PASSWORD=password
