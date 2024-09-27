@@ -29,6 +29,7 @@ services:
       - OIDC_TENANT=${OIDC_TENANT}
       - M2M_CLIENT_ID=${M2M_CLIENT_ID}
       - M2M_CLIENT_SECRET=${M2M_CLIENT_SECRET}
+      - QUARKUS_MAILER_MOCK=true
       - SMTP_HOST=smtp-stub.local
       - SMTP_USERNAME=username
       - SMTP_PASSWORD=password
