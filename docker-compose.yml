@@ -8,10 +8,16 @@ services:
       MYSQL_ROOT_PASSWORD: littil
     ports:
       - "3306:3306"
+    healthcheck:
+      test: ["CMD", "healthcheck.sh", "--connect", "--innodb_initialized"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
   backend:
     image: ghcr.io/devoxx4kids-npo/littil-backend:${LITTIL_BACKEND_VERSION:-latest}
     depends_on:
-      - dbhost
+      dbhost:
+        condition: service_healthy
     environment:
       - QUARKUS_BANNER_ENABLED=true
       - CLOUDWATCH_ENABLED=false
@@ -23,6 +29,7 @@ services:
       - OIDC_TENANT=${OIDC_TENANT}
       - M2M_CLIENT_ID=${M2M_CLIENT_ID}
       - M2M_CLIENT_SECRET=${M2M_CLIENT_SECRET}
+      - QUARKUS_MAILER_MOCK=true
       - SMTP_HOST=smtp-stub.local
       - SMTP_USERNAME=username
       - SMTP_PASSWORD=password
