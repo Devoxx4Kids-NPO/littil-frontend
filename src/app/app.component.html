@@ -11,37 +11,46 @@
   </mat-toolbar>
   <div
     class="mx-auto max-w-screen-lg text-white uppercase hidden text-sm antialiased"
-    [class.hidden]="!mobileMenuOpen">
+    [class.hidden]="!mobileMenuOpen"
+  >
     <ng-container *ngFor="let route of menuRoutes">
       <littil-main-menu-button
         class="flex-1 flex items-center"
         *ngIf="!route.disabled"
         [path]="route.path"
         (click)="hideMobileMenu()"
-      >{{ route.menuText }}</littil-main-menu-button>
+      >
+        {{ route.menuText }}
+      </littil-main-menu-button>
       <ng-container *ngFor="let subRoute of route.subRoutes">
         <littil-main-menu-button
           class="flex-1 flex items-center"
           *ngIf="!subRoute.disabled"
           [path]="subRoute.path"
           (click)="hideMobileMenu()"
-        >{{route.menuText}} &gt; {{ subRoute.menuText }}</littil-main-menu-button>
+        >
+          {{ route.menuText }} &gt;
+          {{ subRoute.menuText }}
+        </littil-main-menu-button>
       </ng-container>
     </ng-container>
   </div>
 </div>
-<littil-content-container [outerClasses]="'bg-blue-50 flex'" [innerClasses]="'flex justify-between'">
+<littil-content-container
+  [outerClasses]="'bg-blue-50 flex'"
+  [innerClasses]="'flex justify-between'"
+>
   <div class="hidden md:block">
-    <img src="assets/littil_logo.png" class="h-12" alt="LITTIL logo"/>
+    <img src="assets/littil_logo.png" class="h-12" alt="LITTIL logo" />
   </div>
   <div class="hidden md:flex items-center">
     <div>
-      <img src="assets/playschool-top-icon-email@2x.png" alt="">
+      <img src="assets/playschool-top-icon-email@2x.png" alt="" />
     </div>
     <div class="ml-3">
       <b>Email</b>
       <p class="mt-0 mb-0">
-        <a href="mailto:info@littil.org">info@littil.org</a>
+        <a href="mailto:info@littil.org">info&#64;littil.org</a>
       </p>
     </div>
   </div>
@@ -51,20 +60,24 @@
 </littil-content-container>
 <div class="bg-yellow-100 mb-6">
   <div
-    class="mx-auto max-w-screen-lg text-white uppercase hidden md:flex justify-items-stretch text-sm antialiased divide-x divide-yellow-200">
+    class="mx-auto max-w-screen-lg text-white uppercase hidden md:flex justify-items-stretch text-sm antialiased divide-x divide-yellow-200"
+  >
     <ng-container *ngFor="let route of menuRoutes">
       <littil-main-menu-button
         class="flex-1 flex items-center"
         *ngIf="!route.subRoutes && !route.disabled"
         [path]="route.path"
-      >{{ route.menuText }}</littil-main-menu-button>
+        >{{ route.menuText }}</littil-main-menu-button
+      >
       <littil-main-menu-dropdown-button
         class="flex-1"
         *ngIf="route.subRoutes"
         [title]="route.menuText"
         [path]="route.path"
         [subRoutes]="route.subRoutes"
-      >{{ route.menuText }}</littil-main-menu-dropdown-button>
+      >
+        {{ route.menuText }}
+      </littil-main-menu-dropdown-button>
     </ng-container>
   </div>
 </div>

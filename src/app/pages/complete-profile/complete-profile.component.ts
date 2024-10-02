@@ -1,15 +1,12 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { CompleteProfileModalComponent } from '../../components/complete-profile-modal/complete-profile-modal.component';
-import {
-  IModalComponentOptions,
-  ModalController,
-} from '../../components/modal/modal.controller';
+import { IModalComponentOptions, ModalController } from '../../components/modal/modal.controller';
 import { PermissionController } from '../../services/permission.controller';
 
 @Component({
   selector: 'littil-complete-profile',
-  templateUrl: './complete-profile.component.html',
+  template: '',
 })
 export class CompleteProfilePageComponent implements OnInit {
   constructor(
@@ -26,7 +23,6 @@ export class CompleteProfilePageComponent implements OnInit {
       }
       return this.modalController
         .present(CompleteProfileModalComponent, {
-          modalSize: undefined,
           disableClose: true,
         } as IModalComponentOptions)
         .then(() => {

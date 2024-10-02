@@ -1,1 +1,3 @@
-<p class="text-red-500 text-xs italic">{{ errorText }}</p>
+<p *ngFor="let message of messages$ | async" class="text-red-500 text-xs italic m-0">
+  {{ message }}
+</p>

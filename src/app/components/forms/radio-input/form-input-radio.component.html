@@ -5,9 +5,9 @@
       <input
         [ngClass]="{
           'border-yellow-100 checked:bg-yellow-100 checked:border-yellow-200 focus:border-yellow-200 focus:ring-yellow-200':
-            !hasError && !disabled,
+            !showError && !disabled,
           'border-red-500 checked:bg-red-500 checked:border-red-600 focus:border-red-500 focus:ring-red-600':
-            hasError,
+            showError,
           'border-gray-50 checked:bg-gray-50 checked:border-gray-50 focus:ring-0 placeholder:text-gray-50':
             disabled
         }"
@@ -21,10 +21,7 @@
         [disabled]="disabled"
         [checked]="item.checked"
       />
-      <label
-        class="form-check-label inline-block text-gray-800"
-        [for]="item.id"
-      >
+      <label class="form-check-label inline-block text-gray-800" [for]="item.id">
         {{ item.description }}
       </label>
     </div>

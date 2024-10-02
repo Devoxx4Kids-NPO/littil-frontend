@@ -11,11 +11,7 @@ import { ButtonComponent } from '../button/button.component';
 import { FormErrorMessageComponent } from '../forms/form-error-message/form-error-message.component';
 import { FormInputPasswordComponent } from '../forms/password-input/form-input-password.component';
 import { FormInputTextComponent } from '../forms/text-input/form-input-text.component';
-import {
-  IRegisterModalOutput,
-  RegisterModalComponent,
-} from './register-modal.component';
-import { ButtonRoundedComponent } from '../button/button-rounded.component';
+import { IRegisterModalOutput, RegisterModalComponent } from './register-modal.component';
 
 describe('RegisterModalComponent', () => {
   let spectator: Spectator<RegisterModalComponent>;
@@ -34,7 +30,6 @@ describe('RegisterModalComponent', () => {
       MockComponent(FormInputPasswordComponent),
       MockComponent(FormErrorMessageComponent),
       MockComponent(ButtonComponent),
-      MockComponent(ButtonRoundedComponent),
     ],
     imports: [NoopAnimationsModule],
     providers: [
@@ -75,9 +70,7 @@ describe('RegisterModalComponent', () => {
 
   describe('onClickRegister', () => {
     it('should call register function when clicked on register button', async () => {
-      const registerBtn = spectator.query(
-        '[data-test="registerButton"]'
-      ) as HTMLElement;
+      const registerBtn = spectator.query('[data-test="registerButton"]') as HTMLElement;
       if (registerBtn) {
         registerBtn.click();
       }
@@ -87,9 +80,7 @@ describe('RegisterModalComponent', () => {
     it('should close modal without loginTrigger when modal is closed with cancel button', async () => {
       component.registerForm.get('email')?.setValue('email@email.com');
       component.registerForm.get('password')?.setValue('123');
-      const cancelBtn = spectator.query(
-        '[data-test="cancelButton"]'
-      ) as HTMLElement;
+      const cancelBtn = spectator.query('[data-test="cancelButton"]') as HTMLElement;
       if (cancelBtn) {
         cancelBtn.click();
       }
@@ -125,9 +116,7 @@ describe('RegisterModalComponent', () => {
       expect(component.registerForm.invalid).toBe(false);
       expect(component.hideForm).toBe(true);
       expect(component.hideConfirmation).toBe(false);
-      const loginBtn = spectator.query(
-        '[data-test="loginButton"]'
-      ) as HTMLElement;
+      const loginBtn = spectator.query('[data-test="loginButton"]') as HTMLElement;
       console.log('loginBtn');
       if (loginBtn) {
         loginBtn.click();
@@ -145,9 +134,7 @@ describe('RegisterModalComponent', () => {
       expect(component.registerForm.invalid).toBe(false);
       expect(component.hideForm).toBe(true);
       expect(component.hideConfirmation).toBe(false);
-      const cancelBtn = spectator.query(
-        '[data-test="closeButton"]'
-      ) as HTMLElement;
+      const cancelBtn = spectator.query('[data-test="closeButton"]') as HTMLElement;
       if (cancelBtn) {
         cancelBtn.click();
       }

@@ -3,8 +3,8 @@
   <select
     [ngClass]="{
       'border-yellow-100 focus:border-yellow-200 placeholder:text-yellow-100 focus:ring-yellow-200':
-        !hasError && !disabled,
-      'border-red-500 focus:border-red-500 focus:ring-red-600': hasError,
+        !showError && !disabled,
+      'border-red-500 focus:border-red-500 focus:ring-red-600': showError,
       'border-gray-50 focus:ring-0 placeholder:text-gray-50': disabled
     }"
     class="appearance-none border rounded w-full py-2 px-3 mb-2 text-gray-700 placeholder:text-sm leading-tight ring-0 focus:ring-2 focus:ring-opacity-40"

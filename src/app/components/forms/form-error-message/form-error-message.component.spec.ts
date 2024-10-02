@@ -13,11 +13,4 @@ describe('FormErrorMessageComponent', () => {
   it('should create instance', () => {
     expect(spectator.component).toBeTruthy();
   });
-
-  describe('Template', () => {
-    it('should show error text', () => {
-      spectator.setInput('errorText', 'Test error message');
-      expect(spectator.query('p')?.textContent).toEqual('Test error message');
-    });
-  });
 });
