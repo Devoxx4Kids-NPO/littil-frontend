@@ -1,15 +1,6 @@
 <littil-title>Gebruikers</littil-title>
-
 <littil-content-container>
-<!--
-    id?: string;
-    emailAddress: string;
-    provider?: Provider;
-    providerId?: string;
-    roles?: Array<string>;
--->
-
-   <div>
+  <div>
     <table>
       <thead>
       <tr>
@@ -20,7 +11,7 @@
       </tr>
       </thead>
       <tbody>
-      <tr *ngFor="let user of users">
+      <tr *ngFor="let user of users$ | async">
         <td>{{ user.emailAddress }}</td>
         <td>{{ user.roles }}</td>
         <td>{{ user.provider }}</td>
@@ -29,6 +20,5 @@
       </tbody>
     </table>
   </div>
-
 </littil-content-container>
 <littil-footer></littil-footer>

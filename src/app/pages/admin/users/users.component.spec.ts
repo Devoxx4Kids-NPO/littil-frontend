@@ -9,6 +9,7 @@ import {MockProvider} from "ng-mocks";
 import {of} from "rxjs";
 import {LittilUserService} from "../../../services/littil-user/littil-user.service";
 import {User} from "../../../api/generated";
+import {By} from "@angular/platform-browser";
 
 
 const littilUsers: User[] = [
@@ -50,4 +51,12 @@ describe('UsersComponent', () => {
   it('should create', () => {
     expect(component).toBeTruthy();
   });
+
+  it('should display users when data is available', () => {
+    // userServiceMock.getAll.and.returnValue(of(users));
+    fixture.detectChanges();
+    const rows = fixture.debugElement.queryAll(By.css('tbody tr'));
+    expect(rows.length).toBe(1);
+  });
+
 });
