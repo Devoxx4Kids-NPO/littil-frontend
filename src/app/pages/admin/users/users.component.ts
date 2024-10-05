@@ -14,7 +14,6 @@ export class UsersComponent implements OnInit {
   }
 
   ngOnInit(): void {
-   console.log("Fetching users...");
    this.users$ = this.userService.getAll().pipe(
       catchError(async (error) => {
         console.error('Error fetching users', error);
