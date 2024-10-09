@@ -1,4 +1,3 @@
-import { animate, state, style, transition, trigger } from '@angular/animations';
 import { DOCUMENT } from '@angular/common';
 import { Component, Inject, OnInit } from '@angular/core';
 import { LITTILCONFIG, LittilConfig } from '../littilConfig';
@@ -33,12 +32,8 @@ export class AppComponent implements OnInit {
     (this.document.defaultView as any).feedbackfin = this.feedbackFin;
 
     this.permissionController.onPermissionChange.subscribe(() => {
-      const adminPages: IMenuItem[] = menuRoutes.filter(
-        (route) => route.type === MenuType.Admin
-      );
-      adminPages.forEach((item: IMenuItem) => {
-        item.disabled = !this.permissionController.loggedIn;
-      });
+      updateMenuRoutes(menuRoutes, MenuType.User, !this.permissionController.loggedIn);
+      updateMenuRoutes(menuRoutes, MenuType.Admin, !this.permissionController.hasAdminRole());
     });
   }
 
@@ -49,4 +44,16 @@ export class AppComponent implements OnInit {
   public hideMobileMenu(): void {
     this.mobileMenuOpen = false;
   }
+}
+
+function updateMenuRoutes(menuRoutes: IMenuItem[], menuType: MenuType, disabled: boolean)  {
+  const pages : IMenuItem[] = menuRoutes.filter((route)=> route.type === menuType)
+  pages.forEach((item:IMenuItem)=> {
+    item.disabled = disabled;
+    if (item.subRoutes) {
+      updateMenuRoutes(item.subRoutes, menuType, disabled)
+    } else {
+      item.subRoutes = undefined
+    }
+  })
 }

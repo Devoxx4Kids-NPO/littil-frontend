@@ -60,7 +60,7 @@
       >{{ route.menuText }}</littil-main-menu-button>
       <littil-main-menu-dropdown-button
         class="flex-1"
-        *ngIf="route.subRoutes"
+        *ngIf="!route.disabled && route.subRoutes"
         [title]="route.menuText"
         [path]="route.path"
         [subRoutes]="route.subRoutes"
