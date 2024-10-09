@@ -1,10 +1,10 @@
-import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { FooterModule } from '../../../components/footer/footer.module';
-import { RouterModule, Routes } from "@angular/router";
-import { ContentContainerModule } from "../../../components/content-container/content-container.module";
-import { TitleModule } from "../../../components/title/title.module";
-import {DisclaimerComponent} from "./disclaimer.component";
+import { NgModule } from '@angular/core';
+import { RouterModule, Routes } from '@angular/router';
+import { ContentContainerComponent } from '../../../components/content-container/content-container.component';
+import { FooterComponent } from '../../../components/footer/footer.component';
+import { TitleComponent } from '../../../components/title/title.component';
+import { DisclaimerComponent } from './disclaimer.component';
 
 const routes: Routes = [
   {
@@ -15,13 +15,12 @@ const routes: Routes = [
 
 @NgModule({
   declarations: [DisclaimerComponent],
-    imports: [
-        CommonModule,
-        ContentContainerModule,
-        RouterModule.forChild(routes),
-        TitleModule,
-        FooterModule,
-    ]
+  imports: [
+    CommonModule,
+    ContentContainerComponent,
+    RouterModule.forChild(routes),
+    TitleComponent,
+    FooterComponent,
+  ],
 })
-export class DisclaimerModule {
-}
+export class DisclaimerModule {}

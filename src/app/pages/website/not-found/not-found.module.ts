@@ -1,22 +1,21 @@
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
-import { RouterLinkWithHref, RouterModule } from '@angular/router';
-import { FooterModule } from '../../../components/footer/footer.module';
+import { RouterLink, RouterModule } from '@angular/router';
+import { FooterComponent } from '../../../components/footer/footer.component';
 import { NotFoundComponent } from './not-found.component';
 
 @NgModule({
   declarations: [NotFoundComponent],
   imports: [
     CommonModule,
-    RouterLinkWithHref,
+    RouterLink,
     RouterModule.forChild([
       {
         path: '**',
         component: NotFoundComponent,
       },
     ]),
-    FooterModule,
-  ]
+    FooterComponent,
+  ],
 })
-export class NotFoundModule {
-}
+export class NotFoundModule {}
