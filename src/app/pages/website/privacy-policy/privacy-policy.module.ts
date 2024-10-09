@@ -1,11 +1,11 @@
-import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { FooterModule } from '../../../components/footer/footer.module';
-import { RouterModule, Routes } from "@angular/router";
-import { ContentContainerModule } from "../../../components/content-container/content-container.module";
-import { TitleModule } from "../../../components/title/title.module";
-import { ReactiveFormsModule } from "@angular/forms";
-import {PrivacyPolicyComponent} from "./privacy-policy.component";
+import { NgModule } from '@angular/core';
+import { ReactiveFormsModule } from '@angular/forms';
+import { RouterModule, Routes } from '@angular/router';
+import { ContentContainerComponent } from '../../../components/content-container/content-container.component';
+import { FooterComponent } from '../../../components/footer/footer.component';
+import { TitleComponent } from '../../../components/title/title.component';
+import { PrivacyPolicyComponent } from './privacy-policy.component';
 
 const routes: Routes = [
   {
@@ -16,14 +16,13 @@ const routes: Routes = [
 
 @NgModule({
   declarations: [PrivacyPolicyComponent],
-    imports: [
-        CommonModule,
-        ContentContainerModule,
-        ReactiveFormsModule,
-        RouterModule.forChild(routes),
-        TitleModule,
-        FooterModule,
-    ]
+  imports: [
+    CommonModule,
+    ContentContainerComponent,
+    ReactiveFormsModule,
+    RouterModule.forChild(routes),
+    TitleComponent,
+    FooterComponent,
+  ],
 })
-export class PrivacyPolicyModule {
-}
+export class PrivacyPolicyModule {}

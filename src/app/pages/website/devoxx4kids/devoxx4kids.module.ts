@@ -1,10 +1,10 @@
-import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { RouterModule, Routes } from "@angular/router";
-import { FooterModule } from '../../../components/footer/footer.module';
+import { NgModule } from '@angular/core';
+import { RouterModule, Routes } from '@angular/router';
+import { ContentContainerComponent } from '../../../components/content-container/content-container.component';
+import { FooterComponent } from '../../../components/footer/footer.component';
+import { TitleComponent } from '../../../components/title/title.component';
 import { Devoxx4kidsComponent } from './devoxx4kids.component';
-import { TitleModule } from "../../../components/title/title.module";
-import { ContentContainerModule } from "../../../components/content-container/content-container.module";
 
 const routes: Routes = [
   {
@@ -15,13 +15,12 @@ const routes: Routes = [
 
 @NgModule({
   declarations: [Devoxx4kidsComponent],
-    imports: [
-        CommonModule,
-        ContentContainerModule,
-        TitleModule,
-        RouterModule.forChild(routes),
-        FooterModule,
-    ]
+  imports: [
+    CommonModule,
+    ContentContainerComponent,
+    TitleComponent,
+    RouterModule.forChild(routes),
+    FooterComponent,
+  ],
 })
-export class Devoxx4kidsModule {
-}
+export class Devoxx4kidsModule {}

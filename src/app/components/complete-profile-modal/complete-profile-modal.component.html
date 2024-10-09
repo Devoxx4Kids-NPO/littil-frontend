@@ -20,67 +20,64 @@
       ></littil-form-error-message>
     </littil-form-input-radio>
 
-    <ng-container *ngIf="isSchool">
+    @if(isSchool){
+    <littil-form-input-text
+      *ngIf="isSchool"
+      formControlName="schoolName"
+      id="schoolName"
+      label="Naam van de school"
+      data-test="schoolNameControl"
+    >
+      <littil-form-error-message
+        [customErrors]="{ required: 'Naam van de school is verplicht' }"
+        controlName="schoolName"
+      ></littil-form-error-message>
+    </littil-form-input-text>
+
+    <p class="mb-0 font-bold">Gegevens contactpersoon</p>
+    }
+
+    <div class="flex gap-2">
       <littil-form-input-text
-        *ngIf="isSchool"
-        formControlName="schoolName"
-        id="schoolName"
-        label="Naam van de school"
-        data-test="schoolNameControl"
+        formControlName="firstName"
+        id="firstName"
+        label="Voornaam"
+        class="grow"
       >
         <littil-form-error-message
-          [customErrors]="{ required: 'Naam van de school is verplicht' }"
-          controlName="schoolName"
+          [customErrors]="{ required: 'Voornaam is verplicht' }"
+          controlName="firstName"
         ></littil-form-error-message>
       </littil-form-input-text>
-
-      <p class="mb-0 font-bold">Gegevens contactpersoon</p>
-    </ng-container>
-
-    <div>
-      <div class="flex gap-2">
-        <littil-form-input-text
-          formControlName="firstName"
-          id="firstName"
-          label="Voornaam"
-          class="grow"
-        >
-          <littil-form-error-message
-            [customErrors]="{ required: 'Voornaam is verplicht' }"
-            controlName="firstName"
-          ></littil-form-error-message>
-        </littil-form-input-text>
-        <littil-form-input-text
-          formControlName="prefix"
-          id="prefix"
-          label="Tussenvoegsel"
-          class="w-1/5"
-        >
-        </littil-form-input-text>
-        <littil-form-input-text
-          formControlName="surname"
-          id="surname"
-          label="Achternaam"
-          class="grow"
-        >
-          <littil-form-error-message
-            [customErrors]="{ required: 'Achternaam is verplicht' }"
-            controlName="surname"
-          ></littil-form-error-message>
-        </littil-form-input-text>
-      </div>
+      <littil-form-input-text
+        formControlName="prefix"
+        id="prefix"
+        label="Tussenvoegsel"
+        class="w-1/5"
+      >
+      </littil-form-input-text>
+      <littil-form-input-text
+        formControlName="surname"
+        id="surname"
+        label="Achternaam"
+        class="grow"
+      >
+        <littil-form-error-message
+          [customErrors]="{ required: 'Achternaam is verplicht' }"
+          controlName="surname"
+        ></littil-form-error-message>
+      </littil-form-input-text>
     </div>
 
-    <p *ngIf="!isSchool">
-      Om scholen en gastdocenten elkaar te laten vinden, hebben wij uw adres nodig.<br />
-      Deze gegevens worden niet met derden gedeeld en alleen gebruikt om uw locatie op de
-      plattegrond te tonen.
-    </p>
-    <p *ngIf="isSchool">
-      Om scholen en gastdocenten elkaar te laten vinden, hebben wij het adres van de school nodig.
-      Deze gegevens worden niet <br />
+    <p>
+      @if(isSchool){ Om scholen en gastdocenten elkaar te laten vinden, hebben wij het adres van de
+      school nodig. Deze gegevens worden niet <br />
       met derden gedeeld en alleen gebruikt om de locatie van de school op de plattegrond te tonen.
+      } @else { Om scholen en gastdocenten elkaar te laten vinden, hebben wij uw adres nodig.<br />
+      Deze gegevens worden niet met derden gedeeld en alleen gebruikt om uw locatie op de
+      plattegrond te tonen. }
     </p>
+
     <div class="flex gap-2">
       <littil-form-input-text
         formControlName="address"

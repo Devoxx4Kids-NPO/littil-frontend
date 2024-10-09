@@ -9,7 +9,5 @@ import { routes } from './admin.routing';
   imports: [CommonModule, RouterModule.forChild(routes)],
   providers: [],
   exports: [AdminComponent],
-  entryComponents: [],
 })
 export class AdminModule {}
-

@@ -1,16 +1,16 @@
-import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { FooterModule } from '../../../components/footer/footer.module';
+import { NgModule } from '@angular/core';
+import { ReactiveFormsModule } from '@angular/forms';
+import { MatCheckboxModule } from '@angular/material/checkbox';
+import { RouterModule, Routes } from '@angular/router';
+import { ButtonComponent } from '../../../components/button/button.component';
+import { ContentContainerComponent } from '../../../components/content-container/content-container.component';
+import { FooterComponent } from '../../../components/footer/footer.component';
+import { FormErrorMessageComponent } from '../../../components/forms/form-error-message/form-error-message.component';
+import { FormInputRadioComponent } from '../../../components/forms/radio-input/form-input-radio.component';
+import { FormInputTextComponent } from '../../../components/forms/text-input/form-input-text.component';
+import { ProfileContainerComponent } from '../../../components/profile-container/profile-container.component';
 import { ProfileComponent } from './profile.component';
-import { RouterModule, Routes } from "@angular/router";
-import { ContentContainerModule } from "../../../components/content-container/content-container.module";
-import { ButtonModule } from "../../../components/button/button.module";
-import { MatCheckboxModule } from "@angular/material/checkbox";
-import { ReactiveFormsModule } from "@angular/forms";
-import { FormInputTextModule } from "../../../components/forms/text-input/form-input-text.module";
-import { FormInputRadioModule } from "../../../components/forms/radio-input/form-input-radio.module";
-import { FormErrorMessageModule } from "../../../components/forms/form-error-message/form-error-message.module";
-import { ProfileContainerModule } from "../../../components/profile-container/profile-container.module";
 
 const routes: Routes = [
   {
@@ -20,25 +20,20 @@ const routes: Routes = [
 ];
 
 @NgModule({
-  declarations: [
-    ProfileComponent,
-  ],
+  declarations: [ProfileComponent],
   imports: [
     CommonModule,
     RouterModule.forChild(routes),
-    ProfileContainerModule,
-    ContentContainerModule,
-    ButtonModule,
+    ProfileContainerComponent,
+    ContentContainerComponent,
+    ButtonComponent,
     MatCheckboxModule,
     ReactiveFormsModule,
-    FormInputTextModule,
-    FormInputRadioModule,
-    FormErrorMessageModule,
-    FooterModule
+    FormInputTextComponent,
+    FormInputRadioComponent,
+    FormErrorMessageComponent,
+    FooterComponent,
   ],
-  exports: [
-    ProfileComponent
-  ]
+  exports: [ProfileComponent],
 })
-export class ProfileModule {
-}
+export class ProfileModule {}

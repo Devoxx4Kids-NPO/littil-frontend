@@ -1,16 +1,16 @@
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
-import { RouterModule, Routes } from '@angular/router';
-import { FooterModule } from '../../../components/footer/footer.module';
-import { SearchComponent } from './search.component';
-import { ContentContainerModule } from '../../../components/content-container/content-container.module';
-import { LeafletModule } from '@asymmetrik/ngx-leaflet'
-import { ButtonModule } from '../../../components/button/button.module';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatCheckboxModule } from '@angular/material/checkbox';
-import {FormsModule, ReactiveFormsModule} from '@angular/forms';
-import {FormInputSelectModule} from "../../../components/forms/select-input/form-input-select.module";
-import {SearchFormComponent} from "./search-form.component";
-import {FormInputTextModule} from "../../../components/forms/text-input/form-input-text.module";
+import { RouterModule, Routes } from '@angular/router';
+import { LeafletModule } from '@asymmetrik/ngx-leaflet';
+import { ButtonComponent } from '../../../components/button/button.component';
+import { ContentContainerComponent } from '../../../components/content-container/content-container.component';
+import { FooterComponent } from '../../../components/footer/footer.component';
+import { FormInputSelectComponent } from '../../../components/forms/select-input/form-input-select.component';
+import { FormInputTextComponent } from '../../../components/forms/text-input/form-input-text.component';
+import { SearchFormComponent } from './search-form.component';
+import { SearchComponent } from './search.component';
 
 const routes: Routes = [
   {
@@ -25,17 +25,16 @@ const routes: Routes = [
     CommonModule,
     RouterModule.forChild(routes),
     LeafletModule,
-    ContentContainerModule,
-    ButtonModule,
+    ContentContainerComponent,
+    ButtonComponent,
     MatCheckboxModule,
     FormsModule,
     ReactiveFormsModule,
-    FormInputSelectModule,
-    FormInputTextModule,
-    FooterModule,
+    FormInputSelectComponent,
+    FormInputTextComponent,
+    FooterComponent,
   ],
   providers: [],
   exports: [SearchComponent],
-  entryComponents: [],
 })
 export class SearchModule {}

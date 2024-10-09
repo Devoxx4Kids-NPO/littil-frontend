@@ -1,7 +1,8 @@
 <div class="mb-3">
   <label [for]="id" class="font-bold">{{ label }}</label>
   <div class="mb-2">
-    <div *ngFor="let item of radioInputs" class="form-check">
+    <div class="form-check">
+      @for(item of radioInputs; track item.id){
       <input
         [ngClass]="{
           'border-yellow-100 checked:bg-yellow-100 checked:border-yellow-200 focus:border-yellow-200 focus:ring-yellow-200':
@@ -24,6 +25,7 @@
       <label class="form-check-label inline-block text-gray-800" [for]="item.id">
         {{ item.description }}
       </label>
+      }
     </div>
   </div>
   <ng-content></ng-content>

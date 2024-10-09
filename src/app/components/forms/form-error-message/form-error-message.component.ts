@@ -1,3 +1,4 @@
+import { CommonModule } from '@angular/common';
 import { Component, inject, Input, OnInit } from '@angular/core';
 import { FormGroupDirective, ValidationErrors } from '@angular/forms';
 import { BehaviorSubject, Subscription } from 'rxjs';
@@ -5,6 +6,8 @@ import { BehaviorSubject, Subscription } from 'rxjs';
 @Component({
   selector: 'littil-form-error-message',
   templateUrl: './form-error-message.component.html',
+  standalone: true,
+  imports: [CommonModule],
 })
 export class FormErrorMessageComponent implements OnInit {
   private readonly subscriptions = new Subscription();

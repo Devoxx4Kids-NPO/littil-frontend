@@ -1,22 +1,28 @@
+import { animate, state, style, transition, trigger } from '@angular/animations';
+import { CommonModule } from '@angular/common';
+import { Component } from '@angular/core';
 import {
-  animate,
-  state,
-  style,
-  transition,
-  trigger,
-} from '@angular/animations';
-import {Component} from '@angular/core';
-import { FormControl, FormGroup, Validators } from '@angular/forms';
-import {firstValueFrom, Observable} from 'rxjs';
+  FormControl,
+  FormGroup,
+  FormsModule,
+  ReactiveFormsModule,
+  Validators,
+} from '@angular/forms';
+import { MatDialogModule } from '@angular/material/dialog';
+import { firstValueFrom, Observable } from 'rxjs';
 import {
   ApiV1ContactsGet200Response,
   ContactPostResource,
-  SearchResult
+  SearchResult,
 } from '../../api/generated';
+import { LittilContactService } from '../../services/littil-contact/littil-contact.service';
+import { PermissionController } from '../../services/permission.controller';
 import { FormUtil } from '../../utils/form.util';
+import { ButtonComponent } from '../button/button.component';
+import { FormErrorMessageComponent } from '../forms/form-error-message/form-error-message.component';
+import { FormInputRadioComponent } from '../forms/radio-input/form-input-radio.component';
+import { FormInputTextComponent } from '../forms/text-input/form-input-text.component';
 import { IModalComponent } from '../modal/modal.controller';
-import {LittilContactService} from "../../services/littil-contact/littil-contact.service";
-import {PermissionController} from "../../services/permission.controller";
 
 @Component({
   selector: 'littil-register-modal',
@@ -38,23 +44,37 @@ import {PermissionController} from "../../services/permission.controller";
       transition('hidden => visible', [animate('200ms')]),
     ]),
   ],
+  standalone: true,
+  imports: [
+    CommonModule,
+    MatDialogModule,
+    FormsModule,
+    ReactiveFormsModule,
+    ButtonComponent,
+    FormInputTextComponent,
+    FormInputRadioComponent,
+    FormErrorMessageComponent,
+  ],
 })
-export class ContactModalComponent
-  implements IModalComponent<undefined, SearchResult>
-{
+export class ContactModalComponent implements IModalComponent<undefined, SearchResult> {
   close!: () => void;
   public loading = false;
   public hideForm = false;
   public hideConfirmation = true;
   FormUtil = FormUtil;
-  private searchResult: SearchResult = { } as SearchResult;
+  private searchResult: SearchResult = {} as SearchResult;
 
   contactForm: FormGroup = new FormGroup({
-    contactInfo: new FormControl(this.permissionController.activeAccount.name, [Validators.required]),
+    contactInfo: new FormControl(this.permissionController.activeAccount.name, [
+      Validators.required,
+    ]),
     message: new FormControl('', [Validators.required]),
   });
 
-  constructor(private readonly contactService: LittilContactService, private permissionController: PermissionController) {}
+  constructor(
+    private readonly contactService: LittilContactService,
+    private permissionController: PermissionController
+  ) {}
 
   public onOpen(searchResult: SearchResult) {
     this.searchResult = searchResult;
@@ -73,7 +93,7 @@ export class ContactModalComponent
         medium: this.contactForm.controls['contactInfo'].value,
         message: this.contactForm.controls['message'].value,
       };
-      const contactPostResource: ContactPostResource = Object.assign(formValues)
+      const contactPostResource: ContactPostResource = Object.assign(formValues);
       sendEmailCall = this.contactService.sendEmail(contactPostResource);
 
       return firstValueFrom(sendEmailCall)
@@ -86,7 +106,6 @@ export class ContactModalComponent
           console.error('save contact information/send email error');
           return false;
         });
-      });
+    });
   }
-
 }

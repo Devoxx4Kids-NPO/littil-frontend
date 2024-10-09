@@ -1,12 +1,12 @@
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { ContentContainerModule } from '../../../components/content-container/content-container.module';
-import { FooterModule } from '../../../components/footer/footer.module';
-import { AboutUsComponent } from "./about-us.component";
-import { ButtonModule } from "../../../components/button/button.module";
-import { TitleModule } from "../../../components/title/title.module";
-import {ContactBannerModule} from "../../../components/contact-banner/contact-banner.module";
+import { ButtonComponent } from '../../../components/button/button.component';
+import { ContactBannerComponent } from '../../../components/contact-banner/contact-banner.component';
+import { ContentContainerComponent } from '../../../components/content-container/content-container.component';
+import { FooterComponent } from '../../../components/footer/footer.component';
+import { TitleComponent } from '../../../components/title/title.component';
+import { AboutUsComponent } from './about-us.component';
 
 const routes: Routes = [
   {
@@ -17,14 +17,14 @@ const routes: Routes = [
 
 @NgModule({
   declarations: [AboutUsComponent],
-    imports: [
-        ButtonModule,
-        CommonModule,
-        ContentContainerModule,
-        TitleModule,
-        RouterModule.forChild(routes),
-        FooterModule,
-        ContactBannerModule,
-    ],
+  imports: [
+    ButtonComponent,
+    CommonModule,
+    ContentContainerComponent,
+    TitleComponent,
+    RouterModule.forChild(routes),
+    FooterComponent,
+    ContactBannerComponent,
+  ],
 })
-export class AboutUsModule { }
+export class AboutUsModule {}

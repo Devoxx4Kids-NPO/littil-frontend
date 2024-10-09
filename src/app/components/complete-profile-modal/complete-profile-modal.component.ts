@@ -1,6 +1,14 @@
 import { animate, state, style, transition, trigger } from '@angular/animations';
+import { CommonModule } from '@angular/common';
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import { FormControl, FormGroup, Validators } from '@angular/forms';
+import {
+  FormControl,
+  FormGroup,
+  FormsModule,
+  ReactiveFormsModule,
+  Validators,
+} from '@angular/forms';
+import { MatDialogModule } from '@angular/material/dialog';
 import { AuthService } from '@auth0/auth0-angular';
 import { firstValueFrom, Observable, Subscription, switchMap } from 'rxjs';
 import {
@@ -13,7 +21,13 @@ import { LittilSchoolService } from '../../services/littil-school/littil-school.
 import { LittilTeacherService } from '../../services/littil-teacher/littil-teacher.service';
 import { Roles } from '../../services/permission.controller';
 import { FormUtil } from '../../utils/form.util';
-import { RadioInput } from '../forms/radio-input/form-input-radio.component';
+import { ButtonComponent } from '../button/button.component';
+import { FormErrorMessageComponent } from '../forms/form-error-message/form-error-message.component';
+import {
+  FormInputRadioComponent,
+  RadioInput,
+} from '../forms/radio-input/form-input-radio.component';
+import { FormInputTextComponent } from '../forms/text-input/form-input-text.component';
 import { IModalComponent } from '../modal/modal.controller';
 
 @Component({
@@ -35,6 +49,17 @@ import { IModalComponent } from '../modal/modal.controller';
       ),
       transition('hidden => visible', [animate('200ms')]),
     ]),
+  ],
+  standalone: true,
+  imports: [
+    CommonModule,
+    MatDialogModule,
+    FormsModule,
+    ReactiveFormsModule,
+    ButtonComponent,
+    FormInputTextComponent,
+    FormInputRadioComponent,
+    FormErrorMessageComponent,
   ],
 })
 export class CompleteProfileModalComponent
@@ -128,9 +153,7 @@ export class CompleteProfileModalComponent
       return firstValueFrom(createOrUpdateCall)
         .then(() => {
           return firstValueFrom(
-            this.authService
-              .getAccessTokenSilently({ ignoreCache: true })
-              .pipe(switchMap(() => this.authService.user$))
+            this.authService.getAccessTokenSilently().pipe(switchMap(() => this.authService.user$))
           ).then(() => {
             return this.close();
           });

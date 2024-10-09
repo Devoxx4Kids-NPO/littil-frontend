@@ -1,17 +1,22 @@
-import { ModalController, ModalSize } from '../modal/modal.controller';
+import { CommonModule } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
-import { PermissionController } from '../../services/permission.controller';
+import { NavigationEnd, Router, RouterModule } from '@angular/router';
 import { AuthService } from '@auth0/auth0-angular';
+import { filter } from 'rxjs/operators';
+import { PermissionController } from '../../services/permission.controller';
+import { AvatarComponent } from '../avatar/avatar.component';
+import { ButtonComponent } from '../button/button.component';
+import { ModalController, ModalSize } from '../modal/modal.controller';
 import {
   IRegisterModalOutput,
   RegisterModalComponent,
 } from '../register-modal/register-modal.component';
-import { filter } from 'rxjs/operators';
-import {NavigationEnd, Router} from "@angular/router";
 
 @Component({
   selector: 'littil-user-menu',
   templateUrl: './user-menu.component.html',
+  standalone: true,
+  imports: [CommonModule, ButtonComponent, AvatarComponent, RouterModule],
 })
 export class UserMenuComponent implements OnInit {
   loaded: boolean = false;
@@ -23,15 +28,13 @@ export class UserMenuComponent implements OnInit {
     public auth: AuthService,
     private router: Router
   ) {
-    router.events.pipe(
-      filter((event) => event instanceof NavigationEnd)
-    ).subscribe(() => {
+    router.events.pipe(filter(event => event instanceof NavigationEnd)).subscribe(() => {
       this.open = false;
-    })
+    });
   }
 
   ngOnInit(): void {
-    this.auth.isLoading$.subscribe((loading) => {
+    this.auth.isLoading$.subscribe(loading => {
       this.loaded = !loading;
     });
   }
