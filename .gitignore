@@ -46,3 +46,4 @@ Thumbs.db
 /src/app/api/generated
 
 .env
+docker/backend/dev-users.csv

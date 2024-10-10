@@ -86,3 +86,10 @@ docker-compose up -d
 The version of the backend defaults to latest, but it can be set in the `.env` file using `LITTIL_BACKEND_VERSION`
 
 Look for the available tags at [ghcr.io/devoxx4kids-NP/littil-backend](https://ghcr.io/devoxx4kids-NPO/littil-backend)
+
+### dev users
+
+When running the backend as a developer you can add previously created users at startup.
+Create a `dev-users.csv` file in the folder `docker\backend` with the users you would like to add when the backend is started.
+Additional information can be found in the file `docker\backend\dev-users.example`.
+To use this functionality use the latest image or >=1.3.2 of the backend.
