@@ -38,5 +38,6 @@ services:
       - SMTP_HOST=smtp-stub.local
       - SMTP_USERNAME=username
       - SMTP_PASSWORD=password
+      - QUARKUS_LOG_CATEGORY__ORG_LITTIL__LEVEL=DEBUG
     ports:
       - "8080:8080"
