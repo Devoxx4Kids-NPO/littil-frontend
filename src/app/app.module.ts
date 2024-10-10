@@ -92,7 +92,10 @@ const cookieConfig: NgcCookieConsentConfig = {
     provideAuth0({
       domain: littilConfig.auth0Domain,
       clientId: littilConfig.auth0ClientId,
-      // audience: littilConfig.auth0Audience, //TODO: fix!!
+      authorizationParams: {
+        audience: littilConfig.auth0Audience,
+        redirect_uri: window.location.origin,
+      },
       httpInterceptor: {
         allowedList: [
           {
