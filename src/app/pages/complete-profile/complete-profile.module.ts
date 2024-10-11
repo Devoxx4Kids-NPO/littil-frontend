@@ -11,7 +11,7 @@ const routes: Routes = [
     component: CompleteProfilePageComponent,
   },
 ];
-
+//TODO: rewrite
 @NgModule({
   declarations: [CompleteProfilePageComponent],
   imports: [

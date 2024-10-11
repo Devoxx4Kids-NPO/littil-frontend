@@ -1,6 +1,8 @@
 <div [ngClass]="[outerClasses, 'flex justify-center']">
-  <div [ngClass]="[widthClass, 'flex-1 items-center prose', innerClasses ]"
-       class="ml-5 lg:ml-0 mr-5 lg:mr-0">
+  <div
+    [ngClass]="[widthClass, 'flex-1 items-center prose', innerClasses]"
+    class="ml-5 lg:ml-0 mr-5 lg:mr-0"
+  >
     <ng-content></ng-content>
   </div>
 </div>

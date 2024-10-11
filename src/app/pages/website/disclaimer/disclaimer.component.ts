@@ -1,9 +1,13 @@
+import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
+import { ContentContainerComponent } from '../../../components/content-container/content-container.component';
+import { FooterComponent } from '../../../components/footer/footer.component';
+import { TitleComponent } from '../../../components/title/title.component';
 
 @Component({
   selector: 'littil-disclaimer',
-  templateUrl: './disclaimer.component.html'
+  templateUrl: './disclaimer.component.html',
+  standalone: true,
+  imports: [CommonModule, ContentContainerComponent, TitleComponent, FooterComponent],
 })
-export class DisclaimerComponent {
-
-}
+export class DisclaimerComponent {}
