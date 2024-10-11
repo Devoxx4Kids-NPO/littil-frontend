@@ -2,7 +2,7 @@
   <div class="grid grid-cols-5 gap-4">
     <nav class="col-span-1 space-y-1" aria-label="Sidebar">
       <a
-        [routerLink]="'/admin/profile'"
+        [routerLink]="'/user/profile'"
         routerLinkActive="bg-gray-100 text-gray-900"
         class="text-gray-600 hover:bg-gray-50 hover:text-gray-900 group flex items-center rounded-md px-3 py-2 text-sm font-medium"
         aria-current="page"
@@ -24,7 +24,7 @@
         <span class="truncate">Profiel</span>
       </a>
       <a
-        [routerLink]="'/admin/modules'"
+        [routerLink]="'/user/modules'"
         *ngIf="isGuestTeacher"
         routerLinkActive="bg-gray-100 text-gray-900"
         class="text-gray-600 hover:bg-gray-50 hover:text-gray-900 group flex items-center rounded-md px-3 py-2 text-sm font-medium"

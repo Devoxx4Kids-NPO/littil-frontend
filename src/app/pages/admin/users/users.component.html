@@ -1,0 +1,24 @@
+<littil-title>Gebruikers</littil-title>
+<littil-content-container>
+  <div>
+    <table>
+      <thead>
+      <tr>
+        <th>email</th>
+        <th>roles</th>
+        <th>Provider</th>
+        <th>providerId</th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr *ngFor="let user of users$ | async">
+        <td>{{ user.emailAddress }}</td>
+        <td>{{ user.roles }}</td>
+        <td>{{ user.provider }}</td>
+        <td>{{ user.providerId }}</td>
+      </tr>
+      </tbody>
+    </table>
+  </div>
+</littil-content-container>
+<littil-footer></littil-footer>

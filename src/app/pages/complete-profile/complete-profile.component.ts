@@ -18,7 +18,7 @@ export class CompleteProfilePageComponent implements OnInit {
   async ngOnInit(): Promise<any> {
     return Promise.resolve().then(async () => {
       if (this.permissionController.hasAnyRole()) {
-        await this.router.navigateByUrl('/admin/search');
+        await this.router.navigateByUrl('/user/search');
         return;
       }
       return this.modalController
@@ -26,7 +26,7 @@ export class CompleteProfilePageComponent implements OnInit {
           disableClose: true,
         } as IModalComponentOptions)
         .then(() => {
-          return this.router.navigateByUrl('/admin/search');
+          return this.router.navigateByUrl('/user/search');
         });
     });
   }

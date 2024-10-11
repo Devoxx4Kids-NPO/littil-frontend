@@ -1,11 +1,11 @@
 import { Routes } from '@angular/router';
 import { AuthGuard } from '@auth0/auth0-angular';
-import { AdminComponent } from './admin.component';
+import { UserComponent } from './user.component';
 
 export const routes: Routes = [
   {
     path: '',
-    component: AdminComponent,
+    component: UserComponent,
     canActivate: [AuthGuard],
     children: [
       {
