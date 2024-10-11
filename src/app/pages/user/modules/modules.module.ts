@@ -1,11 +1,11 @@
-import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { FooterModule } from '../../../components/footer/footer.module';
-import { ModulesComponent } from './modules.component';
-import { RouterModule, Routes } from '@angular/router';
-import { ProfileContainerModule } from '../../../components/profile-container/profile-container.module';
+import { NgModule } from '@angular/core';
 import { ReactiveFormsModule } from '@angular/forms';
-import { ButtonModule } from '../../../components/button/button.module';
+import { RouterModule, Routes } from '@angular/router';
+import { ButtonComponent } from '../../../components/button/button.component';
+import { FooterComponent } from '../../../components/footer/footer.component';
+import { ProfileContainerComponent } from '../../../components/profile-container/profile-container.component';
+import { ModulesComponent } from './modules.component';
 
 const routes: Routes = [
   {
@@ -15,20 +15,15 @@ const routes: Routes = [
 ];
 
 @NgModule({
-  declarations: [
-    ModulesComponent
-  ],
+  declarations: [ModulesComponent],
   imports: [
     CommonModule,
-    ProfileContainerModule,
+    ProfileContainerComponent,
     RouterModule.forChild(routes),
     ReactiveFormsModule,
-    FooterModule,
-    ButtonModule,
+    FooterComponent,
+    ButtonComponent,
   ],
-  exports: [
-    ModulesComponent
-  ]
+  exports: [ModulesComponent],
 })
-export class ModulesModule {
-}
+export class ModulesModule {}

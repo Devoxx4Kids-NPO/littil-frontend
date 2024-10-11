@@ -1,5 +1,4 @@
 import { HttpClientTestingModule } from '@angular/common/http/testing';
-import { TestBed } from '@angular/core/testing';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { AuthService } from '@auth0/auth0-angular';
 import { createComponentFactory, Spectator } from '@ngneat/spectator/jest';
@@ -64,24 +63,11 @@ describe('CompleteProfileModalComponent', () => {
     });
 
     it('should close modal when form is valid', async () => {
-      spectator.component.completeProfileForm
-        .get('role')
-        ?.setValue(Roles.GuestTeacher);
-      spectator.component.completeProfileForm
-        .get('firstName')
-        ?.setValue('Firstname');
-      spectator.component.completeProfileForm
-        .get('surname')
-        ?.setValue('Surname');
-      spectator.component.completeProfileForm
-        .get('addressStreet')
-        ?.setValue('Street');
-      spectator.component.completeProfileForm
-        .get('addressHousenumber')
-        ?.setValue('123');
-      spectator.component.completeProfileForm
-        .get('postalCode')
-        ?.setValue('1234AA');
+      spectator.component.completeProfileForm.get('role')?.setValue(Roles.GuestTeacher);
+      spectator.component.completeProfileForm.get('firstName')?.setValue('Firstname');
+      spectator.component.completeProfileForm.get('surname')?.setValue('Surname');
+      spectator.component.completeProfileForm.get('address')?.setValue('Street 123');
+      spectator.component.completeProfileForm.get('postalCode')?.setValue('1234AA');
       await spectator.component.onClickSaveProfile();
       expect(spectator.component.completeProfileForm.invalid).toBe(false);
       // expect(closeSpy).toHaveBeenCalledTimes(1);
@@ -90,9 +76,7 @@ describe('CompleteProfileModalComponent', () => {
 
   describe('Template', () => {
     it('should show completeProfile form', () => {
-      expect(
-        spectator.query('[data-test="form-complete-profile"]')
-      ).toBeDefined();
+      expect(spectator.query('[data-test="form-complete-profile"]')).toBeDefined();
     });
   });
 });

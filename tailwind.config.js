@@ -9,16 +9,16 @@ module.exports = {
         DEFAULT: {
           css: {
             a: {
-              color: '#f18f2d',
+              color: "#f18f2d",
             },
-          }
-        }
+          },
+        },
       },
       colors: {
         white: "#ffffff",
         black: "#000000",
         gray: {
-          "littil": "#acacac"
+          littil: "#acacac",
         },
         yellow: {
           50: "#efa55c",
@@ -28,16 +28,13 @@ module.exports = {
         blue: {
           100: "#a1c5ea",
           200: "#2d2e83",
-          300: "#5f60b5"
+          300: "#5f60b5",
         },
         lightblue: {
-          100: "#a0c4e9",
-        }
+          100: "#adc7e9",
+        },
       },
     },
   },
-  plugins: [
-    require("@tailwindcss/forms"),
-    require('@tailwindcss/typography'),
-  ],
+  plugins: [require("@tailwindcss/forms"), require("@tailwindcss/typography")],
 };
