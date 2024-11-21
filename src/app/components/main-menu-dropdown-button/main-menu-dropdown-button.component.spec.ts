@@ -8,7 +8,6 @@ describe('MainMenuDropdownButtonComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [MainMenuDropdownButtonComponent],
       imports: [RouterTestingModule],
     }).compileComponents();
 

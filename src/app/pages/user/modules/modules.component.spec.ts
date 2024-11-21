@@ -1,38 +1,39 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
+import { DebugElement, NO_ERRORS_SCHEMA } from '@angular/core';
+import { By } from '@angular/platform-browser';
+import { ActivatedRoute } from '@angular/router';
+import { ActivatedRouteStub } from '@ngneat/spectator';
+import { MockProvider } from 'ng-mocks';
+import { of } from 'rxjs';
+import { Module } from '../../../api/generated';
+import { ProfileContainerComponent } from '../../../components/profile-container/profile-container.component';
+import { LittilModulesService } from '../../../services/littil-modules/littil-modules.service';
+import { LittilSchoolService } from '../../../services/littil-school/littil-school.service';
+import { LittilTeacherService } from '../../../services/littil-teacher/littil-teacher.service';
+import { PermissionController, Roles } from '../../../services/permission.controller';
 import { ModulesComponent } from './modules.component';
-import { MockProvider } from "ng-mocks";
-import { LittilTeacherService } from "../../../services/littil-teacher/littil-teacher.service";
-import { of } from "rxjs";
-import { LittilSchoolService } from "../../../services/littil-school/littil-school.service";
-import { LittilModulesService } from "../../../services/littil-modules/littil-modules.service";
-import { Module } from "../../../api/generated";
-import { PermissionController, Roles } from "../../../services/permission.controller";
-import { ProfileContainerComponent } from "../../../components/profile-container/profile-container.component";
-import { DebugElement, NO_ERRORS_SCHEMA } from "@angular/core";
-import { By } from "@angular/platform-browser";
 
 const availableModules: Module[] = [
-  {"id": "31000000-0000-0000-0000-000000000000", "name": "CodeCombat"},
-  {"id": "35000000-0000-0000-0000-000000000000", "name": "Hedycode"},
-  {"id": "33000000-0000-0000-0000-000000000000", "name": "Lego Mindstorms"},
-  {"id": "34000000-0000-0000-0000-000000000000", "name": "Lego WeDo"},
-  {"id": "32000000-0000-0000-0000-000000000000", "name": "MBot's"},
-  {"id": "30000000-0000-0000-0000-000000000000", "name": "Scratch"}
+  { id: '31000000-0000-0000-0000-000000000000', name: 'CodeCombat' },
+  { id: '35000000-0000-0000-0000-000000000000', name: 'Hedycode' },
+  { id: '33000000-0000-0000-0000-000000000000', name: 'Lego Mindstorms' },
+  { id: '34000000-0000-0000-0000-000000000000', name: 'Lego WeDo' },
+  { id: '32000000-0000-0000-0000-000000000000', name: "MBot's" },
+  { id: '30000000-0000-0000-0000-000000000000', name: 'Scratch' },
 ];
 
 const teacherModules: Module[] = [
-  {"id": "31000000-0000-0000-0000-000000000000", "name": "CodeCombat"}
+  { id: '31000000-0000-0000-0000-000000000000', name: 'CodeCombat' },
 ];
 const schoolModules: Module[] = [
-  {"id": "32000000-0000-0000-0000-000000000000", "name": "MBot's"},
-  {"id": "35000000-0000-0000-0000-000000000000", "name": "Hedycode"},
+  { id: '32000000-0000-0000-0000-000000000000', name: "MBot's" },
+  { id: '35000000-0000-0000-0000-000000000000', name: 'Hedycode' },
 ];
-
 
 function getModuleDef() {
   return {
-    declarations: [ModulesComponent, ProfileContainerComponent],
+    imports: [ModulesComponent, ProfileContainerComponent],
     schemas: [NO_ERRORS_SCHEMA],
     providers: [
       MockProvider(PermissionController, {
@@ -48,7 +49,11 @@ function getModuleDef() {
       MockProvider(LittilSchoolService, {
         getModules: () => of(schoolModules),
       }),
-    ]
+      {
+        provide: ActivatedRoute,
+        useValue: ActivatedRouteStub,
+      },
+    ],
   };
 }
 
@@ -57,8 +62,7 @@ describe('Teacher Modules Component', () => {
   let fixture: ComponentFixture<ModulesComponent>;
 
   beforeEach(async () => {
-    await TestBed.configureTestingModule(getModuleDef())
-                 .compileComponents();
+    await TestBed.configureTestingModule(getModuleDef()).compileComponents();
 
     fixture = TestBed.createComponent(ModulesComponent);
     component = fixture.componentInstance;
@@ -90,8 +94,10 @@ describe('Teacher Modules Component', () => {
 
     checkbox.nativeElement.click();
     expect(checkbox.nativeElement.checked).toBe(true);
-    expect(component.selectedModules.find(moduleId => moduleId === availableModules[1].id)).toBeTruthy();
-    expect(component.selectedModules.length).toEqual(component.userModules.length + 1)
+    expect(
+      component.selectedModules.find(moduleId => moduleId === availableModules[1].id)
+    ).toBeTruthy();
+    expect(component.selectedModules.length).toEqual(component.userModules.length + 1);
   });
 
   it('can be clicked to remove a module', () => {
@@ -103,8 +109,10 @@ describe('Teacher Modules Component', () => {
 
     checkbox.nativeElement.click();
     expect(checkbox.nativeElement.checked).toBeFalsy();
-    expect(component.selectedModules.find(moduleId => moduleId === availableModules[0].id)).toBeFalsy();
-    expect(component.selectedModules.length).toEqual(component.userModules.length - 1)
+    expect(
+      component.selectedModules.find(moduleId => moduleId === availableModules[0].id)
+    ).toBeFalsy();
+    expect(component.selectedModules.length).toEqual(component.userModules.length - 1);
   });
 
   it('should call save moduiles function when clicked on save button', async () => {
@@ -113,10 +121,10 @@ describe('Teacher Modules Component', () => {
 
     expect(saveBtn).toBeDefined();
     component.selectedModules.push(component.availableModules[2].id as string);
-    expect(component.selectedModules.length).toEqual(component.userModules.length + 1)
+    expect(component.selectedModules.length).toEqual(component.userModules.length + 1);
 
     saveBtn.nativeElement.click();
-    expect(component.selectedModules.length).toEqual(component.userModules.length)
+    expect(component.selectedModules.length).toEqual(component.userModules.length);
   });
 
   it('should cancel updates of selected modules when clicked on cancel button', async () => {
@@ -125,10 +133,9 @@ describe('Teacher Modules Component', () => {
 
     expect(cancelBtn).toBeDefined();
     component.selectedModules.push(component.availableModules[2].id as string);
-    expect(component.selectedModules.length).toEqual(component.userModules.length + 1)
+    expect(component.selectedModules.length).toEqual(component.userModules.length + 1);
 
     cancelBtn.nativeElement.click();
-    expect(component.selectedModules.length).toEqual(component.userModules.length)
+    expect(component.selectedModules.length).toEqual(component.userModules.length);
   });
-
 });

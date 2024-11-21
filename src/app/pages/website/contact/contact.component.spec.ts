@@ -1,12 +1,8 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-import { ContactComponent } from './contact.component';
 import { ReactiveFormsModule } from '@angular/forms';
-import { FormBaseComponent } from '../../../components/forms/form-base';
-import { FormInputTextComponent } from '../../../components/forms/text-input/form-input-text.component';
-import { FormInputSelectComponent } from '../../../components/forms/select-input/form-input-select.component';
-import { ButtonComponent } from '../../../components/button/button.component';
-import { TitleComponent } from '../../../components/title/title.component';
-import { ContentContainerComponent } from '../../../components/content-container/content-container.component';
+import { ActivatedRoute } from '@angular/router';
+import { ActivatedRouteStub } from '@ngneat/spectator';
+import { ContactComponent } from './contact.component';
 
 describe('ContactComponent', () => {
   let component: ContactComponent;
@@ -15,15 +11,7 @@ describe('ContactComponent', () => {
   beforeEach(async () => {
     await TestBed.configureTestingModule({
       imports: [ReactiveFormsModule],
-      declarations: [
-        ContactComponent,
-        TitleComponent,
-        ContentContainerComponent,
-        FormBaseComponent,
-        FormInputTextComponent,
-        FormInputSelectComponent,
-        ButtonComponent,
-      ],
+      providers: [{ provide: ActivatedRoute, useValue: ActivatedRouteStub }],
     }).compileComponents();
 
     fixture = TestBed.createComponent(ContactComponent);

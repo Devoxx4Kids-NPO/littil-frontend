@@ -1,6 +1,10 @@
-<img [src]="avatarImage" [alt]="avatarText" class="inline-block h-10 w-10 rounded-full" *ngIf="avatarImage; else showAvatarInitials">
-<ng-template #showAvatarInitials>
-<div class="inline-flex h-10 w-10 items-center justify-center rounded-full overflow-hidden" [class]="avatarBackgroundColor">
-    <span class="text-xs font-medium leading-none text-white">{{ avatarInitials }}</span>
+@if(avatarImage){
+<img [src]="avatarImage" [alt]="avatarText" class="inline-block h-10 w-10 rounded-full" />
+} @else {
+<div
+  class="inline-flex h-10 w-10 items-center justify-center rounded-full overflow-hidden"
+  [class]="avatarBackgroundColor"
+>
+  <span class="text-xs font-medium leading-none text-white">{{ avatarInitials }}</span>
 </div>
-</ng-template>
+}

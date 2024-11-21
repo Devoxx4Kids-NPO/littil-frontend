@@ -1,6 +1,6 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-import { ContentContainerComponent } from '../../../components/content-container/content-container.component';
-import { TitleComponent } from '../../../components/title/title.component';
+import { ActivatedRoute } from '@angular/router';
+import { ActivatedRouteStub } from '@ngneat/spectator';
 import { Devoxx4kidsComponent } from './devoxx4kids.component';
 
 describe('Devoxx4kidsComponent', () => {
@@ -9,11 +9,7 @@ describe('Devoxx4kidsComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [
-        Devoxx4kidsComponent,
-        TitleComponent,
-        ContentContainerComponent,
-      ],
+      providers: [{ provide: ActivatedRoute, useValue: ActivatedRouteStub }],
     }).compileComponents();
 
     fixture = TestBed.createComponent(Devoxx4kidsComponent);

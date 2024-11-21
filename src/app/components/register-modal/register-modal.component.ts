@@ -1,21 +1,38 @@
-import {
-  animate,
-  state,
-  style,
-  transition,
-  trigger,
-} from '@angular/animations';
+import { animate, state, style, transition, trigger } from '@angular/animations';
+import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
-import { FormControl, FormGroup, Validators } from '@angular/forms';
+import {
+  FormControl,
+  FormGroup,
+  FormsModule,
+  ReactiveFormsModule,
+  Validators,
+} from '@angular/forms';
+import { MatDialogModule } from '@angular/material/dialog';
 import { firstValueFrom } from 'rxjs';
 import { User } from '../../api/generated';
 import { LittilUserService } from '../../services/littil-user/littil-user.service';
 import { FormUtil } from '../../utils/form.util';
+import { ButtonComponent } from '../button/button.component';
+import { FormErrorMessageComponent } from '../forms/form-error-message/form-error-message.component';
+import { FormInputRadioComponent } from '../forms/radio-input/form-input-radio.component';
+import { FormInputTextComponent } from '../forms/text-input/form-input-text.component';
 import { IModalComponent } from '../modal/modal.controller';
 
 @Component({
   selector: 'littil-register-modal',
   templateUrl: 'register-modal.component.html',
+  standalone: true,
+  imports: [
+    CommonModule,
+    MatDialogModule,
+    FormsModule,
+    ReactiveFormsModule,
+    ButtonComponent,
+    FormInputTextComponent,
+    FormInputRadioComponent,
+    FormErrorMessageComponent,
+  ],
   animations: [
     trigger('hideShow', [
       state(
@@ -34,9 +51,7 @@ import { IModalComponent } from '../modal/modal.controller';
     ]),
   ],
 })
-export class RegisterModalComponent
-  implements IModalComponent<IRegisterModalOutput, undefined>
-{
+export class RegisterModalComponent implements IModalComponent<IRegisterModalOutput, undefined> {
   close!: (response: IRegisterModalOutput) => IRegisterModalOutput;
   public loading = false;
   public hideForm = false;

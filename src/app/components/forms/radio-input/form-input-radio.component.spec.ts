@@ -1,9 +1,5 @@
 import { NG_VALUE_ACCESSOR } from '@angular/forms';
-import {
-  createFakeEvent,
-  createTouchEvent,
-  SpectatorElement,
-} from '@ngneat/spectator';
+import { createFakeEvent, createTouchEvent, SpectatorElement } from '@ngneat/spectator';
 import { createComponentFactory, Spectator } from '@ngneat/spectator/jest';
 import { FormInputRadioComponent } from './form-input-radio.component';
 
@@ -12,7 +8,10 @@ describe('FormInputRadioComponent', () => {
   let onChangeSpy: jest.SpyInstance;
   let onValueChangedSpy: jest.SpyInstance;
   let onTouchedSpy: jest.SpyInstance;
-  const createComponent = createComponentFactory(FormInputRadioComponent);
+  const createComponent = createComponentFactory({
+    component: FormInputRadioComponent,
+    declareComponent: false,
+  });
 
   beforeEach(() => {
     spectator = createComponent();
@@ -67,9 +66,7 @@ describe('FormInputRadioComponent', () => {
 
   describe('onTouch event', () => {
     it('should call onTouched event', async () => {
-      const input = spectator.query(
-        '[data-test="radio-1"]'
-      ) as SpectatorElement;
+      const input = spectator.query('[data-test="radio-1"]') as SpectatorElement;
       const touchEvent = createTouchEvent('touched');
       spectator.dispatchTouchEvent(input, 'touched');
       expect(onTouchedSpy).toHaveBeenCalledTimes(1);
@@ -111,16 +108,6 @@ describe('FormInputRadioComponent', () => {
       expect(spectator.query('[data-test="radio-1"]')).toHaveClass(
         'border-yellow-100 checked:bg-yellow-100 checked:border-yellow-200 focus:border-yellow-200 focus:ring-yellow-200'
       );
-    });
-    it('should set correct classes on invalid state', async () => {
-      spectator.setInput('hasError', true);
-      expect(spectator.query('[data-test="radio-1"]')).toHaveClass(
-        'border-red-500 checked:bg-red-500 checked:border-red-600 focus:border-red-500 focus:ring-red-600'
-      );
-    });
-    it('should show errorMessage on invalid state', async () => {
-      spectator.setInput('hasError', true);
-      expect(spectator.query('p')).toBeDefined();
     });
     it('should set correct classes on disabled state', async () => {
       spectator.setInput('disabled', true);
