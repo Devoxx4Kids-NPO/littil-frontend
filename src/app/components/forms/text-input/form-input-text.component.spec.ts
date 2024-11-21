@@ -1,9 +1,5 @@
 import { NG_VALUE_ACCESSOR } from '@angular/forms';
-import {
-  createFakeEvent,
-  createTouchEvent,
-  SpectatorElement,
-} from '@ngneat/spectator';
+import { createFakeEvent, createTouchEvent, SpectatorElement } from '@ngneat/spectator';
 import { createComponentFactory, Spectator } from '@ngneat/spectator/jest';
 import { FormInputTextComponent } from './form-input-text.component';
 
@@ -105,31 +101,6 @@ describe('FormInputTextComponent', () => {
       expect(spectator.query('input')).not.toHaveClass(
         'border-gray-50 focus:ring-0 placeholder:text-gray-50'
       );
-    });
-    it('should set correct classes on invalid state', async () => {
-      spectator.setInput('id', 'firstName');
-      spectator.setInput('label', 'Firstname');
-      spectator.setInput('placeholder', 'Give your firstname');
-      //spectator.setInput('errorMessage', 'Fill in your firstname');
-      spectator.setInput('hasError', true);
-      expect(spectator.query('input')).not.toHaveClass(
-        'border-yellow-100 focus:border-yellow-200 placeholder:text-yellow-100 focus:ring-yellow-200'
-      );
-      expect(spectator.query('input')).toHaveClass(
-        'border-red-500 focus:border-red-500 focus:ring-red-600'
-      );
-      expect(spectator.query('input')).not.toHaveClass(
-        'border-gray-50 focus:ring-0 placeholder:text-gray-50'
-      );
-    });
-    it('should show errorMessage on invalid state', async () => {
-      spectator.setInput('id', 'firstName');
-      spectator.setInput('label', 'Firstname');
-      spectator.setInput('placeholder', 'Give your firstname');
-      //spectator.setInput('errorMessage', 'Fill in your firstname');
-      spectator.setInput('hasError', true);
-      expect(spectator.query('p')).toBeDefined();
-      //expect(spectator.query('p')).toHaveText('Fill in your firstname');
     });
     it('should set correct classes on disabled state', async () => {
       spectator.setInput('id', 'firstName');

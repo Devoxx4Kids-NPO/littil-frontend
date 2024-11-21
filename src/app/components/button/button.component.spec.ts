@@ -3,7 +3,10 @@ import { ButtonComponent } from './button.component';
 
 describe('ButtonComponent', () => {
   let spectator: Spectator<ButtonComponent>;
-  const createComponent = createComponentFactory(ButtonComponent);
+  const createComponent = createComponentFactory({
+    component: ButtonComponent,
+    declareComponent: false,
+  });
   beforeEach(() => {
     spectator = createComponent();
   });

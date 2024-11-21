@@ -1,7 +1,12 @@
+import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
+import { ReactiveFormsModule } from '@angular/forms';
 import { forkJoin } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { Module } from '../../../api/generated';
+import { ButtonComponent } from '../../../components/button/button.component';
+import { FooterComponent } from '../../../components/footer/footer.component';
+import { ProfileContainerComponent } from '../../../components/profile-container/profile-container.component';
 import { IHasManageableModules } from '../../../services/littil-modules/littil-modules-user.interface';
 import { LittilModulesService } from '../../../services/littil-modules/littil-modules.service';
 import { LittilSchoolService } from '../../../services/littil-school/littil-school.service';
@@ -11,6 +16,14 @@ import { PermissionController, Roles } from '../../../services/permission.contro
 @Component({
   selector: 'littil-modules',
   templateUrl: './modules.component.html',
+  standalone: true,
+  imports: [
+    CommonModule,
+    ProfileContainerComponent,
+    ReactiveFormsModule,
+    FooterComponent,
+    ButtonComponent,
+  ],
 })
 export class ModulesComponent {
   private readonly roleType: Roles;

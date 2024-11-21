@@ -1,14 +1,9 @@
 import { AuthService } from '@auth0/auth0-angular';
 import { Spectator } from '@ngneat/spectator';
 import { createRoutingFactory } from '@ngneat/spectator/jest';
-import { MockComponent, MockProvider } from 'ng-mocks';
+import { MockProvider } from 'ng-mocks';
 import { of } from 'rxjs';
 import { PermissionController } from '../../services/permission.controller';
-import { AvatarComponent } from '../avatar/avatar.component';
-import { ButtonComponent } from '../button/button.component';
-import { ContentContainerComponent } from '../content-container/content-container.component';
-import { MainMenuButtonComponent } from '../main-menu-button/main-menu-button.component';
-import { MainMenuDropdownButtonComponent } from '../main-menu-dropdown-button/main-menu-dropdown-button.component';
 import { ModalController, ModalSize } from '../modal/modal.controller';
 import { RegisterModalComponent } from '../register-modal/register-modal.component';
 import { UserMenuComponent } from './user-menu.component';
@@ -25,13 +20,7 @@ describe('UserMenuComponent', () => {
 
   const createComponent = createRoutingFactory({
     component: UserMenuComponent,
-    declarations: [
-      MockComponent(ContentContainerComponent),
-      MockComponent(ButtonComponent),
-      MockComponent(MainMenuButtonComponent),
-      MockComponent(MainMenuDropdownButtonComponent),
-      MockComponent(AvatarComponent),
-    ],
+    declareComponent: false,
     providers: [
       MockProvider(ModalController),
       MockProvider(AuthService, {

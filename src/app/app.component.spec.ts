@@ -1,19 +1,15 @@
+import { DOCUMENT } from '@angular/common';
 import { AuthService } from '@auth0/auth0-angular';
 import { Spectator } from '@ngneat/spectator';
 import { createRoutingFactory } from '@ngneat/spectator/jest';
-import { MockComponent, MockProvider } from 'ng-mocks';
+import { MockProvider } from 'ng-mocks';
+import { NgcCookieConsentService } from 'ngx-cookieconsent';
 import { Subject } from 'rxjs';
 import { LittilConfig, LITTILCONFIG } from '../littilConfig';
 import { AppComponent } from './app.component';
-import { ContentContainerComponent } from './components/content-container/content-container.component';
-import { MainMenuButtonComponent } from './components/main-menu-button/main-menu-button.component';
-import { MainMenuDropdownButtonComponent } from './components/main-menu-dropdown-button/main-menu-dropdown-button.component';
-import { UserMenuComponent } from './components/user-menu/user-menu.component';
 import { FeedbackFinToken } from './feedback/feedbackfin.token';
+import { MenuType } from './pages/menu.routes';
 import { PermissionController } from './services/permission.controller';
-import { NgcCookieConsentService } from 'ngx-cookieconsent';
-import {MenuType} from "./pages/menu.routes";
-import {DOCUMENT} from "@angular/common";
 
 describe('AppComponent', () => {
   let spectator: Spectator<AppComponent>;
@@ -26,12 +22,6 @@ describe('AppComponent', () => {
 
   const createComponent = createRoutingFactory({
     component: AppComponent,
-    declarations: [
-      MockComponent(ContentContainerComponent),
-      MockComponent(MainMenuButtonComponent),
-      MockComponent(MainMenuDropdownButtonComponent),
-      MockComponent(UserMenuComponent),
-    ],
     providers: [
       MockProvider(AuthService, {}),
       MockProvider(PermissionController, {
@@ -49,11 +39,11 @@ describe('AppComponent', () => {
       },
       {
         provide: LITTILCONFIG,
-        useValue: ({
+        useValue: {
           apiHost: 'localhost',
-        } as LittilConfig),
+        } as LittilConfig,
       },
-      MockProvider(NgcCookieConsentService)
+      MockProvider(NgcCookieConsentService),
     ],
   });
 

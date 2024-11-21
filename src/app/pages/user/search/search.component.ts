@@ -1,9 +1,17 @@
+import { CommonModule } from '@angular/common';
 import { Component, NgZone } from '@angular/core';
-import { FormBuilder } from '@angular/forms';
+import { FormBuilder, FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { MatCheckboxModule } from '@angular/material/checkbox';
+import { LeafletModule } from '@asymmetrik/ngx-leaflet';
 import { Icon, Layer, marker, Marker, MarkerOptions } from 'leaflet';
 import { combineLatest, map, Observable, of, startWith, Subject, switchMap } from 'rxjs';
 import { GuestTeacher, School, SearchResult, UserType } from '../../../api/generated';
+import { ButtonComponent } from '../../../components/button/button.component';
 import { ContactModalComponent } from '../../../components/contact-modal/contact-modal.component';
+import { ContentContainerComponent } from '../../../components/content-container/content-container.component';
+import { FooterComponent } from '../../../components/footer/footer.component';
+import { FormInputSelectComponent } from '../../../components/forms/select-input/form-input-select.component';
+import { FormInputTextComponent } from '../../../components/forms/text-input/form-input-text.component';
 import { ModalController, ModalSize } from '../../../components/modal/modal.controller';
 import { Coordinates, CoordinatesService } from '../../../services/coordinates/coordinates.service';
 import { OpenStreetMapService } from '../../../services/coordinates/open-street-map.service';
@@ -13,12 +21,26 @@ import { LittilSearchService } from '../../../services/littil-search/littil-sear
 import { LittilTeacherService } from '../../../services/littil-teacher/littil-teacher.service';
 import { PermissionController, Roles } from '../../../services/permission.controller';
 import { MAP_OPTIONS } from './map-options';
-import { SearchQuery } from './search-form.component';
+import { SearchFormComponent, SearchQuery } from './search-form.component';
 
 @Component({
   selector: 'littil-search',
   templateUrl: './search.component.html',
   providers: [{ provide: CoordinatesService, useClass: OpenStreetMapService }],
+  standalone: true,
+  imports: [
+    CommonModule,
+    LeafletModule,
+    ContentContainerComponent,
+    ButtonComponent,
+    MatCheckboxModule,
+    FormsModule,
+    ReactiveFormsModule,
+    FormInputSelectComponent,
+    FormInputTextComponent,
+    FooterComponent,
+    SearchFormComponent,
+  ],
 })
 export class SearchComponent {
   public selectedMarker: Marker | null = null;

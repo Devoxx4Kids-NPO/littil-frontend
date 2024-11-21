@@ -6,7 +6,7 @@ import { CompleteProfileGuardService } from './services/complete-profile-guard.s
 const routes: Routes = [
   {
     path: 'user',
-    loadChildren: () => import('./pages/user/user.module').then(m => m.UserModule),
+    loadChildren: () => import('./pages/user/user.routes').then(m => m.routes),
     canActivate: [CompleteProfileGuardService],
     resolve: {
       auth: AuthenticatorResolver,
@@ -14,7 +14,7 @@ const routes: Routes = [
   },
   {
     path: 'admin',
-    loadChildren: () => import('./pages/admin/admin.module').then(m => m.AdminModule),
+    loadChildren: () => import('./pages/admin/admin.routes').then(m => m.routes),
     canActivate: [CompleteProfileGuardService],
     resolve: {
       auth: AuthenticatorResolver,
@@ -38,7 +38,7 @@ const routes: Routes = [
   },
   {
     path: '**',
-    loadChildren: () =>
+    loadComponent: () =>
       import('./pages/not-found/not-found.component').then(m => m.NotFoundComponent),
   },
 ];

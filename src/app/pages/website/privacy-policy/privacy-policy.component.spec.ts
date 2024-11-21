@@ -1,9 +1,8 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { ReactiveFormsModule } from '@angular/forms';
-import { FormBaseComponent } from '../../../components/forms/form-base';
-import { TitleComponent } from '../../../components/title/title.component';
-import { ContentContainerComponent } from '../../../components/content-container/content-container.component';
-import {PrivacyPolicyComponent} from "./privacy-policy.component";
+import { ActivatedRoute } from '@angular/router';
+import { ActivatedRouteStub } from '@ngneat/spectator';
+import { PrivacyPolicyComponent } from './privacy-policy.component';
 
 describe('PrivacyPolicyComponent', () => {
   let component: PrivacyPolicyComponent;
@@ -12,12 +11,7 @@ describe('PrivacyPolicyComponent', () => {
   beforeEach(async () => {
     await TestBed.configureTestingModule({
       imports: [ReactiveFormsModule],
-      declarations: [
-        PrivacyPolicyComponent,
-        TitleComponent,
-        ContentContainerComponent,
-        FormBaseComponent,
-      ],
+      providers: [{ provide: ActivatedRoute, useValue: ActivatedRouteStub }],
     }).compileComponents();
 
     fixture = TestBed.createComponent(PrivacyPolicyComponent);

@@ -2,16 +2,12 @@ import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { AuthService } from '@auth0/auth0-angular';
 import { createComponentFactory, Spectator } from '@ngneat/spectator/jest';
-import { MockComponent, MockProvider } from 'ng-mocks';
+import { MockProvider } from 'ng-mocks';
 import { of } from 'rxjs';
 import { LittilSchoolService } from '../../services/littil-school/littil-school.service';
 import { LittilTeacherService } from '../../services/littil-teacher/littil-teacher.service';
 import { Roles } from '../../services/permission.controller';
 import { FormUtil } from '../../utils/form.util';
-import { ButtonComponent } from '../button/button.component';
-import { FormErrorMessageComponent } from '../forms/form-error-message/form-error-message.component';
-import { FormInputRadioComponent } from '../forms/radio-input/form-input-radio.component';
-import { FormInputTextComponent } from '../forms/text-input/form-input-text.component';
 import { CompleteProfileModalComponent } from './complete-profile-modal.component';
 
 describe('CompleteProfileModalComponent', () => {
@@ -21,13 +17,8 @@ describe('CompleteProfileModalComponent', () => {
 
   const createComponent = createComponentFactory({
     component: CompleteProfileModalComponent,
+    declareComponent: false,
     imports: [HttpClientTestingModule, ReactiveFormsModule, FormsModule],
-    declarations: [
-      MockComponent(FormInputTextComponent),
-      MockComponent(FormInputRadioComponent),
-      MockComponent(FormErrorMessageComponent),
-      MockComponent(ButtonComponent),
-    ],
     providers: [
       MockProvider(AuthService),
       MockProvider(LittilSchoolService, {

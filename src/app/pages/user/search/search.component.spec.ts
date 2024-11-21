@@ -1,22 +1,17 @@
 import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { MatCheckbox } from '@angular/material/checkbox';
 import { initialize as initializeGoogleMaps } from '@googlemaps/jest-mocks';
 import { Spectator } from '@ngneat/spectator';
 import { createRoutingFactory } from '@ngneat/spectator/jest';
-import { MockComponent, MockProvider } from 'ng-mocks';
+import { MockProvider } from 'ng-mocks';
 import { of } from 'rxjs';
-import { ButtonComponent } from '../../../components/button/button.component';
+import { ModalController } from '../../../components/modal/modal.controller';
 import { CoordinatesService } from '../../../services/coordinates/coordinates.service';
 import { LittilSchoolService } from '../../../services/littil-school/littil-school.service';
 import { LittilSearchService } from '../../../services/littil-search/littil-search.service';
 import { LittilTeacherService } from '../../../services/littil-teacher/littil-teacher.service';
-import {
-  PermissionController,
-  Roles,
-} from '../../../services/permission.controller';
+import { PermissionController, Roles } from '../../../services/permission.controller';
 import { SearchComponent } from './search.component';
-import {ModalController} from "../../../components/modal/modal.controller";
 
 // TODO: add unit tests
 describe('SearchComponent', () => {
@@ -24,12 +19,8 @@ describe('SearchComponent', () => {
 
   const createComponent = createRoutingFactory({
     component: SearchComponent,
-    declarations: [MockComponent(ButtonComponent), MockComponent(MatCheckbox)],
-    imports: [
-      HttpClientTestingModule,
-      ReactiveFormsModule,
-      FormsModule,
-    ],
+    declareComponent: false,
+    imports: [HttpClientTestingModule, ReactiveFormsModule, FormsModule],
     providers: [
       MockProvider(PermissionController, {
         getRoleType: () => Roles.GuestTeacher,

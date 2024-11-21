@@ -3,15 +3,12 @@ import { TestBed } from '@angular/core/testing';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { createComponentFactory, Spectator } from '@ngneat/spectator/jest';
-import { MockComponent, MockProvider } from 'ng-mocks';
+import { MockProvider } from 'ng-mocks';
 import { of } from 'rxjs';
 import { LittilContactService } from '../../services/littil-contact/littil-contact.service';
 import { LittilUserService } from '../../services/littil-user/littil-user.service';
 import { PermissionController } from '../../services/permission.controller';
 import { FormUtil } from '../../utils/form.util';
-import { ButtonComponent } from '../button/button.component';
-import { FormErrorMessageComponent } from '../forms/form-error-message/form-error-message.component';
-import { FormInputTextComponent } from '../forms/text-input/form-input-text.component';
 import { ContactModalComponent } from './contact-modal.component';
 
 describe('ContactModalComponent', () => {
@@ -25,11 +22,7 @@ describe('ContactModalComponent', () => {
 
   const createComponent = createComponentFactory({
     component: ContactModalComponent,
-    declarations: [
-      MockComponent(FormInputTextComponent),
-      MockComponent(FormErrorMessageComponent),
-      MockComponent(ButtonComponent),
-    ],
+    declareComponent: false,
     imports: [NoopAnimationsModule],
     providers: [
       MockProvider(LittilContactService, {

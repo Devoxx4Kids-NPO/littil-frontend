@@ -3,14 +3,10 @@ import { TestBed } from '@angular/core/testing';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { createComponentFactory, Spectator } from '@ngneat/spectator/jest';
-import { MockComponent, MockProvider } from 'ng-mocks';
+import { MockProvider } from 'ng-mocks';
 import { of } from 'rxjs';
 import { LittilUserService } from '../../services/littil-user/littil-user.service';
 import { FormUtil } from '../../utils/form.util';
-import { ButtonComponent } from '../button/button.component';
-import { FormErrorMessageComponent } from '../forms/form-error-message/form-error-message.component';
-import { FormInputPasswordComponent } from '../forms/password-input/form-input-password.component';
-import { FormInputTextComponent } from '../forms/text-input/form-input-text.component';
 import { IRegisterModalOutput, RegisterModalComponent } from './register-modal.component';
 
 describe('RegisterModalComponent', () => {
@@ -25,12 +21,7 @@ describe('RegisterModalComponent', () => {
 
   const createComponent = createComponentFactory({
     component: RegisterModalComponent,
-    declarations: [
-      MockComponent(FormInputTextComponent),
-      MockComponent(FormInputPasswordComponent),
-      MockComponent(FormErrorMessageComponent),
-      MockComponent(ButtonComponent),
-    ],
+    declareComponent: false,
     imports: [NoopAnimationsModule],
     providers: [
       MockProvider(LittilUserService, {

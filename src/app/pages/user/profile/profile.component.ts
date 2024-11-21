@@ -1,6 +1,14 @@
+import { CommonModule } from '@angular/common';
 import { HttpResponse } from '@angular/common/http';
 import { Component } from '@angular/core';
-import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import {
+  FormBuilder,
+  FormControl,
+  FormGroup,
+  ReactiveFormsModule,
+  Validators,
+} from '@angular/forms';
+import { MatCheckboxModule } from '@angular/material/checkbox';
 import { AuthService } from '@auth0/auth0-angular';
 import { firstValueFrom, Observable } from 'rxjs';
 import {
@@ -12,6 +20,13 @@ import {
   School,
   SchoolPostResource,
 } from '../../../api/generated';
+import { ButtonComponent } from '../../../components/button/button.component';
+import { ContentContainerComponent } from '../../../components/content-container/content-container.component';
+import { FooterComponent } from '../../../components/footer/footer.component';
+import { FormErrorMessageComponent } from '../../../components/forms/form-error-message/form-error-message.component';
+import { FormInputRadioComponent } from '../../../components/forms/radio-input/form-input-radio.component';
+import { FormInputTextComponent } from '../../../components/forms/text-input/form-input-text.component';
+import { ProfileContainerComponent } from '../../../components/profile-container/profile-container.component';
 import { AvailabilityService } from '../../../services/availability.service';
 import { LittilSchoolService } from '../../../services/littil-school/littil-school.service';
 import { LittilTeacherService } from '../../../services/littil-teacher/littil-teacher.service';
@@ -21,6 +36,19 @@ import { FormUtil } from '../../../utils/form.util';
 @Component({
   selector: 'littil-profile',
   templateUrl: './profile.component.html',
+  standalone: true,
+  imports: [
+    CommonModule,
+    ProfileContainerComponent,
+    ContentContainerComponent,
+    ButtonComponent,
+    MatCheckboxModule,
+    ReactiveFormsModule,
+    FormInputTextComponent,
+    FormInputRadioComponent,
+    FormErrorMessageComponent,
+    FooterComponent,
+  ],
 })
 export class ProfileComponent {
   private readonly roleType: Roles;
