@@ -24,6 +24,8 @@
     "name" : "Contact",
     "description" : "CRUD Operations"
   }, {
+    "name" : "Feedback"
+  }, {
     "name" : "Module",
     "description" : "Read Operation"
   }, {
@@ -53,6 +55,7 @@
       "get" : {
         "tags" : [ "Contact" ],
         "summary" : "Get all my contacts",
+        "description" : "List",
         "responses" : {
           "200" : {
             "description" : "Get all my contacts",
@@ -81,6 +84,7 @@
       "post" : {
         "tags" : [ "Contact" ],
         "summary" : "Send and save a contact",
+        "description" : "Send And Save",
         "requestBody" : {
           "content" : {
             "application/json" : {
@@ -148,10 +152,38 @@
         } ]
       }
     },
+    "/api/v1/feedback" : {
+      "post" : {
+        "tags" : [ "Feedback" ],
+        "description" : "Feedback",
+        "requestBody" : {
+          "content" : {
+            "application/json" : {
+              "schema" : {
+                "$ref" : "#/components/schemas/FeedbackPostResource"
+              }
+            }
+          }
+        },
+        "responses" : {
+          "200" : {
+            "description" : "Receive feedback and forward to mail",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/FeedbackPostResource"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
     "/api/v1/guest-teachers" : {
       "get" : {
         "tags" : [ "Teacher" ],
         "summary" : "Get all guest teachers",
+        "description" : "List",
         "responses" : {
           "200" : {
             "description" : "Get all guest teachers",
@@ -166,11 +198,11 @@
               }
             }
           },
-          "403" : {
-            "description" : "Not Allowed"
-          },
           "401" : {
             "description" : "Not Authorized"
+          },
+          "403" : {
+            "description" : "Not Allowed"
           }
         },
         "security" : [ {
@@ -180,6 +212,7 @@
       "put" : {
         "tags" : [ "Teacher" ],
         "summary" : "Create or update a teacher",
+        "description" : "Create Or Update",
         "requestBody" : {
           "content" : {
             "application/json" : {
@@ -266,11 +299,11 @@
               "application/json" : { }
             }
           },
-          "403" : {
-            "description" : "Not Allowed"
-          },
           "401" : {
             "description" : "Not Authorized"
+          },
+          "403" : {
+            "description" : "Not Allowed"
           }
         },
         "security" : [ {
@@ -282,6 +315,7 @@
       "get" : {
         "tags" : [ "Teacher" ],
         "summary" : "Fetch a specific teacher by Id",
+        "description" : "Get",
         "parameters" : [ {
           "name" : "id",
           "in" : "path",
@@ -337,11 +371,11 @@
           "404" : {
             "description" : "Teacher with specific Id was not found."
           },
-          "403" : {
-            "description" : "Not Allowed"
-          },
           "401" : {
             "description" : "Not Authorized"
+          },
+          "403" : {
+            "description" : "Not Allowed"
           }
         },
         "security" : [ {
@@ -351,6 +385,7 @@
       "delete" : {
         "tags" : [ "Teacher" ],
         "summary" : "Delete a teacher specified with an Id",
+        "description" : "Delete",
         "parameters" : [ {
           "name" : "id",
           "in" : "path",
@@ -384,133 +419,11 @@
         } ]
       }
     },
-    "/api/v1/guest-teachers/{id}/modules" : {
-      "get" : {
-        "tags" : [ "Teacher Modules" ],
-        "summary" : "Fetch the list of modules for a specific guestTeacher",
-        "parameters" : [ {
-          "name" : "id",
-          "in" : "path",
-          "required" : true,
-          "schema" : {
-            "$ref" : "#/components/schemas/UUID"
-          }
-        } ],
-        "responses" : {
-          "200" : {
-            "description" : "Modules for guestTeacher with Id found.",
-            "content" : {
-              "application/json" : {
-                "schema" : {
-                  "type" : "array",
-                  "items" : {
-                    "$ref" : "#/components/schemas/Module"
-                  }
-                }
-              }
-            }
-          },
-          "404" : {
-            "description" : "GuestTeacher with specific Id was not found."
-          },
-          "401" : {
-            "description" : "Current user is not owner of this guestTeacher"
-          },
-          "403" : {
-            "description" : "Not Allowed"
-          }
-        },
-        "security" : [ {
-          "Auth0" : [ ]
-        } ]
-      },
-      "post" : {
-        "tags" : [ "Teacher Modules" ],
-        "summary" : "Add an existing module to the list of modules for a specific guestTeacher",
-        "parameters" : [ {
-          "name" : "id",
-          "in" : "path",
-          "required" : true,
-          "schema" : {
-            "$ref" : "#/components/schemas/UUID"
-          }
-        } ],
-        "requestBody" : {
-          "content" : {
-            "application/json" : {
-              "schema" : {
-                "$ref" : "#/components/schemas/Module"
-              }
-            }
-          }
-        },
-        "responses" : {
-          "201" : {
-            "description" : "Successfully added the module for the given guestTeacher.",
-            "content" : {
-              "application/json" : { }
-            }
-          },
-          "404" : {
-            "description" : "The guestTeacher or module to add was not found."
-          },
-          "401" : {
-            "description" : "Current user is not owner of this guestTeacher"
-          },
-          "403" : {
-            "description" : "Not Allowed"
-          }
-        },
-        "security" : [ {
-          "Auth0" : [ ]
-        } ]
-      }
-    },
-    "/api/v1/guest-teachers/{id}/modules/{module_id}" : {
-      "delete" : {
-        "tags" : [ "Teacher Modules" ],
-        "summary" : "Delete a module with an id for a given guestTeacher",
-        "parameters" : [ {
-          "name" : "id",
-          "in" : "path",
-          "required" : true,
-          "schema" : {
-            "$ref" : "#/components/schemas/UUID"
-          }
-        }, {
-          "name" : "module_id",
-          "in" : "path",
-          "required" : true,
-          "schema" : {
-            "$ref" : "#/components/schemas/UUID"
-          }
-        } ],
-        "responses" : {
-          "200" : {
-            "description" : "Successfully deleted the module for the given guestTeacher.",
-            "content" : {
-              "application/json" : { }
-            }
-          },
-          "404" : {
-            "description" : "The guestTeacher or module to delete was not found."
-          },
-          "401" : {
-            "description" : "Current user is not owner of this guestTeacher"
-          },
-          "403" : {
-            "description" : "Not Allowed"
-          }
-        },
-        "security" : [ {
-          "Auth0" : [ ]
-        } ]
-      }
-    },
     "/api/v1/modules" : {
       "get" : {
         "tags" : [ "Module" ],
         "summary" : "Get all modules",
+        "description" : "List",
         "responses" : {
           "200" : {
             "description" : "Get all modules",
@@ -525,11 +438,11 @@
               }
             }
           },
-          "403" : {
-            "description" : "Not Allowed"
-          },
           "401" : {
             "description" : "Not Authorized"
+          },
+          "403" : {
+            "description" : "Not Allowed"
           }
         },
         "security" : [ {
@@ -541,6 +454,7 @@
       "get" : {
         "tags" : [ "School" ],
         "summary" : "Get all schools",
+        "description" : "List",
         "responses" : {
           "200" : {
             "description" : "Get all schools",
@@ -555,11 +469,11 @@
               }
             }
           },
-          "403" : {
-            "description" : "Not Allowed"
-          },
           "401" : {
             "description" : "Not Authorized"
+          },
+          "403" : {
+            "description" : "Not Allowed"
           }
         },
         "security" : [ {
@@ -569,6 +483,7 @@
       "put" : {
         "tags" : [ "School" ],
         "summary" : "Create or update a school",
+        "description" : "Create Or Update",
         "requestBody" : {
           "content" : {
             "application/json" : {
@@ -661,6 +576,7 @@
       "get" : {
         "tags" : [ "School" ],
         "summary" : "Fetch schools via name",
+        "description" : "Get By Name",
         "parameters" : [ {
           "name" : "name",
           "in" : "path",
@@ -686,11 +602,11 @@
           "404" : {
             "description" : "School with specific name was not found."
           },
-          "403" : {
-            "description" : "Not Allowed"
-          },
           "401" : {
             "description" : "Not Authorized"
+          },
+          "403" : {
+            "description" : "Not Allowed"
           }
         },
         "security" : [ {
@@ -702,6 +618,7 @@
       "get" : {
         "tags" : [ "School" ],
         "summary" : "Fetch a specific school by Id",
+        "description" : "Get",
         "parameters" : [ {
           "name" : "id",
           "in" : "path",
@@ -753,11 +670,11 @@
           "404" : {
             "description" : "School with specific Id was not found."
           },
-          "403" : {
-            "description" : "Not Allowed"
-          },
           "401" : {
             "description" : "Not Authorized"
+          },
+          "403" : {
+            "description" : "Not Allowed"
           }
         },
         "security" : [ {
@@ -767,6 +684,7 @@
       "delete" : {
         "tags" : [ "School" ],
         "summary" : "Delete a school specified with an Id",
+        "description" : "Delete",
         "parameters" : [ {
           "name" : "id",
           "in" : "path",
@@ -797,133 +715,11 @@
         } ]
       }
     },
-    "/api/v1/schools/{id}/modules" : {
-      "get" : {
-        "tags" : [ "School Modules" ],
-        "summary" : "Fetch the list of modules for a specific school",
-        "parameters" : [ {
-          "name" : "id",
-          "in" : "path",
-          "required" : true,
-          "schema" : {
-            "$ref" : "#/components/schemas/UUID"
-          }
-        } ],
-        "responses" : {
-          "200" : {
-            "description" : "Modules for school with Id found.",
-            "content" : {
-              "application/json" : {
-                "schema" : {
-                  "type" : "array",
-                  "items" : {
-                    "$ref" : "#/components/schemas/Module"
-                  }
-                }
-              }
-            }
-          },
-          "404" : {
-            "description" : "School with specific Id was not found."
-          },
-          "401" : {
-            "description" : "Current user is not owner of this school"
-          },
-          "403" : {
-            "description" : "Not Allowed"
-          }
-        },
-        "security" : [ {
-          "Auth0" : [ ]
-        } ]
-      },
-      "post" : {
-        "tags" : [ "School Modules" ],
-        "summary" : "Add an existing module to the list of modules for a specific school",
-        "parameters" : [ {
-          "name" : "id",
-          "in" : "path",
-          "required" : true,
-          "schema" : {
-            "$ref" : "#/components/schemas/UUID"
-          }
-        } ],
-        "requestBody" : {
-          "content" : {
-            "application/json" : {
-              "schema" : {
-                "$ref" : "#/components/schemas/Module"
-              }
-            }
-          }
-        },
-        "responses" : {
-          "201" : {
-            "description" : "Successfully added the module for the given school.",
-            "content" : {
-              "application/json" : { }
-            }
-          },
-          "404" : {
-            "description" : "The school or module to add was not found."
-          },
-          "401" : {
-            "description" : "Current user is not owner of this school"
-          },
-          "403" : {
-            "description" : "Not Allowed"
-          }
-        },
-        "security" : [ {
-          "Auth0" : [ ]
-        } ]
-      }
-    },
-    "/api/v1/schools/{id}/modules/{module_id}" : {
-      "delete" : {
-        "tags" : [ "School Modules" ],
-        "summary" : "Delete a module with an id for a given school",
-        "parameters" : [ {
-          "name" : "id",
-          "in" : "path",
-          "required" : true,
-          "schema" : {
-            "$ref" : "#/components/schemas/UUID"
-          }
-        }, {
-          "name" : "module_id",
-          "in" : "path",
-          "required" : true,
-          "schema" : {
-            "$ref" : "#/components/schemas/UUID"
-          }
-        } ],
-        "responses" : {
-          "200" : {
-            "description" : "Successfully deleted the module for the given school.",
-            "content" : {
-              "application/json" : { }
-            }
-          },
-          "404" : {
-            "description" : "The school or module to delete was not found."
-          },
-          "401" : {
-            "description" : "Current user is not owner of this school"
-          },
-          "403" : {
-            "description" : "Not Allowed"
-          }
-        },
-        "security" : [ {
-          "Auth0" : [ ]
-        } ]
-      }
-    },
     "/api/v1/search" : {
       "get" : {
         "tags" : [ "Search" ],
         "summary" : "Fetch a list of teachers or school ordered by distance",
+        "description" : "Get",
         "parameters" : [ {
           "name" : "expectedModules",
           "in" : "query",
@@ -996,11 +792,11 @@
               }
             }
           },
-          "403" : {
-            "description" : "Not Allowed"
-          },
           "401" : {
             "description" : "Not Authorized"
+          },
+          "403" : {
+            "description" : "Not Allowed"
           }
         },
         "security" : [ {
@@ -1012,6 +808,7 @@
       "get" : {
         "tags" : [ "User settings" ],
         "summary" : "Get all user settings for current user",
+        "description" : "List",
         "responses" : {
           "200" : {
             "description" : "Get all user settings",
@@ -1026,11 +823,11 @@
               }
             }
           },
-          "403" : {
-            "description" : "Not Allowed"
-          },
           "401" : {
             "description" : "Not Authorized"
+          },
+          "403" : {
+            "description" : "Not Allowed"
           }
         },
         "security" : [ {
@@ -1040,6 +837,7 @@
       "post" : {
         "tags" : [ "User settings" ],
         "summary" : "Create a new user setting",
+        "description" : "Create",
         "requestBody" : {
           "content" : {
             "application/json" : {
@@ -1098,11 +896,11 @@
               "application/json" : { }
             }
           },
-          "403" : {
-            "description" : "Not Allowed"
-          },
           "401" : {
             "description" : "Not Authorized"
+          },
+          "403" : {
+            "description" : "Not Allowed"
           }
         },
         "security" : [ {
@@ -1114,6 +912,7 @@
       "get" : {
         "tags" : [ "User settings" ],
         "summary" : "Get user setting by key for the current user",
+        "description" : "Get",
         "parameters" : [ {
           "name" : "key",
           "in" : "path",
@@ -1136,11 +935,11 @@
               }
             }
           },
-          "403" : {
-            "description" : "Not Allowed"
-          },
           "401" : {
             "description" : "Not Authorized"
+          },
+          "403" : {
+            "description" : "Not Allowed"
           }
         },
         "security" : [ {
@@ -1150,6 +949,7 @@
       "put" : {
         "tags" : [ "User settings" ],
         "summary" : "Update user setting by key for the current user",
+        "description" : "Update",
         "parameters" : [ {
           "name" : "key",
           "in" : "path",
@@ -1222,11 +1022,11 @@
               "application/json" : { }
             }
           },
-          "403" : {
-            "description" : "Not Allowed"
-          },
           "401" : {
             "description" : "Not Authorized"
+          },
+          "403" : {
+            "description" : "Not Allowed"
           }
         },
         "security" : [ {
@@ -1236,6 +1036,7 @@
       "delete" : {
         "tags" : [ "User settings" ],
         "summary" : "Delete a user setting specified with an key",
+        "description" : "Delete",
         "parameters" : [ {
           "name" : "key",
           "in" : "path",
@@ -1257,11 +1058,11 @@
               "application/json" : { }
             }
           },
-          "403" : {
-            "description" : "Not Allowed"
-          },
           "401" : {
             "description" : "Not Authorized"
+          },
+          "403" : {
+            "description" : "Not Allowed"
           }
         },
         "security" : [ {
@@ -1273,6 +1074,7 @@
       "get" : {
         "tags" : [ "Users" ],
         "summary" : "Get all users",
+        "description" : "List",
         "responses" : {
           "200" : {
             "description" : "Get all users",
@@ -1281,17 +1083,17 @@
                 "schema" : {
                   "type" : "array",
                   "items" : {
-                    "$ref" : "#/components/schemas/User"
+                    "$ref" : "#/components/schemas/UserDTO"
                   }
                 }
               }
             }
           },
-          "403" : {
-            "description" : "Not Allowed"
-          },
           "401" : {
             "description" : "Not Authorized"
+          },
+          "403" : {
+            "description" : "Not Allowed"
           }
         },
         "security" : [ {
@@ -1301,6 +1103,7 @@
       "post" : {
         "tags" : [ "Users" ],
         "summary" : "Create a new user",
+        "description" : "Create",
         "requestBody" : {
           "content" : {
             "application/json" : {
@@ -1316,30 +1119,7 @@
             "content" : {
               "application/json" : {
                 "schema" : {
-                  "required" : [ "emailAddress" ],
-                  "type" : "object",
-                  "properties" : {
-                    "id" : {
-                      "$ref" : "#/components/schemas/UUID"
-                    },
-                    "emailAddress" : {
-                      "minLength" : 1,
-                      "type" : "string"
-                    },
-                    "provider" : {
-                      "$ref" : "#/components/schemas/Provider"
-                    },
-                    "providerId" : {
-                      "type" : "string"
-                    },
-                    "roles" : {
-                      "uniqueItems" : true,
-                      "type" : "array",
-                      "items" : {
-                        "type" : "string"
-                      }
-                    }
-                  }
+                  "$ref" : "#/components/schemas/User"
                 }
               }
             }
@@ -1393,6 +1173,7 @@
       "get" : {
         "tags" : [ "Users" ],
         "summary" : "Fetch a specific user by provider Id",
+        "description" : "Get",
         "parameters" : [ {
           "name" : "id",
           "in" : "path",
@@ -1407,30 +1188,7 @@
             "content" : {
               "application/json" : {
                 "schema" : {
-                  "required" : [ "emailAddress" ],
-                  "type" : "object",
-                  "properties" : {
-                    "id" : {
-                      "$ref" : "#/components/schemas/UUID"
-                    },
-                    "emailAddress" : {
-                      "minLength" : 1,
-                      "type" : "string"
-                    },
-                    "provider" : {
-                      "$ref" : "#/components/schemas/Provider"
-                    },
-                    "providerId" : {
-                      "type" : "string"
-                    },
-                    "roles" : {
-                      "uniqueItems" : true,
-                      "type" : "array",
-                      "items" : {
-                        "type" : "string"
-                      }
-                    }
-                  }
+                  "$ref" : "#/components/schemas/User"
                 }
               }
             }
@@ -1454,6 +1212,7 @@
       "get" : {
         "tags" : [ "Users" ],
         "summary" : "Fetch a specific user by Id",
+        "description" : "Get",
         "parameters" : [ {
           "name" : "id",
           "in" : "path",
@@ -1468,30 +1227,7 @@
             "content" : {
               "application/json" : {
                 "schema" : {
-                  "required" : [ "emailAddress" ],
-                  "type" : "object",
-                  "properties" : {
-                    "id" : {
-                      "$ref" : "#/components/schemas/UUID"
-                    },
-                    "emailAddress" : {
-                      "minLength" : 1,
-                      "type" : "string"
-                    },
-                    "provider" : {
-                      "$ref" : "#/components/schemas/Provider"
-                    },
-                    "providerId" : {
-                      "type" : "string"
-                    },
-                    "roles" : {
-                      "uniqueItems" : true,
-                      "type" : "array",
-                      "items" : {
-                        "type" : "string"
-                      }
-                    }
-                  }
+                  "$ref" : "#/components/schemas/User"
                 }
               }
             }
@@ -1499,11 +1235,11 @@
           "404" : {
             "description" : "User with specific Id was not found."
           },
-          "403" : {
-            "description" : "Not Allowed"
-          },
           "401" : {
             "description" : "Not Authorized"
+          },
+          "403" : {
+            "description" : "Not Allowed"
           }
         },
         "security" : [ {
@@ -1513,6 +1249,7 @@
       "delete" : {
         "tags" : [ "Users" ],
         "summary" : "Delete a user specified with an id",
+        "description" : "Delete",
         "parameters" : [ {
           "name" : "id",
           "in" : "path",
@@ -1528,11 +1265,11 @@
           "404" : {
             "description" : "The user to delete was not found."
           },
-          "403" : {
-            "description" : "Not Allowed"
-          },
           "401" : {
             "description" : "Not Authorized"
+          },
+          "403" : {
+            "description" : "Not Allowed"
           }
         },
         "security" : [ {
@@ -1544,6 +1281,7 @@
       "get" : {
         "tags" : [ "Teacher Modules" ],
         "summary" : "Fetch the list of modules for a specific guestTeacher",
+        "description" : "Get Guest Teacher Modules",
         "parameters" : [ {
           "name" : "id",
           "in" : "path",
@@ -1583,6 +1321,7 @@
       "post" : {
         "tags" : [ "Teacher Modules" ],
         "summary" : "Update the list of modules for a specific guestTeacher",
+        "description" : "Save Guest Teacher Modules",
         "parameters" : [ {
           "name" : "id",
           "in" : "path",
@@ -1629,6 +1368,7 @@
       "get" : {
         "tags" : [ "School Modules" ],
         "summary" : "Fetch the list of modules for a specific school",
+        "description" : "Get School Modules",
         "parameters" : [ {
           "name" : "id",
           "in" : "path",
@@ -1668,6 +1408,7 @@
       "post" : {
         "tags" : [ "School Modules" ],
         "summary" : "Update the list of modules for a specific school",
+        "description" : "Save School Modules",
         "parameters" : [ {
           "name" : "id",
           "in" : "path",
@@ -1745,6 +1486,11 @@
           }
         }
       },
+      "Date" : {
+        "format" : "date",
+        "type" : "string",
+        "example" : "2022-03-10"
+      },
       "DayOfWeek" : {
         "enum" : [ "MONDAY", "TUESDAY", "WEDNESDAY", "THURSDAY", "FRIDAY", "SATURDAY", "SUNDAY" ],
         "type" : "string"
@@ -1757,6 +1503,21 @@
           },
           "message" : {
             "type" : "string"
+          }
+        }
+      },
+      "FeedbackPostResource" : {
+        "type" : "object",
+        "properties" : {
+          "feedbackType" : {
+            "type" : "string"
+          },
+          "message" : {
+            "type" : "string"
+          },
+          "timestamp" : {
+            "format" : "int64",
+            "type" : "integer"
           }
         }
       },
@@ -1991,6 +1752,39 @@
             "items" : {
               "type" : "string"
             }
+          }
+        }
+      },
+      "UserDTO" : {
+        "required" : [ "emailAddress" ],
+        "type" : "object",
+        "properties" : {
+          "id" : {
+            "$ref" : "#/components/schemas/UUID"
+          },
+          "emailAddress" : {
+            "minLength" : 1,
+            "type" : "string"
+          },
+          "provider" : {
+            "$ref" : "#/components/schemas/Provider"
+          },
+          "providerId" : {
+            "type" : "string"
+          },
+          "roles" : {
+            "uniqueItems" : true,
+            "type" : "array",
+            "items" : {
+              "type" : "string"
+            }
+          },
+          "loginsCount" : {
+            "format" : "int32",
+            "type" : "integer"
+          },
+          "lastLogin" : {
+            "$ref" : "#/components/schemas/Date"
           }
         }
       },

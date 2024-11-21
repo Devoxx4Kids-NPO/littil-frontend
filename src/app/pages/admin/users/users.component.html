@@ -8,6 +8,8 @@
         <th>roles</th>
         <th>Provider</th>
         <th>providerId</th>
+        <th>logins</th>
+        <th>Last Login</th>
       </tr>
       </thead>
       <tbody>
@@ -16,6 +18,9 @@
         <td>{{ user.roles }}</td>
         <td>{{ user.provider }}</td>
         <td>{{ user.providerId }}</td>
+        <td>{{ user.loginsCount }}</td>
+        <td>{{ user.lastLogin | date: 'dd-MM-yyyy' }}</td>
+
       </tr>
       </tbody>
     </table>
