@@ -34,6 +34,7 @@ const routes: Routes = [
   {
     path: '',
     loadChildren: () => import('./pages/website/website.routes').then(m => m.websiteRoutes),
+    canActivate: [CompleteProfileGuardService],
     resolve: { auth: AuthenticatorResolver },
   },
   {
