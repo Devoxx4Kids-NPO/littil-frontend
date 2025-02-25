@@ -7,7 +7,20 @@ describe('FormInputTextComponent', () => {
   let spectator: Spectator<FormInputTextComponent>;
   let onChangeSpy: jest.SpyInstance;
   let onTouchedSpy: jest.SpyInstance;
-  const createComponent = createComponentFactory(FormInputTextComponent);
+
+  const createComponent = createComponentFactory({
+    component: FormInputTextComponent,
+    imports: [FormInputTextComponent],
+    providers: [
+      FormInputTextComponent,
+      {
+        provide: NG_VALUE_ACCESSOR,
+        useExisting: FormInputTextComponent,
+        multi: true
+      }
+    ],
+    declareComponent: false
+  });
 
   beforeEach(() => {
     spectator = createComponent();

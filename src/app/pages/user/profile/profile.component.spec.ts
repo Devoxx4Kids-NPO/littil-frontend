@@ -14,6 +14,7 @@ import { LittilSchoolService } from '../../../services/littil-school/littil-scho
 import { LittilTeacherService } from '../../../services/littil-teacher/littil-teacher.service';
 import { PermissionController, Roles } from '../../../services/permission.controller';
 import { ProfileComponent } from './profile.component';
+import { RouterTestingModule } from '@angular/router/testing';
 
 const updateForm = (user: School | GuestTeacher, form: FormGroup) => {
   form.controls['firstName'].setValue(user.firstName);
@@ -172,7 +173,10 @@ describe('SchoolProfileComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ProfileComponent],
+      imports: [
+        RouterTestingModule,
+        ProfileComponent
+      ],
       providers: [
         FormBuilder,
         MockProvider(PermissionController, {

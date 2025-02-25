@@ -7,7 +7,20 @@ describe('FormInputSelectComponent', () => {
   let spectator: Spectator<FormInputSelectComponent>;
   let onChangeSpy: jest.SpyInstance;
   let onTouchedSpy: jest.SpyInstance;
-  const createComponent = createComponentFactory(FormInputSelectComponent);
+
+  const createComponent = createComponentFactory({
+    component: FormInputSelectComponent,
+    imports: [FormInputSelectComponent],
+    providers: [
+      FormInputSelectComponent,
+      {
+        provide: NG_VALUE_ACCESSOR,
+        useExisting: FormInputSelectComponent,
+        multi: true
+      }
+    ],
+    declareComponent: false
+  });
 
   beforeEach(() => {
     spectator = createComponent();

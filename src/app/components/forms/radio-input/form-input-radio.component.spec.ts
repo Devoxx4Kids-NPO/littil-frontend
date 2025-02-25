@@ -1,17 +1,28 @@
-import { NG_VALUE_ACCESSOR } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { createFakeEvent, createTouchEvent, SpectatorElement } from '@ngneat/spectator';
 import { createComponentFactory, Spectator } from '@ngneat/spectator/jest';
 import { FormInputRadioComponent } from './form-input-radio.component';
 
 describe('FormInputRadioComponent', () => {
   let spectator: Spectator<FormInputRadioComponent>;
+
+  const createComponent = createComponentFactory({
+    component: FormInputRadioComponent,
+    imports: [FormsModule, ReactiveFormsModule],
+    providers: [
+      FormInputRadioComponent,
+      {
+        provide: NG_VALUE_ACCESSOR,
+        useExisting: FormInputRadioComponent,
+        multi: true
+      }
+    ],
+    declareComponent: false
+  });
+
   let onChangeSpy: jest.SpyInstance;
   let onValueChangedSpy: jest.SpyInstance;
   let onTouchedSpy: jest.SpyInstance;
-  const createComponent = createComponentFactory({
-    component: FormInputRadioComponent,
-    declareComponent: false,
-  });
 
   beforeEach(() => {
     spectator = createComponent();
