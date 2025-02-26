@@ -36,13 +36,13 @@ export class CompleteProfilePageComponent implements OnInit {
     if (condition) {
       const dialogRef = this.dialog.open(CompleteProfileModalComponent, {
         width: '800px',
-        // other config options
-        disableClose: true  // prevents closing by clicking outside
+        disableClose: true
       });
 
       dialogRef.afterClosed().subscribe(result => {
-        // Handle modal close
-        console.log('modal closed', result);
+        if (result === true) {
+          this.router.navigateByUrl('/user/search');
+        }
       });
     }
   }

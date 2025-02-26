@@ -8,7 +8,7 @@ import {
   ReactiveFormsModule,
   Validators,
 } from '@angular/forms';
-import { MatDialog, MatDialogModule } from '@angular/material/dialog';
+import { MatDialog, MatDialogModule, MatDialogRef } from '@angular/material/dialog';
 import { AuthService } from '@auth0/auth0-angular';
 import { firstValueFrom, Observable, Subscription, switchMap } from 'rxjs';
 import {
@@ -110,7 +110,8 @@ export class CompleteProfileModalComponent
   constructor(
     private readonly guestTeacherService: LittilTeacherService,
     private readonly schoolService: LittilSchoolService,
-    private readonly authService: AuthService
+    private readonly authService: AuthService,
+    private dialogRef: MatDialogRef<CompleteProfileModalComponent>
   ) {}
 
   public ngOnInit(): void {
@@ -164,7 +165,8 @@ export class CompleteProfileModalComponent
           return firstValueFrom(
             this.authService.getAccessTokenSilently().pipe(switchMap(() => this.authService.user$))
           ).then(() => {
-            return this.close();
+            this.dialogRef.close(true);
+            return true;
           });
         })
         .catch((error: any) => {
@@ -176,6 +178,7 @@ export class CompleteProfileModalComponent
   }
 
   public logOut(): void {
+    this.dialogRef.close(false);
     this.authService.logout();
   }
 }
