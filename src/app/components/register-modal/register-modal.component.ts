@@ -45,6 +45,7 @@ import { IModalComponent } from '../modal/modal.controller';
         'visible',
         style({
           opacity: 1,
+          padding: '20px'
         })
       ),
       transition('hidden => visible', [animate('200ms')]),
