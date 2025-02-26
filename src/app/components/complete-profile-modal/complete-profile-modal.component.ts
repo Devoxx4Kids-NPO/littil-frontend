@@ -8,7 +8,7 @@ import {
   ReactiveFormsModule,
   Validators,
 } from '@angular/forms';
-import { MatDialogModule } from '@angular/material/dialog';
+import { MatDialog, MatDialogModule } from '@angular/material/dialog';
 import { AuthService } from '@auth0/auth0-angular';
 import { firstValueFrom, Observable, Subscription, switchMap } from 'rxjs';
 import {
@@ -49,6 +49,15 @@ import { IModalComponent } from '../modal/modal.controller';
       ),
       transition('hidden => visible', [animate('200ms')]),
     ]),
+  ],
+  styles: [
+    `
+    .modal-content {
+      display: block;
+      visibility: visible;
+      padding: 20px;
+    }
+    `,
   ],
   standalone: true,
   imports: [
