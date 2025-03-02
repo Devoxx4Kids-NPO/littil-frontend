@@ -45,6 +45,7 @@
           tabindex="-1"
           id="menu-item-0"
           [routerLink]="'/user/profile'"
+          data-test="profiel-btn"
           >Profielinstellingen</a
         >
       </div>
@@ -69,6 +70,7 @@
   [color]="'yellow'"
   [inline]="true"
   data-test="login-btn"
+  data-cy="loginBtn"
   (click)="openLoginModal()"
   >Inloggen
 </littil-button>
