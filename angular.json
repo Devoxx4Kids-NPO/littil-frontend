@@ -95,6 +95,41 @@
           "options": {
             "browserTarget": "littil-org-website:build"
           }
+        },
+        "cypress-run": {
+          "builder": "@cypress/schematic:cypress",
+          "options": {
+            "devServerTarget": "littil-org-website:serve"
+          },
+          "configurations": {
+            "production": {
+              "devServerTarget": "littil-org-website:serve:production"
+            }
+          }
+        },
+        "cypress-open": {
+          "builder": "@cypress/schematic:cypress",
+          "options": {
+            "watch": true,
+            "headless": false
+          },
+          "configurations": {
+            "production": {
+              "devServerTarget": "littil-org-website:serve:production"
+            }
+          }
+        },
+        "e2e": {
+          "builder": "@cypress/schematic:cypress",
+          "options": {
+            "watch": true,
+            "headless": false
+          },
+          "configurations": {
+            "production": {
+              "devServerTarget": "littil-org-website:serve:production"
+            }
+          }
         }
       }
     }
