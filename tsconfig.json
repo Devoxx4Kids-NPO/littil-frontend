@@ -20,12 +20,13 @@
     "module": "es2020",
     "esModuleInterop": true,
     "lib": ["es2020", "dom"],
-    "types": ["google.maps"]
+    "types": ["google.maps", "cypress", "node"]
   },
   "angularCompilerOptions": {
     "enableI18nLegacyMessageIdFormat": false,
     "strictInjectionParameters": true,
     "strictInputAccessModifiers": true,
     "strictTemplates": true
-  }
+  },
+  "include": ["**/*.ts"],
 }

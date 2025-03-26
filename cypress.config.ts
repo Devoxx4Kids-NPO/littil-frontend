@@ -1,17 +1,41 @@
-import { defineConfig } from 'cypress'
+import { defineConfig } from 'cypress';
+import webpack from '@cypress/webpack-preprocessor';
+import { addCucumberPreprocessorPlugin } from '@badeball/cypress-cucumber-preprocessor';
 
 export default defineConfig({
-  videosFolder: 'cypress/videos',
-  screenshotsFolder: 'cypress/screenshots',
-  fixturesFolder: 'cypress/fixtures',
-  projectId: 'd6gihf',
   e2e: {
-    // // We've imported your old cypress plugins here.
-    // // You may want to clean this up later by importing these.
-    // setupNodeEvents(on, config) {
-    //   return require('./cypress/plugins/index.js')(on, config)
-    // },
-    baseUrl: 'http://localhost:4200',
-    specPattern: 'cypress/e2e/**/*.{js,jsx,ts,tsx}',
+    baseUrl: 'http://localhost:4200', // Adjust to your app's base URL
+    specPattern: '**/*.feature', // Path to your feature files
+    async setupNodeEvents(on, config) {
+      await addCucumberPreprocessorPlugin(on, config);
+      on(
+        'file:preprocessor',
+        webpack({
+          webpackOptions: {
+            resolve: {
+              extensions: ['.ts', '.js'],
+            },
+            module: {
+              rules: [
+                {
+                  test: /\.ts$/,
+                  exclude: /node_modules/,
+                  use: 'ts-loader',
+                },
+                {
+                  test: /\.feature$/, use: [
+                    {
+                      loader: '@badeball/cypress-cucumber-preprocessor/webpack',
+                      options: config,
+                    },
+                  ],
+                },
+              ],
+            },
+          },
+        })
+      );
+      return config;
+    },
   },
-})
+});
