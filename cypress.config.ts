@@ -3,6 +3,9 @@ import webpack from '@cypress/webpack-preprocessor';
 import { addCucumberPreprocessorPlugin } from '@badeball/cypress-cucumber-preprocessor';
 
 export default defineConfig({
+  env: {
+    mailHogUrl: "http://localhost:8025", // Adjust the port if needed
+  },
   e2e: {
     baseUrl: 'http://localhost:4200', // Adjust to your app's base URL
     specPattern: '**/*.feature', // Path to your feature files
