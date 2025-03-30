@@ -23,6 +23,8 @@ import { RegisterModalComponent } from './components/register-modal/register-mod
 import { UserMenuComponent } from './components/user-menu/user-menu.component';
 import { FeedbackFinProvider } from './feedback/feedbackfin.provider';
 import { interceptorProviders } from './interceptors/http-interceptors';
+import { CompleteProfileGuardService } from './services/complete-profile-guard.service';
+import { PermissionController } from './services/permission.controller';
 
 const littilConfig = getLittilConfigFromWindow();
 
@@ -110,6 +112,8 @@ const cookieConfig: NgcCookieConsentConfig = {
       cacheLocation: environment.production ? undefined : 'localstorage',
     }),
     provideHttpClient(withInterceptorsFromDi()),
+    CompleteProfileGuardService,
+    PermissionController,
   ],
 })
 export class AppModule {}

@@ -5,12 +5,15 @@ import { CompleteProfileGuardService } from './services/complete-profile-guard.s
 
 const routes: Routes = [
   {
+    path: '',
+    loadChildren: () => import('./pages/website/website.routes').then(m => m.websiteRoutes),
+    canActivate: [CompleteProfileGuardService],
+  },
+  {
     path: 'user',
     loadChildren: () => import('./pages/user/user.routes').then(m => m.routes),
-    // canActivate: [CompleteProfileGuardService],
-    resolve: {
-      auth: AuthenticatorResolver,
-    },
+    canActivate: [CompleteProfileGuardService],
+    resolve: { auth: AuthenticatorResolver },
   },
   {
     path: 'admin',
@@ -32,12 +35,6 @@ const routes: Routes = [
     },
   },
   {
-    path: '',
-    loadChildren: () => import('./pages/website/website.routes').then(m => m.websiteRoutes),
-    canActivate: [CompleteProfileGuardService],
-    resolve: { auth: AuthenticatorResolver },
-  },
-  {
     path: '**',
     loadComponent: () =>
       import('./pages/not-found/not-found.component').then(m => m.NotFoundComponent),
@@ -48,9 +45,10 @@ const routes: Routes = [
   imports: [
     RouterModule.forRoot(routes, {
       scrollPositionRestoration: 'top',
-      enableTracing: false, // debugging purpose
+      enableTracing: true,
     }),
   ],
   exports: [RouterModule],
+  providers: [CompleteProfileGuardService]
 })
 export class AppRoutingModule {}

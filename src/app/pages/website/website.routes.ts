@@ -1,17 +1,13 @@
 import { Routes } from '@angular/router';
+import { HomepageComponent } from './homepage/homepage.component';
 
 export const websiteRoutes: Routes = [
   {
     path: '',
-    redirectTo: 'home',
-    pathMatch: 'full',
-  },
-  {
-    path: 'home',
+    component: HomepageComponent,
     data: {
       menuText: 'Home',
     },
-    loadComponent: () => import('./homepage/homepage.component').then(m => m.HomepageComponent),
   },
   {
     path: 'about-us',
@@ -73,3 +69,6 @@ export const websiteRoutes: Routes = [
       import('./disclaimer/disclaimer.component').then(m => m.DisclaimerComponent),
   },
 ];
+
+// Add this for debugging
+console.log('Website routes loaded');
