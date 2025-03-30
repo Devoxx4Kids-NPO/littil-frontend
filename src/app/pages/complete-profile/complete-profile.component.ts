@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { CompleteProfileModalComponent } from '../../components/complete-profile-modal/complete-profile-modal.component';
 import { IModalComponentOptions, ModalController } from '../../components/modal/modal.controller';
-import { PermissionController } from '../../services/permission.controller';
+import { PermissionController, Roles } from '../../services/permission.controller';
 import { MatDialog } from '@angular/material/dialog';
 @Component({
   selector: 'littil-complete-profile',
@@ -41,6 +41,7 @@ export class CompleteProfilePageComponent implements OnInit {
 
       dialogRef.afterClosed().subscribe(result => {
         if (result === true) {
+          console.log('setting role type to guest teacher:', this.permissionController.getRoleType());
           this.router.navigateByUrl('/user/search');
         }
       });

@@ -9,7 +9,7 @@ import {
   Validators,
 } from '@angular/forms';
 import { MatDialog, MatDialogModule, MatDialogRef } from '@angular/material/dialog';
-import { AuthService } from '@auth0/auth0-angular';
+import { AuthService, User } from '@auth0/auth0-angular';
 import { firstValueFrom, Observable, Subscription, switchMap } from 'rxjs';
 import {
   ApiV1GuestTeachersGet200Response,
@@ -29,6 +29,7 @@ import {
 } from '../forms/radio-input/form-input-radio.component';
 import { FormInputTextComponent } from '../forms/text-input/form-input-text.component';
 import { IModalComponent } from '../modal/modal.controller';
+import { PermissionController } from '../../services/permission.controller';
 
 @Component({
   selector: 'littil-complete-profile-modal',
@@ -111,6 +112,7 @@ export class CompleteProfileModalComponent
     private readonly guestTeacherService: LittilTeacherService,
     private readonly schoolService: LittilSchoolService,
     private readonly authService: AuthService,
+    private readonly permissionController: PermissionController,
     private dialogRef: MatDialogRef<CompleteProfileModalComponent>
   ) {}
 
@@ -161,10 +163,19 @@ export class CompleteProfileModalComponent
         createOrUpdateCall = this.schoolService.createOrUpdate(formValues as SchoolPostResource);
       }
       return firstValueFrom(createOrUpdateCall)
-        .then(() => {
+        .then((result: ApiV1GuestTeachersGet200Response | ApiV1SchoolsGet200Response) => {
+          console.log('createOrUpdate profile result', result);
+            this.permissionController.setRoleId(result.id);
+          if ('availability' in result) {
+            this.permissionController.setRoleType(Roles.GuestTeacher);
+          } else {
+            this.permissionController.setRoleType(Roles.School);
+          }
           return firstValueFrom(
             this.authService.getAccessTokenSilently().pipe(switchMap(() => this.authService.user$))
-          ).then(() => {
+          ).then((user: User | null | undefined) => {
+            // this.permissionController.setAuthorizations({
+            console.log('user', user);
             this.dialogRef.close(true);
             return true;
           });
