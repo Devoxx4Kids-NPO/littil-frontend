@@ -14,7 +14,7 @@ export interface IMenuItem {
 
 export const menuRoutes: IMenuItem[] = [
   {
-    path: '/home',
+    path: '',
     menuText: 'Home',
     type: MenuType.Default,
     disabled: false,
