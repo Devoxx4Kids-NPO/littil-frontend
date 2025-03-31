@@ -73,8 +73,7 @@ import { PermissionController } from '../../services/permission.controller';
   ],
 })
 export class CompleteProfileModalComponent
-  implements IModalComponent<undefined, undefined>, OnInit, OnDestroy
-{
+  implements IModalComponent<undefined, undefined>, OnInit, OnDestroy {
   close: () => boolean;
   public loading = false;
   public isSchool = false;
@@ -114,7 +113,7 @@ export class CompleteProfileModalComponent
     private readonly authService: AuthService,
     private readonly permissionController: PermissionController,
     private dialogRef: MatDialogRef<CompleteProfileModalComponent>
-  ) {}
+  ) { }
 
   public ngOnInit(): void {
     this.roleValueSubscription = this.completeProfileForm.controls['role'].valueChanges.subscribe(
@@ -163,18 +162,14 @@ export class CompleteProfileModalComponent
         createOrUpdateCall = this.schoolService.createOrUpdate(formValues as SchoolPostResource);
       }
       return firstValueFrom(createOrUpdateCall)
-        .then((result: ApiV1GuestTeachersGet200Response | ApiV1SchoolsGet200Response) => {
-          console.log('createOrUpdate profile result', result);
-            this.permissionController.setRoleId(result.id);
-          if ('availability' in result) {
-            this.permissionController.setRoleType(Roles.GuestTeacher);
-          } else {
-            this.permissionController.setRoleType(Roles.School);
-          }
+        .then(() => {
           return firstValueFrom(
-            this.authService.getAccessTokenSilently().pipe(switchMap(() => this.authService.user$))
+            this.authService.getAccessTokenSilently({ cacheMode: 'off' }).pipe(switchMap(() => this.authService.user$))
           ).then((user: User | null | undefined) => {
-            // this.permissionController.setAuthorizations({
+            if (user) {
+              console.log('user auth', user['http://littil.org/authorizations']);
+              this.permissionController.setAuthorizations(user['https://littil.org/authorizations']);
+            }
             console.log('user', user);
             this.dialogRef.close(true);
             return true;
