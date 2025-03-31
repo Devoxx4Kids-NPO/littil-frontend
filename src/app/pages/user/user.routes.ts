@@ -19,7 +19,7 @@ export const routes: Routes = [
   },
   {
     path: 'modules',
-    loadChildren: () => import('./modules/modules.component').then(m => m.ModulesComponent),
+    loadComponent: () => import('./modules/modules.component').then(m => m.ModulesComponent),
     canActivate: [AuthGuard],
   },
 ];
