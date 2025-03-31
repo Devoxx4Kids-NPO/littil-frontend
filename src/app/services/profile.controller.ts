@@ -21,12 +21,12 @@ export class ProfileController {
   profile!: GuestTeacher | School;
   coordinates!: Coordinates;
 
-  handleProfile(user: User, roleId: string | undefined, roleType: Roles): void {
+  handleProfile(user: User, roleId: string, roleType: Roles): void {
     // TODO: call this in permissionController OR authResolver
     const profileObservable: Observable<GuestTeacher | School> =
       roleType == Roles.GuestTeacher
-        ? this.littilTeacherService.getById(roleId ?? '')
-        : this.littilSchoolService.getById(roleId ?? '');
+        ? this.littilTeacherService.getById(roleId)
+        : this.littilSchoolService.getById(roleId);
 
     profileObservable.subscribe((profile) => {
       this.profile = profile;

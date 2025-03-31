@@ -40,7 +40,7 @@ export class ModulesComponent {
     private littilSchoolService: LittilSchoolService
   ) {
     this.roleType = this.permissionController.getRoleType();
-    this.roleId = this.permissionController.getRoleId() ?? '';
+    this.roleId = this.permissionController.getRoleId();
     this.userModuleManager =
       this.roleType == Roles.GuestTeacher ? littilTeacherService : littilSchoolService;
     forkJoin([this.littilModulesService.getAll(), this.userModuleManager.getModules(this.roleId)])

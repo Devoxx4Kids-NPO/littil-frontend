@@ -10,7 +10,7 @@ export const routes: Routes = [
   {
     path: 'search',
     loadComponent: () => import('./search/search.component').then(m => m.SearchComponent),
-    // canActivate: [AuthGuard],
+    canActivate: [AuthGuard],
   },
   {
     path: 'profile',

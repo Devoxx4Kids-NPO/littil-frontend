@@ -167,10 +167,8 @@ export class CompleteProfileModalComponent
             this.authService.getAccessTokenSilently({ cacheMode: 'off' }).pipe(switchMap(() => this.authService.user$))
           ).then((user: User | null | undefined) => {
             if (user) {
-              console.log('user auth', user['http://littil.org/authorizations']);
               this.permissionController.setAuthorizations(user['https://littil.org/authorizations']);
             }
-            console.log('user', user);
             this.dialogRef.close(true);
             return true;
           });

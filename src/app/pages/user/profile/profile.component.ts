@@ -73,8 +73,7 @@ export class ProfileComponent {
     public auth: AuthService
   ) {
     this.roleType = this.permissionController.getRoleType();
-    this.roleId = this.permissionController.getRoleId() ?? '';
-    console.log('*** roleId', this.roleId);
+    this.roleId = this.permissionController.getRoleId();
     // TODO: What if a site admin visits this page?
     this.userObservable =
       this.roleType == Roles.GuestTeacher
@@ -130,7 +129,6 @@ export class ProfileComponent {
       );
     }
 
-      console.log('*** name', this.user);
     if ('name' in this.user) {
       form.addControl('schoolName', new FormControl(this.user.name, Validators.required));
     }

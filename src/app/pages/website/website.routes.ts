@@ -69,6 +69,3 @@ export const websiteRoutes: Routes = [
       import('./disclaimer/disclaimer.component').then(m => m.DisclaimerComponent),
   },
 ];
-
-// Add this for debugging
-console.log('Website routes loaded');

@@ -74,7 +74,7 @@ export class SearchComponent {
     private modalController: ModalController
   ) {
     this.roleType = this.permissionController.getRoleType();
-    this.roleId = this.permissionController.getRoleId() ?? '';
+    this.roleId = this.permissionController.getRoleId();
   }
 
   public ngOnInit(): void {
