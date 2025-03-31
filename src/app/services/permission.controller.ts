@@ -25,47 +25,37 @@ export class PermissionController {
   authorizations!: IAuth0Authorizations;
   protected _onPermissionChange = new Subject<void>();
   onPermissionChange = this._onPermissionChange.asObservable();
-  currentRole: Roles = Roles.School;
-  roleId: string | undefined;
 
   handleNewUser(user: User): void {
     this.activeAccount = user;
     this.userId = user['https://littil.org/littil_user_id'];
     this.roles = user['https://littil.org/roles'];
     this.setAuthorizations(user['https://littil.org/authorizations']);
-    console.log('handleNewUser authorizations', user['https://littil.org/authorizations']);
   }
 
   setAuthorizations(authorizations: IAuth0Authorizations) {
-    console.log('authorizations', authorizations);
     this.authorizations = authorizations;
     this._onPermissionChange.next();
   }
 
-  setRoleType(role: Roles): void {
-    this.currentRole = role;
-  }
-
   getRoleType(): Roles {
-    // if (this.authorizations && this.authorizations.schools.length > 0) {
-    //   return Roles.School;
-    // }
-    // if (this.authorizations && this.authorizations.guest_teachers.length > 0) {
-    //   return Roles.GuestTeacher;
-    // }
-    // throw new Error('RoleType not found');
-    return this.currentRole;
+    if (this.authorizations && this.authorizations.schools.length > 0) {
+      return Roles.School;
+    }
+    if (this.authorizations && this.authorizations.guest_teachers.length > 0) {
+      return Roles.GuestTeacher;
+    }
+    throw new Error('RoleType not found');
   }
 
-  getRoleId(): string | undefined {
-    // if (this.authorizations && this.authorizations.schools.length > 0) {
-    //   return this.authorizations.schools[0];
-    // }
-    // if (this.authorizations && this.authorizations.guest_teachers.length > 0) {
-    //   return this.authorizations.guest_teachers[0];
-    // }
-    // throw new Error('RoleId not found');
-    return this.roleId;
+  getRoleId(): string {
+    if (this.authorizations && this.authorizations.schools.length > 0) {
+      return this.authorizations.schools[0];
+    }
+    if (this.authorizations && this.authorizations.guest_teachers.length > 0) {
+      return this.authorizations.guest_teachers[0];
+    }
+    throw new Error('RoleId not found');
   }
 
   hasAnyRole(): boolean {
@@ -78,9 +68,5 @@ export class PermissionController {
 
   hasAdminRole(): boolean {
     return this.roles.includes("admin");
-  }
-
-  public setRoleId(id: string | undefined): void {
-    this.roleId = id;
   }
 }
