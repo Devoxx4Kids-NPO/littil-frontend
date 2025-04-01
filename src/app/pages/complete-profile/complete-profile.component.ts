@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { CompleteProfileModalComponent } from '../../components/complete-profile-modal/complete-profile-modal.component';
-import { IModalComponentOptions, ModalController } from '../../components/modal/modal.controller';
 import { PermissionController} from '../../services/permission.controller';
 import { MatDialog } from '@angular/material/dialog';
 @Component({
@@ -11,7 +10,6 @@ import { MatDialog } from '@angular/material/dialog';
 export class CompleteProfilePageComponent implements OnInit {
   constructor(
     private router: Router,
-    private modalController: ModalController,
     private permissionController: PermissionController,
     private dialog: MatDialog
   ) {}
