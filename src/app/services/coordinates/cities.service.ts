@@ -2,7 +2,7 @@ import {StrHint} from "../../utils/string.util";
 import {Injectable} from "@angular/core";
 import {Module, ModuleService} from "../../api/generated";
 import {Observable, map} from "rxjs";
-import {HttpClient} from "@angular/common/http";
+import { HttpClient } from "@angular/common/http";
 
 @Injectable({
   providedIn: 'root'

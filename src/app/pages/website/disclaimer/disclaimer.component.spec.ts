@@ -1,9 +1,8 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-import { DisclaimerComponent } from './disclaimer.component';
 import { ReactiveFormsModule } from '@angular/forms';
-import { FormBaseComponent } from '../../../components/forms/form-base';
-import { TitleComponent } from '../../../components/title/title.component';
-import { ContentContainerComponent } from '../../../components/content-container/content-container.component';
+import { ActivatedRoute } from '@angular/router';
+import { ActivatedRouteStub } from '@ngneat/spectator';
+import { DisclaimerComponent } from './disclaimer.component';
 
 describe('DisclaimerComponent', () => {
   let component: DisclaimerComponent;
@@ -12,12 +11,7 @@ describe('DisclaimerComponent', () => {
   beforeEach(async () => {
     await TestBed.configureTestingModule({
       imports: [ReactiveFormsModule],
-      declarations: [
-        DisclaimerComponent,
-        TitleComponent,
-        ContentContainerComponent,
-        FormBaseComponent,
-      ],
+      providers: [{ provide: ActivatedRoute, useValue: ActivatedRouteStub }],
     }).compileComponents();
 
     fixture = TestBed.createComponent(DisclaimerComponent);

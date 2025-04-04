@@ -1,6 +1,11 @@
 <button
-  [ngClass]="{ 'w-full mb-2': !inline, 'mr-2': inline }"
-  [class]="'py-2 px-4 text-white ' + colorClass"
+  [disabled]="disabled"
+  [ngClass]="{ 'w-full mb-2': !inline, 'mr-1': inline }"
+  [class]="
+    'inline-flex items-center rounded-md px-3 py-2 text-sm font-semibold text-white shadow-sm ' +
+    'focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 border ' +
+    colorClasses
+  "
   (click)="onClick.emit($event)"
 >
   <ng-content></ng-content>

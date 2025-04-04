@@ -14,6 +14,7 @@ describe('ErrorModalComponent', () => {
 
   const createComponent = createComponentFactory({
     component: ErrorModalComponent,
+    declareComponent: false,
     declarations: [],
     imports: [NoopAnimationsModule],
     providers: [],
@@ -46,9 +47,7 @@ describe('ErrorModalComponent', () => {
   describe('Template', () => {
     it('should show error text', () => {
       expect(spectator.query('h1')).toBeDefined();
-      expect(spectator.query('h1')?.textContent).toEqual(
-        'Oeps, er ging iets mis'
-      );
+      expect(spectator.query('h1')?.textContent).toEqual('Oeps, er ging iets mis');
       expect(spectator.query('p')).toBeDefined();
       expect(spectator.query('p')?.textContent).toEqual(
         'Ververs de pagina en probeer het opnieuw.'

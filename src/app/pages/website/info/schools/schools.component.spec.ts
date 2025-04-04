@@ -1,9 +1,7 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-import { ButtonComponent } from '../../../../components/button/button.component';
-import { ContentContainerComponent } from '../../../../components/content-container/content-container.component';
-import { TitleComponent } from '../../../../components/title/title.component';
+import { ActivatedRoute } from '@angular/router';
+import { ActivatedRouteStub } from '@ngneat/spectator';
 import { SchoolsComponent } from './schools.component';
-import {ContactBannerComponent} from "../../../../components/contact-banner/contact-banner.component";
 
 describe('SchoolsComponent', () => {
   let component: SchoolsComponent;
@@ -11,13 +9,7 @@ describe('SchoolsComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [
-        SchoolsComponent,
-        TitleComponent,
-        ButtonComponent,
-        ContentContainerComponent,
-        ContactBannerComponent
-      ],
+      providers: [{ provide: ActivatedRoute, useValue: ActivatedRouteStub }],
     }).compileComponents();
 
     fixture = TestBed.createComponent(SchoolsComponent);

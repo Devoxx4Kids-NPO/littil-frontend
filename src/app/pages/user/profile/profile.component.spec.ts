@@ -1,18 +1,20 @@
+import { HttpResponse } from '@angular/common/http';
 import { DebugElement, NO_ERRORS_SCHEMA } from '@angular/core';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-import { ProfileComponent } from './profile.component';
 import { FormBuilder, FormGroup } from '@angular/forms';
-import { MockProvider } from "ng-mocks";
-import { PermissionController, Roles } from "../../../services/permission.controller";
-import { LittilTeacherService } from "../../../services/littil-teacher/littil-teacher.service";
-import { LittilSchoolService } from "../../../services/littil-school/littil-school.service";
-import { of } from "rxjs";
-import { GuestTeacher, School } from "../../../api/generated";
-import { AvailabilityService } from "../../../services/availability.service";
-import { AuthService } from "@auth0/auth0-angular";
-import { By } from "@angular/platform-browser";
-import { HttpResponse } from "@angular/common/http";
-
+import { By } from '@angular/platform-browser';
+import { ActivatedRoute } from '@angular/router';
+import { AuthService } from '@auth0/auth0-angular';
+import { ActivatedRouteStub } from '@ngneat/spectator';
+import { MockProvider } from 'ng-mocks';
+import { of } from 'rxjs';
+import { GuestTeacher, School } from '../../../api/generated';
+import { AvailabilityService } from '../../../services/availability.service';
+import { LittilSchoolService } from '../../../services/littil-school/littil-school.service';
+import { LittilTeacherService } from '../../../services/littil-teacher/littil-teacher.service';
+import { PermissionController, Roles } from '../../../services/permission.controller';
+import { ProfileComponent } from './profile.component';
+import { RouterTestingModule } from '@angular/router/testing';
 
 const updateForm = (user: School | GuestTeacher, form: FormGroup) => {
   form.controls['firstName'].setValue(user.firstName);
@@ -39,26 +41,24 @@ const updateTeacherForm = (user: GuestTeacher, form: FormGroup) => {
 };
 
 const guestTeacherUser: GuestTeacher = {
-  id: "1234",
-  firstName: "Gast",
-  prefix: "",
-  surname: "Leraar",
-  locale: "",
-  address: "straat 1",
-  postalCode: "5301NE",
-  availability: [
-    "MONDAY", "WEDNESDAY"
-  ]
+  id: '1234',
+  firstName: 'Gast',
+  prefix: '',
+  surname: 'Leraar',
+  locale: '',
+  address: 'straat 1',
+  postalCode: '5301NE',
+  availability: ['MONDAY', 'WEDNESDAY'],
 };
 
 const schoolUser: School = {
-  id: "1234",
-  name: "School",
-  firstName: "Gebruiker",
-  prefix: "van de",
-  surname: "School",
-  address: "straat 1",
-  postalCode: "5301NE",
+  id: '1234',
+  name: 'School',
+  firstName: 'Gebruiker',
+  prefix: 'van de',
+  surname: 'School',
+  address: 'straat 1',
+  postalCode: '5301NE',
 };
 
 describe('TeacherProfileComponent', () => {
@@ -67,30 +67,29 @@ describe('TeacherProfileComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ ProfileComponent ],
       providers: [
         FormBuilder,
         MockProvider(PermissionController, {
           getRoleType: () => Roles.GuestTeacher,
-          activeAccount: {email: 'test@test.nl'}
+          activeAccount: { email: 'test@test.nl' },
         }),
         MockProvider(LittilTeacherService, {
           getById: () => of(guestTeacherUser),
           createOrUpdate: () => of(guestTeacherUser),
-          delete: () => of(HttpResponse)
+          delete: () => of(HttpResponse),
         }),
         MockProvider(LittilSchoolService, {
           getById: () => of(schoolUser),
           createOrUpdate: () => of(schoolUser),
-          delete: () => of(HttpResponse)
+          delete: () => of(HttpResponse),
         }),
         MockProvider(AuthService, {
-          isLoading$: of(false)
+          isLoading$: of(false),
         }),
+        { provide: ActivatedRoute, useValue: ActivatedRouteStub },
       ],
-      schemas: [ NO_ERRORS_SCHEMA ]
-    })
-                 .compileComponents();
+      schemas: [NO_ERRORS_SCHEMA],
+    }).compileComponents();
 
     fixture = TestBed.createComponent(ProfileComponent);
     component = fixture.componentInstance;
@@ -115,7 +114,8 @@ describe('TeacherProfileComponent', () => {
   it('should handle a guest teacher availability', async () => {
     updateTeacherForm(guestTeacherUser, component.profileForm);
     let availabilityGroup = component.profileForm.controls['availability'] as FormGroup;
-    const availability = guestTeacherUser.availability === undefined ? [] : guestTeacherUser.availability;
+    const availability =
+      guestTeacherUser.availability === undefined ? [] : guestTeacherUser.availability;
 
     for (let day of AvailabilityService.getAll()) {
       expect(availabilityGroup.controls[day.value]).toBeDefined();
@@ -140,7 +140,7 @@ describe('TeacherProfileComponent', () => {
   });
 
   it('should handle a incomplete guest teacher data', async () => {
-    const user = Object.assign(guestTeacherUser, {firstName: "", surname: "", prefix: ""});
+    const user = Object.assign(guestTeacherUser, { firstName: '', surname: '', prefix: '' });
     updateTeacherForm(user, component.profileForm);
 
     await component.onClickSaveProfile();
@@ -173,28 +173,31 @@ describe('SchoolProfileComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ ProfileComponent ],
+      imports: [
+        RouterTestingModule,
+        ProfileComponent
+      ],
       providers: [
         FormBuilder,
         MockProvider(PermissionController, {
           getRoleType: () => Roles.School,
-          activeAccount: {email: 'test@test.nl'}
+          activeAccount: { email: 'test@test.nl' },
         }),
         MockProvider(LittilTeacherService, {
           getById: () => of(guestTeacherUser),
           createOrUpdate: () => of(guestTeacherUser),
-          delete: () => of(HttpResponse)
+          delete: () => of(HttpResponse),
         }),
         MockProvider(LittilSchoolService, {
           getById: () => of(schoolUser),
           createOrUpdate: () => of(schoolUser),
-          delete: () => of(HttpResponse)
+          delete: () => of(HttpResponse),
         }),
         MockProvider(AuthService, {
-          isLoading$: of(false)
+          isLoading$: of(false),
         }),
       ],
-      schemas: [ NO_ERRORS_SCHEMA ]
+      schemas: [NO_ERRORS_SCHEMA],
     }).compileComponents();
 
     fixture = TestBed.createComponent(ProfileComponent);
@@ -213,5 +216,4 @@ describe('SchoolProfileComponent', () => {
     expect(component.profileForm.controls['postalCode'].value).toEqual(schoolUser.postalCode);
     expect(component.profileForm.invalid).toBe(false);
   });
-
 });

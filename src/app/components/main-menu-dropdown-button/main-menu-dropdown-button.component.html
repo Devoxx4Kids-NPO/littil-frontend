@@ -1,31 +1,26 @@
 <div class="relative group">
   <!-- Dropdown button -->
-    <a
-      class="flex flex-1 justify-center transition-colors hover:bg-yellow-50 items-center gap-x-1 pl-8 pr-5 py-6 cursor-pointer"
-      [routerLink]="path"
-      routerLinkActive="bg-yellow-50"
+  <a
+    class="flex flex-1 justify-center transition-colors hover:bg-yellow-50 items-center gap-x-1 pl-8 pr-5 py-6 cursor-pointer"
+    [routerLink]="path"
+    routerLinkActive="bg-yellow-50"
     ><ng-content></ng-content>
-      <svg class="h-5 w-5" viewBox="0 0 24 24">
-        <title>{{title}}</title>
-        <path
-          fill="currentColor"
-          d="M7.41,8.58L12,13.17L16.59,8.58L18,10L12,16L6,10L7.41,8.58Z"
-        />
-      </svg>
-    </a>
+    <svg class="h-5 w-5" viewBox="0 0 24 24">
+      <title>{{ title }}</title>
+      <path fill="currentColor" d="M7.41,8.58L12,13.17L16.59,8.58L18,10L12,16L6,10L7.41,8.58Z" />
+    </svg>
+  </a>
   <!-- Dropdown list -->
-  <div
-    class="absolute left-0 right-0 transition-colors bg-yellow-100 hidden group-hover:block"
-  >
-    <ng-container *ngFor="let route of subRoutes">
-      <a
-        *ngIf="!route.disabled"
-        class="flex px-10 py-6 cursor-pointer hover:bg-yellow-50"
-        [routerLink]="route.path"
-        routerLinkActive="bg-yellow-50"
-      >
-        {{ route.menuText }}
-      </a>
-    </ng-container>
+  <div class="absolute left-0 right-0 transition-colors bg-yellow-100 hidden group-hover:block">
+    @for(route of subRoutes; track route.path){
+    <a
+      *ngIf="!route.disabled"
+      class="flex px-10 py-6 cursor-pointer hover:bg-yellow-50"
+      [routerLink]="route.path"
+      routerLinkActive="bg-yellow-50"
+    >
+      {{ route.menuText }}
+    </a>
+    }
   </div>
 </div>

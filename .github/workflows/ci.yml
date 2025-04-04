@@ -17,7 +17,7 @@ jobs:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
         with:
-          node-version: 16.x
+          node-version: v18.19.1  
           cache: "npm"
       - name: Install project
         run: npm ci

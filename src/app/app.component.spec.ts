@@ -1,22 +1,21 @@
+import { CommonModule } from '@angular/common';
+import { DOCUMENT } from '@angular/common';
+import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { RouterModule } from '@angular/router';
 import { AuthService } from '@auth0/auth0-angular';
-import { Spectator } from '@ngneat/spectator';
-import { createRoutingFactory } from '@ngneat/spectator/jest';
-import { MockComponent, MockProvider } from 'ng-mocks';
+import { MockProvider } from 'ng-mocks';
+import { NgcCookieConsentService } from 'ngx-cookieconsent';
 import { Subject } from 'rxjs';
 import { LittilConfig, LITTILCONFIG } from '../littilConfig';
 import { AppComponent } from './app.component';
-import { ContentContainerComponent } from './components/content-container/content-container.component';
-import { MainMenuButtonComponent } from './components/main-menu-button/main-menu-button.component';
-import { MainMenuDropdownButtonComponent } from './components/main-menu-dropdown-button/main-menu-dropdown-button.component';
-import { UserMenuComponent } from './components/user-menu/user-menu.component';
 import { FeedbackFinToken } from './feedback/feedbackfin.token';
+import { MenuType } from './pages/menu.routes';
 import { PermissionController } from './services/permission.controller';
-import { NgcCookieConsentService } from 'ngx-cookieconsent';
-import {MenuType} from "./pages/menu.routes";
-import {DOCUMENT} from "@angular/common";
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 describe('AppComponent', () => {
-  let spectator: Spectator<AppComponent>;
+  let component: AppComponent;
+  let fixture: ComponentFixture<AppComponent>;
   let permissionController: PermissionController;
   let authService: AuthService;
   let authServiceLoginSpy: jest.SpyInstance;
@@ -24,60 +23,54 @@ describe('AppComponent', () => {
 
   const onPermissionChangeSubject = new Subject<void>();
 
-  const createComponent = createRoutingFactory({
-    component: AppComponent,
-    declarations: [
-      MockComponent(ContentContainerComponent),
-      MockComponent(MainMenuButtonComponent),
-      MockComponent(MainMenuDropdownButtonComponent),
-      MockComponent(UserMenuComponent),
-    ],
-    providers: [
-      MockProvider(AuthService, {}),
-      MockProvider(PermissionController, {
-        onPermissionChange: onPermissionChangeSubject.asObservable(),
-        activeAccount: undefined,
-        loggedIn: false,
-        hasAdminRole: jest.fn().mockReturnValue(false),
-      }),
-      MockProvider(Document),
-      {
-        provide: FeedbackFinToken,
-        useValue: {
-          config: {},
-        },
-      },
-      {
-        provide: LITTILCONFIG,
-        useValue: ({
-          apiHost: 'localhost',
-        } as LittilConfig),
-      },
-      MockProvider(NgcCookieConsentService)
-    ],
-  });
-
   beforeEach(async () => {
-    spectator = createComponent();
-    permissionController = spectator.inject(PermissionController);
+    await TestBed.configureTestingModule({
+      declarations: [AppComponent],
+      imports: [CommonModule, RouterModule],
+      providers: [
+        MockProvider(AuthService, {}),
+        MockProvider(PermissionController, {
+          onPermissionChange: onPermissionChangeSubject.asObservable(),
+          activeAccount: undefined,
+          loggedIn: false,
+          hasAdminRole: jest.fn().mockReturnValue(false),
+        }),
+        MockProvider(Document),
+        {
+          provide: FeedbackFinToken,
+          useValue: {
+            config: {},
+          },
+        },
+        {
+          provide: LITTILCONFIG,
+          useValue: {
+            apiHost: 'localhost',
+          } as LittilConfig,
+        },
+        MockProvider(NgcCookieConsentService),
+      ],
+    }).compileComponents();
 
-    authService = spectator.inject(AuthService);
+    fixture = TestBed.createComponent(AppComponent);
+    component = fixture.componentInstance;
+    permissionController = TestBed.inject(PermissionController);
+    authService = TestBed.inject(AuthService);
     authServiceLoginSpy = jest.spyOn(authService, 'loginWithRedirect');
     authServiceLogoutSpy = jest.spyOn(authService, 'logout');
-
-    spectator.detectChanges();
+    fixture.detectChanges();
   });
 
   it('should create the app', () => {
-    expect(spectator.component).toBeTruthy();
+    expect(component).toBeTruthy();
   });
 
   it('should initialize feedbackFin config and assign to window object on init', () => {
-    const feedbackFin = spectator.inject(FeedbackFinToken);
-    const littilConfig = spectator.inject(LITTILCONFIG);
-    const documentMock = spectator.inject(DOCUMENT);
+    const feedbackFin = TestBed.inject(FeedbackFinToken);
+    const littilConfig = TestBed.inject(LITTILCONFIG);
+    const documentMock = TestBed.inject(DOCUMENT);
 
-    spectator.component.ngOnInit();
+    component.ngOnInit();
 
     expect(feedbackFin.config.url).toBe(`${littilConfig.apiHost}/api/v1/feedback`);
     expect(feedbackFin.config.mode).toBe('form');
@@ -85,9 +78,9 @@ describe('AppComponent', () => {
   });
 
   it('should subscribe to permission changes and update menu routes', () => {
-    spectator.component.ngOnInit();
+    component.ngOnInit();
     onPermissionChangeSubject.next();
-    spectator.component.menuRoutes.forEach(route => {
+    component.menuRoutes.forEach(route => {
       console.log(route.menuText);
       if (route.type === MenuType.User) {
         expect(route.disabled).toBe(true);
@@ -99,17 +92,17 @@ describe('AppComponent', () => {
   });
 
   it('should toggle mobileMenuOpen when toggleMobileMenu is called', () => {
-    spectator.component.mobileMenuOpen = false;
-    spectator.component.toggleMobileMenu();
-    expect(spectator.component.mobileMenuOpen).toBe(true);
+    component.mobileMenuOpen = false;
+    component.toggleMobileMenu();
+    expect(component.mobileMenuOpen).toBe(true);
 
-    spectator.component.toggleMobileMenu();
-    expect(spectator.component.mobileMenuOpen).toBe(false);
+    component.toggleMobileMenu();
+    expect(component.mobileMenuOpen).toBe(false);
   });
 
   it('should set mobileMenuOpen to false when hideMobileMenu is called', () => {
-    spectator.component.mobileMenuOpen = true;
-    spectator.component.hideMobileMenu();
-    expect(spectator.component.mobileMenuOpen).toBe(false);
+    component.mobileMenuOpen = true;
+    component.hideMobileMenu();
+    expect(component.mobileMenuOpen).toBe(false);
   });
 });

@@ -1,7 +1,5 @@
 import { Spectator } from '@ngneat/spectator';
 import { createRoutingFactory } from '@ngneat/spectator/jest';
-import { MockComponent } from 'ng-mocks';
-import { ContentContainerComponent } from '../../../components/content-container/content-container.component';
 import { HomepageComponent } from './homepage.component';
 
 describe('HomepageComponent', () => {
@@ -9,7 +7,7 @@ describe('HomepageComponent', () => {
 
   const createComponent = createRoutingFactory({
     component: HomepageComponent,
-    declarations: [MockComponent(ContentContainerComponent)],
+    declareComponent: false,
   });
 
   beforeEach(() => {
