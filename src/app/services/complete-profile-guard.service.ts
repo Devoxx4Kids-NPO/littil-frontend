@@ -1,18 +1,19 @@
-import { Injectable } from '@angular/core';
-import { ActivatedRouteSnapshot, Router, RouterStateSnapshot, UrlTree } from '@angular/router';
-import { AuthService } from '@auth0/auth0-angular';
-import { Observable, map, tap, switchMap } from 'rxjs';
-import { PermissionController } from './permission.controller';
+import {Injectable} from '@angular/core';
+import {ActivatedRouteSnapshot, Router, RouterStateSnapshot, UrlTree} from '@angular/router';
+import {AuthService} from '@auth0/auth0-angular';
+import {map, Observable} from 'rxjs';
+import {PermissionController} from './permission.controller';
 
 @Injectable({
   providedIn: 'root',
 })
-export class CompleteProfileGuardService  {
+export class CompleteProfileGuardService {
   constructor(
     private router: Router,
     private authService: AuthService,
     private permissionController: PermissionController
-  ) {}
+  ) {
+  }
 
   canActivate(
     route: ActivatedRouteSnapshot,
@@ -28,7 +29,7 @@ export class CompleteProfileGuardService  {
 
         // Redirect to complete profile only when logged in without role
         if (loggedIn && !this.permissionController.hasAnyRole() &&
-            state.url !== '/complete-profile') {
+          state.url !== '/complete-profile') {
           return this.router.parseUrl('/complete-profile');
         }
 
