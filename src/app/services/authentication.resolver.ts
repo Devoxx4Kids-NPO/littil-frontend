@@ -1,5 +1,4 @@
 import { Injectable } from '@angular/core';
-
 import { AuthService, User } from '@auth0/auth0-angular';
 import { Observable, tap } from 'rxjs';
 import { PermissionController } from './permission.controller';

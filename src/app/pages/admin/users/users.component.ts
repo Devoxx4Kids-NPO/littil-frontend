@@ -1,12 +1,13 @@
-import { CommonModule } from '@angular/common';
-import { Component, OnInit } from '@angular/core';
-import { catchError, Observable } from 'rxjs';
-import { User } from '../../../api/generated';
-import { ContactBannerComponent } from '../../../components/contact-banner/contact-banner.component';
-import { ContentContainerComponent } from '../../../components/content-container/content-container.component';
-import { FooterComponent } from '../../../components/footer/footer.component';
-import { TitleComponent } from '../../../components/title/title.component';
-import { LittilUserService } from '../../../services/littil-user/littil-user.service';
+import {CommonModule} from '@angular/common';
+import {Component, OnInit} from '@angular/core';
+import {catchError, Observable} from 'rxjs';
+import {User} from '../../../api/generated';
+import {
+  ContentContainerComponent
+} from '../../../components/content-container/content-container.component';
+import {FooterComponent} from '../../../components/footer/footer.component';
+import {TitleComponent} from '../../../components/title/title.component';
+import {LittilUserService} from '../../../services/littil-user/littil-user.service';
 
 @Component({
   selector: 'littil-admin-users',
@@ -16,7 +17,6 @@ import { LittilUserService } from '../../../services/littil-user/littil-user.ser
     CommonModule,
     ContentContainerComponent,
     TitleComponent,
-    ContactBannerComponent,
     FooterComponent,
   ],
 })

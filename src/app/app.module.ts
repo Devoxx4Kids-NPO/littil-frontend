@@ -24,6 +24,7 @@ import { FeedbackFinProvider } from './feedback/feedbackfin.provider';
 import { interceptorProviders } from './interceptors/http-interceptors';
 import { CompleteProfileGuardService } from './services/complete-profile-guard.service';
 import { PermissionController } from './services/permission.controller';
+import {FooterComponent} from "./components/footer/footer.component";
 
 const littilConfig = getLittilConfigFromWindow();
 
@@ -84,6 +85,7 @@ const cookieConfig: NgcCookieConsentConfig = {
     MainMenuDropdownButtonComponent,
     MatToolbarModule,
     MatIconModule,
+    FooterComponent,
   ],
   providers: [
     HttpClient,
