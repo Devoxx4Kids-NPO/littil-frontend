@@ -18,7 +18,6 @@ import { ContentContainerComponent } from './components/content-container/conten
 import { ErrorModalComponent } from './components/error-modal/error-modal.component';
 import { MainMenuButtonComponent } from './components/main-menu-button/main-menu-button.component';
 import { MainMenuDropdownButtonComponent } from './components/main-menu-dropdown-button/main-menu-dropdown-button.component';
-import { ModalControllerModule } from './components/modal/modal.controller.module';
 import { RegisterModalComponent } from './components/register-modal/register-modal.component';
 import { UserMenuComponent } from './components/user-menu/user-menu.component';
 import { FeedbackFinProvider } from './feedback/feedbackfin.provider';
@@ -83,7 +82,6 @@ const cookieConfig: NgcCookieConsentConfig = {
     ErrorModalComponent,
     MainMenuButtonComponent,
     MainMenuDropdownButtonComponent,
-    ModalControllerModule.forRoot(),
     MatToolbarModule,
     MatIconModule,
   ],

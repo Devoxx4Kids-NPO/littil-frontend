@@ -1,6 +1,6 @@
-import { animate, state, style, transition, trigger } from '@angular/animations';
-import { CommonModule } from '@angular/common';
-import { Component } from '@angular/core';
+import {animate, state, style, transition, trigger} from '@angular/animations';
+import {CommonModule} from '@angular/common';
+import {Component} from '@angular/core';
 import {
   FormControl,
   FormGroup,
@@ -8,16 +8,15 @@ import {
   ReactiveFormsModule,
   Validators,
 } from '@angular/forms';
-import { MatDialogModule } from '@angular/material/dialog';
-import { firstValueFrom } from 'rxjs';
-import { User } from '../../api/generated';
-import { LittilUserService } from '../../services/littil-user/littil-user.service';
-import { FormUtil } from '../../utils/form.util';
-import { ButtonComponent } from '../button/button.component';
-import { FormErrorMessageComponent } from '../forms/form-error-message/form-error-message.component';
-import { FormInputRadioComponent } from '../forms/radio-input/form-input-radio.component';
-import { FormInputTextComponent } from '../forms/text-input/form-input-text.component';
-import { IModalComponent } from '../modal/modal.controller';
+import {MatDialogModule} from '@angular/material/dialog';
+import {firstValueFrom} from 'rxjs';
+import {User} from '../../api/generated';
+import {LittilUserService} from '../../services/littil-user/littil-user.service';
+import {FormUtil} from '../../utils/form.util';
+import {ButtonComponent} from '../button/button.component';
+import {FormErrorMessageComponent} from '../forms/form-error-message/form-error-message.component';
+import {FormInputTextComponent} from '../forms/text-input/form-input-text.component';
+import {IModalComponent} from '../modal/modal.controller';
 
 @Component({
   selector: 'littil-register-modal',
@@ -30,7 +29,6 @@ import { IModalComponent } from '../modal/modal.controller';
     ReactiveFormsModule,
     ButtonComponent,
     FormInputTextComponent,
-    FormInputRadioComponent,
     FormErrorMessageComponent,
   ],
   animations: [
@@ -65,7 +63,8 @@ export class RegisterModalComponent implements IModalComponent<IRegisterModalOut
     email: new FormControl('', [Validators.required, Validators.email]),
   });
 
-  constructor(private readonly userService: LittilUserService) {}
+  constructor(private readonly userService: LittilUserService) {
+  }
 
   public async onClickRegister(): Promise<boolean> {
     return Promise.resolve().then(() => {
@@ -93,11 +92,11 @@ export class RegisterModalComponent implements IModalComponent<IRegisterModalOut
   }
 
   public closeModal() {
-    this.close({ triggerLogin: false });
+    this.close({triggerLogin: false});
   }
 
   public onClickLogin() {
-    this.close({ triggerLogin: true });
+    this.close({triggerLogin: true});
   }
 }
 
