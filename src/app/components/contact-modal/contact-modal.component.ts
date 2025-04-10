@@ -27,6 +27,8 @@ import { IModalComponent } from '../modal/modal.controller';
 @Component({
   selector: 'littil-register-modal',
   templateUrl: 'contact-modal.component.html',
+  styles:[`
+    div {padding: 20px}`],
   animations: [
     trigger('hideShow', [
       state(
