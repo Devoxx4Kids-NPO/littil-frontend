@@ -1,20 +1,15 @@
-import {createComponentFactory, Spectator} from "@ngneat/spectator/jest";
-import {ContactModalComponent} from "./contact-modal.component";
-import {TestBed} from "@angular/core/testing";
-import {HttpClientTestingModule} from "@angular/common/http/testing";
-import {FormsModule, ReactiveFormsModule} from "@angular/forms";
-import {MockComponent, MockProvider} from "ng-mocks";
-import {FormInputTextComponent} from "../forms/text-input/form-input-text.component";
-import {FormErrorMessageComponent} from "../forms/form-error-message/form-error-message.component";
-import {ButtonComponent} from "../button/button.component";
-import {ButtonRoundedComponent} from "../button/button-rounded.component";
-import {NoopAnimationsModule} from "@angular/platform-browser/animations";
-import {of} from "rxjs";
-import {FormUtil} from "../../utils/form.util";
-import {LittilUserService} from "../../services/littil-user/littil-user.service";
-import {LittilContactService} from "../../services/littil-contact/littil-contact.service";
-import {PermissionController} from "../../services/permission.controller";
-
+import { HttpClientTestingModule } from '@angular/common/http/testing';
+import { TestBed } from '@angular/core/testing';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { NoopAnimationsModule } from '@angular/platform-browser/animations';
+import { createComponentFactory, Spectator } from '@ngneat/spectator/jest';
+import { MockProvider } from 'ng-mocks';
+import { of } from 'rxjs';
+import { LittilContactService } from '../../services/littil-contact/littil-contact.service';
+import { LittilUserService } from '../../services/littil-user/littil-user.service';
+import { PermissionController } from '../../services/permission.controller';
+import { FormUtil } from '../../utils/form.util';
+import { ContactModalComponent } from './contact-modal.component';
 
 describe('ContactModalComponent', () => {
   let spectator: Spectator<ContactModalComponent>;
@@ -27,16 +22,9 @@ describe('ContactModalComponent', () => {
 
   const createComponent = createComponentFactory({
     component: ContactModalComponent,
-    declarations: [
-      MockComponent(FormInputTextComponent),
-      // MockComponent(FormInputPasswordComponent),
-      MockComponent(FormErrorMessageComponent),
-      MockComponent(ButtonComponent),
-      MockComponent(ButtonRoundedComponent),
-    ],
+    declareComponent: false,
     imports: [NoopAnimationsModule],
     providers: [
-      // MockProvider(ContactService),
       MockProvider(LittilContactService, {
         sendEmail: () =>
           of({
@@ -47,8 +35,8 @@ describe('ContactModalComponent', () => {
       }),
       MockProvider(PermissionController, {
         activeAccount: {
-          name: 'emailOfUser'
-        }
+          name: 'emailOfUser',
+        },
       }),
       MockProvider(LittilUserService, {
         create: () =>
@@ -82,9 +70,7 @@ describe('ContactModalComponent', () => {
     it('should call contact function when clicked on contact button', async () => {
       component.contactForm.get('contactInfo')?.setValue('contactInfo');
       component.contactForm.get('message')?.setValue('message');
-      const contactBtn = spectator.query(
-        '[data-test="sendEmailButton"]'
-      ) as HTMLElement;
+      const contactBtn = spectator.query('[data-test="sendEmailButton"]') as HTMLElement;
       if (contactBtn) {
         contactBtn.click();
       }
@@ -94,9 +80,7 @@ describe('ContactModalComponent', () => {
     it('should close modal without sendEmailTrigger when modal is closed with cancel button', async () => {
       component.contactForm.get('contactInfo')?.setValue('contactInfo');
       component.contactForm.get('message')?.setValue('message');
-      const cancelBtn = spectator.query(
-        '[data-test="cancelButton"]'
-      ) as HTMLElement;
+      const cancelBtn = spectator.query('[data-test="cancelButton"]') as HTMLElement;
       if (cancelBtn) {
         cancelBtn.click();
       }
@@ -131,9 +115,7 @@ describe('ContactModalComponent', () => {
       expect(component.contactForm.invalid).toBe(false);
       expect(component.hideForm).toBe(true);
       expect(component.hideConfirmation).toBe(false);
-      const cancelBtn = spectator.query(
-        '[data-test="closeButton"]'
-      ) as HTMLElement;
+      const cancelBtn = spectator.query('[data-test="closeButton"]') as HTMLElement;
       if (cancelBtn) {
         cancelBtn.click();
       }
@@ -141,7 +123,6 @@ describe('ContactModalComponent', () => {
       expect(closeSpy).toHaveBeenCalledTimes(1);
       expect(closeSpy).toHaveBeenCalledWith();
     });
-
   });
 
   describe('Template', () => {
@@ -149,5 +130,4 @@ describe('ContactModalComponent', () => {
       expect(spectator.query('[data-test="form-contact"]')).toBeDefined();
     });
   });
-
 });

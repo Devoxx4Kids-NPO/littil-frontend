@@ -1,4 +1,4 @@
-<div [@hideShow]="loading ? 'hidden' : 'visible'">
+<div class="modal-content">
   <h1 class="font-bold text-lg text-blue-200 mb-3">Registratie afronden</h1>
   <!-- TODO: add text -->
   <form
@@ -15,171 +15,109 @@
       [radioInputs]="roleChoices"
     >
       <littil-form-error-message
-        *ngIf="FormUtil.InValid(completeProfileForm.controls['role'])"
-        errorText="Een rol opgeven is verplicht"
+        [customErrors]="{ required: 'Een rol opgeven is verplicht' }"
+        controlName="role"
       ></littil-form-error-message>
     </littil-form-input-radio>
 
+    @if(isSchool){
     <littil-form-input-text
       *ngIf="isSchool"
       formControlName="schoolName"
       id="schoolName"
       label="Naam van de school"
       data-test="schoolNameControl"
-      [hasError]="FormUtil.InValid(completeProfileForm.controls['schoolName'])"
     >
       <littil-form-error-message
-        *ngIf="FormUtil.InValid(completeProfileForm.controls['schoolName'])"
-        errorText="Naam van de school is verplicht"
+        [customErrors]="{ required: 'Naam van de school is verplicht' }"
+        controlName="schoolName"
       ></littil-form-error-message>
-      <strong>Gegevens contactpersoon</strong>
     </littil-form-input-text>
 
-    <div>
-      <div class="flex">
+    <p class="mb-0 font-bold">Gegevens contactpersoon</p>
+    }
+
+    <div class="flex gap-2">
       <littil-form-input-text
-      formControlName="firstName"
-      id="firstName"
-      label="Voornaam"
-      widthClass="w-64"
-      class="mr-2"
-      [hasError]="FormUtil.InValid(completeProfileForm.controls['firstName'])"
-    >
-      <littil-form-error-message
-        *ngIf="FormUtil.InValid(completeProfileForm.controls['firstName'])"
-        errorText="Voornaam is verplicht"
-      ></littil-form-error-message>
-    </littil-form-input-text>
-      <littil-form-input-text
-      formControlName="prefix"
-      id="prefix"
-      label="Tussenvoegsel"
-      widthClass="w-32"
-      class="mr-2"
+        formControlName="firstName"
+        id="firstName"
+        label="Voornaam"
+        class="grow"
       >
-    </littil-form-input-text>
+        <littil-form-error-message
+          [customErrors]="{ required: 'Voornaam is verplicht' }"
+          controlName="firstName"
+        ></littil-form-error-message>
+      </littil-form-input-text>
       <littil-form-input-text
-      formControlName="surname"
-      id="surname"
-      label="Achternaam"
-      widthClass="w-64"
-      class="mr-2"
-      [hasError]="FormUtil.InValid(completeProfileForm.controls['surname'])"
-    >
-      <littil-form-error-message
-        *ngIf="FormUtil.InValid(completeProfileForm.controls['surname'])"
-        errorText="Achternaam is verplicht"
-      ></littil-form-error-message>
-    </littil-form-input-text>
-    </div>
+        formControlName="prefix"
+        id="prefix"
+        label="Tussenvoegsel"
+        class="w-1/5"
+      >
+      </littil-form-input-text>
+      <littil-form-input-text
+        formControlName="surname"
+        id="surname"
+        label="Achternaam"
+        class="grow"
+      >
+        <littil-form-error-message
+          [customErrors]="{ required: 'Achternaam is verplicht' }"
+          controlName="surname"
+        ></littil-form-error-message>
+      </littil-form-input-text>
     </div>
 
-    <p *ngIf="!isSchool">
-      Om scholen en gastdocenten elkaar te laten vinden, hebben wij uw adres nodig.<br>
-      Deze gegevens worden niet met derden gedeeld en alleen gebruikt om uw locatie
-      op de plattegrond te tonen.
-    </p>
-    <p *ngIf="isSchool">
-      Om scholen en gastdocenten elkaar te laten vinden, hebben wij het adres van
-      de school nodig. Deze gegevens worden niet <br>
+    <p>
+      @if(isSchool){ Om scholen en gastdocenten elkaar te laten vinden, hebben wij het adres van de
+      school nodig. Deze gegevens worden niet <br />
       met derden gedeeld en alleen gebruikt om de locatie van de school op de plattegrond te tonen.
+      } @else { Om scholen en gastdocenten elkaar te laten vinden, hebben wij uw adres nodig.<br />
+      Deze gegevens worden niet met derden gedeeld en alleen gebruikt om uw locatie op de
+      plattegrond te tonen. }
     </p>
-    <div>
-      <div class="flex">
-        <littil-form-input-text
-          formControlName="addressStreet"
-          id="addressStreet"
-          label="Straat"
-          widthClass="w-64"
-          class="mr-2"
-          [hasError]="
-            FormUtil.InValid(completeProfileForm.controls['addressStreet'])
-          "
-        >
-          <littil-form-error-message
-            *ngIf="
-              FormUtil.InValid(completeProfileForm.controls['addressStreet'])
-            "
-            errorText="Straat is verplicht"
-          ></littil-form-error-message>
-        </littil-form-input-text>
-        <littil-form-input-text
-          formControlName="addressHousenumber"
-          id="addressHousenumber"
-          label="Huisnummer"
-          widthClass="w-32"
-          class="mr-2"
-          [hasError]="
-            FormUtil.InValid(completeProfileForm.controls['addressHousenumber'])
-          "
-        >
-          <littil-form-error-message
-            *ngIf="
-              FormUtil.InValid(
-                completeProfileForm.controls['addressHousenumber']
-              )
-            "
-            errorText="Huisnummber is verplicht"
-          ></littil-form-error-message>
-        </littil-form-input-text>
-        <littil-form-input-text
-          formControlName="postalCode"
-          id="postalCode"
-          label="Postcode"
-          maxLength="6"
-          widthClass="w-32"
-          class="mr-2"
-          [hasError]="
-            FormUtil.InValid(completeProfileForm.controls['postalCode'])
-          "
-        >
-          <littil-form-error-message
-            *ngIf="
-              FormUtil.ContainsError(
-                completeProfileForm.controls['postalCode'],
-                'pattern'
-              )
-            "
-            errorText="Voer een correct Nederlands postcode in"
-          ></littil-form-error-message>
-          <littil-form-error-message
-            *ngIf="
-              FormUtil.ContainsError(
-                completeProfileForm.controls['postalCode'],
-                'required'
-              )
-            "
-            errorText="Postcode is verplicht"
-          ></littil-form-error-message>
-        </littil-form-input-text>
-      </div>
-    </div>
 
-    <!-- TODO: check if city is not needed -->
-    <!-- <littil-form-input-text
-      formControlName="city"
-      id="city"
-      label="Stad"
-      [hasError]="FormUtil.InValid(completeProfileForm.controls['city'])"
-    >
-      <littil-form-error-message
-        *ngIf="FormUtil.InValid(completeProfileForm.controls['city'])"
-        errorText="Woonplaats is verplicht"
-      ></littil-form-error-message>
-    </littil-form-input-text> -->
+    <div class="flex gap-2">
+      <littil-form-input-text
+        formControlName="address"
+        id="address"
+        label="Straatnaam en huisnummer"
+        class="grow"
+      >
+        <littil-form-error-message
+          [customErrors]="{ required: 'Straatnaam en huisnummer is verplicht' }"
+          controlName="address"
+        ></littil-form-error-message>
+      </littil-form-input-text>
+      <littil-form-input-text
+        formControlName="postalCode"
+        id="postalCode"
+        label="Postcode"
+        maxLength="6"
+        class="w-1/3"
+      >
+        <littil-form-error-message
+          [customErrors]="{
+            required: 'Postcode is verplicht',
+            pattern: 'Voer een correct Nederlands postcode in'
+          }"
+          controlName="postalCode"
+        ></littil-form-error-message>
+      </littil-form-input-text>
+    </div>
   </form>
 
-  <littil-button-rounded
-    [inline]="true"
-    [disabled]="savingProfile"
-    (click)="onClickSaveProfile()">
+  <littil-button [inline]="true" [disabled]="savingProfile" (click)="onClickSaveProfile()">
     Profiel opslaan
-  </littil-button-rounded>
-  <littil-button-rounded
+  </littil-button>
+  <littil-button
     [inline]="true"
     [disabled]="savingProfile"
     colorClass="bg-yellow-200"
-    (click)="logOut()">
-    Uitloggen</littil-button-rounded>
+    (click)="logOut()"
+  >
+    Uitloggen
+  </littil-button>
   <p *ngIf="savingProfile">Uw profiel wordt opgeslagen</p>
 </div>

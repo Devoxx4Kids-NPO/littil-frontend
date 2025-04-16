@@ -1,1 +1,3 @@
-<p class="text-red-500 text-xs italic">{{ errorText }}</p>
+@for(message of messages$ | async; track message) {
+<p class="text-red-500 text-xs italic m-0">{{ message }}</p>
+}

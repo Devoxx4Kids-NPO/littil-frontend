@@ -1,8 +1,10 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
+import { ActivatedRoute } from '@angular/router';
+import { ActivatedRouteStub } from '@ngneat/spectator';
+import { MockProvider } from 'ng-mocks';
+import { PermissionController, Roles } from '../../services/permission.controller';
 import { ProfileContainerComponent } from './profile-container.component';
-import { MockProvider} from "ng-mocks";
-import {PermissionController, Roles} from "../../services/permission.controller";
 
 describe('ProfileContainerComponent', () => {
   let component: ProfileContainerComponent;
@@ -10,13 +12,13 @@ describe('ProfileContainerComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ ProfileContainerComponent ],
       providers: [
+        { provide: ActivatedRoute, useValue: ActivatedRouteStub },
         MockProvider(PermissionController, {
-          getRoleType: () => Roles.GuestTeacher })
-      ]
-    })
-    .compileComponents();
+          getRoleType: () => Roles.GuestTeacher,
+        }),
+      ],
+    }).compileComponents();
 
     fixture = TestBed.createComponent(ProfileContainerComponent);
     component = fixture.componentInstance;

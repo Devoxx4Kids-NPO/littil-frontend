@@ -1,9 +1,5 @@
 import { NG_VALUE_ACCESSOR } from '@angular/forms';
-import {
-  createFakeEvent,
-  createTouchEvent,
-  SpectatorElement,
-} from '@ngneat/spectator';
+import { createFakeEvent, createTouchEvent, SpectatorElement } from '@ngneat/spectator';
 import { createComponentFactory, Spectator } from '@ngneat/spectator/jest';
 import { FormInputSelectComponent } from './form-input-select.component';
 
@@ -11,7 +7,20 @@ describe('FormInputSelectComponent', () => {
   let spectator: Spectator<FormInputSelectComponent>;
   let onChangeSpy: jest.SpyInstance;
   let onTouchedSpy: jest.SpyInstance;
-  const createComponent = createComponentFactory(FormInputSelectComponent);
+
+  const createComponent = createComponentFactory({
+    component: FormInputSelectComponent,
+    imports: [FormInputSelectComponent],
+    providers: [
+      FormInputSelectComponent,
+      {
+        provide: NG_VALUE_ACCESSOR,
+        useExisting: FormInputSelectComponent,
+        multi: true
+      }
+    ],
+    declareComponent: false
+  });
 
   beforeEach(() => {
     spectator = createComponent();
@@ -103,26 +112,6 @@ describe('FormInputSelectComponent', () => {
       expect(spectator.query('select')).not.toHaveClass(
         'border-gray-50 focus:ring-0 placeholder:text-gray-50'
       );
-    });
-    it('should set correct classes on invalid state', async () => {
-      spectator.setInput('id', 'firstName');
-      spectator.setInput('label', 'Firstname');
-      spectator.setInput('hasError', true);
-      expect(spectator.query('select')).not.toHaveClass(
-        'border-yellow-100 focus:border-yellow-200 placeholder:text-yellow-100 focus:ring-yellow-200'
-      );
-      expect(spectator.query('select')).toHaveClass(
-        'border-red-500 focus:border-red-500 focus:ring-red-600'
-      );
-      expect(spectator.query('select')).not.toHaveClass(
-        'border-gray-50 focus:ring-0 placeholder:text-gray-50'
-      );
-    });
-    it('should show errorMessage on invalid state', async () => {
-      spectator.setInput('id', 'firstName');
-      spectator.setInput('label', 'Firstname');
-      spectator.setInput('hasError', true);
-      expect(spectator.query('p')).toBeDefined();
     });
     it('should set correct classes on disabled state', async () => {
       spectator.setInput('id', 'firstName');

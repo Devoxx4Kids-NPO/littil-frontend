@@ -1,69 +1,40 @@
 <div [@hideShow]="loading || hideForm ? 'hidden' : 'visible'" class="prose">
-  <ng-container *ngIf="!hideForm">
-    <h1 class="font-bold text-lg text-blue-200 mb-3">Contact opnemen</h1>
-    <p>
-      Vul hier uw e-mailadres of telefoonnummer en en de boodschap die u wilt versturen.
-    </p>
-    <form
-      [formGroup]="contactForm"
-      data-test="form-register"
-      (submit)="onClickSendEmail()"
-    >
-      <littil-form-input-text
-        formControlName="contactInfo"
-        id="contactInfo"
-        label="Contactgegevens"
-        [hasError]="FormUtil.InValid(contactForm.controls['contactInfo'])"
-      >
-        <littil-form-error-message
-          *ngIf="
-            FormUtil.ContainsError(contactForm.controls['contactInfo'], 'required')
-          "
-          errorText="Contact informatie is verplicht"
-        ></littil-form-error-message>
-      </littil-form-input-text>
-      <littil-form-input-text
-        formControlName="message"
-        id="message"
-        label="Bericht"
-        [hasError]="FormUtil.InValid(contactForm.controls['message'])"
-      >
-        <littil-form-error-message
-          *ngIf="
-            FormUtil.ContainsError(contactForm.controls['message'], 'required')
-          "
-          errorText="Message is verplicht"
-        ></littil-form-error-message>
-      </littil-form-input-text>
-    </form>
+  @if(!hideForm){
+  <h1 class="font-bold text-lg text-blue-200 mb-3">Contact opnemen</h1>
+  <p>Vul hier uw e-mailadres of telefoonnummer en en de boodschap die u wilt versturen.</p>
+  <form [formGroup]="contactForm" data-test="form-register" (submit)="onClickSendEmail()">
+    <littil-form-input-text formControlName="contactInfo" id="contactInfo" label="Contactgegevens">
+      <littil-form-error-message
+        [customErrors]="{ required: 'Contact informatie is verplicht' }"
+        controlName="contactInfo"
+      ></littil-form-error-message>
+    </littil-form-input-text>
+    <littil-form-input-text formControlName="message" id="message" label="Bericht">
+      <littil-form-error-message
+        [customErrors]="{ required: 'Bericht is verplicht' }"
+        controlName="message"
+      ></littil-form-error-message>
+    </littil-form-input-text>
+  </form>
 
-    <littil-button-rounded
-      data-test="sendEmailButton"
-      [inline]="true"
-      (click)="onClickSendEmail()"
-      >Verstuur email</littil-button-rounded
-    >
-    <littil-button-rounded
-      data-test="cancelButton"
-      [inline]="true"
-      [color]="'yellow'"
-      (click)="close()"
-      >Annuleren</littil-button-rounded
-    >
-  </ng-container>
+  <littil-button data-test="sendEmailButton" [inline]="true" (click)="onClickSendEmail()">
+    Verstuur email
+  </littil-button>
+  <littil-button data-test="cancelButton" [inline]="true" [color]="'yellow'" (click)="close()">
+    Annuleren
+  </littil-button>
+  }
 </div>
 
 <div [@hideShow]="hideConfirmation ? 'hidden' : 'visible'" class="prose">
-  <ng-container *ngIf="!hideConfirmation">
-    <h1 class="font-bold text-lg text-blue-200 mb-3">E-mail versturen gelukt</h1>
-    <p>Er is een email verstuurd naar de school/docent waar U mee in contact wil komen.
-      U heeft een copy van de email ontvangen.</p>
-    <littil-button-rounded
-      data-test="closeButton"
-      [inline]="true"
-      [color]="'yellow'"
-      (click)="close()"
-      >Sluiten</littil-button-rounded
-    >
-  </ng-container>
+  @if(!hideConfirmation){
+  <h1 class="font-bold text-lg text-blue-200 mb-3">E-mail versturen gelukt</h1>
+  <p>
+    Er is een email verstuurd naar de school/docent waar U mee in contact wil komen. U heeft een
+    copy van de email ontvangen.
+  </p>
+  <littil-button data-test="closeButton" [inline]="true" [color]="'yellow'" (click)="close()">
+    Sluiten
+  </littil-button>
+  }
 </div>

@@ -1,13 +1,15 @@
-import {
-  animate,
-  state,
-  style,
-  transition,
-  trigger,
-} from '@angular/animations';
+import { animate, state, style, transition, trigger } from '@angular/animations';
+import { CommonModule } from '@angular/common';
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { AuthService } from '@auth0/auth0-angular';
+import {
+  FormControl,
+  FormGroup,
+  FormsModule,
+  ReactiveFormsModule,
+  Validators,
+} from '@angular/forms';
+import { MatDialog, MatDialogModule, MatDialogRef } from '@angular/material/dialog';
+import { AuthService, User } from '@auth0/auth0-angular';
 import { firstValueFrom, Observable, Subscription, switchMap } from 'rxjs';
 import {
   ApiV1GuestTeachersGet200Response,
@@ -19,8 +21,15 @@ import { LittilSchoolService } from '../../services/littil-school/littil-school.
 import { LittilTeacherService } from '../../services/littil-teacher/littil-teacher.service';
 import { Roles } from '../../services/permission.controller';
 import { FormUtil } from '../../utils/form.util';
-import { RadioInput } from '../forms/radio-input/form-input-radio.component';
+import { ButtonComponent } from '../button/button.component';
+import { FormErrorMessageComponent } from '../forms/form-error-message/form-error-message.component';
+import {
+  FormInputRadioComponent,
+  RadioInput,
+} from '../forms/radio-input/form-input-radio.component';
+import { FormInputTextComponent } from '../forms/text-input/form-input-text.component';
 import { IModalComponent } from '../modal/modal.controller';
+import { PermissionController } from '../../services/permission.controller';
 
 @Component({
   selector: 'littil-complete-profile-modal',
@@ -42,15 +51,34 @@ import { IModalComponent } from '../modal/modal.controller';
       transition('hidden => visible', [animate('200ms')]),
     ]),
   ],
+  styles: [
+    `
+    .modal-content {
+      display: block;
+      visibility: visible;
+      padding: 20px;
+    }
+    `,
+  ],
+  standalone: true,
+  imports: [
+    CommonModule,
+    MatDialogModule,
+    FormsModule,
+    ReactiveFormsModule,
+    ButtonComponent,
+    FormInputTextComponent,
+    FormInputRadioComponent,
+    FormErrorMessageComponent,
+  ],
 })
 export class CompleteProfileModalComponent
-  implements IModalComponent<undefined, undefined>, OnInit, OnDestroy
-{
-  close!: () => boolean;
+  implements IModalComponent<undefined, undefined>, OnInit, OnDestroy {
+  close: () => boolean;
   public loading = false;
   public isSchool = false;
   public savingProfile = false;
-  private roleValueSubscription!: Subscription;
+  private roleValueSubscription: Subscription;
   FormUtil = FormUtil;
 
   completeProfileForm: FormGroup = new FormGroup({
@@ -59,12 +87,11 @@ export class CompleteProfileModalComponent
     firstName: new FormControl('', Validators.required),
     prefix: new FormControl(''),
     surname: new FormControl('', Validators.required),
-    addressStreet: new FormControl('', Validators.required),
-    addressHousenumber: new FormControl('', Validators.required),
+    address: new FormControl('', Validators.required),
     postalCode: new FormControl('', [
       Validators.required,
       Validators.pattern('^[0-9]{4}[A-Za-z]{2}$'),
-    ])
+    ]),
   });
 
   roleChoices: RadioInput[] = [
@@ -81,25 +108,24 @@ export class CompleteProfileModalComponent
   ];
 
   constructor(
-    private guestTeacherService: LittilTeacherService,
-    private schoolService: LittilSchoolService,
-    private readonly authService: AuthService
-  ) {
-    this.completeProfileForm.markAsPristine();
-    this.completeProfileForm.markAsUntouched();
-  }
+    private readonly guestTeacherService: LittilTeacherService,
+    private readonly schoolService: LittilSchoolService,
+    private readonly authService: AuthService,
+    private readonly permissionController: PermissionController,
+    private dialogRef: MatDialogRef<CompleteProfileModalComponent>
+  ) { }
 
   public ngOnInit(): void {
-    this.roleValueSubscription = this.completeProfileForm.controls[
-      'role'
-    ].valueChanges.subscribe((changes: any) => {
-      this.isSchool = changes === Roles.School;
-      if (changes === Roles.School) {
-        this.completeProfileForm.controls['schoolName'].enable();
-      } else {
-        this.completeProfileForm.controls['schoolName'].disable();
+    this.roleValueSubscription = this.completeProfileForm.controls['role'].valueChanges.subscribe(
+      changes => {
+        this.isSchool = changes === Roles.School;
+        if (this.isSchool) {
+          this.completeProfileForm.controls['schoolName'].enable();
+        } else {
+          this.completeProfileForm.controls['schoolName'].disable();
+        }
       }
-    });
+    );
   }
 
   public ngOnDestroy(): void {
@@ -114,7 +140,7 @@ export class CompleteProfileModalComponent
       if (this.completeProfileForm.invalid) {
         return false;
       }
-      this.savingProfile=true;
+      this.savingProfile = true;
 
       let createOrUpdateCall: Observable<
         ApiV1GuestTeachersGet200Response | ApiV1SchoolsGet200Response
@@ -124,44 +150,39 @@ export class CompleteProfileModalComponent
         firstName: this.completeProfileForm.controls['firstName'].value,
         prefix: this.completeProfileForm.controls['prefix'].value,
         surname: this.completeProfileForm.controls['surname'].value,
-        address:
-          this.completeProfileForm.controls['addressStreet'].value +
-          ' ' +
-          this.completeProfileForm.controls['addressHousenumber'].value,
-        postalCode:
-          this.completeProfileForm.controls['postalCode'].value.toUpperCase(),
+        address: this.completeProfileForm.controls['address'].value,
+        postalCode: this.completeProfileForm.controls['postalCode'].value.toUpperCase(),
       };
-      if (
-        this.completeProfileForm.controls['role'].value === Roles.GuestTeacher
-      ) {
+      if (this.completeProfileForm.controls['role'].value === Roles.GuestTeacher) {
         delete formValues.name;
         createOrUpdateCall = this.guestTeacherService.createOrUpdate(
           formValues as GuestTeacherPostResource
         );
       } else {
-        createOrUpdateCall = this.schoolService.createOrUpdate(
-          formValues as SchoolPostResource
-        );
+        createOrUpdateCall = this.schoolService.createOrUpdate(formValues as SchoolPostResource);
       }
       return firstValueFrom(createOrUpdateCall)
         .then(() => {
           return firstValueFrom(
-            this.authService
-              .getAccessTokenSilently({ ignoreCache: true })
-              .pipe(switchMap(() => this.authService.user$))
-          ).then(() => {
-            return this.close();
+            this.authService.getAccessTokenSilently({ cacheMode: 'off' }).pipe(switchMap(() => this.authService.user$))
+          ).then((user: User | null | undefined) => {
+            if (user) {
+              this.permissionController.setAuthorizations(user['https://littil.org/authorizations']);
+            }
+            this.dialogRef.close(true);
+            return true;
           });
         })
         .catch((error: any) => {
-          console.error('createOrUpdate profile error');
-          this.savingProfile=false;
+          console.error('createOrUpdate profile error', error);
+          this.savingProfile = false;
           return false;
         });
     });
   }
 
   public logOut(): void {
+    this.dialogRef.close(false);
     this.authService.logout();
   }
 }

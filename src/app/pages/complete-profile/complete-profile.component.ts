@@ -1,37 +1,47 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { CompleteProfileModalComponent } from '../../components/complete-profile-modal/complete-profile-modal.component';
-import {
-  IModalComponentOptions,
-  ModalController,
-} from '../../components/modal/modal.controller';
-import { PermissionController } from '../../services/permission.controller';
-
+import { PermissionController} from '../../services/permission.controller';
+import { MatDialog } from '@angular/material/dialog';
 @Component({
   selector: 'littil-complete-profile',
-  templateUrl: './complete-profile.component.html',
+  template: '',
 })
 export class CompleteProfilePageComponent implements OnInit {
   constructor(
     private router: Router,
-    private modalController: ModalController,
-    private permissionController: PermissionController
+    private permissionController: PermissionController,
+    private dialog: MatDialog
   ) {}
 
   async ngOnInit(): Promise<any> {
-    return Promise.resolve().then(async () => {
+    try {
+
       if (this.permissionController.hasAnyRole()) {
         await this.router.navigateByUrl('/user/search');
         return;
       }
-      return this.modalController
-        .present(CompleteProfileModalComponent, {
-          modalSize: undefined,
-          disableClose: true,
-        } as IModalComponentOptions)
-        .then(() => {
-          return this.router.navigateByUrl('/user/search');
-        });
-    });
+
+      this.showModalIfNeeded(true);
+
+    } catch (error) {
+      console.error('Error in ngOnInit:', error);
+      throw error;
+    }
+  }
+
+  showModalIfNeeded(condition: boolean) {
+    if (condition) {
+      const dialogRef = this.dialog.open(CompleteProfileModalComponent, {
+        width: '800px',
+        disableClose: true
+      });
+
+      dialogRef.afterClosed().subscribe(result => {
+        if (result === true) {
+          this.router.navigateByUrl('/user/search');
+        }
+      });
+    }
   }
 }

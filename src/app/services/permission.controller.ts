@@ -38,7 +38,7 @@ export class PermissionController {
     this._onPermissionChange.next();
   }
 
-    getRoleType(): Roles {
+  getRoleType(): Roles {
     if (this.authorizations && this.authorizations.schools.length > 0) {
       return Roles.School;
     }

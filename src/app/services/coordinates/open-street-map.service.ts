@@ -1,15 +1,14 @@
 import { HttpClient } from '@angular/common/http';
-import { Coordinates, CoordinatesService } from './coordinates.service';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { first, map } from 'rxjs/operators';
+import { Coordinates, CoordinatesService } from './coordinates.service';
 
-@Injectable({providedIn: 'root'})
+@Injectable({ providedIn: 'root' })
 export class OpenStreetMapService implements CoordinatesService {
-
   private baseUrl = 'https://nominatim.openstreetmap.org/search';
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient) {}
 
   getCoordinates(location: string | undefined): Observable<Coordinates> {
     const url = `${this.baseUrl}?q=${location}&format=json`;
@@ -19,10 +18,9 @@ export class OpenStreetMapService implements CoordinatesService {
       first()
     );
   }
-
 }
 
-export interface OSMResult {
+interface OSMResult {
   place_id: number;
   licence: string;
   osm_type: string;

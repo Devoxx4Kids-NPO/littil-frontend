@@ -2,8 +2,7 @@ import { Router } from '@angular/router';
 import { RouterTestingModule } from '@angular/router/testing';
 import { Spectator } from '@ngneat/spectator';
 import { createRoutingFactory } from '@ngneat/spectator/jest';
-import { MockComponent, MockProvider } from 'ng-mocks';
-import { CompleteProfileModalComponent } from '../../components/complete-profile-modal/complete-profile-modal.component';
+import { MockProvider } from 'ng-mocks';
 import { ModalController } from '../../components/modal/modal.controller';
 import { PermissionController } from '../../services/permission.controller';
 import { CompleteProfilePageComponent } from './complete-profile.component';
@@ -16,7 +15,7 @@ describe('CompleteProfilePageComponent', () => {
 
   const createComponent = createRoutingFactory({
     component: CompleteProfilePageComponent,
-    declarations: [MockComponent(CompleteProfileModalComponent)],
+    declareComponent: false,
     imports: [RouterTestingModule],
     providers: [
       MockProvider(Router, {

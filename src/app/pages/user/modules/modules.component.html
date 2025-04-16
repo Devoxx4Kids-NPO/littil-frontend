@@ -1,19 +1,28 @@
 <littil-profile-container title="Modules wijzigen">
-
   <fieldset class="not-prose">
     <legend class="sr-only">Modules</legend>
     <div data-test="module-list">
-      <div data-test="module-list-item" class="relative flex items-start" *ngFor="let availableModule of availableModules">
+      <div
+        data-test="module-list-item"
+        class="relative flex items-start"
+        *ngFor="let availableModule of availableModules"
+      >
         <div class="flex h-6 items-center">
-          <input [id]="availableModule.id"
-                 [name]="availableModule.id"
-                 (change)="updateSelectedModules(availableModule)"
-                 [checked]="isSelectedModule(availableModule)"
-                 [ngClass]="'text-blue-200 focus:ring-blue-200'"
-                 aria-describedby="comments-description" type="checkbox" class="h-4 w-4 rounded border-gray-300">
+          <input
+            [id]="availableModule.id"
+            [name]="availableModule.id"
+            (change)="updateSelectedModules(availableModule)"
+            [checked]="isSelectedModule(availableModule)"
+            [ngClass]="'text-blue-200 focus:ring-blue-200'"
+            aria-describedby="comments-description"
+            type="checkbox"
+            class="h-4 w-4 rounded border-gray-300"
+          />
         </div>
         <div class="ml-3 text-sm leading-6">
-          <label [for]="availableModule.id" class="font-medium text-gray-900">{{ availableModule.name}}</label>
+          <label [for]="availableModule.id" class="font-medium text-gray-900">
+            {{ availableModule.name }}
+          </label>
         </div>
       </div>
     </div>
@@ -21,9 +30,19 @@
 
   <div class="flex flex-row gap-4 justify-between mt-4">
     <div>
-      <littil-button-rounded data-test="saveButton" [inline]="true" (click)="onClickSaveModules()">Modules opslaan</littil-button-rounded>
-      <littil-button-rounded data-test="cancelButton" [inline]="true" (click)="onClickCancelChanges()" color="yellow">Wijzigingen annuleren</littil-button-rounded>
+      <littil-button
+        data-test="saveButton"
+        [inline]="true"
+        (click)="onClickSaveModules()"
+        >Modules opslaan
+      </littil-button>
+      <littil-button
+        data-test="cancelButton"
+        [inline]="true"
+        (click)="onClickCancelChanges()"
+        color="yellow"
+        >Wijzigingen annuleren
+      </littil-button>
     </div>
   </div>
 </littil-profile-container>
-<littil-footer></littil-footer>

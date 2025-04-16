@@ -1,18 +1,11 @@
-import { Component, forwardRef } from '@angular/core';
-import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
+import { CommonModule } from '@angular/common';
+import { Component } from '@angular/core';
 import { FormBaseComponent } from '../form-base';
 
 @Component({
   selector: 'littil-form-select-text',
   templateUrl: './form-input-select.component.html',
-  providers: [
-    {
-      provide: NG_VALUE_ACCESSOR,
-      useExisting: forwardRef(() => FormInputSelectComponent),
-      multi: true,
-    },
-  ],
+  standalone: true,
+  imports: [CommonModule],
 })
-export class FormInputSelectComponent
-  extends FormBaseComponent
-  implements ControlValueAccessor {}
+export class FormInputSelectComponent extends FormBaseComponent {}

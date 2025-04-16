@@ -1,8 +1,11 @@
+import { CommonModule } from '@angular/common';
 import { Component, Input } from '@angular/core';
 
 @Component({
   selector: 'littil-content-container',
   templateUrl: './content-container.component.html',
+  standalone: true,
+  imports: [CommonModule],
 })
 export class ContentContainerComponent {
   @Input()

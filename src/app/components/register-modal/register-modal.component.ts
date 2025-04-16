@@ -1,21 +1,36 @@
+import {animate, state, style, transition, trigger} from '@angular/animations';
+import {CommonModule} from '@angular/common';
+import {Component} from '@angular/core';
 import {
-  animate,
-  state,
-  style,
-  transition,
-  trigger,
-} from '@angular/animations';
-import { Component } from '@angular/core';
-import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { firstValueFrom } from 'rxjs';
-import { User } from '../../api/generated';
-import { LittilUserService } from '../../services/littil-user/littil-user.service';
-import { FormUtil } from '../../utils/form.util';
-import { IModalComponent } from '../modal/modal.controller';
+  FormControl,
+  FormGroup,
+  FormsModule,
+  ReactiveFormsModule,
+  Validators,
+} from '@angular/forms';
+import {MatDialogModule} from '@angular/material/dialog';
+import {firstValueFrom} from 'rxjs';
+import {User} from '../../api/generated';
+import {LittilUserService} from '../../services/littil-user/littil-user.service';
+import {FormUtil} from '../../utils/form.util';
+import {ButtonComponent} from '../button/button.component';
+import {FormErrorMessageComponent} from '../forms/form-error-message/form-error-message.component';
+import {FormInputTextComponent} from '../forms/text-input/form-input-text.component';
+import {IModalComponent} from '../modal/modal.controller';
 
 @Component({
   selector: 'littil-register-modal',
   templateUrl: 'register-modal.component.html',
+  standalone: true,
+  imports: [
+    CommonModule,
+    MatDialogModule,
+    FormsModule,
+    ReactiveFormsModule,
+    ButtonComponent,
+    FormInputTextComponent,
+    FormErrorMessageComponent,
+  ],
   animations: [
     trigger('hideShow', [
       state(
@@ -28,15 +43,14 @@ import { IModalComponent } from '../modal/modal.controller';
         'visible',
         style({
           opacity: 1,
+          padding: '20px'
         })
       ),
       transition('hidden => visible', [animate('200ms')]),
     ]),
   ],
 })
-export class RegisterModalComponent
-  implements IModalComponent<IRegisterModalOutput, undefined>
-{
+export class RegisterModalComponent implements IModalComponent<IRegisterModalOutput, undefined> {
   close!: (response: IRegisterModalOutput) => IRegisterModalOutput;
   public loading = false;
   public hideForm = false;
@@ -49,7 +63,8 @@ export class RegisterModalComponent
     email: new FormControl('', [Validators.required, Validators.email]),
   });
 
-  constructor(private readonly userService: LittilUserService) {}
+  constructor(private readonly userService: LittilUserService) {
+  }
 
   public async onClickRegister(): Promise<boolean> {
     return Promise.resolve().then(() => {
@@ -77,11 +92,11 @@ export class RegisterModalComponent
   }
 
   public closeModal() {
-    this.close({ triggerLogin: false });
+    this.close({triggerLogin: false});
   }
 
   public onClickLogin() {
-    this.close({ triggerLogin: true });
+    this.close({triggerLogin: true});
   }
 }
 

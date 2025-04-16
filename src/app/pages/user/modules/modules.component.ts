@@ -1,16 +1,29 @@
-import { Component } from "@angular/core";
-import { Module } from "../../../api/generated";
-import { LittilModulesService } from "../../../services/littil-modules/littil-modules.service";
-import { LittilTeacherService } from "../../../services/littil-teacher/littil-teacher.service";
-import { LittilSchoolService } from "../../../services/littil-school/littil-school.service";
-import { PermissionController, Roles } from "../../../services/permission.controller";
-import { IHasManageableModules } from "../../../services/littil-modules/littil-modules-user.interface";
-import { forkJoin } from "rxjs";
-import { map } from "rxjs/operators";
+import { CommonModule } from '@angular/common';
+import { Component } from '@angular/core';
+import { ReactiveFormsModule } from '@angular/forms';
+import { forkJoin } from 'rxjs';
+import { map } from 'rxjs/operators';
+import { Module } from '../../../api/generated';
+import { ButtonComponent } from '../../../components/button/button.component';
+import { FooterComponent } from '../../../components/footer/footer.component';
+import { ProfileContainerComponent } from '../../../components/profile-container/profile-container.component';
+import { IHasManageableModules } from '../../../services/littil-modules/littil-modules-user.interface';
+import { LittilModulesService } from '../../../services/littil-modules/littil-modules.service';
+import { LittilSchoolService } from '../../../services/littil-school/littil-school.service';
+import { LittilTeacherService } from '../../../services/littil-teacher/littil-teacher.service';
+import { PermissionController, Roles } from '../../../services/permission.controller';
 
 @Component({
   selector: 'littil-modules',
-  templateUrl: './modules.component.html'
+  templateUrl: './modules.component.html',
+  standalone: true,
+  imports: [
+    CommonModule,
+    ProfileContainerComponent,
+    ReactiveFormsModule,
+    FooterComponent,
+    ButtonComponent,
+  ],
 })
 export class ModulesComponent {
   private readonly roleType: Roles;
@@ -24,22 +37,21 @@ export class ModulesComponent {
     private littilModulesService: LittilModulesService,
     private permissionController: PermissionController,
     private littilTeacherService: LittilTeacherService,
-    private littilSchoolService: LittilSchoolService,
+    private littilSchoolService: LittilSchoolService
   ) {
     this.roleType = this.permissionController.getRoleType();
     this.roleId = this.permissionController.getRoleId();
-    this.userModuleManager = this.roleType == Roles.GuestTeacher ? littilTeacherService : littilSchoolService;
-    forkJoin([
-      this.littilModulesService.getAll(),
-      this.userModuleManager.getModules(this.roleId),
-
-  ]).pipe(
-      map(([ availableModules, userModules ]) => {
-        this.availableModules = availableModules;
-        this.userModules = userModules;
-        this.selectedModules = userModules.map(m => m.id as string)
-      })
-    ).subscribe();
+    this.userModuleManager =
+      this.roleType == Roles.GuestTeacher ? littilTeacherService : littilSchoolService;
+    forkJoin([this.littilModulesService.getAll(), this.userModuleManager.getModules(this.roleId)])
+      .pipe(
+        map(([availableModules, userModules]) => {
+          this.availableModules = availableModules;
+          this.userModules = userModules;
+          this.selectedModules = userModules.map(m => m.id as string);
+        })
+      )
+      .subscribe();
   }
 
   isSelectedModule(module: Module): boolean {
@@ -60,17 +72,15 @@ export class ModulesComponent {
     this.selectedModules = this.selectedModules.filter(m => moduleId !== m);
   }
 
-  onClickSaveModules() : void {
-    this.userModuleManager
-      .addModules(this.roleId, this.selectedModules)
-      .subscribe(() => {
-        this.userModules = this.availableModules
-          .filter(m => this.selectedModules.includes(m.id as string));
-      });
+  onClickSaveModules(): void {
+    this.userModuleManager.addModules(this.roleId, this.selectedModules).subscribe(() => {
+      this.userModules = this.availableModules.filter(m =>
+        this.selectedModules.includes(m.id as string)
+      );
+    });
   }
 
-  onClickCancelChanges():  void {
-    this.selectedModules = this.userModules
-      .map(m => m.id as string);
+  onClickCancelChanges(): void {
+    this.selectedModules = this.userModules.map(m => m.id as string);
   }
 }

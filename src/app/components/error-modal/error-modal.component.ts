@@ -1,11 +1,8 @@
-import {
-  animate,
-  state,
-  style,
-  transition,
-  trigger,
-} from '@angular/animations';
+import { animate, state, style, transition, trigger } from '@angular/animations';
+import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
+import { MatDialogModule } from '@angular/material/dialog';
+import { ButtonComponent } from '../button/button.component';
 import { IModalComponent } from '../modal/modal.controller';
 
 @Component({
@@ -28,10 +25,10 @@ import { IModalComponent } from '../modal/modal.controller';
       transition('hidden => visible', [animate('200ms')]),
     ]),
   ],
+  standalone: true,
+  imports: [CommonModule, MatDialogModule, ButtonComponent],
 })
-export class ErrorModalComponent
-  implements IModalComponent<undefined, IErrorModalInput>
-{
+export class ErrorModalComponent implements IModalComponent<undefined, IErrorModalInput> {
   public loading = false;
   public message = '';
   close!: () => void;
