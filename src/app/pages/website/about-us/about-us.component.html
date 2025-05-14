@@ -12,29 +12,4 @@
 
   <littil-contact-banner></littil-contact-banner>
 
-  <div class="my-20">
-    <div class="mb-10 text-center not-prose">
-      <h3>Bestuur</h3>
-    </div>
-
-    <div class="grid grid-cols-12 gap-x-6 gap-y-4">
-      <!-- Management cards -->
-      <div
-        class="col-span-12 md:col-span-6 p-4 rounded-md bg-blue-100"
-        *ngFor="let member of managementMock"
-      >
-        <div class="h-full flex gap-x-4 items-center">
-          <img
-            class="h-20 w-20 rounded-md"
-            [src]="'assets/about-us/' + (member.image ?? 'member-icon.png')"
-            alt=""
-          />
-          <div class="flex flex-col gap-y-2 text-white">
-            <h4>{{ member.name }}</h4>
-            <span>{{ member.role }}</span>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
 </littil-content-container>
