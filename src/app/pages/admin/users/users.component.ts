@@ -5,7 +5,6 @@ import {User} from '../../../api/generated';
 import {
   ContentContainerComponent
 } from '../../../components/content-container/content-container.component';
-import {FooterComponent} from '../../../components/footer/footer.component';
 import {TitleComponent} from '../../../components/title/title.component';
 import {LittilUserService} from '../../../services/littil-user/littil-user.service';
 
@@ -17,8 +16,7 @@ import {LittilUserService} from '../../../services/littil-user/littil-user.servi
     CommonModule,
     ContentContainerComponent,
     TitleComponent,
-    FooterComponent,
-  ],
+  ]
 })
 export class UsersComponent implements OnInit {
   users$: Observable<User[]>;
@@ -26,11 +24,13 @@ export class UsersComponent implements OnInit {
   constructor(private userService: LittilUserService) {}
 
   ngOnInit(): void {
-    this.users$ = this.userService.getAll().pipe(
+    this.users$ =this.userService.getAll().pipe(
       catchError(async error => {
         console.error('Error fetching users', error);
-        return new Array<User>(); // Return an empty array to keep the Observable stream alive
+        // Return an empty array to keep the Observable stream alive
+        return new Array<User>();
       })
     );
+
   }
 }

@@ -4,6 +4,7 @@ import {
   ApiV1UsersUserGet201Response,
   User,
   UsersService,
+  UserStatistics,
 } from '../../api/generated';
 
 @Injectable({
@@ -27,4 +28,9 @@ export class LittilUserService {
   delete(id: string): Observable<any> {
     return this.userService.apiV1UsersUserIdDelete(id);
   }
+
+  getUserStatistics(): Observable<UserStatistics[]> {
+    return this.userService.apiV1UsersStatisticsGet();
+  }
+
 }

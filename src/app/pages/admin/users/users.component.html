@@ -5,9 +5,11 @@
       <thead>
       <tr>
         <th>email</th>
-        <th>roles</th>
+        <th>rolen</th>
         <th>Provider</th>
         <th>providerId</th>
+        <th>laatste Login</th>
+        <th>Aantal logins</th>
       </tr>
       </thead>
       <tbody>
@@ -16,6 +18,8 @@
         <td>{{ user.roles }}</td>
         <td>{{ user.provider }}</td>
         <td>{{ user.providerId }}</td>
+        <td>{{ user.lastLogin | date: 'dd-MM-yyyy' }}</td>
+        <td>{{ user.loginsCount}}</td>
       </tr>
       </tbody>
     </table>
