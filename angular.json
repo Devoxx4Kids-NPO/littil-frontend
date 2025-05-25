@@ -97,11 +97,46 @@
           "options": {
             "buildTarget": "littil-org-website:build"
           }
+        },
+        "cypress-run": {
+          "builder": "@cypress/schematic:cypress",
+          "options": {
+            "devServerTarget": "littil-org-website:serve"
+          },
+          "configurations": {
+            "production": {
+              "devServerTarget": "littil-org-website:serve:production"
+            }
+          }
+        },
+        "cypress-open": {
+          "builder": "@cypress/schematic:cypress",
+          "options": {
+            "watch": true,
+            "headless": false
+          }
+        },
+        "e2e": {
+          "builder": "@cypress/schematic:cypress",
+          "options": {
+            "devServerTarget": "littil-org-website:serve",
+            "watch": true,
+            "headless": false
+          },
+          "configurations": {
+            "production": {
+              "devServerTarget": "littil-org-website:serve:production"
+            }
+          }
         }
       }
     }
   },
   "cli": {
-    "analytics": "b0b5d120-349d-45ff-ac13-ffeee8324a32"
+    "analytics": "b0b5d120-349d-45ff-ac13-ffeee8324a32",
+    "schematicCollections": [
+      "@cypress/schematic",
+      "@schematics/angular"
+    ]
   }
 }
