@@ -14,7 +14,7 @@ const userStatistics: UserStatistics[] = [
   {
     authorizationType: 'user',
     count: 3,
-    lastCreated: '23-05-2025'
+    lastCreated: '2025-05-23T11:00:00Z'
   },
 ];
 
