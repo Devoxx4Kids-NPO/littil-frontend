@@ -1,4 +1,4 @@
-<div [@hideShow]="loading || hideForm ? 'hidden' : 'visible'" class="prose">
+<div [@hideShow]="loading || hideForm ? 'hidden' : 'visible'" class="prose" data-test="registerModal">
   <ng-container *ngIf="!hideForm">
     <h1 class="font-bold text-lg text-blue-200 mb-3">Registeren</h1>
     <p>
@@ -26,7 +26,7 @@
         [inline]="true"
         [disabled]="creatingProfile"
         (click)="onClickRegister()"
-        >Registreren</littil-button-rounded
+      >Registreren</littil-button-rounded
       >
       <littil-button-rounded
         data-test="cancelButton"
@@ -35,17 +35,17 @@
         [color]="'yellow'"
         (click)="closeModal()"
         class="mr-4"
-        >Annuleren</littil-button-rounded
+      >Annuleren</littil-button-rounded
       >
       <littil-form-error-message *ngIf="registerForm.controls['email'].dirty || registerForm.controls['email'].touched"
-          [errorText]="FormUtil.ContainsError(registerForm.controls['email'], 'required') ? 'E-mailadres is verplicht' : (FormUtil.ContainsError(registerForm.controls['email'], 'email') ? 'Vul een geldig e-mailadres in' : '')"
+                                 [errorText]="FormUtil.ContainsError(registerForm.controls['email'], 'required') ? 'E-mailadres is verplicht' : (FormUtil.ContainsError(registerForm.controls['email'], 'email') ? 'Vul een geldig e-mailadres in' : '')"
       ></littil-form-error-message>
     </div>
     <p *ngIf="creatingProfile">Uw account wordt aangemaakt</p>
   </ng-container>
 </div>
 
-<div [@hideShow]="hideConfirmation ? 'hidden' : 'visible'" class="prose">
+<div [@hideShow]="hideConfirmation ? 'hidden' : 'visible'" class="prose" data-test="registerConformationModal">
   <ng-container *ngIf="!hideConfirmation">
     <h1 class="font-bold text-lg text-blue-200 mb-3">Registratie gelukt</h1>
     <p>Check je inbox om in te loggen en een eigen wachtwoord aan te maken.</p>
@@ -53,14 +53,14 @@
       data-test="loginButton"
       [inline]="true"
       (click)="onClickLogin()"
-      >Inloggen</littil-button-rounded
+    >Inloggen</littil-button-rounded
     >
     <littil-button-rounded
       data-test="closeButton"
       [inline]="true"
       [color]="'yellow'"
       (click)="closeModal()"
-      >Sluiten</littil-button-rounded
+    >Sluiten</littil-button-rounded
     >
   </ng-container>
 </div>

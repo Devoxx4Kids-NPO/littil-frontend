@@ -21,16 +21,16 @@
       <strong>Gegevens contactpersoon</strong>
     </fieldset>
     <div class="flex flex-row justify-evenly gap-4 ">
-      <littil-form-input-text class="flex-1" formControlName="firstName" id="firstName" label="Voornaam"
+      <littil-form-input-text class="flex-1" formControlName="firstName" id="firstName" label="Voornaam" data-test="firstName"
         [hasError]="FormUtil.InValid(profileForm.controls['firstName'])">
         <littil-form-error-message
           *ngIf="FormUtil.InValid(profileForm.controls['firstName'])"
           errorText="Voornaam is verplicht"
         ></littil-form-error-message>
       </littil-form-input-text>
-      <littil-form-input-text formControlName="prefix" id="prefix" label="Tussenvoegsel">
+      <littil-form-input-text formControlName="prefix" id="prefix" label="Tussenvoegsel" data-test="prefix">
       </littil-form-input-text>
-      <littil-form-input-text class="flex-1" formControlName="surname" id="surname" label="Achternaam"
+      <littil-form-input-text class="flex-1" formControlName="surname" id="surname" label="Achternaam" data-test="surname"
         [hasError]="FormUtil.InValid(profileForm.controls['surname'])">
         <littil-form-error-message
           *ngIf="FormUtil.InValid(profileForm.controls['surname'])"
@@ -62,7 +62,7 @@
     </p>
     <div class="flex flex-row justify-evenly gap-4 mb-3">
 
-      <littil-form-input-text formControlName="address" id="address" label="Straat" class="flex-1"
+      <littil-form-input-text formControlName="address" id="address" label="Straat" class="flex-1" data-test="address"
         [hasError]="FormUtil.InValid(profileForm.controls['address'])">
         <littil-form-error-message
           *ngIf="FormUtil.InValid(profileForm.controls['address'])"
@@ -80,8 +80,8 @@
     </div>
     <div class="flex flex-row gap-4 justify-between mt-4">
       <div>
-        <littil-button-rounded [inline]="true" (click)="onClickSaveProfile()">Profiel opslaan</littil-button-rounded>
-        <littil-button-rounded [inline]="true" (click)="onCancelChanges($event)" color="yellow">Wijzigingen annuleren</littil-button-rounded>
+        <littil-button-rounded [inline]="true" (click)="onClickSaveProfile()" data-test="saveProfileBtn">Profiel opslaan</littil-button-rounded>
+        <littil-button-rounded [inline]="true" (click)="onCancelChanges($event)" color="yellow" data-test="cancelChangesBtn">Wijzigingen annuleren</littil-button-rounded>
       </div>
       <littil-button-rounded data-test="enable_delete_profile" [inline]="true" color="red" (click)="deleteProfileOpen = !deleteProfileOpen; $event.preventDefault()">Profiel verwijderen</littil-button-rounded>
     </div>
@@ -91,13 +91,13 @@
         [formGroup]="deleteProfileForm">
     Weet u zeker dat u uw profiel wilt verwijderen? Al uw gegevens worden verwijderd. Dit kan niet ongedaan worden gemaakt. Geef hieronder uw e-mailadres in en klik op verwijderen om door te gaan.
     <div class="flex flex-row gap-4 pt-2">
-      <littil-form-input-text formControlName="email" placeholder="uwnaam@example.com" class="flex-1" [hasError]="FormUtil.InValid(deleteProfileForm.controls['email'])">
+      <littil-form-input-text formControlName="email" placeholder="uwnaam@example.com" class="flex-1" [hasError]="FormUtil.InValid(deleteProfileForm.controls['email'])" data-test="deleteProfileConfirmEmail">
         <littil-form-error-message
           *ngIf="FormUtil.InValid(deleteProfileForm.controls['email'])"
           [errorText]="'Vul ter bevestiging uw eigen e-mailadres in'"></littil-form-error-message>
 
       </littil-form-input-text>
-      <littil-button-rounded [inline]="true" color="red" (click)="deleteProfile(); $event.preventDefault()">Profiel definitief verwijderen</littil-button-rounded>
+      <littil-button-rounded [inline]="true" color="red" (click)="deleteProfile(); $event.preventDefault()" data-test="deleteProfileBtn">Profiel definitief verwijderen</littil-button-rounded>
       <littil-button-rounded [inline]="true" (click)="deleteProfileOpen = !deleteProfileOpen; $event.preventDefault()" color="yellow">Verwijderen annuleren</littil-button-rounded>
     </div>
   </form>

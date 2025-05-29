@@ -43,6 +43,7 @@
       label="Voornaam"
       widthClass="w-64"
       class="mr-2"
+      data-test="firstname"
       [hasError]="FormUtil.InValid(completeProfileForm.controls['firstName'])"
     >
       <littil-form-error-message
@@ -56,6 +57,7 @@
       label="Tussenvoegsel"
       widthClass="w-32"
       class="mr-2"
+      data-test="prefix"
       >
     </littil-form-input-text>
       <littil-form-input-text
@@ -64,6 +66,7 @@
       label="Achternaam"
       widthClass="w-64"
       class="mr-2"
+      data-test="surname"
       [hasError]="FormUtil.InValid(completeProfileForm.controls['surname'])"
     >
       <littil-form-error-message
@@ -92,6 +95,7 @@
           label="Straat"
           widthClass="w-64"
           class="mr-2"
+          data-test="address"
           [hasError]="
             FormUtil.InValid(completeProfileForm.controls['addressStreet'])
           "
@@ -109,6 +113,7 @@
           label="Huisnummer"
           widthClass="w-32"
           class="mr-2"
+          data-test="houseNumber"
           [hasError]="
             FormUtil.InValid(completeProfileForm.controls['addressHousenumber'])
           "
@@ -129,6 +134,7 @@
           maxLength="6"
           widthClass="w-32"
           class="mr-2"
+          data-test="zipCode"
           [hasError]="
             FormUtil.InValid(completeProfileForm.controls['postalCode'])
           "
@@ -172,7 +178,9 @@
   <littil-button-rounded
     [inline]="true"
     [disabled]="savingProfile"
-    (click)="onClickSaveProfile()">
+    (click)="onClickSaveProfile()"
+    data-test="savingProfileBtn"
+  >
     Profiel opslaan
   </littil-button-rounded>
   <littil-button-rounded

@@ -41,3 +41,45 @@
 //
 // -- This will overwrite an existing command --
 // Cypress.Commands.overwrite("visit", (originalFn, url, options) => { ... })
+
+
+declare namespace Cypress {
+  interface Chainable {
+    acceptCookie(): Chainable;
+
+    login(email: string, password: string): Chainable;
+  }
+}
+Cypress.Commands.add("acceptCookie", () => {
+  // accept cookie
+  cy.get('[id="cookieconsent:desc"]').should('exist');
+  cy.get('[aria-label="dismiss cookie message"]').should('exist');
+  cy.get('[aria-label="dismiss cookie message"]').click();
+  // TODO not.exists fail
+  // cy.get('[id="cookieconsent:desc"]').should('not.exist');
+})
+
+Cypress.Commands.add("login", (email: string, password: string) => {
+  cy.get('littil-user-menu').as('userMenu');
+  cy.get('@userMenu').contains('Inloggen');
+
+  cy.get('@userMenu').get('[data-test="login-btn"]').should('exist', 1).as('loginBtn');
+
+
+  cy.get('@loginBtn').contains("Inloggen");
+  // cy.get('@loginBtn').click({force: true});  werkt niet
+
+  cy.get('@userMenu').contains('Inloggen').click({force: true});
+
+  cy.wait(1000);
+
+  cy.origin(Cypress.env('auth0_tenant'), { args: { email, password} }, ({ email, password}) => {
+    cy.get('input#username').type(email);
+    cy.get('input#password').type(password, {log: false});
+    // cy.get('input#password').maskedType(password);  // TODO not working
+    cy.contains('button[value=default]', 'Doorgaan').click();
+  })
+  // cy.wait(1000)
+  cy.contains(email);
+
+})
