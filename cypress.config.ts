@@ -3,6 +3,9 @@ import createBundler from '@bahmutov/cypress-esbuild-preprocessor';
 import { addCucumberPreprocessorPlugin } from '@badeball/cypress-cucumber-preprocessor';
 
 export default defineConfig({
+  env: {
+    mailHogUrl: "http://localhost:8025", // Adjust the port if needed
+  },
   e2e: {
     specPattern: 'cypress/e2e/**/*.feature',
     async setupNodeEvents(on, config) {
