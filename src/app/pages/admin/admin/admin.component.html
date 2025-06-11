@@ -3,7 +3,23 @@
 <littil-content-container>
     <div class="grid grid-cols-12 gap-x-4 my-12">
       <article class="col-span-12 md:col-span-8">
-        <h1>TODO !!!!!!</h1>
+        <p>Overzicht gebruikers en geristreerde scholen/gastdocenten</p>
+        <table>
+          <thead>
+          <tr>
+            <th>type</th>
+            <th>aantal</th>
+            <th>meest recente</th>
+          </tr>
+          </thead>
+          <tbody>
+          <tr *ngFor="let userStatistic of usersStatitics$ | async">
+            <td>{{ userStatistic.authorizationType }}</td>
+            <td>{{ userStatistic.count }}</td>
+            <td>{{ userStatistic.lastCreated  | date: 'dd-MM-yyyy' }}</td>
+          </tr>
+          </tbody>
+        </table>
       </article>
 
     </div>

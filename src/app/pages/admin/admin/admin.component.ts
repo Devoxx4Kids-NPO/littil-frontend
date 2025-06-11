@@ -1,20 +1,36 @@
-import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
-import { ContactBannerComponent } from '../../../components/contact-banner/contact-banner.component';
-import { ContentContainerComponent } from '../../../components/content-container/content-container.component';
-import { FooterComponent } from '../../../components/footer/footer.component';
-import { TitleComponent } from '../../../components/title/title.component';
+import { catchError, Observable } from "rxjs";
+import { UserStatistics } from "../../../api/generated";
+import { LittilUserService } from "../../../services/littil-user/littil-user.service";
+import {
+  ContentContainerComponent
+} from "../../../components/content-container/content-container.component";
+import { TitleComponent } from "../../../components/title/title.component";
+import { CommonModule } from "@angular/common";
 
 @Component({
-  selector: 'littil-admin',
-  templateUrl: './admin.component.html',
+  selector: "littil-admin",
+  templateUrl: "./admin.component.html",
   standalone: true,
   imports: [
     CommonModule,
     ContentContainerComponent,
-    TitleComponent,
-    ContactBannerComponent,
-    FooterComponent,
-  ],
+    TitleComponent
+  ]
 })
-export class AdminComponent {}
+export class AdminComponent {
+  usersStatitics$!: Observable<UserStatistics[]>;
+
+  constructor(private userService: LittilUserService) {
+  }
+
+  ngOnInit(): void {
+    this.usersStatitics$ = this.userService.getUserStatistics().pipe(
+      catchError(async (error) => {
+        console.error('Error fetching users', error);
+        // Return an empty array to keep the Observable stream alive
+        return  (new Array<UserStatistics>);
+      })
+    );
+  }
+}
