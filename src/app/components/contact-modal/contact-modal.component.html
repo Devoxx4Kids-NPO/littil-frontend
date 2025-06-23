@@ -1,15 +1,15 @@
-<div [@hideShow]="loading || hideForm ? 'hidden' : 'visible'" class="prose">
+<div [@hideShow]="loading || hideForm ? 'hidden' : 'visible'" class="prose" data-test="contactModal">
   @if(!hideForm){
   <h1 class="font-bold text-lg text-blue-200 mb-3">Contact opnemen</h1>
   <p>Vul hier uw e-mailadres of telefoonnummer en en de boodschap die u wilt versturen.</p>
   <form [formGroup]="contactForm" data-test="form-register" (submit)="onClickSendEmail()">
-    <littil-form-input-text formControlName="contactInfo" id="contactInfo" label="Contactgegevens">
+    <littil-form-input-text formControlName="contactInfo" id="contactInfo" label="Contactgegevens" data-test="contactInfo">
       <littil-form-error-message
         [customErrors]="{ required: 'Contact informatie is verplicht' }"
         controlName="contactInfo"
       ></littil-form-error-message>
     </littil-form-input-text>
-    <littil-form-input-text formControlName="message" id="message" label="Bericht">
+    <littil-form-input-text formControlName="message" id="message" label="Bericht" data-test="message">
       <littil-form-error-message
         [customErrors]="{ required: 'Bericht is verplicht' }"
         controlName="message"

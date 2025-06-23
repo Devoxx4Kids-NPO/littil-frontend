@@ -2,6 +2,7 @@ import { SearchResult, UserType } from '../../generated';
 
 export const MOCK_SEARCH_SCHOOL: SearchResult = {
   id: '9beae92a-c735-454d-9535-20a54b411b5c',
+  userId: 'mockSearchSchool',
   name: 'Schoolname',
   latitude: 54.3,
   longitude: 4.5,
@@ -11,6 +12,7 @@ export const MOCK_SEARCH_SCHOOL: SearchResult = {
 
 export const MOCK_SEARCH_TEACHER: SearchResult = {
   id: '59cc4dfa-62f0-42b0-a78c-b4ebad713993',
+  userId: 'mockSearchTeacher',
   name: 'Teachername',
   latitude: 54.8,
   longitude: 4.2,
