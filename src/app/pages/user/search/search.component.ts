@@ -162,16 +162,27 @@ export class SearchComponent {
     return results$.pipe(
       map(results => {
         return results.map(result =>
-          marker([result.latitude!, result.longitude!], {
-            title: result.name,
-            icon: new Icon({
-              iconUrl: 'assets/marker.svg',
-              iconSize: [25, 25],
-            }),
-          }).on('click', event => this.zone.run(() => this.onMarkerClick(event.target, result)))
+          this.getMarker(result)
         );
       })
     );
+  }
+
+  private getMarker(result: SearchResult) {
+    const m = marker([result.latitude!, result.longitude!], {
+      title: result.name,
+      icon: new Icon({
+        iconUrl: 'assets/marker.svg',
+        iconSize: [25, 25],
+      }),
+    }).on('click', event => this.zone.run(() => this.onMarkerClick(event.target, result)));
+    m.on('add', () => {
+      const el = m.getElement();
+      if (el) {
+        el.setAttribute('data-test', `resultMarker`);
+      }
+    });
+    return m;
   }
 }
 

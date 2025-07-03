@@ -47,10 +47,6 @@ Run `ng build` to build the project. The build artifacts will be stored in the `
 
 Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
 
-## Running end-to-end tests
-
-Run `ng e2e` to execute the end-to-end tests via a platform of your choice. To use this command, you need to first add a package that implements end-to-end testing capabilities.
-
 ## Open api generator
 
 Run `npm run openapi` to generate API servicees and models
@@ -87,9 +83,34 @@ The version of the backend defaults to latest, but it can be set in the `.env` f
 
 Look for the available tags at [ghcr.io/devoxx4kids-NP/littil-backend](https://ghcr.io/devoxx4kids-NPO/littil-backend)
 
+Mailhog is started along with the backend. To access the mail send by the backend you can connecto to Mailhog with http://localhost:8025/
+
 ### dev users
 
 When running the backend as a developer you can add previously created users at startup.
 Create a `dev-users.csv` file in the folder `docker\backend` with the users you would like to add when the backend is started.
 Additional information can be found in the file `docker\backend\dev-users.example`.
 To use this functionality use the latest image or >=1.3.2 of the backend.
+
+## Running end-to-end tests
+
+Before running end-to-end test two users should be added to the configuration. Create a guestTeacher and a school account first.
+Use the following syntax for the accounts so that it is clear they are used for running e2e test : 
+- school : e2e-school@`<FirstNameOrSurname>`.littil.org
+- guestTeacher : e2e-guest-teacher@`<FirstNameOrSurname>`.littil.org
+
+Add the accounts as dev users as described before. Use valid postalcode otherwise the end-to-end test might fail.
+Restart the backend to add the accounts to the database. 
+
+Create a `cypress.env.json` file with the email address and the password for both accounts. Use the file `cypress.env.json.example` as example.
+Also set the correct value for the auth0_tenant. Use the same value is set in the `.env` file mentioned before.
+
+Run `ng e2e` to execute the end-to-end tests via a platform of your choice. To use this command, you need to first add a package that implements end-to-end testing capabilities.
+
+Run `npm run e2e` or `ng e2e` to execute the end-to-end tests via a platform of your choice.<br>
+With this option you can select the browser to run the test with and select the feature file for
+which you want to run the end-to-end test. <br>
+Useful option for development of end-to-end-test.<br>
+
+To run the end-to-end test for all tests without user interaction you first have to start the frontend
+with `npm start`.  Start the end-to-end test with the command `npm run cypress:run`
