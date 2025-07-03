@@ -57,4 +57,13 @@ describe('LittilUserService', () => {
       );
     });
   });
+
+  describe('getUserStatistics', () => {
+    it('should get the userStatistics', () => {
+      spectator.service.getUserStatistics().subscribe();
+      spectator.expectOne(baseUrl + '/api/v1/users/statistics', HttpMethod.GET);
+    });
+  });
+
+
 });
