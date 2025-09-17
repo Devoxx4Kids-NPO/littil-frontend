@@ -1,0 +1,65 @@
+<div class="max-w-4xl mx-auto bg-white shadow-lg rounded-lg overflow-hidden border border-gray-200">
+  <img src="assets/images/sponsor-aramco-europe.png" alt="Sponsor Aramco Europe"
+       class="w-1/3 mx-auto h-auto object-cover" />
+
+  <h3 class="text-2xl font-bold text-gray-800 text-center mt-2">
+    Aramco Europe ondersteunt Devoxx4Kids<br>
+    meer kinderen bereiken met IT-educatie
+  </h3>
+
+  <div class="p-6 space-y-4">
+    <div *ngIf="expanded" class="space-y-4">
+      <p>
+        Devoxx4Kids Nederland zet zich al jaren in om kinderen op een speelse en toegankelijke
+        manier kennis te laten maken met technologie.
+        Tijdens speciale Devoxx4Kids-dagen krijgen leerlingen uit de basisschool en kinderen uit
+        de eerste twee Klassen van het voortgezet onderwijs de kans om te experimenteren met
+        programmeren, robots, en digitale veiligheid - begeleid door enthousiaste vrijwilligers
+        uit de IT-wereld.
+      </p>
+
+      <p>
+        Tot nu toe vonden deze dagen plaats bij externe bedrijven die hun locatie beschikbaar
+        stellen. Maar dankzij een jaarlijkse donatie van Aramco Europe kan de stichting haar bereik
+        en impact aanzienlijk vergroten.
+      </p>
+
+      <h4 class="text-xl font-semibold text-gray-700">Wat deze bijdrage mogelijk maakt</h4>
+      <p>De steun van Aramco Europe stelt Devoxx4Kids in staat om:</p>
+      <ul class="list-disc list-inside pl-4">
+        <li>Extra hardware aan te schaffen, zoals laptops en robots, waardoor meerdere workshops
+          gelijktijdig kunnen plaatsvinden.</li>
+        <li>Zelfstandig evenementen te organiseren in buurthuizen of andere laagdrempelige locaties,
+          zodat ook kinderen buiten het bedrijfsleven toegang krijgen tot IT-educatie.</li>
+      </ul>
+      <p>
+        Deze uitbreiding betekent dat Devoxx4Kids flexibeler kan opereren en meer kinderen kan
+        bereiken - juist ook in wijken waar de toegang tot technologie niet vanzelfsprekend is.
+      </p>
+
+      <h4 class="text-xl font-semibold text-gray-700">Over Aramco Europe</h4>
+      <p>
+        Aramco Europe is onderdeel van een van ’s werelds grootste geïntegreerde energie- en chemiebedrijven.
+        Vanuit hun vestigingen in Europa dragen zij bij aan betrouwbare energievoorziening, technologische
+        innovatie en maatschappelijke vooruitgang.
+        Aramco Europe gelooft sterk in de kracht van innovatie en educatie om gemeenschappen te versterken
+        en toekomstige generaties voor te bereiden op een snel veranderende wereld.
+        Door te investeren in STEM-programma’s voor jongeren - met bijzondere aandacht voor kansarme
+        groepen - draagt Aramco Europe actief bij aan het ontwikkelen van talent en het vergroten van
+        digitale vaardigheden in Europa.
+      </p>
+
+      <h4 class="text-xl font-semibold text-gray-700">Samen bouwen aan digitale kansen</h4>
+      <p>
+        Dankzij de betrokkenheid van Aramco Europe komt de ambitie van Devoxx4Kids - om álle kinderen
+        toegang te geven tot IT-educatie - een stap dichterbij.
+        Het is een mooi voorbeeld van hoe bedrijfsleven en maatschappelijke initiatieven samen kunnen
+        werken aan een toekomst waarin technologie voor iedereen toegankelijk is.
+      </p>
+    </div>
+
+    <button (click)="expanded = !expanded" class="text-blue-600 hover:underline font-medium">
+      {{ expanded ? 'Lees minder' : 'Lees meer' }}
+    </button>
+  </div>
+</div>

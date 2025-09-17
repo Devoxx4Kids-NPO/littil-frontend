@@ -31,6 +31,7 @@ jobs:
         id: branch-name
         uses: tj-actions/branch-names@v6
       - name: Analyze build code
+        if: false    # temporary disabled because of issue with sonar token
         uses: SonarSource/sonarqube-scan-action@v5
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }} # Needed to get PR information, if any
