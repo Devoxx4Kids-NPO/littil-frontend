@@ -6,11 +6,21 @@ import { TitleComponent } from '../../../../components/title/title.component';
 import {
   SponsorAramcoEuropeComponent
 } from "./sponsor-aramco-europe/sponsor-aramco-europe.component";
+import {
+  SponsorInfoSupportComponent
+} from "./sponsor-info-support/sponsor-info-support.component";
 
 @Component({
   selector: 'littil-sponsors',
   templateUrl: './sponsors.component.html',
   standalone: true,
-  imports: [TitleComponent, ContentContainerComponent, ContactBannerComponent, FooterComponent, SponsorAramcoEuropeComponent],
+  imports: [
+	  TitleComponent, 
+	  ContentContainerComponent, 
+	  ContactBannerComponent, 
+	  FooterComponent, 
+	  SponsorAramcoEuropeComponent,
+	  SponsorInfoSupportComponent,
+	  ],
 })
 export class SponsorsComponent {}
