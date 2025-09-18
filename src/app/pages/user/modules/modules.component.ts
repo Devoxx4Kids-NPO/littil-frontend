@@ -5,7 +5,6 @@ import { forkJoin } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { Module } from '../../../api/generated';
 import { ButtonComponent } from '../../../components/button/button.component';
-import { FooterComponent } from '../../../components/footer/footer.component';
 import { ProfileContainerComponent } from '../../../components/profile-container/profile-container.component';
 import { IHasManageableModules } from '../../../services/littil-modules/littil-modules-user.interface';
 import { LittilModulesService } from '../../../services/littil-modules/littil-modules.service';
@@ -21,7 +20,6 @@ import { PermissionController, Roles } from '../../../services/permission.contro
     CommonModule,
     ProfileContainerComponent,
     ReactiveFormsModule,
-    FooterComponent,
     ButtonComponent,
   ],
 })

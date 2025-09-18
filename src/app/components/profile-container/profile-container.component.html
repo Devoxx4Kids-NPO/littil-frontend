@@ -6,6 +6,7 @@
         routerLinkActive="bg-gray-100 text-gray-900"
         class="text-gray-600 hover:bg-gray-50 hover:text-gray-900 group flex items-center rounded-md px-3 py-2 text-sm font-medium"
         aria-current="page"
+        title="Profiel wijzigen"
       >
         <svg
           class="text-gray-400 group-hover:text-gray-500 -ml-1 mr-3 h-6 w-6 flex-shrink-0"
@@ -29,6 +30,7 @@
         routerLinkActive="bg-gray-100 text-gray-900"
         class="text-gray-600 hover:bg-gray-50 hover:text-gray-900 group flex items-center rounded-md px-3 py-2 text-sm font-medium"
         aria-current="page"
+        title="Modules wijzigen"
       >
         <svg
           class="text-gray-400 group-hover:text-gray-500 -ml-1 mr-3 h-6 w-6 flex-shrink-0"
@@ -45,6 +47,29 @@
           />
         </svg>
         <span class="truncate">Modules</span>
+      </a>
+      <a
+        [routerLink]="'/user/email'"
+        routerLinkActive="bg-gray-100 text-gray-900"
+        class="text-gray-600 hover:bg-gray-50 hover:text-gray-900 group flex items-center rounded-md px-3 py-2 text-sm font-medium"
+        aria-current="page"
+        title="e-mailadres wijzigen"
+      >
+        <svg
+          class="text-gray-400 group-hover:text-gray-500 -ml-1 mr-3 h-6 w-6 flex-shrink-0"
+          fill="none"
+          viewBox="0 0 24 24"
+          stroke-width="1.5"
+          stroke="currentColor"
+          aria-hidden="true"
+        >
+          <path
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            d="M3 8l7.89 5.26a2.25 2.25 0 002.22 0L21 8m-18 8h18a2.25 2.25 0 002.25-2.25V6.75A2.25 2.25 0 0021 4.5H3a2.25 2.25 0 00-2.25 2.25v7.5A2.25 2.25 0 003 16z"
+          />
+        </svg>
+        <span class="truncate">e-mail wijzigen</span>
       </a>
     </nav>
 

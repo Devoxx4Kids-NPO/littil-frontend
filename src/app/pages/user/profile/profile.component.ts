@@ -22,7 +22,6 @@ import {
 } from '../../../api/generated';
 import { ButtonComponent } from '../../../components/button/button.component';
 import { ContentContainerComponent } from '../../../components/content-container/content-container.component';
-import { FooterComponent } from '../../../components/footer/footer.component';
 import { FormErrorMessageComponent } from '../../../components/forms/form-error-message/form-error-message.component';
 import { FormInputRadioComponent } from '../../../components/forms/radio-input/form-input-radio.component';
 import { FormInputTextComponent } from '../../../components/forms/text-input/form-input-text.component';
@@ -47,7 +46,6 @@ import { FormUtil } from '../../../utils/form.util';
     FormInputTextComponent,
     FormInputRadioComponent,
     FormErrorMessageComponent,
-    FooterComponent,
   ],
 })
 export class ProfileComponent {

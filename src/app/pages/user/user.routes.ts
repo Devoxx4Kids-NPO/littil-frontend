@@ -22,4 +22,9 @@ export const routes: Routes = [
     loadComponent: () => import('./modules/modules.component').then(m => m.ModulesComponent),
     canActivate: [AuthGuard],
   },
+  {
+    path: 'email',
+    loadComponent: () => import('./change-email/change-email.component').then(m => m.ChangeEmailComponent),
+    canActivate: [AuthGuard],
+  },
 ];
