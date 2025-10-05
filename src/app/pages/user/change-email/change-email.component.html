@@ -1,3 +1,50 @@
 <littil-profile-container title="e-mailadres wijzigen">
+<div class="max-w-md mx-auto mt-10 p-6 bg-white rounded-lg shadow-md">
+  <!-- New Email Input -->
+  <div class="mb-4">
+    <label for="newEmail" class="block text-sm font-medium text-gray-700">Nieuw e-mailadres</label>
+    <input
+      id="newEmail"
+      type="email"
+      [(ngModel)]="newEmail"
+      class="mt-1 block w-full px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500"
+      placeholder="you@example.com"
+    />
+  </div>
+
+  <!-- Request Verification Code Button -->
+  <div class="mb-6">
+    <button
+      (click)="requestVerificationCode()"
+      class="w-full bg-blue-600 text-white py-2 px-4 rounded hover:bg-blue-700 transition"
+      [disabled]="!newEmail || codeRequested"
+    >
+      Request Verification Code
+    </button>
+  </div>
+
+  <!-- Verification Code Input (Shown After Request) -->
+  <div *ngIf="codeRequested">
+    <div class="mb-4">
+      <label for="verificationCode" class="block text-sm font-medium text-gray-700">Verification Code</label>
+      <input
+        id="verificationCode"
+        type="text"
+        [(ngModel)]="verificationCode"
+        class="mt-1 block w-full px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-green-500 focus:border-green-500"
+        placeholder="Enter code"
+      />
+    </div>
+
+    <!-- Submit Email Change Button -->
+    <button
+      (click)="submitEmailChange()"
+      class="w-full bg-green-600 text-white py-2 px-4 rounded hover:bg-green-700 transition"
+      [disabled]="!verificationCode"
+    >
+      Change Email
+    </button>
+  </div>
+</div>
 
 </littil-profile-container>
