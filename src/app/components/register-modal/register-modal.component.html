@@ -1,4 +1,4 @@
-<div [@hideShow]="loading || hideForm ? 'hidden' : 'visible'" class="prose">
+<div [@hideShow]="loading || hideForm ? 'hidden' : 'visible'" class="prose" data-test="registerModal">
   @if(!hideForm){
   <h1 class="font-bold text-lg text-blue-200 mb-3">Registeren</h1>
   <p>
@@ -7,7 +7,7 @@
   </p>
   <p>Na activatie van uw account kunt u uw profiel verder afmaken.</p>
   <form [formGroup]="registerForm" data-test="form-register" (submit)="onClickRegister()">
-    <littil-form-input-text formControlName="email" id="email" label="E-mailadres">
+    <littil-form-input-text formControlName="email" id="email" label="E-mailadres" data-test="inputEmail">
       <littil-form-error-message
         [customErrors]="{
           required: 'E-mailadres is verplicht'
@@ -40,7 +40,7 @@
   } }
 </div>
 
-<div [@hideShow]="hideConfirmation ? 'hidden' : 'visible'" class="prose">
+<div [@hideShow]="hideConfirmation ? 'hidden' : 'visible'" class="prose" data-test="registerConformationModal">
   @if(!hideConfirmation){
   <h1 class="font-bold text-lg text-blue-200 mb-3">Registratie gelukt</h1>
   <p>Check je inbox voor een wachtwoord om in te loggen.</p>
