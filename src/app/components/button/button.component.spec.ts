@@ -34,5 +34,20 @@ describe('ButtonComponent', () => {
       expect(spectator.query('button')).not.toHaveClass('w-full');
       expect(spectator.query('button')).toHaveClass('mr-1');
     });
+    it('should apply customColorClass when provided', () => {
+      spectator.setInput('customColorClass', 'bg-purple-500 hover:bg-purple-600');
+      spectator.setInput('color', undefined);
+      spectator.detectChanges();
+      const button = spectator.query('button');
+      expect(button).toHaveClass('bg-purple-500');
+      expect(button).toHaveClass('hover:bg-purple-600');
+    });
+    it('should apply color variant when color input is provided', () => {
+      spectator.setInput('color', 'red');
+      spectator.detectChanges();
+      const button = spectator.query('button');
+      expect(button).toHaveClass('bg-red-600');
+      expect(button).toHaveClass('hover:bg-red-500');
+    });
   });
 });

@@ -1,0 +1,42 @@
+<littil-profile-container title="Profiel verwijderen">
+  <form
+    data-test="delete_profile"
+    class="border border-red-600 rounded-md p-2 mt-8 text-red-900"
+    [formGroup]="deleteProfileForm"
+  >
+    <p class="mt-0">
+      Weet u zeker dat u uw profiel wilt verwijderen? Al uw gegevens worden verwijderd. Dit kan niet
+      ongedaan worden gemaakt. Geef hieronder uw e-mailadres in en klik op verwijderen om door te
+      gaan.
+    </p>
+
+    <div class="flex">
+      <littil-form-input-text
+        formControlName="email"
+        placeholder="email@example.com"
+        class="grow"
+      >
+        <div class="min-h-[1.5rem] flex items-center">
+          <littil-form-error-message
+            [customErrors]="{
+              required: 'Vul ter bevestiging uw eigen e-mailadres in',
+              emailMismatch: 'Het ingevoerde e-mailadres is niet geldig of komt niet overeen met uw account'
+            }"
+            controlName="email"
+          ></littil-form-error-message>
+        </div>
+      </littil-form-input-text>
+    </div>
+
+    <div class="flex justify-between">
+      <littil-button
+        [inline]="true"
+        [color]="validEmail() ? 'red' : 'gray'"
+        [disabled]="!validEmail()"
+        (click)="deleteProfile(); $event.preventDefault()"
+      >
+        Profiel definitief verwijderen
+      </littil-button>
+    </div>
+  </form>
+</littil-profile-container>

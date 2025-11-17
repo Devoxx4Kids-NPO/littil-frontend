@@ -1,5 +1,4 @@
 import { CommonModule } from '@angular/common';
-import { HttpResponse } from '@angular/common/http';
 import { Component } from '@angular/core';
 import {
   FormBuilder,
@@ -21,10 +20,7 @@ import {
   SchoolPostResource,
 } from '../../../api/generated';
 import { ButtonComponent } from '../../../components/button/button.component';
-import { ContentContainerComponent } from '../../../components/content-container/content-container.component';
-import { FooterComponent } from '../../../components/footer/footer.component';
 import { FormErrorMessageComponent } from '../../../components/forms/form-error-message/form-error-message.component';
-import { FormInputRadioComponent } from '../../../components/forms/radio-input/form-input-radio.component';
 import { FormInputTextComponent } from '../../../components/forms/text-input/form-input-text.component';
 import { ProfileContainerComponent } from '../../../components/profile-container/profile-container.component';
 import { AvailabilityService } from '../../../services/availability.service';
@@ -40,14 +36,11 @@ import { FormUtil } from '../../../utils/form.util';
   imports: [
     CommonModule,
     ProfileContainerComponent,
-    ContentContainerComponent,
     ButtonComponent,
     MatCheckboxModule,
     ReactiveFormsModule,
     FormInputTextComponent,
-    FormInputRadioComponent,
     FormErrorMessageComponent,
-    FooterComponent,
   ],
 })
 export class ProfileComponent {
@@ -59,11 +52,6 @@ export class ProfileComponent {
   public FormUtil = FormUtil;
   public profileForm!: FormGroup;
   public isSchool = false;
-  public deleteProfileOpen = false;
-
-  public deleteProfileForm = new FormGroup({
-    email: new FormControl('', [Validators.required, Validators.email]),
-  });
 
   constructor(
     private permissionController: PermissionController,
@@ -209,22 +197,4 @@ export class ProfileComponent {
     });
   }
 
-  deleteProfile(): void {
-    const control = this.deleteProfileForm.controls['email'];
-    if (control.value !== this.permissionController.activeAccount.email) {
-      control.markAsTouched();
-      control.setErrors({ email_missing: true });
-      return;
-    }
-    const deletionObservable =
-      this.roleType == Roles.GuestTeacher
-        ? this.littilTeacherService.delete(this.roleId)
-        : this.littilSchoolService.delete(this.roleId);
-
-    deletionObservable.subscribe((response: HttpResponse<any>) => {
-      if (response.ok) {
-        this.auth.logout();
-      }
-    });
-  }
 }
