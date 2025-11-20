@@ -44,9 +44,9 @@ export class DeleteProfileComponent {
   });
 
   constructor(
-    private permissionController: PermissionController,
-    private littilTeacherService: LittilTeacherService,
-    private littilSchoolService: LittilSchoolService,
+    private readonly permissionController: PermissionController,
+    private readonly littilTeacherService: LittilTeacherService,
+    private readonly littilSchoolService: LittilSchoolService,
     public auth: AuthService,
   ) {
     this.roleType = this.permissionController.getRoleType();
