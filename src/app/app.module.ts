@@ -101,7 +101,7 @@ const cookieConfig: NgcCookieConsentConfig = {
       httpInterceptor: {
         allowedList: [
           {
-            uri: `${littilConfig.apiHost}/api/v1/users/user`,
+            uri: `${littilConfig.apiHost}/api/v2/users`,
             allowAnonymous: true,
           },
           {
