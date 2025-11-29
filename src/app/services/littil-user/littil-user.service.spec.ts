@@ -26,14 +26,14 @@ describe('LittilUserService', () => {
   describe('getById', () => {
     it('should get user by id', () => {
       spectator.service.getById('123').subscribe();
-      spectator.expectOne(baseUrl + '/api/v1/users/user/123', HttpMethod.GET);
+      spectator.expectOne(baseUrl + '/api/v2/users/123', HttpMethod.GET);
     });
   });
 
   describe('getAll', () => {
     it('should get all users', () => {
       spectator.service.getAll().subscribe();
-      spectator.expectOne(baseUrl + '/api/v1/users/user', HttpMethod.GET);
+      spectator.expectOne(baseUrl + '/api/v2/users', HttpMethod.GET);
     });
   });
 
@@ -44,7 +44,7 @@ describe('LittilUserService', () => {
           emailAddress: 'email@email.nl',
         } as User)
         .subscribe();
-      spectator.expectOne(baseUrl + '/api/v1/users/user', HttpMethod.POST);
+      spectator.expectOne(baseUrl + '/api/v2/users', HttpMethod.POST);
     });
   });
 
@@ -52,7 +52,7 @@ describe('LittilUserService', () => {
     it('should delete user', () => {
       spectator.service.delete('123').subscribe();
       spectator.expectOne(
-        baseUrl + '/api/v1/users/user/123',
+        baseUrl + '/api/v2/users/123',
         HttpMethod.DELETE
       );
     });
@@ -61,7 +61,7 @@ describe('LittilUserService', () => {
   describe('getUserStatistics', () => {
     it('should get the userStatistics', () => {
       spectator.service.getUserStatistics().subscribe();
-      spectator.expectOne(baseUrl + '/api/v1/users/statistics', HttpMethod.GET);
+      spectator.expectOne(baseUrl + '/api/v2/users/statistics', HttpMethod.GET);
     });
   });
 
