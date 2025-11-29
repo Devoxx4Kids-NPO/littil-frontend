@@ -11,6 +11,7 @@ import {
   IRegisterModalOutput,
   RegisterModalComponent,
 } from '../register-modal/register-modal.component';
+import { activeAccountNameSignal } from "../../state/active-account-name.signal";
 
 @Component({
   selector: 'littil-user-menu',
@@ -70,4 +71,8 @@ export class UserMenuComponent implements OnInit {
   public openLoginModal(): void {
     this.auth.loginWithRedirect();
   }
+
+  protected readonly activeAccountName = activeAccountNameSignal;
+
+  // protected readonly activeAccountNameSignal = activeAccountNameSignal;
 }

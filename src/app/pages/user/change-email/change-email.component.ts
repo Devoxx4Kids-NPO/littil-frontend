@@ -8,6 +8,7 @@ import { CommonModule } from "@angular/common";
 import { LittilUserService } from "../../../services/littil-user/littil-user.service";
 import { HttpResponse } from "@angular/common/http";
 import { PermissionController } from "../../../services/permission.controller";
+import { activeAccountNameSignal } from "../../../state/active-account-name.signal";
 
 @Component({
   selector: 'littil-change-email',
@@ -64,7 +65,7 @@ export class ChangeEmailComponent {
         if (response?.ok) {
           this.hideForm = true;
           this.hideConfirmation = false;
-          // TODO change email at top of screen
+          activeAccountNameSignal.set(emailAddres);
         }
       })
   }
