@@ -23,11 +23,13 @@ export class UserMenuComponent implements OnInit {
   loaded: boolean = false;
   open: boolean = false;
 
+  protected readonly activeAccountName = activeAccountNameSignal;
+
   constructor(
     public readonly permissionController: PermissionController,
     private modalController: ModalController,
     public auth: AuthService,
-    private router: Router
+    router: Router
   ) {
     router.events.pipe(filter(event => event instanceof NavigationEnd)).subscribe(() => {
       this.open = false;
@@ -72,7 +74,4 @@ export class UserMenuComponent implements OnInit {
     this.auth.loginWithRedirect();
   }
 
-  protected readonly activeAccountName = activeAccountNameSignal;
-
-  // protected readonly activeAccountNameSignal = activeAccountNameSignal;
 }

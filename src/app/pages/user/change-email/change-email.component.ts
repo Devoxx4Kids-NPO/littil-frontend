@@ -28,7 +28,7 @@ export class ChangeEmailComponent {
   protected hideConfirmation: boolean = true;
   protected hideCancelConfirmation: boolean = true;
   protected emailConfirmed: boolean = false;
-  private userId: string;
+  private readonly userId: string;
 
   constructor (
     permissionController: PermissionController,
