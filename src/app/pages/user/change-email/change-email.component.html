@@ -1,0 +1,91 @@
+
+<littil-profile-container title="Wijzig E-mailadres">
+  @if (!hideForm) {
+    <div data-test="form-container">
+      <p data-test="instructions">
+        Vul uw nieuwe e-mailadres in en bevestig deze.<br>
+        Er wordt een mail verstuurd naar het nieuwe e-mailadres met een verificatiecode.
+        De code is 5 minuten geldig en kan slechts één keer gebruikt worden.
+      </p>
+
+      <form [formGroup]="changeEmailForm" data-test="form-register">
+        <littil-form-input-text
+          formControlName="email"
+          id="email"
+          label="E-mailadres"
+          [readonly]="emailConfirmed"
+          data-test="input-email">
+          <div class="min-h-[1.0rem] flex items-start">
+            <littil-form-error-message
+              [customErrors]="{
+                required: 'E-mailadres is verplicht'
+              }"
+              controlName="email">
+            </littil-form-error-message>
+          </div>
+        </littil-form-input-text>
+
+        @if (!emailConfirmed) {
+          <littil-button
+            data-test="confirmEmailButton"
+            [inline]="true"
+            [color]="'blue'"
+            [disabled]="!validEmail()"
+            (click)="onClickConfirmNewEmail()">
+            Bevestig
+          </littil-button>
+        }
+
+        @if (emailConfirmed) {
+          <p data-test="verification-instructions">Vul de ontvangen verificatiecode in om het e-mailadres te wijzigen.</p>
+          <littil-form-input-text
+            formControlName="verificationCode"
+            id="verificationCode"
+            label="Verificatiecode"
+            data-test="input-verification-code"
+          >
+            <div class="min-h-[1.0rem] flex items-start">
+              <littil-form-error-message
+                [customErrors]="{
+                  required: 'Verificatiecode is verplicht'
+                }"
+                controlName="verificationCode">
+              </littil-form-error-message>
+            </div>
+          </littil-form-input-text>
+
+          <div>
+            <littil-button
+              data-test="changeEmailButton"
+              [inline]="true"
+              [color]="'blue'"
+              (click)="onClickChangeEmail()">
+              Wijzig email
+            </littil-button>
+            <littil-button
+              data-test="cancelButton"
+              [inline]="true"
+              [color]="'yellow'"
+              (click)="onClickCancel()">
+              Annuleren
+            </littil-button>
+          </div>
+        }
+      </form>
+    </div>
+  }
+
+  @if (!hideConfirmation) {
+    <p data-test="confirmation-message">Uw e-mailadres is gewijzigd.</p>
+    <p data-test="confirmation-email">
+      U kunt vanaf nu inloggen met uw nieuwe e-mailadres
+      <b>{{ changeEmailForm.get('email')?.value }}</b>
+    </p>
+  }
+
+  @if (!hideCancelConfirmation) {
+    <p data-test="cancel-message">Uw e-mailadres is niet gewijzigd.</p>
+    <p data-test="cancel-info">Over 5 minuten kunt u opnieuw uw email adres wijzigen.</p>
+  }
+
+</littil-profile-container>

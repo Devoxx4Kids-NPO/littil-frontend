@@ -27,4 +27,9 @@ export const routes: Routes = [
     loadComponent: () => import('./delete-profile/delete-profile.component').then(m => m.DeleteProfileComponent),
     canActivate: [AuthGuard],
   },
+  {
+    path: 'change-email',
+    loadComponent: () => import('./change-email/change-email.component').then(m => m.ChangeEmailComponent),
+    canActivate: [AuthGuard],
+  },
 ];

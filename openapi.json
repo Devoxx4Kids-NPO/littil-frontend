@@ -45,6 +45,20 @@
   } ],
   "components" : {
     "schemas" : {
+      "ChangeEmailResource" : {
+        "required" : [ "newEmailAddress", "verificationCode" ],
+        "type" : "object",
+        "properties" : {
+          "newEmailAddress" : {
+            "minLength" : 1,
+            "type" : "string"
+          },
+          "verificationCode" : {
+            "minLength" : 1,
+            "type" : "string"
+          }
+        }
+      },
       "ContactPostResource" : {
         "required" : [ "recipient", "medium", "message" ],
         "type" : "object",
@@ -85,6 +99,16 @@
       "DayOfWeek" : {
         "enum" : [ "MONDAY", "TUESDAY", "WEDNESDAY", "THURSDAY", "FRIDAY", "SATURDAY", "SUNDAY" ],
         "type" : "string"
+      },
+      "EmailVerficationCodeResource" : {
+        "required" : [ "emailAddress" ],
+        "type" : "object",
+        "properties" : {
+          "emailAddress" : {
+            "minLength" : 1,
+            "type" : "string"
+          }
+        }
       },
       "ErrorMessage" : {
         "type" : "object",
@@ -1423,6 +1447,7 @@
     "/api/v1/users/statistics" : {
       "get" : {
         "summary" : "Get statistics of users",
+        "deprecated" : true,
         "tags" : [ "Users" ],
         "responses" : {
           "200" : {
@@ -1446,13 +1471,14 @@
           }
         },
         "security" : [ {
-          "Auth0" : [ "admin" ]
+          "Auth0" : [ ]
         } ]
       }
     },
     "/api/v1/users/user" : {
       "get" : {
         "summary" : "Get all users",
+        "deprecated" : true,
         "tags" : [ "Users" ],
         "responses" : {
           "200" : {
@@ -1476,11 +1502,12 @@
           }
         },
         "security" : [ {
-          "Auth0" : [ "admin" ]
+          "Auth0" : [ ]
         } ]
       },
       "post" : {
         "summary" : "Create a new user",
+        "deprecated" : true,
         "tags" : [ "Users" ],
         "requestBody" : {
           "content" : {
@@ -1581,6 +1608,7 @@
     "/api/v1/users/user/provider/{id}" : {
       "get" : {
         "summary" : "Fetch a specific user by provider Id",
+        "deprecated" : true,
         "tags" : [ "Users" ],
         "parameters" : [ {
           "name" : "id",
@@ -1649,6 +1677,7 @@
     "/api/v1/users/user/{id}" : {
       "get" : {
         "summary" : "Fetch a specific user by Id",
+        "deprecated" : true,
         "tags" : [ "Users" ],
         "parameters" : [ {
           "name" : "id",
@@ -1710,11 +1739,12 @@
           }
         },
         "security" : [ {
-          "Auth0" : [ "admin" ]
+          "Auth0" : [ ]
         } ]
       },
       "delete" : {
         "summary" : "Delete a user specified with an id",
+        "deprecated" : true,
         "tags" : [ "Users" ],
         "parameters" : [ {
           "name" : "id",
@@ -1739,7 +1769,7 @@
           }
         },
         "security" : [ {
-          "Auth0" : [ "admin" ]
+          "Auth0" : [ ]
         } ]
       }
     },
@@ -1911,6 +1941,414 @@
           },
           "401" : {
             "description" : "Current user is not owner of this school"
+          },
+          "403" : {
+            "description" : "Not Allowed"
+          }
+        },
+        "security" : [ {
+          "Auth0" : [ ]
+        } ]
+      }
+    },
+    "/api/v2/users" : {
+      "get" : {
+        "summary" : "Get all users",
+        "tags" : [ "Users" ],
+        "responses" : {
+          "200" : {
+            "description" : "Get all users",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "type" : "array",
+                  "items" : {
+                    "$ref" : "#/components/schemas/User"
+                  }
+                }
+              }
+            }
+          },
+          "401" : {
+            "description" : "Not Authorized"
+          },
+          "403" : {
+            "description" : "Not Allowed"
+          }
+        },
+        "security" : [ {
+          "Auth0" : [ ]
+        } ]
+      },
+      "post" : {
+        "summary" : "Create a new user",
+        "tags" : [ "Users" ],
+        "requestBody" : {
+          "content" : {
+            "application/json" : {
+              "schema" : {
+                "$ref" : "#/components/schemas/UserPostResource"
+              }
+            }
+          },
+          "required" : true
+        },
+        "responses" : {
+          "201" : {
+            "description" : "User successfully created",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "required" : [ "emailAddress" ],
+                  "type" : "object",
+                  "properties" : {
+                    "id" : {
+                      "$ref" : "#/components/schemas/UUID"
+                    },
+                    "emailAddress" : {
+                      "minLength" : 1,
+                      "type" : "string"
+                    },
+                    "provider" : {
+                      "$ref" : "#/components/schemas/Provider"
+                    },
+                    "providerId" : {
+                      "type" : "string"
+                    },
+                    "roles" : {
+                      "uniqueItems" : true,
+                      "type" : "array",
+                      "items" : {
+                        "type" : "string"
+                      }
+                    },
+                    "loginsCount" : {
+                      "format" : "int32",
+                      "type" : "integer"
+                    },
+                    "lastLogin" : {
+                      "$ref" : "#/components/schemas/Date"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400" : {
+            "description" : "Validation errors occurred.",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "type" : "object",
+                  "properties" : {
+                    "errorId" : {
+                      "type" : "string"
+                    },
+                    "errors" : {
+                      "type" : "array",
+                      "items" : {
+                        "$ref" : "#/components/schemas/ErrorMessage"
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "409" : {
+            "description" : "User with the same e-mail address already exists",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "type" : "object",
+                  "properties" : {
+                    "errorId" : {
+                      "type" : "string"
+                    },
+                    "errors" : {
+                      "type" : "array",
+                      "items" : {
+                        "$ref" : "#/components/schemas/ErrorMessage"
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v2/users/provider/{id}" : {
+      "get" : {
+        "summary" : "Fetch a specific user by provider Id",
+        "tags" : [ "Users" ],
+        "parameters" : [ {
+          "name" : "id",
+          "required" : true,
+          "in" : "path",
+          "schema" : {
+            "type" : "string"
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "User with provider Id found.",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "required" : [ "emailAddress" ],
+                  "type" : "object",
+                  "properties" : {
+                    "id" : {
+                      "$ref" : "#/components/schemas/UUID"
+                    },
+                    "emailAddress" : {
+                      "minLength" : 1,
+                      "type" : "string"
+                    },
+                    "provider" : {
+                      "$ref" : "#/components/schemas/Provider"
+                    },
+                    "providerId" : {
+                      "type" : "string"
+                    },
+                    "roles" : {
+                      "uniqueItems" : true,
+                      "type" : "array",
+                      "items" : {
+                        "type" : "string"
+                      }
+                    },
+                    "loginsCount" : {
+                      "format" : "int32",
+                      "type" : "integer"
+                    },
+                    "lastLogin" : {
+                      "$ref" : "#/components/schemas/Date"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "404" : {
+            "description" : "User with specific provider Id was not found."
+          },
+          "403" : {
+            "description" : "Access is not granted to retrieve this user."
+          },
+          "401" : {
+            "description" : "Not Authorized"
+          }
+        },
+        "security" : [ {
+          "Auth0" : [ ]
+        } ]
+      }
+    },
+    "/api/v2/users/statistics" : {
+      "get" : {
+        "summary" : "Get statistics of users",
+        "tags" : [ "Users" ],
+        "responses" : {
+          "200" : {
+            "description" : "Get statistics of users",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "type" : "array",
+                  "items" : {
+                    "$ref" : "#/components/schemas/UserStatistics"
+                  }
+                }
+              }
+            }
+          },
+          "401" : {
+            "description" : "Not Authorized"
+          },
+          "403" : {
+            "description" : "Not Allowed"
+          }
+        },
+        "security" : [ {
+          "Auth0" : [ ]
+        } ]
+      }
+    },
+    "/api/v2/users/{id}" : {
+      "get" : {
+        "summary" : "Fetch a specific user by Id",
+        "tags" : [ "Users" ],
+        "parameters" : [ {
+          "name" : "id",
+          "required" : true,
+          "in" : "path",
+          "schema" : {
+            "$ref" : "#/components/schemas/UUID"
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "User with Id found.",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "required" : [ "emailAddress" ],
+                  "type" : "object",
+                  "properties" : {
+                    "id" : {
+                      "$ref" : "#/components/schemas/UUID"
+                    },
+                    "emailAddress" : {
+                      "minLength" : 1,
+                      "type" : "string"
+                    },
+                    "provider" : {
+                      "$ref" : "#/components/schemas/Provider"
+                    },
+                    "providerId" : {
+                      "type" : "string"
+                    },
+                    "roles" : {
+                      "uniqueItems" : true,
+                      "type" : "array",
+                      "items" : {
+                        "type" : "string"
+                      }
+                    },
+                    "loginsCount" : {
+                      "format" : "int32",
+                      "type" : "integer"
+                    },
+                    "lastLogin" : {
+                      "$ref" : "#/components/schemas/Date"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "404" : {
+            "description" : "User with specific Id was not found."
+          },
+          "401" : {
+            "description" : "Not Authorized"
+          },
+          "403" : {
+            "description" : "Not Allowed"
+          }
+        },
+        "security" : [ {
+          "Auth0" : [ ]
+        } ]
+      },
+      "delete" : {
+        "summary" : "Delete a user specified with an id",
+        "tags" : [ "Users" ],
+        "parameters" : [ {
+          "name" : "id",
+          "in" : "path",
+          "required" : true,
+          "schema" : {
+            "$ref" : "#/components/schemas/UUID"
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "Successfully deleted the user."
+          },
+          "404" : {
+            "description" : "The user to delete was not found."
+          },
+          "401" : {
+            "description" : "Not Authorized"
+          },
+          "403" : {
+            "description" : "Not Allowed"
+          }
+        },
+        "security" : [ {
+          "Auth0" : [ ]
+        } ]
+      }
+    },
+    "/api/v2/users/{id}/email-change/request" : {
+      "post" : {
+        "summary" : "Send email with verification code to new email address",
+        "tags" : [ "Users" ],
+        "parameters" : [ {
+          "name" : "id",
+          "required" : true,
+          "in" : "path",
+          "schema" : {
+            "$ref" : "#/components/schemas/UUID"
+          }
+        } ],
+        "requestBody" : {
+          "content" : {
+            "application/json" : {
+              "schema" : {
+                "$ref" : "#/components/schemas/EmailVerficationCodeResource"
+              }
+            }
+          },
+          "required" : true
+        },
+        "responses" : {
+          "204" : {
+            "description" : "email send with verification code"
+          },
+          "401" : {
+            "description" : "User is not authorized to send verification code for other user."
+          },
+          "409" : {
+            "description" : "Verification process still in progress. Please wait before requesting a new code."
+          },
+          "403" : {
+            "description" : "Not Allowed"
+          },
+          "400" : {
+            "description" : "Bad Request"
+          }
+        },
+        "security" : [ {
+          "Auth0" : [ ]
+        } ]
+      }
+    },
+    "/api/v2/users/{id}/email-change/verify" : {
+      "patch" : {
+        "summary" : "Change email address upon successful verification",
+        "tags" : [ "Users" ],
+        "parameters" : [ {
+          "name" : "id",
+          "required" : true,
+          "in" : "path",
+          "schema" : {
+            "$ref" : "#/components/schemas/UUID"
+          }
+        } ],
+        "requestBody" : {
+          "content" : {
+            "application/json" : {
+              "schema" : {
+                "$ref" : "#/components/schemas/ChangeEmailResource"
+              }
+            }
+          },
+          "required" : true
+        },
+        "responses" : {
+          "204" : {
+            "description" : "Email changed successfully"
+          },
+          "401" : {
+            "description" : "User is not authorized to change email for other user."
+          },
+          "409" : {
+            "description" : "Verification code is missing or expired"
           },
           "403" : {
             "description" : "Not Allowed"

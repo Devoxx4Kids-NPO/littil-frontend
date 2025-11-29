@@ -49,5 +49,14 @@ describe('ButtonComponent', () => {
       expect(button).toHaveClass('bg-red-600');
       expect(button).toHaveClass('hover:bg-red-500');
     });
+    it('should apply disabled color variant when button is disabled', () => {
+      spectator.setInput('color', 'red');
+      spectator.setInput('disabledColor', 'gray');
+      spectator.setInput('disabled', true);
+      spectator.detectChanges();
+      const button = spectator.query('button');
+      expect(button).toHaveClass('bg-gray-300');
+      expect(button).toHaveClass('hover:bg-gray-300');
+    });
   });
 });
