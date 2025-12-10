@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component, EventEmitter, HostListener, Input, Output } from "@angular/core";
+import { Component, EventEmitter, HostBinding, HostListener, Input, Output } from "@angular/core";
 
 @Component({
   selector: 'littil-button',
@@ -41,6 +41,12 @@ export class ButtonComponent {
     return `${this.customColorClass}`;
   }
 
+  /** Make the host element behave like a button for linters and AT */
+  @HostBinding('attr.role') role = 'button';
+  @HostBinding('attr.tabindex') get tabIndex() { return this.disabled ? -1 : 0; }
+  @HostBinding('attr.aria-disabled') get ariaDisabled() { return String(this.disabled); }
+
+  
   @HostListener('keydown.space', ['$event'])
   onSpace(event: KeyboardEvent) {
     if (this.disabled) return;
