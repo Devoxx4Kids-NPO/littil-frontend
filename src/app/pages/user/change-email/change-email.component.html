@@ -31,7 +31,10 @@
             [inline]="true"
             [color]="'blue'"
             [disabled]="!validEmail()"
-            (click)="onClickConfirmNewEmail()">
+            (click)="onClickConfirmNewEmail()"
+            (keydown.space)="onClickConfirmNewEmail()"
+            (keydown.enter)="onClickConfirmNewEmail()"
+          >
             Bevestig
           </littil-button>
         }
@@ -56,6 +59,8 @@
 
           <div>
             <littil-button
+              role="button"
+              tabindex="0"
               data-test="changeEmailButton"
               [inline]="true"
               [color]="'blue'"
@@ -66,7 +71,9 @@
               data-test="cancelButton"
               [inline]="true"
               [color]="'yellow'"
-              (click)="onClickCancel()">
+              (click)="onClickChangeEmail()"
+              (keydown.space)="onClickChangeEmail()"
+              (keydown.enter)="onClickChangeEmail()">
               Annuleren
             </littil-button>
           </div>
