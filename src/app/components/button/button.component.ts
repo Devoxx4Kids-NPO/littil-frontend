@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { Component, EventEmitter, HostListener, Input, Output } from "@angular/core";
 
 @Component({
   selector: 'littil-button',
@@ -40,4 +40,21 @@ export class ButtonComponent {
     }
     return `${this.customColorClass}`;
   }
+
+  @HostListener('keydown.space', ['$event'])
+  onSpace(event: KeyboardEvent) {
+    if (this.disabled) return;
+    // Prevent native click on keyup and keep single activation
+    event.preventDefault();
+    this.onClick.emit(event);
+  }
+
+  @HostListener('keydown.enter', ['$event'])
+  onEnter(event: KeyboardEvent) {
+    if (this.disabled) return;
+    event.preventDefault();
+    this.onClick.emit(event);
+  }
+
+
 }
