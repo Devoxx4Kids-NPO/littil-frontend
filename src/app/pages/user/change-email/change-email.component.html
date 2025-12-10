@@ -59,21 +59,21 @@
 
           <div>
             <littil-button
-              role="button"
-              tabindex="0"
               data-test="changeEmailButton"
               [inline]="true"
               [color]="'blue'"
-              (click)="onClickChangeEmail()">
+              (click)="onClickChangeEmail()"
+              (keydown.enter)="onClickChangeEmail(); $event.preventDefault()"
+              (keydown.space)="onClickChangeEmail(); $event.preventDefault()">
               Wijzig email
             </littil-button>
             <littil-button
               data-test="cancelButton"
               [inline]="true"
               [color]="'yellow'"
-              (click)="onClickChangeEmail()"
-              (keydown.space)="onClickChangeEmail()"
-              (keydown.enter)="onClickChangeEmail()">
+              (click)="onClickCancel()"
+              (keydown.space)="onClickCancel(); $event.preventDefault()"
+              (keydown.enter)="onClickCancel(); $event.preventDefault()">
               Annuleren
             </littil-button>
           </div>

@@ -34,6 +34,8 @@
         [color]="validEmail() ? 'red' : 'gray'"
         [disabled]="!validEmail()"
         (click)="deleteProfile(); $event.preventDefault()"
+        (keydown.space)="deleteProfile(); $event.preventDefault()"
+        (keydown.enter)="deleteProfile(); $event.preventDefault()"
       >
         Profiel definitief verwijderen
       </littil-button>

@@ -40,27 +40,4 @@ export class ButtonComponent {
     }
     return `${this.customColorClass}`;
   }
-
-  /** Make the host element behave like a button for linters and AT */
-  @HostBinding('attr.role') role = 'button';
-  @HostBinding('attr.tabindex') get tabIndex() { return this.disabled ? -1 : 0; }
-  @HostBinding('attr.aria-disabled') get ariaDisabled() { return String(this.disabled); }
-
-  
-  @HostListener('keydown.space', ['$event'])
-  onSpace(event: KeyboardEvent) {
-    if (this.disabled) return;
-    // Prevent native click on keyup and keep single activation
-    event.preventDefault();
-    this.onClick.emit(event);
-  }
-
-  @HostListener('keydown.enter', ['$event'])
-  onEnter(event: KeyboardEvent) {
-    if (this.disabled) return;
-    event.preventDefault();
-    this.onClick.emit(event);
-  }
-
-
 }
