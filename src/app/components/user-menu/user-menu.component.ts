@@ -11,6 +11,7 @@ import {
   IRegisterModalOutput,
   RegisterModalComponent,
 } from '../register-modal/register-modal.component';
+import { activeAccountNameSignal } from "../../state/active-account-name.signal";
 
 @Component({
   selector: 'littil-user-menu',
@@ -22,11 +23,13 @@ export class UserMenuComponent implements OnInit {
   loaded: boolean = false;
   open: boolean = false;
 
+  protected readonly activeAccountName = activeAccountNameSignal;
+
   constructor(
     public readonly permissionController: PermissionController,
     private modalController: ModalController,
     public auth: AuthService,
-    private router: Router
+    router: Router
   ) {
     router.events.pipe(filter(event => event instanceof NavigationEnd)).subscribe(() => {
       this.open = false;
@@ -70,4 +73,5 @@ export class UserMenuComponent implements OnInit {
   public openLoginModal(): void {
     this.auth.loginWithRedirect();
   }
+
 }

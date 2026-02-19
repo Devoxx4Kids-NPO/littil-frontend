@@ -16,13 +16,12 @@ import {
   SearchResult,
 } from '../../api/generated';
 import { LittilContactService } from '../../services/littil-contact/littil-contact.service';
-import { PermissionController } from '../../services/permission.controller';
 import { FormUtil } from '../../utils/form.util';
 import { ButtonComponent } from '../button/button.component';
 import { FormErrorMessageComponent } from '../forms/form-error-message/form-error-message.component';
-import { FormInputRadioComponent } from '../forms/radio-input/form-input-radio.component';
 import { FormInputTextComponent } from '../forms/text-input/form-input-text.component';
 import { IModalComponent } from '../modal/modal.controller';
+import { activeAccountNameSignal } from "../../state/active-account-name.signal";
 
 @Component({
   selector: 'littil-register-modal',
@@ -54,7 +53,6 @@ import { IModalComponent } from '../modal/modal.controller';
     ReactiveFormsModule,
     ButtonComponent,
     FormInputTextComponent,
-    FormInputRadioComponent,
     FormErrorMessageComponent,
   ],
 })
@@ -67,7 +65,7 @@ export class ContactModalComponent implements IModalComponent<undefined, SearchR
   private searchResult: SearchResult = {} as SearchResult;
 
   contactForm: FormGroup = new FormGroup({
-    contactInfo: new FormControl(this.permissionController.activeAccount.name, [
+    contactInfo: new FormControl(activeAccountNameSignal(), [
       Validators.required,
     ]),
     message: new FormControl('', [Validators.required]),
@@ -75,7 +73,6 @@ export class ContactModalComponent implements IModalComponent<undefined, SearchR
 
   constructor(
     private readonly contactService: LittilContactService,
-    private permissionController: PermissionController
   ) {}
 
   public onOpen(searchResult: SearchResult) {

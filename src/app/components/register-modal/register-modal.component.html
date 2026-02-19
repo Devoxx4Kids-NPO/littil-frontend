@@ -8,12 +8,14 @@
   <p>Na activatie van uw account kunt u uw profiel verder afmaken.</p>
   <form [formGroup]="registerForm" data-test="form-register" (submit)="onClickRegister()">
     <littil-form-input-text formControlName="email" id="email" label="E-mailadres">
-      <littil-form-error-message
-        [customErrors]="{
-          required: 'E-mailadres is verplicht'
-        }"
-        controlName="email"
-      ></littil-form-error-message>
+      <div class="min-h-[1.0rem] flex items-start">
+        <littil-form-error-message
+          [customErrors]="{
+            required: 'E-mailadres is verplicht'
+          }"
+          controlName="email"
+        ></littil-form-error-message>
+      </div>
     </littil-form-input-text>
   </form>
 
@@ -35,9 +37,12 @@
       >Annuleren</littil-button
     >
   </div>
-  @if(creatingProfile){
-  <p *ngIf="creatingProfile">Uw account wordt aangemaakt</p>
-  } }
+  <div class="h-[2.0rem] flex items-start">
+    @if(creatingProfile){
+      <p *ngIf="creatingProfile">Uw account wordt aangemaakt</p>
+    }
+  </div>
+  }
 </div>
 
 <div [@hideShow]="hideConfirmation ? 'hidden' : 'visible'" class="prose">

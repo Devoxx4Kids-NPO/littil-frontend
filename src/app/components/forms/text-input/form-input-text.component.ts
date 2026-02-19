@@ -10,4 +10,5 @@ import { FormBaseComponent } from '../form-base';
 })
 export class FormInputTextComponent extends FormBaseComponent {
   @Input() placeholder: string = '';
+  @Input() readonly!: boolean;
 }
