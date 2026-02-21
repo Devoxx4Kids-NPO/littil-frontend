@@ -7,7 +7,7 @@
   </p>
   <p>Na activatie van uw account kunt u uw profiel verder afmaken.</p>
   <form [formGroup]="registerForm" data-test="form-register" (submit)="onClickRegister()">
-    <littil-form-input-text formControlName="email" id="email" label="E-mailadres">
+    <littil-form-input-text formControlName="email" id="email" label="E-mailadres" data-test="inputEmail">
       <div class="min-h-[1.0rem] flex items-start">
         <littil-form-error-message
           [customErrors]="{

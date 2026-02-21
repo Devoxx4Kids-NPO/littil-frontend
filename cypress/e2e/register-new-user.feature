@@ -39,10 +39,8 @@ Feature: A new user can register as school or guest teacher and delete his accou
 
     When the user decides to change his profile
     Then the user deletes his school profile
-    # TODO implement the following step once the issue with delete profile is fixed
+    # TODO implement the following step
     # implement : Then the user is logged out
-    # Force Logout for now
-    Then the user log out
 
   Scenario: a new user can register as guest teacher
     #Given user is new to the platform
@@ -76,7 +74,5 @@ Feature: A new user can register as school or guest teacher and delete his accou
     Then the user login with the given login details
     Then the user decides to change his profile
     Then the user deletes his guest teacher profile
-    # TODO implement the following step once the issue with delete profile is fixed
+    # TODO implement the following step
     # implement : Then the user is logged out
-    # Force Logout for now
-    Then the user log out

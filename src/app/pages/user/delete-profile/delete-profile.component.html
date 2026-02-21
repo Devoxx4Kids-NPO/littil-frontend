@@ -1,4 +1,4 @@
-<littil-profile-container title="Profiel verwijderen">
+<littil-profile-container title="Profiel verwijderen" data-test="deleteProfilePage">
   <form
     data-test="delete_profile"
     class="border border-red-600 rounded-md p-2 mt-8 text-red-900"
@@ -15,6 +15,7 @@
         formControlName="email"
         placeholder="email@example.com"
         class="grow"
+        data-test="emailInput"
       >
         <div class="min-h-[1.5rem] flex items-center">
           <littil-form-error-message
@@ -34,6 +35,7 @@
         [color]="validEmail() ? 'red' : 'gray'"
         [disabled]="!validEmail()"
         (click)="deleteProfile(); $event.preventDefault()"
+        data-test="deleteProfileButton"
       >
         Profiel definitief verwijderen
       </littil-button>

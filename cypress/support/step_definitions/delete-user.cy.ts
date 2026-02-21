@@ -3,10 +3,13 @@ import {getSharedData} from "../../utils/shared-data";
 
 Then('the user deletes his guest teacher profile', ()=> {
   let emailAddress: string = getSharedData('emailAddress');
-  cy.get('[data-test="enable_delete_profile"]')
+  cy.get('[data-test="deleteProfileRouterLink"]')
     .should('exist')
     .click();
-  cy.get('[data-test="deleteProfileConfirmEmail"]')
+    cy.get('[data-test="deleteProfilePage"]')
+      .should('exist')
+      .should('be.visible');
+  cy.get('[data-test="emailInput"]')
     .should('be.visible')
     .type(emailAddress)
 
@@ -20,10 +23,13 @@ Then('the user deletes his guest teacher profile', ()=> {
 
 Then('the user deletes his school profile', ()=> {
   let emailAddress: string = getSharedData('emailAddress');
-  cy.get('[data-test="enable_delete_profile"]')
+  cy.get('[data-test="deleteProfileRouterLink"]')
     .should('exist')
     .click();
-  cy.get('[data-test="deleteProfileConfirmEmail"]')
+    cy.get('[data-test="deleteProfilePage"]')
+      .should('exist')
+      .should('be.visible');
+  cy.get('[data-test="emailInput"]')
     .should('be.visible')
     .type(emailAddress)
 

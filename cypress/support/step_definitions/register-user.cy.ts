@@ -19,7 +19,7 @@ Then('the user sets his unique email address', () => {
 })
 
 Then('the user confirms the registration', () => {
-  cy.intercept('POST', '/api/v1/users/user')
+  cy.intercept('POST', '/api/v2/users')
     .as('apiCall');
   cy.get('[data-test="registerButton"] > button')
     .click();
