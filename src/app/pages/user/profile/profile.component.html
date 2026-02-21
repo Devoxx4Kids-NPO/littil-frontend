@@ -117,57 +117,6 @@
           Wijzigingen annuleren
         </littil-button>
       </div>
-      <littil-button
-        data-test="enable_delete_profile"
-        [inline]="true"
-        color="red"
-        (click)="deleteProfileOpen = !deleteProfileOpen; $event.preventDefault()"
-      >
-        Profiel verwijderen
-      </littil-button>
-    </div>
-  </form>
-  <form
-    data-test="delete_profile"
-    class="border border-red-600 rounded rounded-md p-2 mt-8 text-red-900"
-    *ngIf="deleteProfileOpen"
-    [formGroup]="deleteProfileForm"
-  >
-    <p class="mt-0">
-      Weet u zeker dat u uw profiel wilt verwijderen? Al uw gegevens worden verwijderd. Dit kan niet
-      ongedaan worden gemaakt. Geef hieronder uw e-mailadres in en klik op verwijderen om door te
-      gaan.
-    </p>
-
-    <div class="flex">
-      <littil-form-input-text
-        formControlName="email"
-        placeholder="email@example.com"
-        class="grow"
-        data-test="deleteProfileConfirmEmail"
-      >
-        <littil-form-error-message
-          [customErrors]="{ email_missing: 'Vul ter bevestiging uw eigen e-mailadres in' }"
-          controlName="email"
-        ></littil-form-error-message>
-      </littil-form-input-text>
-    </div>
-    <div class="flex justify-between">
-      <littil-button
-        [inline]="true"
-        (click)="deleteProfileOpen = !deleteProfileOpen; $event.preventDefault()"
-        color="yellow"
-      >
-        Verwijderen annuleren
-      </littil-button>
-      <littil-button [inline]="true"
-                     color="red"
-                     (click)="deleteProfile();
-                     $event.preventDefault()"
-                     data-test="deleteProfileButton"
-      >
-        Profiel definitief verwijderen
-      </littil-button>
     </div>
   </form>
 </littil-profile-container>

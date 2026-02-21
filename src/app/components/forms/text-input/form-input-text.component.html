@@ -15,6 +15,7 @@
     [placeholder]="placeholder"
     [disabled]="disabled"
     (change)="value = $any($event.target).value"
+    [readOnly]="readonly"
     (touched)="onTouched($event)"
   />
   <ng-content></ng-content>

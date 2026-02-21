@@ -51,7 +51,7 @@ export const menuRoutes: IMenuItem[] = [
       },
       {
         path: '/info/sponsors',
-        menuText: 'Sponsors',
+        menuText: 'Donateurs',
         type: MenuType.Default,
         disabled: false,
       },

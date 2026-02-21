@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { User } from '@auth0/auth0-angular';
 import { Subject } from 'rxjs';
+import { activeAccountNameSignal } from "../state/active-account-name.signal";
 
 export interface IAuth0Authorizations {
   guest_teachers: any[];
@@ -31,6 +32,7 @@ export class PermissionController {
     this.userId = user['https://littil.org/littil_user_id'];
     this.roles = user['https://littil.org/roles'];
     this.setAuthorizations(user['https://littil.org/authorizations']);
+    activeAccountNameSignal.set(String(user.email ?? 'TODO'));
   }
 
   setAuthorizations(authorizations: IAuth0Authorizations) {

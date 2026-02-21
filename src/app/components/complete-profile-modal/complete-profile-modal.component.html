@@ -22,20 +22,7 @@
     </littil-form-input-radio>
 
     @if(isSchool){
-    <littil-form-input-text
-      *ngIf="isSchool"
-      formControlName="schoolName"
-      id="schoolName"
-      label="Naam van de school"
-      data-test="schoolNameControl"
-    >
-      <littil-form-error-message
-        [customErrors]="{ required: 'Naam van de school is verplicht' }"
-        controlName="schoolName"
-      ></littil-form-error-message>
-    </littil-form-input-text>
-
-    <p class="mb-0 font-bold">Gegevens contactpersoon</p>
+      <p class="mb-0 font-bold">Gegevens contactpersoon</p>
     }
 
     <div class="flex gap-2">
@@ -46,10 +33,12 @@
         class="grow"
         data-test="firstName"
       >
-        <littil-form-error-message
-          [customErrors]="{ required: 'Voornaam is verplicht' }"
-          controlName="firstName"
-        ></littil-form-error-message>
+        <div class="h-[1.0rem] flex items-start">
+          <littil-form-error-message
+            [customErrors]="{ required: 'Voornaam is verplicht' }"
+            controlName="firstName"
+          ></littil-form-error-message>
+        </div>
       </littil-form-input-text>
       <littil-form-input-text
         formControlName="prefix"
@@ -72,15 +61,23 @@
         ></littil-form-error-message>
       </littil-form-input-text>
     </div>
+    @if(isSchool){
+      <littil-form-input-text
+        *ngIf="isSchool"
+        formControlName="schoolName"
+        id="schoolName"
+        label="Naam van de school"
+        data-test="schoolNameControl"
+      >
+        <div class="h-[1.0rem] flex items-start">
+          <littil-form-error-message
+            [customErrors]="{ required: 'Naam van de school is verplicht' }"
+            controlName="schoolName"
+          ></littil-form-error-message>
+        </div>
+      </littil-form-input-text>
+    }
 
-    <p>
-      @if(isSchool){ Om scholen en gastdocenten elkaar te laten vinden, hebben wij het adres van de
-      school nodig. Deze gegevens worden niet <br />
-      met derden gedeeld en alleen gebruikt om de locatie van de school op de plattegrond te tonen.
-      } @else { Om scholen en gastdocenten elkaar te laten vinden, hebben wij uw adres nodig.<br />
-      Deze gegevens worden niet met derden gedeeld en alleen gebruikt om uw locatie op de
-      plattegrond te tonen. }
-    </p>
 
     <div class="flex gap-2">
       <littil-form-input-text
@@ -90,10 +87,12 @@
         class="grow"
         data-test="address"
       >
-        <littil-form-error-message
-          [customErrors]="{ required: 'Straatnaam en huisnummer is verplicht' }"
-          controlName="address"
-        ></littil-form-error-message>
+        <div class="h-[1.0rem] flex items-start">
+          <littil-form-error-message
+            [customErrors]="{ required: 'Straatnaam en huisnummer is verplicht' }"
+            controlName="address"
+          ></littil-form-error-message>
+        </div>
       </littil-form-input-text>
       <littil-form-input-text
         formControlName="postalCode"
@@ -114,21 +113,34 @@
     </div>
   </form>
 
-  <littil-button [inline]="true"
-                 [disabled]="savingProfile"
-                 (click)="onClickSaveProfile()"
-                 data-test="saveProfileButton"
-  >
-    Profiel opslaan
-  </littil-button>
-  <littil-button
-    [inline]="true"
-    [disabled]="savingProfile"
-    colorClass="bg-yellow-200"
-    (click)="logOut()"
-    data-test="logOutButton"
-  >
-    Uitloggen
-  </littil-button>
-  <p *ngIf="savingProfile">Uw profiel wordt opgeslagen</p>
+  <div class="flex items-center gap-4">
+    <littil-button [inline]="true"
+                   [disabled]="savingProfile"
+                   (click)="onClickSaveProfile()"
+                   data-test="saveProfileButton"
+    >
+      Profiel opslaan
+    </littil-button>
+    <littil-button
+      [inline]="true"
+      [disabled]="savingProfile"
+      [color]="'yellow'"
+      (click)="logOut()"
+      data-test="logOutButton"
+    >
+      Uitloggen
+    </littil-button>
+    <p class="w-3/5">
+      @if(isSchool){ Om scholen en gastdocenten elkaar te laten vinden, hebben wij het adres van de
+        school nodig. Deze gegevens worden niet met derden gedeeld en alleen gebruikt om de locatie
+        van de school op de plattegrond te tonen.
+      } @else { Om scholen en gastdocenten elkaar te laten vinden, hebben wij uw adres nodig.
+        Deze gegevens worden niet met derden gedeeld en alleen gebruikt om uw locatie op de
+          plattegrond te tonen. }
+    </p>
+
+  </div>
+  <div class="h-[2.0rem] flex items-start">
+     <p *ngIf="savingProfile">Uw profiel wordt opgeslagen</p>
+  </div>
 </div>

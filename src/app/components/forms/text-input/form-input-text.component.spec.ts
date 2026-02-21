@@ -100,6 +100,19 @@ describe('FormInputTextComponent', () => {
     });
   });
 
+  describe('setReadOnlyState', () => {
+    it('should allow/reject change of input', async () => {
+      spectator.setInput('id', 'firstName');
+      spectator.setInput('label', 'Firstname');
+      spectator.setInput('placeholder', 'Give your firstname');
+      spectator.setInput('readonly', true)
+      expect(spectator.query('input')).toHaveAttribute('readonly');
+      spectator.setInput('readonly', false)
+      expect(spectator.query('input')).not.toHaveAttribute('readonly');
+    });
+  });
+
+
   describe('Template', () => {
     it('should set correct classes on normal state', async () => {
       spectator.setInput('id', 'firstName');

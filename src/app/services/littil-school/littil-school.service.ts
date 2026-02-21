@@ -8,6 +8,7 @@ import {
   SchoolService
 } from '../../api/generated';
 import { IHasManageableModules } from "../littil-modules/littil-modules-user.interface";
+import { HttpResponse } from "@angular/common/http";
 
 @Injectable({
   providedIn: 'root',
@@ -37,8 +38,8 @@ export class LittilSchoolService implements IHasManageableModules {
     return this.schoolService.apiV1SchoolsPut(school);
   }
 
-  delete(id: string): Observable<any> {
-    return this.schoolService.apiV1SchoolsIdDelete(id);
+  delete(id: string): Observable<HttpResponse<any>> {
+    return this.schoolService.apiV1SchoolsIdDelete(id, 'response');
   }
 
   getModules(id: string): Observable<any> {

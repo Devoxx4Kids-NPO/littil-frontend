@@ -1,9 +1,9 @@
 @if(loaded){ @if(loggedIn){
 <div class="user-menu flex flex-row items-center gap-2">
   <span class="flex flex-row gap-2 items-center cursor-pointer" (click)="toggleMenu()">
-    <span>{{ permissionController.activeAccount.name }}</span>
+    <span>{{ activeAccountName() }}</span>
     <littil-avatar
-      [avatarText]="permissionController.activeAccount.name"
+      [avatarText]="activeAccountName()"
       [avatarImage]="userAvatar"
     ></littil-avatar>
   </span>
@@ -35,7 +35,7 @@
       <div class="px-4 py-3 flex flex-col" role="none">
         <span class="text-sm" role="none">U bent ingelogd als</span>
         <span class="truncate text-sm font-medium text-blue-200" role="none">{{
-          permissionController.activeAccount.name
+            activeAccountName()
         }}</span>
       </div>
       <div class="py-1" role="none">
