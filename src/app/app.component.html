@@ -13,7 +13,7 @@
     class="mx-auto max-w-screen-lg text-white uppercase hidden text-sm antialiased"
     [class.hidden]="!mobileMenuOpen"
   >
-    <ng-container *ngFor="let route of menuRoutes">
+    <ng-container *ngFor="let route of menuRoutes" >
       <littil-main-menu-button
         class="flex-1 flex items-center"
         *ngIf="!route.disabled"
@@ -61,12 +61,14 @@
 <div class="bg-yellow-100 mb-6">
   <div
     class="mx-auto max-w-screen-lg text-white uppercase hidden md:flex justify-items-stretch text-sm antialiased divide-x divide-yellow-200"
+    data-test="mainMenu"
   >
     <ng-container *ngFor="let route of menuRoutes">
       <littil-main-menu-button
         class="flex-1 flex items-center"
         *ngIf="!route.subRoutes && !route.disabled"
         [path]="route.path"
+        [attr.data-test]="'mainMenu-' + route.menuText"
         >{{ route.menuText }}</littil-main-menu-button
       >
       <littil-main-menu-dropdown-button
@@ -75,6 +77,7 @@
         [title]="route.menuText"
         [path]="route.path"
         [subRoutes]="route.subRoutes"
+        [attr.data-test]="'mainMenu-' + route.menuText"
       >
         {{ route.menuText }}
       </littil-main-menu-dropdown-button>

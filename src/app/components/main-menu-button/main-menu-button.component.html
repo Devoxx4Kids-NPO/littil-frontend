@@ -3,5 +3,6 @@
     [routerLink]="path"
     routerLinkActive="bg-yellow-50"
     [routerLinkActiveOptions]="path === '/' || path === '' ? { exact: true } : { exact: false }"
+    data-test="mainMenuButton"
   ><ng-content></ng-content>
   </a>

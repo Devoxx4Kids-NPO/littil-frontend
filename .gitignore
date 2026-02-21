@@ -47,3 +47,8 @@ Thumbs.db
 
 .env
 docker/backend/dev-users.csv
+
+cypress.env.json
+cypres/videos/*
+cypres/screenshots/*
+cypress/e2e/test.feature

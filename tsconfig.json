@@ -24,10 +24,12 @@
       "dom"
     ],
     "types": [
-      "google.maps"
+      "google.maps",
+      "cypress"
     ],
     "useDefineForClassFields": false
   },
+  "include": ["cypress/**/*.ts"],
   "angularCompilerOptions": {
     "enableI18nLegacyMessageIdFormat": false,
     "strictInjectionParameters": true,
