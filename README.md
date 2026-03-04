@@ -114,3 +114,10 @@ Useful option for development of end-to-end-test.<br>
 
 To run the end-to-end test for all tests without user interaction you first have to start the frontend
 with `npm start`.  Start the end-to-end test with the command `npm run cypress:run`
+
+
+### known issue end-to-end test
+When end-to-end is failing on all the steps where number of email is verified and 
+you are running on Windows with WSL2 there probably is a time issue.
+Verify that your time on windows and ubuntu are the same by running the following
+command in PowerShell `Get-Date; wsl.exe date`.
