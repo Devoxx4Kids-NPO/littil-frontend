@@ -1,4 +1,4 @@
-<littil-profile-container title="Modules wijzigen">
+<littil-profile-container title="Modules wijzigen" data-test="changeModulesPage">
   <fieldset class="not-prose">
     <legend class="sr-only">Modules</legend>
     <div data-test="module-list">
@@ -17,6 +17,7 @@
             aria-describedby="comments-description"
             type="checkbox"
             class="h-4 w-4 rounded border-gray-300"
+            [attr.data-test]="'moduleName' + availableModule.name"
           />
         </div>
         <div class="ml-3 text-sm leading-6">

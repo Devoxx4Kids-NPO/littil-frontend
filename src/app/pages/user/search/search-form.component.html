@@ -5,7 +5,7 @@
     <ul>
       <li formArrayName="modules" *ngFor="let module of modules; let i = index">
         <label>
-          <mat-checkbox [formControlName]="i"></mat-checkbox>
+          <mat-checkbox [formControlName]="i" [attr.data-test]="'checkbox-' + module.name"></mat-checkbox>
           {{module.name}}
         </label>
       </li>
@@ -16,7 +16,7 @@
       Binnen een straal van
     </span>
     <span class="relative">
-      <input required class="w-full" type="number" formControlName="distance">
+      <input required class="w-full" type="number" formControlName="distance" data-test="distance">
       <span class="absolute pointer-events-none" style="right:2.5rem;top:.6rem">km</span>
     </span>
     <span class="self-center justify-self-end">
@@ -30,5 +30,5 @@
       </optgroup>
     </select>
   </div>
-  <littil-button type="submit">Zoeken</littil-button>
+  <littil-button type="submit" data-test="searchButton">Zoeken</littil-button>
 </form>

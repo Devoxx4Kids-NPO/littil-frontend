@@ -18,6 +18,8 @@ services:
     depends_on:
       dbhost:
         condition: service_healthy
+      mailhog:
+        condition: service_started
     volumes:
       - type: bind
         source: ./docker/backend
@@ -34,10 +36,18 @@ services:
       - OIDC_TENANT=${OIDC_TENANT}
       - M2M_CLIENT_ID=${M2M_CLIENT_ID}
       - M2M_CLIENT_SECRET=${M2M_CLIENT_SECRET}
-      - QUARKUS_MAILER_MOCK=true
-      - SMTP_HOST=smtp-stub.local
+      - QUARKUS_MAILER_MOCK=false
+      - QUARKUS_MAILER_PORT=1025
+      - QUARKUS_MAILER_SSL=false
+      - SMTP_HOST=mailhog
       - SMTP_USERNAME=username
       - SMTP_PASSWORD=password
       - QUARKUS_LOG_CATEGORY__ORG_LITTIL__LEVEL=DEBUG
     ports:
       - "8080:8080"
+  mailhog:
+    image: mailhog/mailhog
+    container_name: mailhog
+    ports:
+      - "1025:1025" # Expose SMTP server
+      - "8025:8025" # Expose Web UI
